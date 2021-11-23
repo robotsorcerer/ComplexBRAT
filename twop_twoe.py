@@ -1,7 +1,7 @@
 __author__ 		= "Lekan Molu"
 __copyright__ 	= "2021, Hamilton-Jacobi Analysis in Python"
 __license__ 	= "Molux License"
-__comment__ 	= "Evader at origin"
+__comment__ 	= "2 Evaders 2 Pursuers"
 __maintainer__ 	= "Lekan Molu"
 __email__ 		= "patlekno@icloud.com"
 __status__ 		= "Completed"
@@ -22,6 +22,7 @@ from skimage import measure
 sys.path.append('../')
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
+from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.Grids import createGrid
 from LevelSetPy.InitialConditions import shapeCylinder
 from LevelSetPy.SpatialDerivative import upwindFirstENO2
@@ -60,7 +61,76 @@ logger = logging.getLogger(__name__)
 
 obj = Bundle({})
 
-# define the target set
+def get_obj():
+	# by default all vehicle velocities share similar velocity characteristics
+	
+	pdDims = 2; N = 100
+	v, w = +1, +1
+	obj.ve, obj.vp = v, v
+	obj.we, obj.wp = -w, w
+	
+
+	# get player (pursuer) 1's state space
+	gmin = np.array(([[-5, -5, -pi]])).T
+	gmax = np.array(([[5, 5, pi]])).T
+	obj.p1 = Bundle({'pursuer':Bundle({}), 'evader':Bundle({})})
+	obj.p1.pursuer.grid = createGrid(gmin, gmax, N, pdDims)
+	obj.p1.pursuer.center = 0
+
+	# get player (evader) 2's state space
+	gmin = np.array(([[-3, -3, -2*pi]])).T
+	gmax = np.array(([[7, 7, 2*pi]])).T
+	obj.p1.evader.grid = createGrid(gmin, gmax, N, pdDims)
+	obj.p1.evader.center = np.array(([[1.5, 1.5, 4*pi/2]]),dtype=np.float64).T
+
+	# get player (pursuer) 3's state space
+	gmin = np.array(([[1, 1, 2]])).T
+	gmax = np.array(([[6, 6, 8]])).T
+	obj.p2 = Bundle({'pursuer':Bundle({}), 'evader':Bundle({})})
+	obj.p2.pursuer.grid = createGrid(gmin, gmax, N, pdDims)
+	obj.p2.pursuer.center = np.array(([[3.5, 3.5, 4]]),dtype=np.float64).T
+
+	# get player (evader) 4's state space
+	gmin = np.array(([[3, 3, 2*pi/3]])).T
+	gmax = np.array(([[3*pi, 3*pi, 4*pi]])).T
+	obj.p2.evader.grid = createGrid(gmin, gmax, N, pdDims)
+	obj.p2.evader.center = np.array(([[(3*pi-3)/2., (3*pi-3)/2., (4.0-2/3)*(pi/2.0)]]),dtype=np.float64).T
+
+	'''
+		Here, the table is symmetric, so we end up with the upper triangular
+		capture or avoid elements of the table of results of the differential game.
+	'''
+	
+	
+	# player 1 pursuer <==> player1 evader
+	xdot_p1p_p1e = dubins_sym(obj, obj.p1.pursuer, obj.p1.evader, 'capture', capture_radius=.1, avoid_radius=.5)
+	# player 1 pursuer <==> player 2 pursuer
+	xdot_p1p_p2p = dubins_sym(obj, obj.p1.pursuer, obj.p2.pursuer, 'avoid', capture_radius=.1, avoid_radius=.5)
+	# player 1 pursuer <==> player 2 evader
+	xdot_p1p_p2e = dubins_sym(obj, obj.p1.pursuer, obj.p2.evader, 'capture', capture_radius=.1, avoid_radius=.5)
+	
+	# player 1 evader <==> player 2 pursuer
+	xdot_p1e_p2p = dubins_sym(obj, obj.p1.evader, obj.p2.pursuer, 'capture', capture_radius=.1, avoid_radius=.5)
+	# player 1 evader <==> player 2 evader
+	xdot_p1e_p2p = dubins_sym(obj, obj.p1.evader, obj.p2.evader, 'avoid', capture_radius=.1, avoid_radius=.5)
+	# player 2 pursuer <==> player 2 evader
+	xdot_p1e_p2p = dubins_sym(obj, obj.p2.pursuer, obj.p2.evader, 'capture', capture_radius=.1, avoid_radius=.5)
+
+	# # global params
+	# obj.p1.axis_align, obj.p1.center, obj.p1.radius = 2, np.zeros((3, 1)), 0.5
+
+	# after creating value function, make state space cupy objects
+	obj.p1.grid.xs = [cp.asarray(x) for x in obj.p1.grid.xs]
+
+
+	obj.p1_term = obj.v_e - obj.v_p * cp.cos(obj.grid.xs[2])
+	obj.p2_term = -obj.v_p * cp.sin(obj.grid.xs[2])
+	obj.alpha = [ cp.abs(obj.p1_term) + cp.abs(obj.omega_e * obj.grid.xs[1]), \
+					cp.abs(obj.p2_term) + cp.abs(obj.omega_e * obj.grid.xs[0]), \
+					obj.omega_e + obj.omega_p ]
+
+	return obj 
+
 def get_target(g):
 	cylinder = shapeCylinder(g.grid, g.axis_align, g.center, g.radius)
 	return cylinder
@@ -69,9 +139,9 @@ def get_hamiltonian_func(t, data, deriv, finite_diff_data):
 	global obj
 	ham_value = deriv[0] * obj.p1_term + \
 				deriv[1] * obj.p2_term - \
-				obj.omega_e_bound*np.abs(deriv[0]*obj.grid.xs[1] - \
+				obj.omega_e*np.abs(deriv[0]*obj.grid.xs[1] - \
 				deriv[1] * obj.grid.xs[0] - deriv[2])  + \
-				obj.omega_p_bound * np.abs(deriv[2])
+				obj.omega_p * np.abs(deriv[2])
 
 	return ham_value, finite_diff_data
 
@@ -83,60 +153,23 @@ def get_partial_func(t, data, derivMin, derivMax, \
 	"""
 	global obj
 
-	# print('dim: ', dim)
 	assert dim>=0 and dim <3, "grid dimension has to be between 0 and 2 inclusive."
 
 	return obj.alpha[dim]
 
 def main(args):
-	grid_min = expand(np.array((-.75, -1.25, -pi)), ax = 1)
-	grid_max = expand(np.array((3.25, 1.25, pi)), ax = 1)
-	pdDims = 2                      # 3rd dimension is periodic
-	resolution = 100
-	N = np.array(([[
-					resolution,
-					np.ceil(resolution*(grid_max[1, 0] - grid_min[1, 0])/ \
-								(grid_max[0, 0] - grid_min[0, 0])),
-					resolution-1
-					]])).T.astype(int)
-	grid_max[2, 0] *= (1-2/N[2,0])
-
-	obj.grid = createGrid(grid_min, grid_max, N, pdDims)
-
-	# global params
-	obj.axis_align, obj.center, obj.radius = 2, np.zeros((3, 1)), 0.5
-	data0 = get_target(obj)
-
+	obj = get_obj()
+  	data0 = get_target(obj)
 	data = cp.asarray(copy.copy(data0))
-
-	# after creating value function, make state space cupy objects
-	obj.grid.vs = [cp.asarray(x) for x in obj.grid.vs]
-	obj.grid.xs = [cp.asarray(x) for x in obj.grid.xs]
-
-	obj.v_e			  = +1
-	obj.v_p			  = +1
-
-	obj.omega_e_bound = +1
-	obj.omega_p_bound = +1
-
-	t_range = [0, 2.5]
-
-	obj.p1_term = obj.v_e - obj.v_p * cp.cos(obj.grid.xs[2])
-	obj.p2_term = -obj.v_p * cp.sin(obj.grid.xs[2])
-	obj.alpha = [ cp.abs(obj.p1_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[1]), \
-					cp.abs(obj.p2_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[0]), \
-					obj.omega_e_bound + obj.omega_p_bound ]
-  
 	finite_diff_data = Bundle({'grid': obj.grid, 'hamFunc': get_hamiltonian_func,
 								'partialFunc': get_partial_func,
 								'dissFunc': artificialDissipationGLF,
 								'derivFunc': upwindFirstENO2,
 								})
 
-
 	# Visualization paramters
 	spacing = tuple(obj.grid.dx.flatten().tolist())
-	init_mesh = implicit_mesh(data.get(), level=0, spacing=spacing, edge_color='b', face_color='b')
+	init_mesh = implicit_mesh(data0, level=0, spacing=spacing, edge_color='b', face_color='b')
 	params = Bundle(
 					{"grid": obj.grid,
 					 'disp': True,
@@ -158,7 +191,8 @@ def main(args):
 					 })
 
 	args.obj = obj; args.spacing = spacing
-	args.init_mesh = init_mesh; args.params = params
+	args.init_mesh = init_mesh; args.params = params 
+	t_range = [0, 2.5]
 
 	if args.load_brt:
 		args.save = False

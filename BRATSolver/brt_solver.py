@@ -17,8 +17,7 @@ def solve_brt(args, t_range, data, finite_diff_data):
 	if args.visualize:
 		viz = RCBRTVisualizer(params=args.params)
 
-	options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
-
+	
 	t_plot = (t_range[1] - t_range[0]) / 10
 	"""
 	---------------------------------------------------------------------------
@@ -29,22 +28,25 @@ def solve_brt(args, t_range, data, finite_diff_data):
 	del finite_diff_data
 
 	# Wrap the true Hamiltonian inside the term approximation restriction routine.
-	schemeFunc = termRestrictUpdate
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 								   innerData = innerData,
 								   positive = False,  # direction to grow the updated level set
 								))
 	 
 	small = 100*eps 
+	options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
 
 	# Loop through t_range (subject to a little roundoff).
 	t_now = t_range[0]
 	start_time = cputime()
 	itr_start = cp.cuda.Event()
 	itr_end = cp.cuda.Event()
+
+	data_all = [data]
 	
 	while(t_range[1] - t_now > small * t_range[1]):
 		itr_start.record()
+		cpu_start = cputime()
 		time_step = f"{t_now}/{t_range[-1]}"
 
 		# Reshape data array into column vector for ode solver call.
@@ -69,9 +71,12 @@ def solve_brt(args, t_range, data, finite_diff_data):
 		
 		itr_end.record()
 		itr_end.synchronize()
+		cpu_end = cputime()
 		
-		info(f't: {t:.3f}/{t_range[-1]} GPU time: {cp.cuda.get_elapsed_time(start_gpu, end_gpu):.3f} TargSet bounds {min(y):.3f}/{max(y):.3f} Norm: {np.linalg.norm(y):.3f}')
+		info(f't: {t:.3f}/{t_range[-1]} GPU time: {cp.cuda.get_elapsed_time(itr_start, itr_end):.2f} CPU Time: {cpu_end-cpu_start}, TargSet bounds {min(y):.3f}/{max(y):.3f} Norm: {np.linalg.norm(y):.3f}')
 		
+		# store this brt
+		data_all.append(data.get())
 	# # if we are done, update target set on frame II
 	# if args.visualize:
 	# 	viz.update_tube(data_np, args.init_mesh, time_step)
@@ -79,4 +84,4 @@ def solve_brt(args, t_range, data, finite_diff_data):
 	end_time = cputime()
 	info(f'Total BRS/BRT execution time {(end_time - start_time):.4f} seconds.')
 
-	return t, data
+	return t, data_all
