@@ -72,55 +72,55 @@ def get_obj():
 
 	# get player (pursuer) 1's state space
 	gmin = np.array(([[-5, -5, -pi]])).T
-	gmax = np.array(([[5, 5, pi]])).T
+	gmax = np.array(([[0, 0, pi]])).T
 	obj.p1 = Bundle({'pursuer':Bundle({}), 'evader':Bundle({})})
 	obj.p1.pursuer.grid = createGrid(gmin, gmax, N, pdDims)
-	obj.p1.pursuer.center = 0
+	obj.p1.pursuer.center = np.array(([[-2.5, -2.5, 0]]),dtype=np.float64).T
+	obj.p1.pursuer.radius = 0.5
 
 	# get player (evader) 2's state space
-	gmin = np.array(([[-3, -3, -2*pi]])).T
-	gmax = np.array(([[7, 7, 2*pi]])).T
+	gmin = np.array(([[0, 0, pi]])).T
+	gmax = np.array(([[5, 5, 3*pi]])).T
 	obj.p1.evader.grid = createGrid(gmin, gmax, N, pdDims)
-	obj.p1.evader.center = np.array(([[1.5, 1.5, 4*pi/2]]),dtype=np.float64).T
+	obj.p1.evader.center = np.array(([[2.5, 2.5, 2*pi]]),dtype=np.float64).T
+	obj.p1.evader.radius = .5
 
 	# get player (pursuer) 3's state space
-	gmin = np.array(([[1, 1, 2]])).T
-	gmax = np.array(([[6, 6, 8]])).T
+	gmin = np.array(([[5, 5, 3*pi]])).T
+	gmax = np.array(([[10, 10, 5*pi]])).T
 	obj.p2 = Bundle({'pursuer':Bundle({}), 'evader':Bundle({})})
 	obj.p2.pursuer.grid = createGrid(gmin, gmax, N, pdDims)
-	obj.p2.pursuer.center = np.array(([[3.5, 3.5, 4]]),dtype=np.float64).T
+	obj.p2.pursuer.center = np.array(([[7.5, 7.5, 4*pi]]),dtype=np.float64).T
+	obj.p2.pursuer.radius = .5
 
 	# get player (evader) 4's state space
-	gmin = np.array(([[3, 3, 2*pi/3]])).T
-	gmax = np.array(([[3*pi, 3*pi, 4*pi]])).T
+	gmin = np.array(([[10, 10, 5*pi]])).T
+	gmax = np.array(([[15, 15, 7*pi]])).T
 	obj.p2.evader.grid = createGrid(gmin, gmax, N, pdDims)
-	obj.p2.evader.center = np.array(([[(3*pi-3)/2., (3*pi-3)/2., (4.0-2/3)*(pi/2.0)]]),dtype=np.float64).T
+	obj.p2.evader.center = np.array(([[12.5, 12.5, 6*pi]]),dtype=np.float64).T
+	obj.p2.evader.radius = .5
+
+	# Full grid
+	gmin = np.array(([[-5, -5, -pi]])).T
+	gmax = np.array(([[15, 15, 7*pi]])).T
+	obj.full_grid = createGrid(gmin, gmax, N, pdDims)
 
 	'''
 		Here, the table is symmetric, so we end up with the upper triangular
-		capture or avoid elements of the table of results of the differential game.
+		capture or avoid results of the differential game. (See paper.)
 	'''
-	
-	
-	# player 1 pursuer <==> player1 evader
-	xdot_p1p_p1e = dubins_sym(obj, obj.p1.pursuer, obj.p1.evader, 'capture', capture_radius=.1, avoid_radius=.5)
-	# player 1 pursuer <==> player 2 pursuer
-	xdot_p1p_p2p = dubins_sym(obj, obj.p1.pursuer, obj.p2.pursuer, 'avoid', capture_radius=.1, avoid_radius=.5)
-	# player 1 pursuer <==> player 2 evader
-	xdot_p1p_p2e = dubins_sym(obj, obj.p1.pursuer, obj.p2.evader, 'capture', capture_radius=.1, avoid_radius=.5)
-	
-	# player 1 evader <==> player 2 pursuer
-	xdot_p1e_p2p = dubins_sym(obj, obj.p1.evader, obj.p2.pursuer, 'capture', capture_radius=.1, avoid_radius=.5)
-	# player 1 evader <==> player 2 evader
-	xdot_p1e_p2p = dubins_sym(obj, obj.p1.evader, obj.p2.evader, 'avoid', capture_radius=.1, avoid_radius=.5)
-	# player 2 pursuer <==> player 2 evader
-	xdot_p1e_p2p = dubins_sym(obj, obj.p2.pursuer, obj.p2.evader, 'capture', capture_radius=.1, avoid_radius=.5)
-
-	# # global params
-	# obj.p1.axis_align, obj.p1.center, obj.p1.radius = 2, np.zeros((3, 1)), 0.5
+	obj.p1.pursuer.xdot = dubins_absolute(obj, obj.p1.pursuer)
+	obj.p1.evader.xdot  = dubins_absolute(obj, obj.p1.evader)
+	obj.p2.pursuer.xdot = dubins_absolute(obj, obj.p2.pursuer)
+	obj.p2.evader.xdot  = dubins_absolute(obj, obj.p2.evader)
 
 	# after creating value function, make state space cupy objects
-	obj.p1.grid.xs = [cp.asarray(x) for x in obj.p1.grid.xs]
+	obj.p1.pursuer.grid.xs = [cp.asarray(x) for x in obj.p1.pursuer.grid.xs]
+
+	# Compute target set of all four vehicles
+	value_func = shapeRectangleByCorners(obj.full_grid, lower=-3, upper=13)
+	# we now have a large value function, decompose the value w.r.t to the
+	# basis of the four vehicles to get its correspondiung decomposition ihnto diff bases
 
 
 	obj.p1_term = obj.v_e - obj.v_p * cp.cos(obj.grid.xs[2])
