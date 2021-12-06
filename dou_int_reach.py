@@ -15,14 +15,12 @@ import cupy as cp
 import numpy as np
 
 import sys
-from os.path import abspath, dirname, exists, join
+from os.path import abspath, join, dirname
 #sys.path.append(abspath(join('..')))
 #from BRATVisualization.rcbrt_visu import RCBRTVisualizer
-
 sys.path.append(dirname(dirname(abspath(__file__))))
 
 sys.path.append(abspath(join('..')))
-sys.path.append(abspath(join('../..')))
 from LevelSetPy.Utilities import *
 from LevelSetPy.Grids import createGrid
 from LevelSetPy.Helper import postTimeStepTTR
@@ -40,7 +38,7 @@ from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
-parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
+parser.add_argument('--silent', '-si', action='store_true', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_true', help='save BRS/BRT at end of sim' )
 parser.add_argument('--visualize', '-vz', action='store_true', help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_false', help='load saved brt?' )
@@ -73,33 +71,43 @@ def main(args):
 	u_bound = 1
 	target_rad = .2 #eps_targ * np.max(g.dx)
 	dint = DoubleIntegrator(g, u_bound)
-	value_func = dint.min_time2reach() - target_rad
-	value_func = np.maximum(0, value_func)
+	attr = dint.mttr() - target_rad
+
+	value_func = copy.copy(attr)
+	value_func_init = copy.copy(value_func)
+
+	attr = np.maximum(0, attr)
 
 	#turn the state space over to the gpu
 	g.xs = [cp.asarray(x) for x in g.xs]
+	finite_diff_data = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
+					'partialFunc': dint.dynamics,
+					'dissFunc': artificialDissipationGLF,
+					'derivFunc': upwindFirstENO2,
+					'input_bound': u_bound,
+					'innerFunc': termLaxFriedrichs,
+					'positive': False,  # direction to grow the updated level set
+					})
+	innerData =  copy.copy(finite_diff_data)
+	del finite_diff_data
 
-	# Wrap the true Hamiltonian inside the term approximation restriction routine.
+	# # Wrap the true Hamiltonian inside the term approximation restriction routine.
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-								   innerData = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
-													'partialFunc': dint.dynamics,
-													'dissFunc': artificialDissipationGLF,
-													'derivFunc': upwindFirstENO2,
-													}),
+								   innerData = innerData,
 								   positive = False,  # direction to grow the updated level set
 								))
 	small = 100*eps
 	t_span = np.linspace(0, 2.0, 20)
 	options = Bundle(dict(factorCFL=0.75, stats='on', maxStep=realmax, \
-						  singleStep='on', postTimestep=postTimeStepTTR))
+						  singleStep='off', postTimestep=postTimeStepTTR))
 	
-	y = value_func.flatten()
+	y = copy.copy(value_func.flatten())
 	y, finite_diff_data = postTimeStepTTR(0, y, finite_diff_data)
-	value_func = y.reshape(g.shape)
+	value_func = cp.asarray(copy.copy(y.reshape(g.shape)))
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
-	#init_mesh = implicit_mesh(value_func, level=0, spacing=spacing, edge_color='m', face_color='b')
+	
 	params = Bundle(
 					{"grid": g,
 					 'disp': True,
@@ -123,7 +131,7 @@ def main(args):
 	if args.visualize:
 		viz = RCBRTVisualizer(params=args.params)
 
-	data_all = [value_func]
+	value_func_all = [value_func]
 
 	cur_time, max_time = 0, t_span[-1]
 	step_time = (t_span[-1]-t_span[0])/8.0
@@ -133,17 +141,23 @@ def main(args):
 	itr_end = cp.cuda.Event()
 
 	while max_time-cur_time > small * max_time:
-		y0 = cp.asarray(value_func.flatten())
+		itr_start.record()
+		cpu_start = cputime()
+
+		time_step = f"{cur_time:.2f}/{max_time:.2f}"
+
+		y0 = value_func.flatten()
 
 		#How far to integrate
-		t_span = [cur_time, min(max_time, cur_time + step_time)]
+		t_span = np.hstack([cur_time, min(max_time, cur_time + step_time)])
 
 		# one step of integration
 		t, y, finite_diff_data = odeCFL2(termRestrictUpdate, t_span, \
-									y0, options, finite_diff_data)
-		cur_time = t[-1]
+									     y0, options, finite_diff_data)
+		cp.cuda.Stream.null.synchronize()
+		cur_time = t if np.isscalar(t) else t[-1]
 
-		value_func = y.reshape(g.shape)
+		value_func = cp.reshape(y, g.shape)
 
 		if args.visualize:
 			data_np = value_func.get()
@@ -155,16 +169,15 @@ def main(args):
 		itr_end.synchronize()
 		cpu_end = cputime()
 		
-		info(f't: {t:.3f}/{t_span[-1]} GPU time: {cp.cuda.get_elapsed_time(itr_start, itr_end):.2f}'  
-				'CPU Time: {cpu_end-cpu_start}, TargSet bounds {min(y):.3f}/{max(y):.3f}' 
-				'Norm: {np.linalg.norm(y):.3f}')
+		info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+        
 		# store this brt
-		data_all.append(value_func.get())
+		value_func_all.append(value_func.get())
 		
 	end_time = cputime()
 	info(f'Total BRS/BRT execution time {(end_time - start_time):.4f} seconds.')
 
-	return t, data_all
+	return t, value_func_all
 
 if __name__ == '__main__':
 	main(args)

@@ -73,8 +73,8 @@ def solve_brt(args, t_range, data, finite_diff_data):
 		itr_end.synchronize()
 		cpu_end = cputime()
 		
-		info(f't: {t:.3f}/{t_range[-1]} GPU time: {cp.cuda.get_elapsed_time(itr_start, itr_end):.2f} CPU Time: {cpu_end-cpu_start}, TargSet bounds {min(y):.3f}/{max(y):.3f} Norm: {np.linalg.norm(y):.3f}')
-		
+		info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+        
 		# store this brt
 		data_all.append(data.get())
 	# # if we are done, update target set on frame II
