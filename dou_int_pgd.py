@@ -16,8 +16,9 @@ import numpy as np
 
 import sys
 from os.path import abspath, join, dirname
+#sys.path.append(abspath(join('..')))
+#from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 sys.path.append(dirname(dirname(abspath(__file__))))
-from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 sys.path.append(abspath(join('..')))
 from LevelSetPy.Utilities import *
@@ -106,7 +107,6 @@ def main(args):
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
-	
 	params = Bundle(
 					{"grid": g,
 					 'disp': True,
