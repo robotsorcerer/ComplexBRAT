@@ -1,5 +1,6 @@
 __all__ = ["RCBRTVisualizer"]
 
+import os
 import time
 import numpy as np
 from skimage import measure
@@ -49,7 +50,10 @@ class RCBRTVisualizer(object):
 
 		self.grid = params.grid
 		self._gs  = gridspec.GridSpec(1, 2, self._fig)
-		self._ax  = [plt.subplot(self._gs[i], projection='3d') for i in [0, 1]]
+		if self.grid.dim<=2:
+			self._ax  = [plt.subplot(self._gs[i]) for i in [0, 1]]
+		else:
+			self._ax  = [plt.subplot(self._gs[i], projection='3d') for i in [0, 1]]
 
 		self._init = False
 		self.params = params
@@ -57,7 +61,7 @@ class RCBRTVisualizer(object):
 		if self.params.savedict.save and not os.path.exists(self.savedict["savepath"]):
 			os.makedirs(self.params.savedict.savepath)
 
-		if self.params.fontdict is None:
+		if not 'fontdict' in self.params.__dict__.keys() and  self.params.fontdict is None:
 			self._fontdict = {'fontsize':12, 'fontweight':'bold'}
 
 		if np.any(params.mesh):
@@ -74,8 +78,8 @@ class RCBRTVisualizer(object):
 				data: marching cubes mesh
 		"""
 		cm = plt.get_cmap('rainbow')
+
 		self._ax[0].grid('on')
-		self._ax[0].add_collection3d(mesh)
 
 		self._ax[0].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 		self._ax[1].view_init(elev=self.params.elevation, azim=self.params.azimuth)
@@ -86,11 +90,12 @@ class RCBRTVisualizer(object):
 		self._ax[1].axes.get_xaxis().set_ticks([])
 		self._ax[1].axes.get_yaxis().set_ticks([])
 
-		self._ax[0].add_collection3d(mesh)
-
 		data = self.params.data
 
 		if len(self.grid.dim)==3:
+
+			self._ax[0].add_collection3d(mesh)
+
 			xlim = (min(data[0].ravel()), max(data[0].ravel()))
 			ylim = (self.params.grid.min.item(1)-.5, self.params.grid.min.item(1)+4.)
 			zlim = (self.params.grid.min.item(2)-1.3, self.params.grid.max.item(2)+4.5)
@@ -110,7 +115,7 @@ class RCBRTVisualizer(object):
 			self._ax[0].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
 			self._ax[0].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
 			self._ax[0].set_zlabel('Z', fontdict=self.params.fontdict.__dict__)
-			self._ax[0].set_title(f'Multiple Level Sets')
+			self._ax[0].set_title(f'2D Level Set.')
 
 	def update_tube(self, data, mesh, time_step, delete_last_plot=False):
 		"""

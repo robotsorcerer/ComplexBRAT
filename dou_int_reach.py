@@ -79,22 +79,19 @@ def main(args):
 
 	#turn the state space over to the gpu
 	g.xs = [cp.asarray(x) for x in g.xs]
-	finite_diff_data = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
+	
+	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
+				innerData = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
 					'partialFunc': dint.dynamics,
 					'dissFunc': artificialDissipationGLF,
 					'derivFunc': upwindFirstENO2,
 					'input_bound': u_bound,
 					'innerFunc': termLaxFriedrichs,
 					'positive': False,  # direction to grow the updated level set
-					})
-	innerData =  copy.copy(finite_diff_data)
-	del finite_diff_data
+					}),
+					positive = False,  # direction to grow the updated level set
+				))
 
-	# # Wrap the true Hamiltonian inside the term approximation restriction routine.
-	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-								   innerData = innerData,
-								   positive = False,  # direction to grow the updated level set
-								))
 	small = 100*eps
 	t_span = np.linspace(0, 2.0, 20)
 	options = Bundle(dict(factorCFL=0.75, stats='on', maxStep=realmax, \

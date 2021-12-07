@@ -15,9 +15,9 @@ import cupy as cp
 import numpy as np
 
 import sys
-from os.path import abspath, join, dirname
-#sys.path.append(abspath(join('..')))
-#from BRATVisualization.rcbrt_visu import RCBRTVisualizer
+from os.path import abspath, dirname, join
+sys.path.append(abspath(join('..')))
+from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 sys.path.append(dirname(dirname(abspath(__file__))))
 
 sys.path.append(abspath(join('..')))
@@ -26,10 +26,17 @@ from LevelSetPy.Grids import createGrid
 from LevelSetPy.Helper import postTimeStepTTR
 from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.DynamicalSystems import DoubleIntegrator
-from LevelSetPy.SpatialDerivative import upwindFirstENO2, upwindFirstWENO5
-from LevelSetPy.ExplicitIntegration import artificialDissipationGLF
-from LevelSetPy.ExplicitIntegration.Integration import odeCFL3, odeCFL2, odeCFLset
-from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFriedrichs
+
+
+# POD Decomposition Tools
+from LevelSetPy.POD import *
+
+# integratots and spatial derivatives are specially handled under reduced modes
+from BRATSolver.upwind_first_eno2 import upwindFirstENO2
+from BRATSolver.artificial_diss_glf import artificialDissipationGLF
+from BRATSolver.ode_cfl_2 import odeCFL2, odeCFLset
+from BRATSolver.term_restrict_update import termRestrictUpdate
+from BRATSolver.term_lax_friedrich import termLaxFriedrichs
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
@@ -71,6 +78,8 @@ def main(args):
 	u_bound = 1
 	target_rad = .2 #eps_targ * np.max(g.dx)
 	dint = DoubleIntegrator(g, u_bound)
+
+	# Analytical Time To Reach
 	attr = dint.mttr() - target_rad
 
 	value_func = copy.copy(attr)
@@ -80,22 +89,19 @@ def main(args):
 
 	#turn the state space over to the gpu
 	g.xs = [cp.asarray(x) for x in g.xs]
-	finite_diff_data = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
+	
+	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
+				innerData = Bundle({'grid':g, 'hamFunc': dint.hamiltonian,
 					'partialFunc': dint.dynamics,
 					'dissFunc': artificialDissipationGLF,
 					'derivFunc': upwindFirstENO2,
 					'input_bound': u_bound,
 					'innerFunc': termLaxFriedrichs,
 					'positive': False,  # direction to grow the updated level set
-					})
-	innerData =  copy.copy(finite_diff_data)
-	del finite_diff_data
+					}),
+					positive = False,  # direction to grow the updated level set
+				))
 
-	# # Wrap the true Hamiltonian inside the term approximation restriction routine.
-	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-								   innerData = innerData,
-								   positive = False,  # direction to grow the updated level set
-								))
 	small = 100*eps
 	t_span = np.linspace(0, 2.0, 20)
 	options = Bundle(dict(factorCFL=0.75, stats='on', maxStep=realmax, \
@@ -139,13 +145,55 @@ def main(args):
 	itr_start = cp.cuda.Event()
 	itr_end = cp.cuda.Event()
 
+	# Calculate the projection errors.
+	VFunc = value_func.get()
+	EigVecs, svdvals = pod_basis(VFunc, max(VFunc.shape))
+	min_rank = minimal_projection_error(VFunc, EigVecs, eps=1e-5, plot=False)
+
+	# optimal basis rank is 52
+	Vr = EigVecs[:,:min_rank]
+	proj_error = projection_error(VFunc, Vr)
+	print(f'Optimal Projection Error to Reduced Basis: {proj_error}')
+
+	"""
+		Now we have the value funtion, and state space in this reduced basis 
+		which suposedly has the most energetic state for the system.
+		Try using the levelsets toolbox to resolve this.
+	"""
+
+	#Project the state space to this reduced basis
+	g_rom = copy.deepcopy(g)
+
+	g_rom.xs[0] = g.xs[0].get() @ Vr
+	g_rom.xs[1] = g.xs[1].get() @ Vr
+
+	# Project original value function onto this reduced basis too
+	value_rom = cp.asarray(value_func.get()@Vr)
+	g_rom.N = min_rank 
+	g_rom.shape = g_rom.xs[0].shape
+
+	# Notice that our grid will now be non-uniform mesh, So calculate spacing
+	# between grids accordingly.
+	g_rom.dx  = [cp.zeros_like(g_rom.xs[0]), \
+				   cp.zeros_like(g_rom.xs[1])]
+	g_rom.dx[0] = cp.diff(g_rom.xs[0], prepend=g_rom.xs[0][0,-1]-g_rom.xs[0][1,-1]) 
+	g_rom.dx[1] = cp.diff(g_rom.xs[1], prepend=g_rom.xs[1][0,-1]-g_rom.xs[1][1,-1])            
+
+	# update hamiltonian and dynamics state on ROM
+	rom_attr = dint.update_rom(g_rom)
+
+	# update necessary params in finite diff data
+	finite_diff_data.innerData.grid=g_rom
+	finite_diff_data.innerData.hamFunc=dint.hamiltonian
+	finite_diff_data.innerData.partialFunc=dint.dynamics
+
 	while max_time-cur_time > small * max_time:
 		itr_start.record()
 		cpu_start = cputime()
 
 		time_step = f"{cur_time:.2f}/{max_time:.2f}"
 
-		y0 = value_func.flatten()
+		y0 = value_rom.flatten()
 
 		#How far to integrate
 		t_span = np.hstack([cur_time, min(max_time, cur_time + step_time)])
@@ -156,10 +204,10 @@ def main(args):
 		cp.cuda.Stream.null.synchronize()
 		cur_time = t if np.isscalar(t) else t[-1]
 
-		value_func = cp.reshape(y, g.shape)
+		value_rom = cp.reshape(y, g_rom.shape)
 
 		if args.visualize:
-			data_np = value_func.get()
+			data_np = value_rom.get()
 			mesh=implicit_mesh(data_np, level=0, spacing=spacing,
 								edge_color='None',  face_color='red')
 			viz.update_tube(data_np, mesh, args.pause_time)
@@ -171,7 +219,7 @@ def main(args):
 		info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
         
 		# store this brt
-		value_func_all.append(value_func.get())
+		value_func_all.append(value_rom.get())
 		
 	end_time = cputime()
 	info(f'Total BRS/BRT execution time {(end_time - start_time):.4f} seconds.')
