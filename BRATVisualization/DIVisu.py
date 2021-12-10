@@ -20,7 +20,7 @@ class DoubleIntegratorVisualizer(object):
 			colors according to the spectral colormap.
 
 			Inputs:
-				params: Bundle Type  with fields as follows: 
+				params: Bundle Type  with fields as follows:
 
 				Bundle({"grid": obj.grid,
 						'g_rom': grid for reduced order,
@@ -50,14 +50,14 @@ class DoubleIntegratorVisualizer(object):
 			self._fig = params.fig
 
 		self.grid = params.grid
-		self.g_rom = params.pgd_grid
+		# self.g_rom = params.pgd_grid
 
 		# move data to cpu
 		self.grid.xs = [self.grid.xs[i].get() for i in range(self.grid.dim)]
-		self.g_rom.xs = [self.g_rom.xs[i].get() for i in range(self.g_rom.dim)]
+		# self.g_rom.xs = [self.g_rom.xs[i].get() for i in range(self.g_rom.dim)]
 
-		self._gs  = gridspec.GridSpec(1, 2, self._fig)	
-		
+		self._gs  = gridspec.GridSpec(1, 2, self._fig)
+
 		if self.grid.dim<=2:
 			self._ax  = [plt.subplot(self._gs[i]) for i in [0, 1]]
 		else:
@@ -95,8 +95,6 @@ class DoubleIntegratorVisualizer(object):
 		self._ax[1].axes.get_xaxis().set_ticks([])
 		self._ax[1].axes.get_yaxis().set_ticks([])
 
-		data = self.params.data
-
 		if self.grid.dim==3:
 
 			self._ax[0].view_init(elev=self.params.elevation, azim=self.params.azimuth)
@@ -127,14 +125,14 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[0].set_ylim([-1.01, 1.01])
 
 			# Decomposed level set
-			self._ax[1].contour(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, colors='magenta')
+			self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], pgd_mesh, colors='magenta')
 			self._ax[1].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_title(f'POD Level Set.')
 			self._ax[1].set_xlim([-1.02, 1.02])
 			self._ax[1].set_ylim([-1.01, 1.01])
 
-	def update_tube(self, data, amesh, ls_mesh, pgd_mesh, time_step, delete_last_plot=False):
+	def update_tube(self, amesh, ls_mesh, pgd_mesh, time_step, delete_last_plot=False):
 		"""
 			Inputs:
 				data - BRS/BRT data.
@@ -149,8 +147,6 @@ class DoubleIntegratorVisualizer(object):
 		self._ax[1].axes.get_xaxis().set_ticks([])
 		self._ax[1].axes.get_yaxis().set_ticks([])
 
-		if delete_last_plot:
-			plt.cla()
 
 		if self.grid.dim==3:
 			self._ax[1].add_collection3d(mesh)
@@ -170,27 +166,35 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[1].set_title(f'BRT at {time_step}.', fontweight=self.params.fontdict.fontweight)
 
 		elif self.grid.dim==2:
-			# move data to cpu # Not efficient # figure out 
-			# better way to do this
+			self._ax[0].cla() if delete_last_plot else self._ax[0].cla()
+			CS1 = self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], amesh, colors='red')
+			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], ls_mesh, colors='green')
+			self._ax[0].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
+			self._ax[0].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
+			self._ax[0].set_title(f'Analytic and Numerical TTR @ {time_step} secs.')
+			self._ax[0].clabel(CS1, CS1.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
 
-			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], amesh, colors='red')
-			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], ls_mesh, colors='orange')
-			self._ax[0].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
-			self._ax[0].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
-			self._ax[0].set_title(f'Analytic and Numerical TTR')
-			
-			self._ax[1].contourf(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, colors='magenta')
-			self._ax[1].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
-			self._ax[1].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
-			self._ax[1].set_title(f'Decomposed TTR')
+			self._ax[1].cla() if delete_last_plot else self._ax[1].cla()
+			CS2 = self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], pgd_mesh, colors='magenta')
+			self._ax[1].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
+			self._ax[1].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
+			self._ax[1].set_title(f'Decomposed TTR @ {time_step} secs.')
+			self._ax[0].clabel(CS2, CS2.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
 
+		plt.tight_layout()
 		self.draw()
 		time.sleep(self.params.pause_time)
-		
+
+	def fmt(self, x):
+	    s = f"{x:.2f}"
+	    if s.endswith("0"):
+	        s = f"{x:.0f}"
+	    return rf"{s} \s" if plt.rcParams["text.usetex"] else f"{s}"
+
 	def add_legend(self, linestyle, marker, color, label):
 		self._ax_legend.plot([], [], linestyle=linestyle, marker=marker,
 				color=color, label=label)
-		self._ax_legend.legend(ncol=2, mode='expand', fontsize=10)
+		self._ax_legend.legend(ncol=2, mode='expand', fontsize=self.params.fontdict.fontsize)
 
 	def draw(self, ax=None):
 		self._fig.canvas.draw()
