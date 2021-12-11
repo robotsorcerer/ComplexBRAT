@@ -42,7 +42,6 @@ class DoubleIntegratorVisualizer(object):
 										"savepath": "../jpeg_dumps/rcbrt"})
 						})
 		"""
-		plt.ion()
 		if params.winsize:
 			self._fig = plt.figure(figsize=params.winsize)
 			self.winsize=params.winsize
@@ -120,13 +119,22 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], mesh, colors='red')
 			self._ax[0].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
 			self._ax[0].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
+
+			X, Y = mesh[-1, ::len(mesh)//3], mesh[::len(mesh)//3, 1]
+			U, V = Y, Y
+			self._ax[0].quiver(X,Y, 2, 2, angles='xy')
 			self._ax[0].set_title(f'2D Level Set.')
 			self._ax[0].set_xlim([-1.02, 1.02])
 			self._ax[0].set_ylim([-1.01, 1.01])
 
 			# Decomposed level set
 			self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], pgd_mesh, colors='magenta')
+
+			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//10], pgd_mesh[::len(pgd_mesh)//10, 1]
+			U, V = Y, Y
+			self._ax[1].quiver(X,Y, 5, 5, angles='xy')
 			self._ax[1].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
+
 			self._ax[1].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_title(f'POD Level Set.')
 			self._ax[1].set_xlim([-1.02, 1.02])
