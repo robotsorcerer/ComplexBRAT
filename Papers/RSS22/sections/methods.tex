@@ -2,6 +2,34 @@
 \label{sec:methods}
 %
 We now introduce the quadratic approximation scheme of the value function.
+ We seek a pair of \emph{saddle point equilibrium} policies, $(\control^*, \disturb^*)$ that satisfy the following inequalities for a cost $\valuefunc$ at an initial time $T$,
+\[
+\valuefunc(T; \state(T), \control^*, \disturb) \leq \valuefunc(T; \state(T), \control^*, \disturb^*) \leq \valuefunc(T; \state(T), \control, \disturb^*),
+\]
+$ \forall \, \control \in \mc{U}, \disturb \in \mc{V}$ and $\state(T)$.
+%
+
+The successive approximation to $\valuefunc$ consists in  maintaining local approximations to the global system dynamics at every iteration so that the local state and controls are $\state_r, \control_r, \disturb_r$. We proceed as follows:
+%
+\begin{itemize}
+	\item Approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer's local controls schedule, $\{ \bar \control(t)\}$, and evader's local controls $\{ \bar \disturb(t) \}$, assumed to be available (when these are not available, we can initialize them to $0$);
+	%
+	\item  we then run the system's passive dynamics with $\{\bar{\control}\}, \{\bar {\dist} \}$ to generate  a nominal state trajectory $ \{\bar{\state}_t\}$, with neighboring trajectories $\{ \state_t \}$; %deterministic dynamics,
+	%
+	\item we choose a small neighborhood, $\{\delstate_t\}$ of $\{\state_t\}$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state_t\}$;
+	%
+	\item  discretizing time, the new state and control sequence pairs become $\delta \state_\tidx = \state_\tidx - \bar \state_\tidx, \,
+	\delta \control_\tidx = \control_\tidx - \bar \control_\tidx, \,
+	\delta \distbo_\tidx = \distbo_\tidx - \bar \distbo_\tidx$.
+	%
+\end{itemize}
+%
+Setting $V(\state, T) = \augreward_{T}(\state_{T})$, the min-max over the entire control sequence reduces to a stepwise optimization over a single control, going backward in time with %the \textit{stage cost}
+\begin{align}
+	V(\state_\tidx) = \min_{\control_\tidx \sim \pi} \max_{\distbo_\tidx \sim \psi} [\augreward(\state_\tidx, \control_\tidx, \distbo_\tidx) + V(f(\state_{\tidx+1}, \control_{\tidx+1}, \distbo_{\tidx+1}))]. \nonumber
+\end{align}
+
+
 Suppose an (optimal) reduced basis with order $r$ has been found that admits the most energetic modes of $\valuefunc$. Call the cost on this basis $\valuefunc_r$. Define the state, control, and disturbance on the reduced basis as $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$ respectively, where $t \in \left[T, 0\right]$. When we decompose the system into the reduced  $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$, the dynamics no longer describes the original states and controls, but rather the variation of the state and controls on the reduced basis from the state and the control pairs on the nonlinear system of equation \eqref{eq:sys_dyn} \ie $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ respectively\footnote{Note that $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ are respectively measured with respect to $\state(t), \control(t), \disturb(t)$ and are not necessarily small. However, our case is very much helped when they are small and we conjecture that our decomposition scheme favors the smallness in the values of these variations.}. It follows that we can write the following relations
 %
 \begin{subequations}
