@@ -1,8 +1,7 @@
-\section{Power Series Approximation of the Terminal Cost}
-\seclabel{sec:power_series}
+\section{Differential Approximation of the Terminal Cost}
+\label{sec:methods}
 %
-Let us first to introduce the quadratic approximation scheme of the value function on a reduced basis before discussing the learning method for the optimal Galerkin spectral decomposition. 
-
+We now introduce the quadratic approximation scheme of the value function.
 Suppose an (optimal) reduced basis with order $r$ has been found that admits the most energetic modes of $\valuefunc$. Call the cost on this basis $\valuefunc_r$. Define the state, control, and disturbance on the reduced basis as $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$ respectively, where $t \in \left[T, 0\right]$. When we decompose the system into the reduced  $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$, the dynamics no longer describes the original states and controls, but rather the variation of the state and controls on the reduced basis from the state and the control pairs on the nonlinear system of equation \eqref{eq:sys_dyn} \ie $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ respectively\footnote{Note that $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ are respectively measured with respect to $\state(t), \control(t), \disturb(t)$ and are not necessarily small. However, our case is very much helped when they are small and we conjecture that our decomposition scheme favors the smallness in the values of these variations.}. It follows that we can write the following relations
 %
 \begin{subequations}

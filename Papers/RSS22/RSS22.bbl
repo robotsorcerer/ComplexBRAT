@@ -1,4 +1,4 @@
-\begin{thebibliography}{48}
+\begin{thebibliography}{30}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -19,15 +19,6 @@ Andrea Bajcsy, Somil Bansal, Eli Bronstein, Varun Tolani, and Claire~J Tomlin.
 \newblock In \emph{2019 IEEE 58th Conference on Decision and Control (CDC)},
   pages 1758--1765. IEEE, 2019.
 
-\bibitem[Ballard et~al.(2020)Ballard, Klinvex, and Kolda]{TuckerMPI}
-Grey Ballard, Alicia Klinvex, and Tamara~G. Kolda.
-\newblock {TuckerMPI: A Parallel C++/MPI Software Package for Large-scale Data
-  Compression via the Tucker Tensor Decomposition}.
-\newblock \emph{ACM Transactions on Mathematical Software}, 46\penalty0 (2),
-  2020.
-\newblock ISSN 15577295.
-\newblock \doi{10.1145/3378445}.
-
 \bibitem[Bansal and Tomlin()]{Bansal}
 Somil Bansal and Claire~J Tomlin.
 \newblock {DeepReach : A Deep Learning Approach to High-Dimensional
@@ -43,19 +34,6 @@ Richard Bellman.
 \newblock \emph{{Dynamic programming}}.
 \newblock Princeton University Press, 1957.
 \newblock ISBN 0-486-42809-5.
-
-\bibitem[Boyd et~al.(2011)Boyd, Parikh, and Chu]{BoydADMM}
-Stephen Boyd, Neal Parikh, and Eric Chu.
-\newblock \emph{Distributed optimization and statistical learning via the
-  alternating direction method of multipliers}.
-\newblock Now Publishers Inc, 2011.
-
-\bibitem[Chinesta et~al.(2011)Chinesta, Ladeveze, and Cueto]{ChinestaPGD}
-Francisco Chinesta, Pierre Ladeveze, and Elias Cueto.
-\newblock A {S}hort {R}eview on {M}odel {O}rder {R}eduction based on {P}roper
-  {G}eneralized {D}ecomposition.
-\newblock \emph{Archives of Computational Methods in Engineering}, 18\penalty0
-  (4):\penalty0 395--404, 2011.
 
 \bibitem[Crandall et~al.(1984)Crandall, Evans, and Lions]{Crandall1984}
 M.~G. Crandall, L.~C. Evans, and P.~L. Lions.
@@ -85,20 +63,6 @@ Michael~G Crandall and Andrew Majda.
 \newblock Monotone difference approximations for scalar conservation laws.
 \newblock \emph{Mathematics of Computation}, 34\penalty0 (149):\penalty0 1--21,
   1980{\natexlab{b}}.
-
-\bibitem[De~Lathauwer et~al.(2000)De~Lathauwer, De~Moor, and
-  Vandewalle]{DeLathauwer2000}
-Lieven De~Lathauwer, Bart De~Moor, and Joos Vandewalle.
-\newblock A multilinear singular value decomposition.
-\newblock \emph{SIAM journal on Matrix Analysis and Applications}, 21\penalty0
-  (4):\penalty0 1253--1278, 2000.
-
-\bibitem[Denham(1978)]{DenhamDDP}
-W.F. Denham.
-\newblock {Book Reviews: Differential Dynamic Programming}.
-\newblock \emph{Review of Social Economy}, 36\penalty0 (2):\penalty0 228--229,
-  1978.
-\newblock ISSN 1470-1162.
 
 \bibitem[Evans and Souganidis(1984{\natexlab{a}})]{Evans1984}
 L.C. Evans and Panagiotis~E. Souganidis.
@@ -145,11 +109,6 @@ Chenjie Gu.
 \newblock \emph{IEEE Transactions on Computer-Aided Design of Integrated
   Circuits and Systems}, 30\penalty0 (9):\penalty0 1307--1320, 2011.
 
-\bibitem[Hackbusch(2012)]{Hackbusch}
-Wolfgang Hackbusch.
-\newblock \emph{Tensor Spaces and Numerical Tensor Calculus}.
-\newblock Springer-Verlag, 2012.
-
 \bibitem[Herbert et~al.(2021)Herbert, Choi, Sanjeev, Gibson, Sreenath, and
   Tomlin]{SylviaScalability}
 Sylvia Herbert, Jason~J Choi, Suvansh Sanjeev, Marsalis Gibson, Koushil
@@ -175,17 +134,6 @@ David~H. Jacobson and David~Q. Mayne.
 \newblock \emph{{Differential Dynamic Programming}}.
 \newblock American Elsevier Publishing Company, Inc., New York, NY, 1970.
 
-\bibitem[Kantarovich and Akilov(1964)]{Kantarovich}
-L.V. Kantarovich and G.P. Akilov.
-\newblock \emph{Functional Analysis in Normed Spaces}.
-\newblock Pergamon Press, 1964.
-
-\bibitem[Kapteyn et~al.(1986)Kapteyn, Neudecker, and
-  Wansbeek]{KapteynNWayTensors1986}
-Arie Kapteyn, Heinz Neudecker, and Tom Wansbeek.
-\newblock {An {A}pproach to n-mode {C}omponents {A}nalysis}.
-\newblock \emph{Psychometrika}, 51\penalty0 (2):\penalty0 269--275, 1986.
-
 \bibitem[Kaynama et~al.(2015)Kaynama, Mitchell, Oishi, and
   Dumont]{KaynamaScalable}
 Shahab Kaynama, Ian~M. Mitchell, Meeko Oishi, and Guy~A. Dumont.
@@ -193,24 +141,6 @@ Shahab Kaynama, Ian~M. Mitchell, Meeko Oishi, and Guy~A. Dumont.
   continuous-time linear systems.
 \newblock \emph{IEEE Transactions on Automatic Control}, 60\penalty0
   (11):\penalty0 3065--3070, 2015.
-
-\bibitem[Kolda and Bader(2009)]{Kolda2009}
-Tamara~G. Kolda and Brett~W. Bader.
-\newblock {Tensor decompositions and applications}.
-\newblock \emph{SIAM Review}, 51\penalty0 (3):\penalty0 455--500, 2009.
-\newblock ISSN 00361445.
-
-\bibitem[Ladev{\`e}ze(2012)]{LadevezeBook}
-Pierre Ladev{\`e}ze.
-\newblock \emph{Nonlinear computational structural mechanics: new approaches
-  and non-incremental methods of calculation}.
-\newblock Springer Science \& Business Media, 2012.
-
-\bibitem[Li and Todorov(2004)]{TodorovCDC}
-Weiwei Li and Emanuel Todorov.
-\newblock Iterative linear quadratic regulator design for nonlinear biological
-  movement systems.
-\newblock In \emph{ICINCO (1)}, pages 222--229. Citeseer, 2004.
 
 \bibitem[Lions(1982)]{Lions1982}
 Pierre-Louis Lions.
@@ -221,6 +151,13 @@ Pierre-Louis Lions.
 John Lygeros.
 \newblock On reachability and minimum cost optimal control.
 \newblock \emph{Automatica}, 40\penalty0 (6):\penalty0 917--927, 2004.
+
+\bibitem[Mayne(1966)]{Mayne1966}
+David Mayne.
+\newblock {A Second-Order Gradient Method for Determining Optimal Trajectories
+  of Non-linear Discrete-Time Systems}.
+\newblock \emph{International Journal of Control}, 3\penalty0 (1):\penalty0
+  85--95, 1966.
 
 \bibitem[McReynolds(1967)]{McReynolds1967}
 Stephen~R. McReynolds.
@@ -242,12 +179,6 @@ Ian Mitchell.
 \newblock 74:\penalty0 242--224, 2020.
 \newblock \doi{10.29007/mx3f}.
 
-\bibitem[Mitchell(2007)]{MitchellLSToolbox2007}
-Ian~M Mitchell.
-\newblock A{ {T}oolbox of {L}evel {S}et {M}ethods}.
-\newblock \emph{UBC Department of Computer Science Technical Report
-  TR-2007-11}, 2007.
-
 \bibitem[Mitchell et~al.(2005)Mitchell, Bayen, and Tomlin]{Mitchell2005}
 Ian~M. Mitchell, Alexandre~M. Bayen, and Claire~J. Tomlin.
 \newblock {A time-dependent Hamilton-Jacobi formulation of reachable sets for
@@ -263,34 +194,6 @@ S.~K. Mitter.
   problems}.
 \newblock \emph{Automatica}, 3\penalty0 (3-4):\penalty0 135--149, 1966.
 \newblock ISSN 00051098.
-
-\bibitem[Nishino et~al.(2017)Nishino, Loomis, and Hido]{CuPy}
-ROYUD Nishino, Crissman Loomis, and Shohei Hido.
-\newblock Cupy: A numpy-compatible library for nvidia gpu calculations.
-\newblock \emph{31st confernce on neural information processing systems}, 151,
-  2017.
-
-\bibitem[Nouy(2008)]{NouyFEM}
-Anthony Nouy.
-\newblock Generalized spectral decomposition method for solving stochastic
-  finite element equations: invariant subspace problem and dedicated
-  algorithms.
-\newblock \emph{Computer Methods in Applied Mechanics and Engineering},
-  197\penalty0 (51-52):\penalty0 4718--4736, 2008.
-
-\bibitem[Nouy(2010)]{Nouy2010}
-Anthony Nouy.
-\newblock {A priori model reduction through Proper Generalized Decomposition
-  for solving time-dependent partial differential equations}.
-\newblock \emph{Computer Methods in Applied Mechanics and Engineering},
-  199\penalty0 (23-24):\penalty0 1603--1626, 2010.
-\newblock ISSN 00457825.
-
-\bibitem[Nouy and Le~Ma{\i}ˆtre(2009)]{Nouy2009}
-Anthony Nouy and Olivier~P Le~Ma{\i}ˆtre.
-\newblock Generalized spectral decomposition for stochastic nonlinear problems.
-\newblock \emph{Journal of Computational Physics}, 228\penalty0 (1):\penalty0
-  202--235, 2009.
 
 \bibitem[Ogunmolu et~al.(2018)Ogunmolu, Gans, and Summers]{iDG}
 Olalekan Ogunmolu, Nicholas Gans, and Tyler Summers.
@@ -312,26 +215,5 @@ Stanley Osher and James~A Sethian.
   on hamilton-jacobi formulations.
 \newblock \emph{Journal of computational physics}, 79\penalty0 (1):\penalty0
   12--49, 1988.
-
-\bibitem[Osher and Shu(2004)]{OsherShuENO}
-Stanley Osher and Chi-Wang Shu.
-\newblock {High-Order Essentially Nonoscillatory Schemes for Rotary-Wing Wake
-  Computations}.
-\newblock \emph{Journal of Aircraft}, 41\penalty0 (2):\penalty0 258--267, 2004.
-\newblock ISSN 15333868.
-\newblock \doi{10.2514/1.9320}.
-
-\bibitem[Tucker(1966)]{Tucker66}
-Ledyard~R Tucker.
-\newblock Some mathematical notes on three-mode factor analysis.
-\newblock \emph{Psychometrika}, 31\penalty0 (3):\penalty0 279--311, 1966.
-
-\bibitem[Vannieuwenhoven et~al.(2012)Vannieuwenhoven, Vandebril, and
-  Meerbergen]{VannieuwenhovenTruncate2012}
-Nick Vannieuwenhoven, Raf Vandebril, and Karl Meerbergen.
-\newblock A {N}ew {T}runcation {S}trategy for the {H}igher-{O}rder {S}ingular
-  {V}alue {D}ecomposition.
-\newblock \emph{SIAM Journal on Scientific Computing}, 34\penalty0
-  (2):\penalty0 A1027--A1052, 2012.
 
 \end{thebibliography}

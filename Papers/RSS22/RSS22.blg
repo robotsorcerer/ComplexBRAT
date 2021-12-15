@@ -1,67 +1,64 @@
 This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: RSS22.aux
-Reallocating 'name_of_file' (item size: 1) to 18 items.
-A level-1 auxiliary file: sections/back.aux
 Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: plainnat.bst
 Reallocating 'name_of_file' (item size: 1) to 10 items.
 Database file #1: ../biblio.bib
-Repeated entry---line 725 of file ../biblio.bib
+Repeated entry---line 736 of file ../biblio.bib
  : @article{CrandallLaxFriedrichs
  :                               ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 955 of file ../biblio.bib
+You're missing a field name---line 966 of file ../biblio.bib
  : 
  : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "++"
 Warning--empty journal in Bansal
 Warning--empty year in Bansal
 Warning--empty year in Bansal
 Warning--empty year in Isaacs1965
 Warning--empty year in Isaacs1965
 Warning--empty journal in Mitchell2020
-You've used 48 entries,
+You've used 30 entries,
             2773 wiz_defined-function locations,
-            952 strings with 13324 characters,
-and the built_in function-call counts, 21522 in all, are:
-= -- 1988
-> -- 1055
-< -- 38
-+ -- 366
-- -- 315
-* -- 1724
-:= -- 3304
-add.period$ -- 170
-call.type$ -- 48
-change.case$ -- 240
-chr.to.int$ -- 45
-cite$ -- 102
-duplicate$ -- 1009
-empty$ -- 1854
-format.name$ -- 395
-if$ -- 4509
+            821 strings with 10214 characters,
+and the built_in function-call counts, 13685 in all, are:
+= -- 1266
+> -- 680
+< -- 26
++ -- 237
+- -- 204
+* -- 1102
+:= -- 2101
+add.period$ -- 108
+call.type$ -- 30
+change.case$ -- 153
+chr.to.int$ -- 27
+cite$ -- 66
+duplicate$ -- 633
+empty$ -- 1163
+format.name$ -- 256
+if$ -- 2863
 int.to.chr$ -- 4
 int.to.str$ -- 1
-missing$ -- 57
-newline$ -- 271
-num.names$ -- 192
-pop$ -- 473
+missing$ -- 35
+newline$ -- 174
+num.names$ -- 120
+pop$ -- 301
 preamble$ -- 1
-purify$ -- 201
+purify$ -- 128
 quote$ -- 0
-skip$ -- 733
+skip$ -- 461
 stack$ -- 0
-substring$ -- 968
-swap$ -- 88
-text.length$ -- 5
+substring$ -- 614
+swap$ -- 60
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 483
+type$ -- 305
 warning$ -- 6
-while$ -- 211
+while$ -- 134
 width$ -- 0
-write$ -- 666
+write$ -- 422
 (There were 2 error messages)

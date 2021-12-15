@@ -1,116 +1,103 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  14 DEC 2021 22:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  15 DEC 2021 11:12
 entering extended mode
-**./pgdreach.tex
-(pgdreach.tex
+**./RSS22.tex
+(RSS22.tex
 LaTeX2e <2021-06-01>
 L3 programming layer <2021-06-01> (IEEEtran.cls
-Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+Document Class: IEEEtran 2007/03/05 V1.7a by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
 -- http://www.michaelshell.org/tex/ieeetran/
 \@IEEEtrantmpdimenA=\dimen138
 \@IEEEtrantmpdimenB=\dimen139
-\@IEEEtrantmpdimenC=\dimen140
 \@IEEEtrantmpcountA=\count182
 \@IEEEtrantmpcountB=\count183
-\@IEEEtrantmpcountC=\count184
 \@IEEEtrantmptoksA=\toks16
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 5
-03.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
+66.
 (C:\Program Files\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 -- Using 8.5in x 11in (letter) paper.
 -- Using PDF output.
-\@IEEEnormalsizeunitybaselineskip=\dimen141
+\@IEEEnormalsizeunitybaselineskip=\dimen140
 -- This is a 10 point document.
-\CLASSINFOnormalsizebaselineskip=\dimen142
-\CLASSINFOnormalsizeunitybaselineskip=\dimen143
-\IEEEnormaljot=\dimen144
+\CLASSINFOnormalsizebaselineskip=\dimen141
+\CLASSINFOnormalsizeunitybaselineskip=\dimen142
+\IEEEnormaljot=\dimen143
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 724.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
-
-\IEEEquantizedlength=\dimen145
-\IEEEquantizedlengthdiff=\dimen146
-\IEEEquantizedtextheightdiff=\dimen147
-\IEEEilabelindentA=\dimen148
-\IEEEilabelindentB=\dimen149
-\IEEEilabelindent=\dimen150
-\IEEEelabelindent=\dimen151
-\IEEEdlabelindent=\dimen152
-\IEEElabelindent=\dimen153
-\IEEEiednormlabelsep=\dimen154
-\IEEEiedmathlabelsep=\dimen155
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 724.
+\IEEEilabelindentA=\dimen144
+\IEEEilabelindentB=\dimen145
+\IEEEilabelindent=\dimen146
+\IEEEelabelindent=\dimen147
+\IEEEdlabelindent=\dimen148
+\IEEElabelindent=\dimen149
+\IEEEiednormlabelsep=\dimen150
+\IEEEiedmathlabelsep=\dimen151
 \IEEEiedtopsep=\skip47
-\c@section=\count185
-\c@subsection=\count186
-\c@subsubsection=\count187
-\c@paragraph=\count188
-\c@IEEEsubequation=\count189
+\c@section=\count184
+\c@subsection=\count185
+\c@subsubsection=\count186
+\c@paragraph=\count187
+\c@IEEEsubequation=\count188
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
-\c@figure=\count190
-\c@table=\count191
-\@IEEEeqnnumcols=\count192
-\@IEEEeqncolcnt=\count193
-\@IEEEsubeqnnumrollback=\count194
-\@IEEEquantizeheightA=\dimen156
-\@IEEEquantizeheightB=\dimen157
-\@IEEEquantizeheightC=\dimen158
-\@IEEEquantizeprevdepth=\dimen159
-\@IEEEquantizemultiple=\count195
-\@IEEEquantizeboxA=\box50
-\@IEEEtmpitemindent=\dimen160
-\IEEEPARstartletwidth=\dimen161
-\c@IEEEbiography=\count196
-\@IEEEtranrubishbin=\box51
-) (C:\Program Files\MiKTeX\tex/latex/tools\bm.sty
+\c@figure=\count189
+\c@table=\count190
+\@IEEEeqnnumcols=\count191
+\@IEEEeqncolcnt=\count192
+\@IEEEtmpitemindent=\dimen152
+\c@IEEEbiography=\count193
+\@IEEEtranrubishbin=\box50
+) (C:\Program Files\MiKTeX\tex/latex/psnfss\times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+(C:\Program Files\MiKTeX\tex/latex/natbib\natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip50
+\bibsep=\skip51
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count194
+)
+(C:\Program Files\MiKTeX\tex/latex/tools\bm.sty
 Package: bm 2021/04/25 v1.2e Bold Symbol Support (DPC/FMi)
 \symboldoperators=\mathgroup4
 \symboldletters=\mathgroup5
@@ -127,12 +114,12 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 (C:\Program Files\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
 \pgfutil@everybye=\toks17
-\pgfutil@tempdima=\dimen162
-\pgfutil@tempdimb=\dimen163
+\pgfutil@tempdima=\dimen153
+\pgfutil@tempdimb=\dimen154
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-common-lists.tex))
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
-\pgfutil@abb=\box52
+\pgfutil@abb=\box51
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex
 (C:\Program Files\MiKTeX\tex/generic/pgf\pgf.revision.tex)
@@ -162,8 +149,8 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 (C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen164
-\Gin@req@width=\dimen165
+\Gin@req@height=\dimen155
+\Gin@req@width=\dimen156
 )
 (C:\Program Files\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty
 (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
@@ -176,26 +163,26 @@ Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 (C:\Program Files\MiKTeX\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex
 \pgfkeys@tmptoks=\toks21
 ))
-\pgf@x=\dimen166
-\pgf@y=\dimen167
-\pgf@xa=\dimen168
-\pgf@ya=\dimen169
-\pgf@xb=\dimen170
-\pgf@yb=\dimen171
-\pgf@xc=\dimen172
-\pgf@yc=\dimen173
-\pgf@xd=\dimen174
-\pgf@yd=\dimen175
+\pgf@x=\dimen157
+\pgf@y=\dimen158
+\pgf@xa=\dimen159
+\pgf@ya=\dimen160
+\pgf@xb=\dimen161
+\pgf@yb=\dimen162
+\pgf@xc=\dimen163
+\pgf@yc=\dimen164
+\pgf@xd=\dimen165
+\pgf@yd=\dimen166
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count197
-\c@pgf@countb=\count198
-\c@pgf@countc=\count199
-\c@pgf@countd=\count266
+\c@pgf@counta=\count195
+\c@pgf@countb=\count196
+\c@pgf@countc=\count197
+\c@pgf@countd=\count198
 \t@pgf@toka=\toks22
 \t@pgf@tokb=\toks23
 \t@pgf@tokc=\toks24
-\pgf@sys@id@count=\count267
+\pgf@sys@id@count=\count199
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
@@ -210,8 +197,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 )))
 (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count268
-\pgfsyssoftpath@bigbuffer@items=\count269
+\pgfsyssoftpath@smallbuffer@items=\count266
+\pgfsyssoftpath@bigbuffer@items=\count267
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -240,9 +227,9 @@ Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex)
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
-\pgfmath@dimen=\dimen176
-\pgfmath@count=\count270
-\pgfmath@box=\box53
+\pgfmath@dimen=\dimen167
+\pgfmath@count=\count268
+\pgfmath@box=\box52
 \pgfmath@toks=\toks25
 \pgfmath@stack@operand=\toks26
 \pgfmath@stack@operation=\toks27
@@ -261,55 +248,55 @@ tex)
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmeti
 cs.code.tex)))
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count271
+\c@pgfmathroundto@lastzeros=\count269
 ))
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfint.code.tex)
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen177
-\pgf@picmaxx=\dimen178
-\pgf@picminy=\dimen179
-\pgf@picmaxy=\dimen180
-\pgf@pathminx=\dimen181
-\pgf@pathmaxx=\dimen182
-\pgf@pathminy=\dimen183
-\pgf@pathmaxy=\dimen184
-\pgf@xx=\dimen185
-\pgf@xy=\dimen186
-\pgf@yx=\dimen187
-\pgf@yy=\dimen188
-\pgf@zx=\dimen189
-\pgf@zy=\dimen190
+\pgf@picminx=\dimen168
+\pgf@picmaxx=\dimen169
+\pgf@picminy=\dimen170
+\pgf@picmaxy=\dimen171
+\pgf@pathminx=\dimen172
+\pgf@pathmaxx=\dimen173
+\pgf@pathminy=\dimen174
+\pgf@pathmaxy=\dimen175
+\pgf@xx=\dimen176
+\pgf@xy=\dimen177
+\pgf@yx=\dimen178
+\pgf@yy=\dimen179
+\pgf@zx=\dimen180
+\pgf@zy=\dimen181
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.t
 ex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen191
-\pgf@path@lasty=\dimen192
+\pgf@path@lastx=\dimen182
+\pgf@path@lasty=\dimen183
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen193
-\pgf@shorten@start@additional=\dimen194
+\pgf@shorten@end@additional=\dimen184
+\pgf@shorten@start@additional=\dimen185
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfpic=\box54
-\pgf@hbox=\box55
-\pgf@layerbox@main=\box56
-\pgf@picture@serial@count=\count272
+\pgfpic=\box53
+\pgf@hbox=\box54
+\pgf@layerbox@main=\box55
+\pgf@picture@serial@count=\count270
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.te
 x
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen195
+\pgflinewidth=\dimen186
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code
 .tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen196
-\pgf@pt@y=\dimen197
-\pgf@pt@temp=\dimen198
+\pgf@pt@x=\dimen187
+\pgf@pt@y=\dimen188
+\pgf@pt@temp=\dimen189
 ) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
@@ -320,19 +307,19 @@ tex
 File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen199
+\pgfarrowsep=\dimen190
 ) (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen256
-\pgf@sys@shading@range@num=\count273
-\pgf@shadingcount=\count274
+\pgf@max=\dimen191
+\pgf@sys@shading@range@num=\count271
+\pgf@shadingcount=\count272
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfexternal@startupbox=\box57
+\pgfexternal@startupbox=\box56
 ))
 (C:\Program Files\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
@@ -347,15 +334,15 @@ File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )))
 (C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfnodeparttextbox=\box58
+\pgfnodeparttextbox=\box57
 )
 (C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 )
 (C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@nodesepstart=\dimen257
-\pgf@nodesepend=\dimen258
+\pgf@nodesepstart=\dimen192
+\pgf@nodesepend=\dimen193
 )
 (C:\Program Files\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
@@ -368,8 +355,8 @@ Package: pgfcomp-version-1-18 2021/05/15 v3.1.9a (3.1.9a)
 Package: pgffor 2021/05/15 v3.1.9a (3.1.9a)
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)
-\pgffor@iter=\dimen259
-\pgffor@skip=\dimen260
+\pgffor@iter=\dimen194
+\pgffor@skip=\dimen195
 \pgffor@stack=\toks28
 \pgffor@toks=\toks29
 ))
@@ -379,32 +366,32 @@ Package: tikz 2021/05/15 v3.1.9a (3.1.9a)
 (C:\Program Files\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.
 tex
 File: pgflibraryplothandlers.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@plot@mark@count=\count275
-\pgfplotmarksize=\dimen261
+\pgf@plot@mark@count=\count273
+\pgfplotmarksize=\dimen196
 )
-\tikz@lastx=\dimen262
-\tikz@lasty=\dimen263
-\tikz@lastxsaved=\dimen264
-\tikz@lastysaved=\dimen265
-\tikz@lastmovetox=\dimen266
-\tikz@lastmovetoy=\dimen267
-\tikzleveldistance=\dimen268
-\tikzsiblingdistance=\dimen269
-\tikz@figbox=\box59
-\tikz@figbox@bg=\box60
-\tikz@tempbox=\box61
-\tikz@tempbox@bg=\box62
-\tikztreelevel=\count276
-\tikznumberofchildren=\count277
-\tikznumberofcurrentchild=\count278
-\tikz@fig@count=\count279
+\tikz@lastx=\dimen197
+\tikz@lasty=\dimen198
+\tikz@lastxsaved=\dimen199
+\tikz@lastysaved=\dimen256
+\tikz@lastmovetox=\dimen257
+\tikz@lastmovetoy=\dimen258
+\tikzleveldistance=\dimen259
+\tikzsiblingdistance=\dimen260
+\tikz@figbox=\box58
+\tikz@figbox@bg=\box59
+\tikz@tempbox=\box60
+\tikz@tempbox@bg=\box61
+\tikztreelevel=\count274
+\tikznumberofchildren=\count275
+\tikznumberofcurrentchild=\count276
+\tikz@fig@count=\count277
  (C:\Program Files\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfmatrixcurrentrow=\count280
-\pgfmatrixcurrentcolumn=\count281
-\pgf@matrix@numberofcolumns=\count282
+\pgfmatrixcurrentrow=\count278
+\pgfmatrixcurrentcolumn=\count279
+\pgf@matrix@numberofcolumns=\count280
 )
-\tikz@expandcount=\count283
+\tikz@expandcount=\count281
 
 (C:\Program Files\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibra
 rytopaths.code.tex
@@ -416,15 +403,10 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@cmds=\toks32
 \SOUL@buffer=\toks33
 \SOUL@token=\toks34
-\SOUL@spaceskip=\skip50
-\SOUL@ttwidth=\dimen270
-\SOUL@uldp=\dimen271
-\SOUL@ulht=\dimen272
-)
-(C:\Program Files\MiKTeX\tex/latex/cite\cite.sty
-LaTeX Info: Redefining \cite on input line 302.
-LaTeX Info: Redefining \nocite on input line 332.
-Package: cite 2015/02/27  v 5.5
+\SOUL@spaceskip=\skip52
+\SOUL@ttwidth=\dimen261
+\SOUL@uldp=\dimen262
+\SOUL@ulht=\dimen263
 )
 (C:\Program Files\MiKTeX\tex/latex/doublestroke\dsfont.sty
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
@@ -452,31 +434,31 @@ LaTeX Font Info:    Overwriting symbol font `ugrf@m' in version `bold'
 )
 (C:\Program Files\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen273
-\lightrulewidth=\dimen274
-\cmidrulewidth=\dimen275
-\belowrulesep=\dimen276
-\belowbottomsep=\dimen277
-\aboverulesep=\dimen278
-\abovetopsep=\dimen279
-\cmidrulesep=\dimen280
-\cmidrulekern=\dimen281
-\defaultaddspace=\dimen282
-\@cmidla=\count284
-\@cmidlb=\count285
-\@aboverulesep=\dimen283
-\@belowrulesep=\dimen284
-\@thisruleclass=\count286
-\@lastruleclass=\count287
-\@thisrulewidth=\dimen285
+\heavyrulewidth=\dimen264
+\lightrulewidth=\dimen265
+\cmidrulewidth=\dimen266
+\belowrulesep=\dimen267
+\belowbottomsep=\dimen268
+\aboverulesep=\dimen269
+\abovetopsep=\dimen270
+\cmidrulesep=\dimen271
+\cmidrulekern=\dimen272
+\defaultaddspace=\dimen273
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen274
+\@belowrulesep=\dimen275
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen276
 )
 (C:\Program Files\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
 )
 (C:\Program Files\MiKTeX\tex/latex/mdwtools\footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
-\fn@notes=\box63
-\fn@width=\dimen286
+\fn@notes=\box62
+\fn@width=\dimen277
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\verbatim.sty
 Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
@@ -494,56 +476,57 @@ nment
 
 (C:\Program Files\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count288
+\c@float@type=\count286
 \float@exts=\toks37
-\float@box=\box64
+\float@box=\box63
 \@float@everytoks=\toks38
-\@floatcapt=\box65
+\@floatcapt=\box64
 )
 (C:\Program Files\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
 \@float@every@algorithm=\toks39
-\c@algorithm=\count289
+\c@algorithm=\count287
 )
 (C:\Program Files\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip51
-\multirow@cntb=\count290
-\multirow@dima=\skip52
-\bigstrutjot=\dimen287
+\multirow@colwidth=\skip53
+\multirow@cntb=\count288
+\multirow@dima=\skip54
+\bigstrutjot=\dimen278
 )
 (C:\Program Files\MiKTeX\tex/latex/paralist\paralist.sty
 Package: paralist 2017/01/22 v2.7 Extended list environments
-\pltopsep=\skip53
-\plpartopsep=\skip54
-\plitemsep=\skip55
-\plparsep=\skip56
+\pltopsep=\skip55
+\plpartopsep=\skip56
+\plitemsep=\skip57
+\plparsep=\skip58
 \pl@lab=\toks40
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\multicol.sty
 Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
-\c@tracingmulticols=\count291
-\mult@box=\box66
-\multicol@leftmargin=\dimen288
-\c@unbalance=\count292
-\c@collectmore=\count293
-\doublecol@number=\count294
-\multicoltolerance=\count295
-\multicolpretolerance=\count296
-\full@width=\dimen289
-\page@free=\dimen290
-\premulticols=\dimen291
-\postmulticols=\dimen292
-\multicolsep=\skip57
-\multicolbaselineskip=\skip58
-\partial@page=\box67
-\last@line=\box68
-\maxbalancingoverflow=\dimen293
-\mult@rightbox=\box69
-\mult@grightbox=\box70
-\mult@gfirstbox=\box71
-\mult@firstbox=\box72
+\c@tracingmulticols=\count289
+\mult@box=\box65
+\multicol@leftmargin=\dimen279
+\c@unbalance=\count290
+\c@collectmore=\count291
+\doublecol@number=\count292
+\multicoltolerance=\count293
+\multicolpretolerance=\count294
+\full@width=\dimen280
+\page@free=\dimen281
+\premulticols=\dimen282
+\postmulticols=\dimen283
+\multicolsep=\skip59
+\multicolbaselineskip=\skip60
+\partial@page=\box66
+\last@line=\box67
+\maxbalancingoverflow=\dimen284
+\mult@rightbox=\box68
+\mult@grightbox=\box69
+\mult@gfirstbox=\box70
+\mult@firstbox=\box71
+\@tempa=\box72
 \@tempa=\box73
 \@tempa=\box74
 \@tempa=\box75
@@ -580,31 +563,30 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \@tempa=\box106
 \@tempa=\box107
 \@tempa=\box108
-\@tempa=\box109
-\c@minrows=\count297
-\c@columnbadness=\count298
-\c@finalcolumnbadness=\count299
-\last@try=\dimen294
-\multicolovershoot=\dimen295
-\multicolundershoot=\dimen296
-\mult@nat@firstbox=\box110
-\colbreak@box=\box111
-\mc@col@check@num=\count300
+\c@minrows=\count295
+\c@columnbadness=\count296
+\c@finalcolumnbadness=\count297
+\last@try=\dimen285
+\multicolovershoot=\dimen286
+\multicolundershoot=\dimen287
+\mult@nat@firstbox=\box109
+\colbreak@box=\box110
+\mc@col@check@num=\count298
 )
 (C:\Program Files\MiKTeX\tex/latex/algorithmicx\algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count301
-\c@ALG@rem=\count302
-\c@ALG@nested=\count303
-\ALG@tlm=\skip59
-\ALG@thistlm=\skip60
-\c@ALG@Lnr=\count304
-\c@ALG@blocknr=\count305
-\c@ALG@storecount=\count306
-\c@ALG@tmpcounter=\count307
-\ALG@tmplength=\skip61
+\c@ALG@line=\count299
+\c@ALG@rem=\count300
+\c@ALG@nested=\count301
+\ALG@tlm=\skip61
+\ALG@thistlm=\skip62
+\c@ALG@Lnr=\count302
+\c@ALG@blocknr=\count303
+\c@ALG@storecount=\count304
+\c@ALG@tmpcounter=\count305
+\ALG@tmplength=\skip63
 ) (C:\Program Files\MiKTeX\tex/latex/cancel\cancel.sty
 Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
@@ -621,29 +603,29 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
 (C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count308
+\etb@tempcnta=\count306
 )
-\tcb@titlebox=\box112
-\tcb@upperbox=\box113
-\tcb@lowerbox=\box114
-\tcb@phantombox=\box115
-\c@tcbbreakpart=\count309
-\c@tcblayer=\count310
-\c@tcolorbox@number=\count311
+\tcb@titlebox=\box111
+\tcb@upperbox=\box112
+\tcb@lowerbox=\box113
+\tcb@phantombox=\box114
+\c@tcbbreakpart=\count307
+\c@tcblayer=\count308
+\c@tcolorbox@number=\count309
+\tcb@temp=\box115
 \tcb@temp=\box116
 \tcb@temp=\box117
 \tcb@temp=\box118
-\tcb@temp=\box119
 
 (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbraster.code.tex
 Library (tcolorbox): 'tcbraster.code.tex' version '4.50'
-\c@tcbrastercolumn=\count312
-\c@tcbrasterrow=\count313
-\c@tcbrasternum=\count314
-\c@tcbraster=\count315
+\c@tcbrastercolumn=\count310
+\c@tcbrasterrow=\count311
+\c@tcbrasternum=\count312
+\c@tcbraster=\count313
 ) (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbskins.code.tex
 Library (tcolorbox): 'tcbskins.code.tex' version '4.50'
-\tcb@waterbox=\box120
+\tcb@waterbox=\box119
 (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbskinsjigsaw.code.tex
 Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '4.50'
 )) (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbbreakable.code.tex
@@ -661,9 +643,9 @@ Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 Package: iftex 2020/03/06 v1.0d TeX engine tests
 ))
 Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
-\tcb@testbox=\box121
-\tcb@totalupperbox=\box122
-\tcb@totallowerbox=\box123
+\tcb@testbox=\box120
+\tcb@totalupperbox=\box121
+\tcb@totallowerbox=\box122
 )
 (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbhooks.code.tex
 Library (tcolorbox): 'tcbhooks.code.tex' version '4.50'
@@ -671,7 +653,7 @@ Library (tcolorbox): 'tcbhooks.code.tex' version '4.50'
 Library (tcolorbox): 'tcbtheorems.code.tex' version '4.50'
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2021/04/20 v2.17j AMS math features
-\@mathmargin=\skip62
+\@mathmargin=\skip64
 
 For additional information on amsmath, use the `?' option.
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
@@ -680,60 +662,60 @@ Package: amstext 2000/06/29 v2.01 AMS text
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks42
-\ex@=\dimen297
+\ex@=\dimen288
 ))
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 LaTeX Info: Redefining \boldsymbol on input line 28.
-\pmbraise@=\dimen298
+\pmbraise@=\dimen289
 )
 (C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count316
+\inf@bad=\count314
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count317
-\leftroot@=\count318
+\uproot@=\count315
+\leftroot@=\count316
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count319
-\DOTSCASE@=\count320
+\classnum@=\count317
+\DOTSCASE@=\count318
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box124
-\strutbox@=\box125
-\big@size=\dimen299
+\Mathstrutbox@=\box123
+\strutbox@=\box124
+\big@size=\dimen290
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count321
-\c@MaxMatrixCols=\count322
+\macc@depth=\count319
+\c@MaxMatrixCols=\count320
 \dotsspace@=\muskip17
-\c@parentequation=\count323
-\dspbrk@lvl=\count324
+\c@parentequation=\count321
+\dspbrk@lvl=\count322
 \tag@help=\toks43
-\row@=\count325
-\column@=\count326
-\maxfields@=\count327
+\row@=\count323
+\column@=\count324
+\maxfields@=\count325
 \andhelp@=\toks44
-\eqnshift@=\dimen300
-\alignsep@=\dimen301
-\tagshift@=\dimen302
-\tagwidth@=\dimen303
-\totwidth@=\dimen304
-\lineht@=\dimen305
+\eqnshift@=\dimen291
+\alignsep@=\dimen292
+\tagshift@=\dimen293
+\tagwidth@=\dimen294
+\totwidth@=\dimen295
+\lineht@=\dimen296
 \@envbody=\toks45
-\multlinegap=\skip63
-\multlinetaggap=\skip64
+\multlinegap=\skip65
+\multlinetaggap=\skip66
 \mathdisplay@stack=\toks46
 LaTeX Info: Redefining \[ on input line 2923.
 LaTeX Info: Redefining \] on input line 2924.
 ))
 (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbfitting.code.tex
 Library (tcolorbox): 'tcbfitting.code.tex' version '4.50'
-\tcbfitdim=\dimen306
-\tcb@lowerfitdim=\dimen307
-\tcb@upperfitdim=\dimen308
-\tcb@cur@hbadness=\count328
+\tcbfitdim=\dimen297
+\tcb@lowerfitdim=\dimen298
+\tcb@upperfitdim=\dimen299
+\tcb@cur@hbadness=\count326
 ) (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcbxparse.code.tex
 Library (tcolorbox): 'tcbxparse.code.tex' version '4.50'
 (C:\Program Files\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
@@ -742,8 +724,8 @@ Package: expl3 2021-06-01 L3 programming layer (loader)
 
 (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count329
-\l__pdf_internal_box=\box126
+\l__color_backend_stack_int=\count327
+\l__pdf_internal_box=\box125
 ))
 Package: xparse 2021-06-01 L3 Experimental document command parser
 ))
@@ -752,24 +734,24 @@ Library (tcolorbox): 'tcblistingsutf8.code.tex' version '4.50'
 (C:\Program Files\MiKTeX\tex/latex/tcolorbox\tcblistings.code.tex
 Library (tcolorbox): 'tcblistings.code.tex' version '4.50'
 (C:\Program Files\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count330
-\lst@gtempboxa=\box127
+\lst@mode=\count328
+\lst@gtempboxa=\box126
 \lst@token=\toks47
-\lst@length=\count331
-\lst@currlwidth=\dimen309
-\lst@column=\count332
-\lst@pos=\count333
-\lst@lostspace=\dimen310
-\lst@width=\dimen311
-\lst@newlines=\count334
-\lst@lineno=\count335
-\lst@maxwidth=\dimen312
+\lst@length=\count329
+\lst@currlwidth=\dimen300
+\lst@column=\count330
+\lst@pos=\count331
+\lst@lostspace=\dimen301
+\lst@width=\dimen302
+\lst@newlines=\count332
+\lst@lineno=\count333
+\lst@maxwidth=\dimen303
 
 (C:\Program Files\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count336
-\lst@skipnumbers=\count337
-\lst@framebox=\box128
+\c@lstnumber=\count334
+\lst@skipnumbers=\count335
+\lst@framebox=\box127
 )
 (C:\Program Files\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
@@ -791,7 +773,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 77.
 ))
-\c@tcblisting=\count338
+\c@tcblisting=\count336
 ))
 (C:\Program Files\MiKTeX\tex/latex/listingsutf8\listingsutf8.sty
 Package: listingsutf8 2019-12-10 v1.5 Allow UTF-8 in listings input (HO)
@@ -830,39 +812,37 @@ Package: caption 2020/10/26 v3.5g Customizing captions (AR)
 
 (C:\Program Files\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
-\captionmargin=\dimen313
-\captionmargin@=\dimen314
-\captionwidth=\dimen315
-\caption@tempdima=\dimen316
-\caption@indent=\dimen317
-\caption@parindent=\dimen318
-\caption@hangindent=\dimen319
+\captionmargin=\dimen304
+\captionmargin@=\dimen305
+\captionwidth=\dimen306
+\caption@tempdima=\dimen307
+\caption@indent=\dimen308
+\caption@parindent=\dimen309
+\caption@hangindent=\dimen310
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
 Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEta
-blestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\norma
-lfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace
- {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptio
-nsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspac
-e \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\nor
-malfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\n
-ormalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONcon
-ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
-\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi 
-\fi  on input line 1139.
+blestring \footnotesize \begin {center}{\normalfont \footnotesize #1}\\{\normal
+font \footnotesize \scshape #2}\end {center}\@IEEEtablecaptionsepspace \else \@
+IEEEfigurecaptionsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {
+#1.}~~ #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\normalfont \
+footnotesize {#1.}~~ }\parbox [t]{\hsize }{\normalfont \footnotesize \noindent 
+\unhbox \@tempboxa #2}\else \ifCLASSOPTIONconference \hbox to\hsize {\normalfon
+t \footnotesize \hfil \box \@tempboxa \hfil }\else \hbox to\hsize {\normalfont 
+\footnotesize \box \@tempboxa \hfil }\fi \fi \fi  on input line 1139.
 )
 
 Package caption Warning: Unknown document class (or package),
 (caption)                standard defaults will be used.
 See the caption package documentation for explanation.
 
-\c@caption@flags=\count339
-\c@continuedfloat=\count340
+\c@caption@flags=\count337
+\c@continuedfloat=\count338
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 )
-\c@subfigure=\count341
-\c@subtable=\count342
+\c@subfigure=\count339
+\c@subtable=\count340
 ) (C:\Program Files\MiKTeX\tex/latex/adjustbox\adjustbox.sty
 Package: adjustbox 2020/08/19 v1.3 Adjusting TeX boxes (trim, clip, ...)
 
@@ -874,7 +854,7 @@ Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
 \XKV@toks=\toks48
 \XKV@tempa@toks=\toks49
 )
-\XKV@depth=\count343
+\XKV@depth=\count341
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (C:\Program Files\MiKTeX\tex/latex/adjustbox\adjcalc.sty
@@ -886,36 +866,36 @@ Package: trimclip 2020/08/19 v1.2 Trim and clip general TeX material
 
 (C:\Program Files\MiKTeX\tex/latex/collectbox\collectbox.sty
 Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
-\collectedbox=\box129
+\collectedbox=\box128
 )
-\tc@llx=\dimen320
-\tc@lly=\dimen321
-\tc@urx=\dimen322
-\tc@ury=\dimen323
+\tc@llx=\dimen311
+\tc@lly=\dimen312
+\tc@urx=\dimen313
+\tc@ury=\dimen314
 Package trimclip Info: Using driver 'tc-pdftex.def'.
 
 (C:\Program Files\MiKTeX\tex/latex/adjustbox\tc-pdftex.def
 File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 ))
-\adjbox@Width=\dimen324
-\adjbox@Height=\dimen325
-\adjbox@Depth=\dimen326
-\adjbox@Totalheight=\dimen327
-\adjbox@pwidth=\dimen328
-\adjbox@pheight=\dimen329
-\adjbox@pdepth=\dimen330
-\adjbox@ptotalheight=\dimen331
+\adjbox@Width=\dimen315
+\adjbox@Height=\dimen316
+\adjbox@Depth=\dimen317
+\adjbox@Totalheight=\dimen318
+\adjbox@pwidth=\dimen319
+\adjbox@pheight=\dimen320
+\adjbox@pdepth=\dimen321
+\adjbox@ptotalheight=\dimen322
 
 (C:\Program Files\MiKTeX\tex/latex/ifoddpage\ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count344
+\c@checkoddpage=\count342
 )
 (C:\Program Files\MiKTeX\tex/latex/varwidth\varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box130
-\sift@deathcycles=\count345
-\@vwid@loff=\dimen332
-\@vwid@roff=\dimen333
+\@vwid@box=\box129
+\sift@deathcycles=\count343
+\@vwid@loff=\dimen323
+\@vwid@roff=\dimen324
 ))
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -928,9 +908,6 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(C:\Program Files\MiKTeX\tex/latex/psnfss\times.sty
-Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
 (C:\Program Files\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks50
@@ -938,9 +915,9 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headfont=\toks52
 \thm@notefont=\toks53
 \thm@headpunct=\toks54
-\thm@preskip=\skip65
-\thm@postskip=\skip66
-\thm@headsep=\skip67
+\thm@preskip=\skip67
+\thm@postskip=\skip68
+\thm@headsep=\skip69
 \dth@everypar=\toks55
 )
 (C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
@@ -964,9 +941,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 (C:\Program Files\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen334
-\Hy@linkcounter=\count346
-\Hy@pagecounter=\count347
+\@linkdim=\dimen325
+\Hy@linkcounter=\count344
+\Hy@pagecounter=\count345
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2021-06-05 v7.00l Hyperref: PDFDocEncoding definition (HO)
@@ -983,7 +960,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 (C:\Program Files\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count348
+\Hy@SavedSpaceFactor=\count346
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2021-06-05 v7.00l Hyperref: PDF Unicode definition (HO)
@@ -1022,16 +999,16 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 86.
 ))
-\c@Hy@tempcnt=\count349
+\c@Hy@tempcnt=\count347
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen335
+\XeTeXLinkMargin=\dimen326
 
 (C:\Program Files\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
-\Fld@menulength=\count350
-\Field@Width=\dimen336
-\Fld@charsize=\dimen337
+\Fld@menulength=\count348
+\Field@Width=\dimen327
+\Fld@charsize=\dimen328
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -1046,58 +1023,57 @@ LaTeX Info: Redefining \pageref on input line 6150.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count351
-\c@Item=\count352
-\c@Hfootnote=\count353
+\Hy@abspage=\count349
+\c@Item=\count350
+\c@Hfootnote=\count351
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2021-06-05 v7.00l Hyperref driver for pdfTeX
-\Fld@listcount=\count354
-\c@bookmark@seq@number=\count355
-\Hy@SectionHShift=\skip68
+\Fld@listcount=\count352
+\c@bookmark@seq@number=\count353
+\Hy@SectionHShift=\skip70
 )
-\c@lemma=\count356
-\c@theorem=\count357
-\c@definition=\count358
-\c@remark=\count359
-\c@corollary=\count360
- (pgdreach.aux)
-\openout1 = `pgdreach.aux'.
+\c@lemma=\count354
+\c@theorem=\count355
+\c@definition=\count356
+\c@remark=\count357
+\c@corollary=\count358
+ (RSS22.aux)
+\openout1 = `RSS22.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 80.
-LaTeX Font Info:    ... okay on input line 80.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
 
--- Lines per column: 58 (exact).
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count361
-\scratchdimen=\dimen338
-\scratchbox=\box131
-\nofMPsegments=\count362
-\nofMParguments=\count363
+\scratchcounter=\count359
+\scratchdimen=\dimen329
+\scratchbox=\box130
+\nofMPsegments=\count360
+\nofMParguments=\count361
 \everyMPshowfont=\toks56
-\MPscratchCnt=\count364
-\MPscratchDim=\dimen339
-\MPnumerator=\count365
-\makeMPintoPDFobject=\count366
+\MPscratchCnt=\count362
+\MPscratchDim=\dimen330
+\MPnumerator=\count363
+\makeMPintoPDFobject=\count364
 \everyMPtoPDFconversion=\toks57
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1107,7 +1083,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count367
+\c@lstlisting=\count365
 
 (C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
@@ -1117,7 +1093,7 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 80.
+Package hyperref Info: Link coloring ON on input line 67.
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -1128,304 +1104,159 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (C:\Program Files\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count368
+\c@section@level=\count366
 )
-LaTeX Info: Redefining \ref on input line 80.
-LaTeX Info: Redefining \pageref on input line 80.
-LaTeX Info: Redefining \nameref on input line 80.
+LaTeX Info: Redefining \ref on input line 67.
+LaTeX Info: Redefining \pageref on input line 67.
+LaTeX Info: Redefining \nameref on input line 67.
 
-(pgdreach.out) (pgdreach.out)
+(RSS22.out) (RSS22.out)
 \@outlinefile=\write4
-\openout4 = `pgdreach.out'.
+\openout4 = `RSS22.out'.
 
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 96.
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 96
+Package backref Info: ** backref set up for natbib ** on input line 67.
+ (sections/def.tex
+\c@mnote=\count367
+) (sections/related.tex
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 17
 .
 
 (C:\Program Files\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 17.
 
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 17.
 
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 9
-6.
-
-(C:\Program Files\MiKTeX\tex/latex/psnfss\ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Underfull \hbox (badness 1924) in paragraph at lines 96--96
-[][][]$[]$ \OT1/ptm/m/n/8 Mi-crosoft Re-search, 300 Lafayette Street, New York,
- NY10012,
- []
+) [1{C:/Users/lekanmolu/AppData/Local/MiKTeX/pdftex/config/pdftex.map}
 
 
-Underfull \hbox (badness 3601) in paragraph at lines 96--96
-\OT1/ptm/m/n/8 USA. $[]$Department of Me-chan-i-cal and Aerospace En-gi-neer-in
-g, Yale
- []
+]) (sections/back.tex [2])
+(sections/methods.tex
+Underfull \vbox (badness 2922) has occurred while \output is active []
 
 
-Underfull \hbox (badness 4765) in paragraph at lines 96--96
-\OT1/ptm/m/n/8 and Aerospace En-gi-neer-ing, UC San Diego, La Jolla, CA, USA.
- []
+
+LaTeX Warning: Reference `eq:lower_visc' on page 3 undefined on input line 25.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--96
-\OT1/pcr/m/n/9 lekanmolu@microsoft.com, ian.abraham@yale.edu,
- []
-
-(sections/def.tex
-\c@mnote=\count369
-) (sections/abstract.tex) (sections/intro.tex
-Underfull \hbox (badness 10000) in paragraph at lines 7--8
-[]\OT1/ptm/m/n/10 With es-sen-tially non-oscillating (ENO) [[][][]1[][]] Lax-
- []
+LaTeX Warning: Reference `eq:lower_visc_boundary' on page 3 undefined on input 
+line 38.
 
 
-Underfull \hbox (badness 4156) in paragraph at lines 7--8
-\OT1/ptm/m/n/10 Friedrichs [[][][]2[][]] schemes ap-plied to nu-mer-i-cally re-
-solve
- []
+LaTeX Warning: Reference `eq:lower_visc_boundary' on page 3 undefined on input 
+line 38.
 
 
-Underfull \hbox (badness 1939) in paragraph at lines 7--8
-\OT1/ptm/m/n/10 so-lu-tions to HJ-type equa-tions with high ac-cu-racy and
- []
-
-
-Underfull \hbox (badness 2229) in paragraph at lines 7--8
-\OT1/ptm/m/n/10 equa-tions, these meth-ods scale ex-po-nen-tially with state
- []
-
-
-Underfull \hbox (badness 2261) in paragraph at lines 7--8
-\OT1/ptm/m/n/10 highest-ordered terms in the se-ries trun-ca-tion dom-i-nate
- []
-
-
-Underfull \vbox (badness 1122) has occurred while \output is active []
-
- [1{C:/Users/lekanmolu/AppData/Local/MiKTeX/pdftex/config/pdftex.map}
-
-
-])
-(sections/notations.tex
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 4
-.
-
-(C:\Program Files\MiKTeX\tex/latex/doublestroke\udsrom.fd
-File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
-)
-Underfull \hbox (badness 3439) in paragraph at lines 121--125
-\OT1/cmr/bx/n/10 U \OMS/cmsy/m/n/10 
-[] \OT1/cmr/bx/n/10 V \OT1/cmr/m/n/10 = \U/dsrom/m/n/10 T \OMS/cmsy/m/n/10 
-[] \OT1/cmr/bx/n/10 V  \OMS/cmsy/m/n/10 
-[]  \OT1/cmr/bx/n/10 U$\OT1/ptm/m/n/10 . The \OT1/ptm/m/it/10 mul-ti-lin-ear or
--
- []
-
-
-Underfull \hbox (badness 3612) in paragraph at lines 121--125
-\OT1/ptm/m/it/10 thog-o-nal pro-jec-tion \OT1/ptm/m/n/10 from a ten-sor space w
-ith di-men-
- []
-
-[2]
-Overfull \hbox (23.63083pt too wide) in paragraph at lines 144--170
-[][] 
- []
-
-
-Overfull \hbox (7.78844pt too wide) in paragraph at lines 171--207
-[][]
- []
-
-) (sections/background.tex [3] [4] [5]) (sections/methods.tex
-Overfull \hbox (8.76697pt too wide) detected at line 42
+Overfull \hbox (3.76697pt too wide) detected at line 38
 []
  []
 
-[6]
-Underfull \hbox (badness 2334) in paragraph at lines 124--126
+[3]
+** ATTENTION: \proof is deprecated (line 81). Use \IEEEproof instead.
+LaTeX Font Info:    Trying to load font information for U+dsrom on input line 8
+8.
+(C:\Program Files\MiKTeX\tex/latex/doublestroke\udsrom.fd
+File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
+)
+Underfull \hbox (badness 2334) in paragraph at lines 120--122
 []$\OML/cmm/b/it/10 V[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 x[]\OML/cmm/m/it/10 ; 
 t\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 al-ready con-tains the dom-i-nant modes of
  []
 
-[7] [8]
-Underfull \hbox (badness 2368) in paragraph at lines 471--476
-[] \OT1/ptm/m/n/10 where-upon $\U/dsrom/m/n/10 V\OT1/cmr/m/n/10 (\OML/cmm/b/it/
-10 x\OML/cmm/m/it/10 ; T\OT1/cmr/m/n/10 ; \OML/cmm/b/it/10  \OT1/cmr/m/n/10 )$ 
-\OT1/ptm/m/n/10 is con-tained in $\OML/cmm/m/it/10 L[]\OT1/cmr/m/n/10 (\OMS/cms
-y/m/n/10 S\OT1/cmr/m/n/10 ; \OMS/cmsy/m/n/10 F\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/1
-0 and
- []
+[4]
 
-[9]
+LaTeX Warning: Reference `eq:payoff' on page 5 undefined on input line 285.
 
-LaTeX Warning: Reference `eq:saddle_points' on page 10 undefined on input line 
-652.
-
-[10]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 656.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 656.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 656.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\infty' on input line 656.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 656.
-
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 722.
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 747.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 747.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 749.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 749.
-
-[11]
-
-LaTeX Warning: Reference `eq:bilinear_transform' on page 12 undefined on input 
-line 801.
-
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 8
-02.
-(C:\Program Files\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Overfull \hbox (3.1534pt too wide) detected at line 845
-[]
- []
-
-<figures/proj_error.jpg, id=728, 1148.29pt x 642.4pt>
-File: figures/proj_error.jpg Graphic file (type jpg)
-<use figures/proj_error.jpg>
-Package pdftex.def Info: figures/proj_error.jpg  used on input line 943.
-(pdftex.def)             Requested size: 252.0pt x 140.97556pt.
-) (sections/results.tex [12]
-<figures/doub_int_trajos.jpg, id=745, 1017.8025pt x 600.2425pt>
+[5]) (sections/results.tex
+<figures/doub_int_trajos.jpg, id=345, 1017.8025pt x 600.2425pt>
 File: figures/doub_int_trajos.jpg Graphic file (type jpg)
 <use figures/doub_int_trajos.jpg>
 Package pdftex.def Info: figures/doub_int_trajos.jpg  used on input line 34.
 (pdftex.def)             Requested size: 252.0pt x 148.61313pt.
-<figures/switching_curve.jpg, id=749, 1003.75pt x 931.48pt>
+<figures/switching_curve.jpg, id=349, 1003.75pt x 931.48pt>
 File: figures/switching_curve.jpg Graphic file (type jpg)
 <use figures/switching_curve.jpg>
 Package pdftex.def Info: figures/switching_curve.jpg  used on input line 62.
 (pdftex.def)             Requested size: 123.82964pt x 123.8398pt.
-<figures/attr.jpg, id=750, 942.52126pt x 628.3475pt>
+<figures/attr.jpg, id=350, 942.52126pt x 628.3475pt>
 File: figures/attr.jpg Graphic file (type jpg)
 <use figures/attr.jpg>
 Package pdftex.def Info: figures/attr.jpg  used on input line 66.
 (pdftex.def)             Requested size: 123.84079pt x 123.836pt.
- [13 <./figures/proj_error.jpg> <./figures/doub_int_trajos.jpg> <./figures/swit
-ching_curve.jpg> <./figures/attr.jpg>])
-(sections/conclude.tex) (appendices/app_proj_error.tex
-Overfull \hbox (6.53378pt too wide) detected at line 22
-[]
- []
-
-) (pgdreach.bbl (pgdreach.brf)
+) (sections/conclude.tex [6 <./figures/doub_int_trajos.jpg> <./figures/switchin
+g_curve.jpg> <./figures/attr.jpg>]) (RSS22.bbl
+(RSS22.brf)
 \tf@brf=\write5
-\openout5 = `pgdreach.brf'.
+\openout5 = `RSS22.brf'.
 
 
-Underfull \hbox (badness 1383) in paragraph at lines 25--25
-[]\OT1/ptm/m/n/8 S. Os-her and C.-W. Shu, ``High-Order Es-sen-tially Nonoscil-l
-a-tory
+Underfull \hbox (badness 1584) in paragraph at lines 93--93
+[]\OT1/ptm/m/n/10 Jaime F. Fisac, Anayo K. Akamet-alu, Melanie N.
  []
 
-[14pdfTeX warning (ext4): destination with the same identifier (name{appendix.A
-ppendix.A}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.184 
-      ]
-Underfull \hbox (badness 3118) in paragraph at lines 241--241
-[]\OT1/ptm/m/n/8 W. Hack-busch, \OT1/ptm/m/it/8 Ten-sor Spaces and Nu-mer-i-cal
- Ten-sor Cal-cu-lus\OT1/ptm/m/n/8 .
- []
+[7])
 
-) [15
+** Conference Paper **
+Before submitting the final camera ready copy, remember to:
 
-] (pgdreach.aux)
+ 1. Manually equalize the lengths of two columns on the last page
+ of your paper;
+
+ 2. Ensure that any PostScript and/or PDF output post-processing
+ uses only Type 1 fonts and that every step in the generation
+ process uses the appropriate paper size.
+
+[8
+
+] (RSS22.aux)
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `pgdreach.out' has not changed.
-(rerunfilecheck)             Checksum: 7A4675B16F1E6C191BE80FCF1E670D7D;7315.
-Package rerunfilecheck Info: File `pgdreach.brf' has not changed.
-(rerunfilecheck)             Checksum: 584D3881EE2ED20D94E878CC5ABD23C4;4930.
+Package rerunfilecheck Info: File `RSS22.out' has not changed.
+(rerunfilecheck)             Checksum: 562CB2F9F71262E6912F6370F9C9C6FA;2407.
+Package rerunfilecheck Info: File `RSS22.brf' has not changed.
+(rerunfilecheck)             Checksum: 098930508EEA9E80EEA0DABEA443FA66;2841.
  ) 
 Here is how much of TeX's memory you used:
- 31878 strings out of 478864
- 609011 string characters out of 2858506
- 970347 words of memory out of 3000000
- 48863 multiletter control sequences out of 15000+600000
- 459682 words of font info for 161 fonts, out of 8000000 for 9000
+ 31551 strings out of 478864
+ 602309 string characters out of 2858506
+ 965432 words of memory out of 3000000
+ 48696 multiletter control sequences out of 15000+600000
+ 450528 words of font info for 135 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 102i,18n,108p,1650b,507s stack positions out of 5000i,500n,10000p,200000b,80000s
- <C:\Users\lekanmolu\AppData\Local\MiKTeX\fonts/pk/ljfour/public/doublestroke
-/dpi525\dsrom8.pk> <C:\Users\lekanmolu\AppData\Local\MiKTeX\fonts/pk/ljfour/pub
-lic/doublestroke/dpi600\dsrom8.pk> <C:\Users\lekanmolu\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/public/doublestroke/dpi600\dsrom10.pk>{C:/Program Files/MiKTeX/fon
-ts/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb>
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program F
-iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.p
-fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Progra
-m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiK
-TeX/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb><C:/Program Files/MiKTeX/fon
-ts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Program Files/MiKTeX/fonts/type
-1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmr5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/
-Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmsy5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/c
-msy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/
-Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files
-/MiKTeX/fonts/type1/public/amsfonts/euler/eurb10.pfb><C:/Program Files/MiKTeX/f
-onts/type1/public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw
-/courier/ucrr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><
-C:/Program Files/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiK
-TeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/t
-imes/utmri8a.pfb>
-Output written on pgdreach.pdf (15 pages, 1021347 bytes).
+ 102i,18n,108p,1379b,475s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc} <C:\Users\lekanmolu\App
+Data\Local\MiKTeX\fonts/pk/ljfour/public/doublestroke/dpi600\dsrom10.pk><C:/Pro
+gram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><
+C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Prog
+ram Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Fil
+es/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
+/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program File
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/font
+s/type1/public/amsfonts/euler/eurb10.pfb><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/a
+msfonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8
+a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Fi
+les/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on RSS22.pdf (8 pages, 664430 bytes).
 PDF statistics:
- 1081 PDF objects out of 1200 (max. 8388607)
- 282 named destinations out of 1000 (max. 500000)
- 425 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 548 PDF objects out of 1000 (max. 8388607)
+ 144 named destinations out of 1000 (max. 500000)
+ 244 words of extra memory for PDF output out of 10000 (max. 10000000)
 
