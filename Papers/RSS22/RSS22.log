@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  15 DEC 2021 11:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  15 DEC 2021 13:01
 entering extended mode
 **./RSS22.tex
 (RSS22.tex
@@ -1143,236 +1143,97 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Underfull \vbox (badness 2922) has occurred while \output is active []
 
 
-Overfull \hbox (12.20773pt too wide) detected at line 8
-\OML/cmm/b/it/10 V\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T\OT1/cmr/m/n/10 ; \OML/cmm
-/b/it/10 x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 
-; \OML/cmm/b/it/10 u[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 v\OT1/cmr/m/n/10 ) \O
-MS/cmsy/m/n/10  \OML/cmm/b/it/10 V\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T\OT1/cmr/
-m/n/10 ; \OML/cmm/b/it/10 x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T\OT1/cmr/m/n/10 )
-\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 u[]\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 v[]\
-OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10  \OML/cmm/b/it/10 V\OT1/cmr/m/n/10 (\OML/cmm
-/m/it/10 T\OT1/cmr/m/n/10 ; \OML/cmm/b/it/10 x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
- T\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; \OML/cmm/b/it/10 u\OML/cmm/m/it/10 ; \OML
-/cmm/b/it/10 v[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ;
- []
-
-
-Underfull \hbox (badness 2189) in paragraph at lines 15--17
-\OT1/ptm/m/n/10 start-ing with the pur-suer's lo-cal con-trols sched-ule,
- []
-
-! Undefined control sequence.
-<recently read> \dist 
-                      
-l.17 ...s with $\{\bar{\control}\}, \{\bar {\dist}
-                                                   \}$ to generate  a nomina...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> \dist 
-                 
-l.17 ...s with $\{\bar{\control}\}, \{\bar {\dist}
-                                                   \}$ to generate  a nomina...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.19 ... choose a small neighborhood, $\{\delstate
-                                                  _t\}$ of $\{\state_t\}$, w...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.23 	\delta \distbo
-                    _\tidx = \distbo_\tidx - \bar \distbo_\tidx$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.23 	\delta \distbo_\tidx = \distbo
-                                    _\tidx - \bar \distbo_\tidx$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<recently read> \distbo 
-                        
-l.23 ...istbo_\tidx = \distbo_\tidx - \bar \distbo
-                                                  _\tidx$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> \distbo 
-                   
-l.23 ...istbo_\tidx = \distbo_\tidx - \bar \distbo
-                                                  _\tidx$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.27 Setting $V(\state, T) = \augreward
-                                       _{T}(\state_{T})$, the min-max over t...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...ol _\tidx \sim \pi } \max _{\distbo 
-                                                  _\tidx \sim \psi } [\augre...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...stbo _\tidx \sim \psi } [\augreward 
-                                                  (\state _\tidx , \control ...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ... _\tidx , \control _\tidx , \distbo 
-                                                  _\tidx ) + V(f(\state _{\t...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ... +1}, \control _{\tidx +1}, \distbo 
-                                                  _{\tidx +1}))]. \nonumber 
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...ol _\tidx \sim \pi } \max _{\distbo 
-                                                  _\tidx \sim \psi } [\augre...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...stbo _\tidx \sim \psi } [\augreward 
-                                                  (\state _\tidx , \control ...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ... _\tidx , \control _\tidx , \distbo 
-                                                  _\tidx ) + V(f(\state _{\t...
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ... +1}, \control _{\tidx +1}, \distbo 
-                                                  _{\tidx +1}))]. \nonumber 
-l.30 \end{align}
-                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: Reference `eq:lower_visc' on page 3 undefined on input line 53.
-
-
-LaTeX Warning: Reference `eq:lower_visc_boundary' on page 3 undefined on input 
-line 66.
-
-
-LaTeX Warning: Reference `eq:lower_visc_boundary' on page 3 undefined on input 
-line 66.
-
-
-Overfull \hbox (3.76697pt too wide) detected at line 66
+Overfull \hbox (43.35254pt too wide) detected at line 12
 []
  []
 
+
+Underfull \hbox (badness 3229) in paragraph at lines 19--21
+[]\OT1/ptm/m/n/10 we then run the sys-tem's pas-sive dy-nam-ics with
+ []
+
+Runaway argument?
+ V(\state _\tidx ) = \max _{\control (t) \sim \mc {U}} \min _{\disturb \ETC.
+! Paragraph ended before \align was complete.
+<to be read again> 
+                   \par 
+l.33 
+     
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.33 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.33 
+     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.33 
+     
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
 [3]
-** ATTENTION: \proof is deprecated (line 109). Use \IEEEproof instead.
+
+LaTeX Warning: Reference `eq:lower_visc' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Reference `eq:lower_visc_boundary' on page 4 undefined on input 
+line 68.
+
+
+LaTeX Warning: Reference `eq:lower_visc_boundary' on page 4 undefined on input 
+line 68.
+
+
+Overfull \hbox (3.76697pt too wide) detected at line 68
+[]
+ []
+
+** ATTENTION: \proof is deprecated (line 111). Use \IEEEproof instead.
 LaTeX Font Info:    Trying to load font information for U+dsrom on input line 1
-16.
+18.
 (C:\Program Files\MiKTeX\tex/latex/doublestroke\udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-Underfull \hbox (badness 2334) in paragraph at lines 148--150
+Underfull \hbox (badness 2334) in paragraph at lines 150--152
 []$\OML/cmm/b/it/10 V[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 x[]\OML/cmm/m/it/10 ; 
 t\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 al-ready con-tains the dom-i-nant modes of
  []
 
 [4]
 
-LaTeX Warning: Reference `eq:payoff' on page 5 undefined on input line 313.
+LaTeX Warning: Reference `eq:payoff' on page 5 undefined on input line 315.
 
 [5]) (sections/results.tex
-<figures/doub_int_trajos.jpg, id=336, 1017.8025pt x 600.2425pt>
+<figures/doub_int_trajos.jpg, id=339, 1017.8025pt x 600.2425pt>
 File: figures/doub_int_trajos.jpg Graphic file (type jpg)
 <use figures/doub_int_trajos.jpg>
 Package pdftex.def Info: figures/doub_int_trajos.jpg  used on input line 34.
 (pdftex.def)             Requested size: 252.0pt x 148.61313pt.
-<figures/switching_curve.jpg, id=340, 1003.75pt x 931.48pt>
+<figures/switching_curve.jpg, id=343, 1003.75pt x 931.48pt>
 File: figures/switching_curve.jpg Graphic file (type jpg)
 <use figures/switching_curve.jpg>
 Package pdftex.def Info: figures/switching_curve.jpg  used on input line 62.
 (pdftex.def)             Requested size: 123.82964pt x 123.8398pt.
-<figures/attr.jpg, id=341, 942.52126pt x 628.3475pt>
+<figures/attr.jpg, id=344, 942.52126pt x 628.3475pt>
 File: figures/attr.jpg Graphic file (type jpg)
 <use figures/attr.jpg>
 Package pdftex.def Info: figures/attr.jpg  used on input line 66.
@@ -1401,62 +1262,79 @@ Before submitting the final camera ready copy, remember to:
 
 [8
 
-] (RSS22.aux)
+]
+
+! LaTeX Error: \begin{align} on input line 30 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.135 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+(RSS22.aux)
 
 LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-
-Package rerunfilecheck Warning: File `RSS22.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `RSS22.out':
-(rerunfilecheck)             Before: 562CB2F9F71262E6912F6370F9C9C6FA;2407
-(rerunfilecheck)             After:  1D6B964E55484967E39E574530ACECD1;2404.
+Package rerunfilecheck Info: File `RSS22.out' has not changed.
+(rerunfilecheck)             Checksum: 1D6B964E55484967E39E574530ACECD1;2404.
 
 Package rerunfilecheck Warning: File `RSS22.brf' has changed.
 (rerunfilecheck)                Rerun to get bibliographical references right.
 
 Package rerunfilecheck Info: Checksums for `RSS22.brf':
-(rerunfilecheck)             Before: 098930508EEA9E80EEA0DABEA443FA66;2841
-(rerunfilecheck)             After:  2FA359FA18C285A06E84CBCC658964C7;2841.
- ) 
+(rerunfilecheck)             Before: 7BBE43F57CB9651D2E2DE8C3F841808D;2841
+(rerunfilecheck)             After:  91BD04CABCE686258F27296F5E89617E;2841.
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 30 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 31554 strings out of 478864
- 602328 string characters out of 2858506
- 966432 words of memory out of 3000000
- 48699 multiletter control sequences out of 15000+600000
+ 31555 strings out of 478864
+ 602363 string characters out of 2858506
+ 965432 words of memory out of 3000000
+ 48696 multiletter control sequences out of 15000+600000
  450528 words of font info for 135 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 102i,18n,108p,1379b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc} <C:\Users\lekanmolu\App
-Data\Local\MiKTeX\fonts/pk/ljfour/public/doublestroke/dpi600\dsrom10.pk><C:/Pro
-gram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
-/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Fi
-les/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Program Files/MiK
-TeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Files/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
-Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program File
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX/font
-s/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
-c/amsfonts/euler/eurb10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
-s/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbo
-ls/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Pro
-gram Files/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX/fo
-nts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on RSS22.pdf (8 pages, 675843 bytes).
+ 102i,18n,108p,1379b,543s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{equation.2.30c} has been referenced
+ but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{equation.2.15b} has been referenced but does not ex
+ist, replaced by a fixed one
+
+{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc} <C:\Users\lekanmolu\AppDa
+ta\Local\MiKTeX\fonts/pk/ljfour/public/doublestroke/dpi600\dsrom10.pk><C:/Progr
+am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:
+/Program Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Files
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+r8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/P
+rogram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/
+type1/public/amsfonts/euler/eurb10.pfb><C:/Program Files/MiKTeX/fonts/type1/pub
+lic/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/ams
+fonts/symbols/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.
+pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Program File
+s/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on RSS22.pdf (8 pages, 667151 bytes).
 PDF statistics:
- 554 PDF objects out of 1000 (max. 8388607)
- 144 named destinations out of 1000 (max. 500000)
+ 555 PDF objects out of 1000 (max. 8388607)
+ 148 named destinations out of 1000 (max. 500000)
  244 words of extra memory for PDF output out of 10000 (max. 10000000)
 

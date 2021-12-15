@@ -2,31 +2,33 @@
 \label{sec:methods}
 %
 We now introduce the quadratic approximation scheme of the value function.
- We seek a pair of \emph{saddle point equilibrium} policies, $(\control^*, \disturb^*)$ that satisfy the following inequalities for a cost $\valuefunc$ at an initial time $T$,
-\[
-\valuefunc(T; \state(T), \control^*, \disturb) \leq \valuefunc(T; \state(T), \control^*, \disturb^*) \leq \valuefunc(T; \state(T), \control, \disturb^*),
-\]
-$ \forall \, \control \in \mc{U}, \disturb \in \mc{V}$ and $\state(T)$.
+ We seek a pair of \emph{saddle point equilibrium} policies, $(\control^*, \disturb^*)$ that satisfy the following inequalities for a cost $\valuefunc$ at an initial time $T$:
+ %
+\begin{align}
+\valuefunc(T; \state(T), \control^*, \disturb) &\leq \valuefunc(T; \state(T), \control^*, \disturb^*) \leq \\
 %
-
-The successive approximation to $\valuefunc$ consists in  maintaining local approximations to the global system dynamics at every iteration so that the local state and controls are $\state_r, \control_r, \disturb_r$. We proceed as follows:
+ \valuefunc(T; \state(T), \control, \disturb^*),
+ \forall \, \control \in \mc{U}, \disturb \in \mc{V} \text{  and } \state(T).
+\end{align}
+%
+A successive approximation to $\valuefunc$ consists in  maintaining local approximations to the global system dynamics at every iteration so that the local state and controls are $\state_r, \control_r, \disturb_r$. We proceed as follows:
 %
 \begin{itemize}
-	\item Approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer's local controls schedule, $\{ \bar \control(t)\}$, and evader's local controls $\{ \bar \disturb(t) \}$, assumed to be available (when these are not available, we can initialize them to $0$);
+	\item Approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer and evader's local control schedules, $\{ \control_r(t)\}$ and $\{ \disturb_r(t) \}$, assumed to be available (when these are not available, we can initialize them to $0$);
 	%
-	\item  we then run the system's passive dynamics with $\{\bar{\control}\}, \{\bar {\dist} \}$ to generate  a nominal state trajectory $ \{\bar{\state}_t\}$, with neighboring trajectories $\{ \state_t \}$; %deterministic dynamics,
+	\item  we then run the system's passive dynamics with $\{\control_r(t)\}, \{ {\disturb_r(t)} \}$ to generate  a nominal state trajectory $ \{\state_r(t)\}$, with neighboring trajectories $\{ \state(t) \}$; %deterministic dynamics,
 	%
-	\item we choose a small neighborhood, $\{\delstate_t\}$ of $\{\state_t\}$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state_t\}$;
+	\item we choose a small neighborhood, $\{\delta \state(t)\}$ of $\{\state(t)\}$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state(t)\}$;
 	%
-	\item  discretizing time, the new state and control sequence pairs become $\delta \state_\tidx = \state_\tidx - \bar \state_\tidx, \,
-	\delta \control_\tidx = \control_\tidx - \bar \control_\tidx, \,
-	\delta \distbo_\tidx = \distbo_\tidx - \bar \distbo_\tidx$.
+	\item  discretizing time, the new state and control sequence pairs become $\delta \state(t) = \state(t) - \state_r(t), \,
+	\delta \control(t) = \control(t) - \control_r(t), \,
+	\delta \disturb(t) = \disturb(t) - \disturb_r(t)$.
 	%
 \end{itemize}
 %
-Setting $V(\state, T) = \augreward_{T}(\state_{T})$, the min-max over the entire control sequence reduces to a stepwise optimization over a single control, going backward in time with %the \textit{stage cost}
+The max-min over the entire control sequences reduces to a stepwise optimization over single controls, starting from a negative time $T$ and going forward in time with %the \textit{stage cost}
 \begin{align}
-	V(\state_\tidx) = \min_{\control_\tidx \sim \pi} \max_{\distbo_\tidx \sim \psi} [\augreward(\state_\tidx, \control_\tidx, \distbo_\tidx) + V(f(\state_{\tidx+1}, \control_{\tidx+1}, \distbo_{\tidx+1}))]. \nonumber
+	V(\state_\tidx) = \max_{\control(t) \sim \mc{U}} \min_{\disturb(t) \sim \mc{V} [\langle \valuefunc,  f(\state_{\tidx+1}, \control_{\tidx+1}, \disturb(t)) \rangle]. \nonumber
 \end{align}
 
 
