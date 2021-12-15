@@ -1,0 +1,276 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{OsherShuENO}
+S.~Osher and C.-W. Shu, ``{High-Order Essentially Nonoscillatory Schemes for
+  Rotary-Wing Wake Computations},'' \emph{Journal of Aircraft}, vol.~41, no.~2,
+  pp. 258--267, 2004.
+
+\bibitem{CrandallLaxFriedrichs}
+M.~G. Crandall and A.~Majda, ``Monotone difference approximations for scalar
+  conservation laws,'' \emph{Mathematics of Computation}, vol.~34, no. 149, pp.
+  1--21, 1980.
+
+\bibitem{Evans1984}
+L.~Evans and P.~E. Souganidis, ``{Differential games and representation
+  formulas for solutions of Hamilton-Jacobi-Isaacs equations},'' \emph{Indiana
+  Univ. Math. J}, vol.~33, no.~5, pp. 773--797, 1984.
+
+\bibitem{Bellman1957}
+R.~Bellman, \emph{{Dynamic programming}}.\hskip 1em plus 0.5em minus
+  0.4em\relax Princeton University Press, 1957.
+
+\bibitem{Jacobson1968new}
+D.~H. Jacobson, ``New second-order and first-order algorithms for determining
+  optimal control: A differential dynamic programming approach,'' \emph{Journal
+  of Optimization Theory and Applications}, vol.~2, no.~6, pp. 411--440, 1968.
+
+\bibitem{JacobsonMayne}
+D.~H. Jacobson and D.~Q. Mayne, \emph{{Differential Dynamic
+  Programming}}.\hskip 1em plus 0.5em minus 0.4em\relax American Elsevier
+  Publishing Company, Inc., New York, NY, 1970.
+
+\bibitem{DenhamDDP}
+W.~Denham, ``{Book Reviews: Differential Dynamic Programming},'' \emph{Review
+  of Social Economy}, vol.~36, no.~2, pp. 228--229, 1978.
+
+\bibitem{TodorovCDC}
+W.~Li and E.~Todorov, ``Iterative linear quadratic regulator design for
+  nonlinear biological movement systems.'' in \emph{ICINCO (1)}.\hskip 1em plus
+  0.5em minus 0.4em\relax Citeseer, 2004, pp. 222--229.
+
+\bibitem{Crandall1983viscosity}
+M.~G. Crandall and P.-L. Lions, ``Viscosity solutions of hamilton-jacobi
+  equations,'' \emph{Transactions of the American mathematical society}, vol.
+  277, no.~1, pp. 1--42, 1983.
+
+\bibitem{Mitchell2020}
+I.~Mitchell, ``{A Robust Controlled Backward Reach Tube with (Almost) Analytic
+  Solution for Two Dubins Cars (Presentation)},'' vol.~74, pp. 242--224, 2020.
+
+\bibitem{Crandall1984}
+M.~G. Crandall, L.~C. Evans, and P.~L. Lions, ``{Some Properties of Viscosity
+  Solutions of Hamilton-Jacobi Equations},'' \emph{Transactions of the American
+  Mathematical Society}, vol. 282, no.~2, p. 487, 1984.
+
+\bibitem{Kolda2009}
+T.~G. Kolda and B.~W. Bader, ``{Tensor decompositions and applications},''
+  \emph{SIAM Review}, vol.~51, no.~3, pp. 455--500, 2009.
+
+\bibitem{VannieuwenhovenTruncate2012}
+N.~Vannieuwenhoven, R.~Vandebril, and K.~Meerbergen, ``A {N}ew {T}runcation
+  {S}trategy for the {H}igher-{O}rder {S}ingular {V}alue {D}ecomposition,''
+  \emph{SIAM Journal on Scientific Computing}, vol.~34, no.~2, pp.
+  A1027--A1052, 2012.
+
+\bibitem{Isaacs1965}
+R.~Isaacs, ``Differential games 1965,'' \emph{Kreiger, Huntigton, NY}.
+
+\bibitem{Lions1982}
+P.-L. Lions, \emph{Generalized solutions of Hamilton-Jacobi equations}.\hskip
+  1em plus 0.5em minus 0.4em\relax London Pitman, 1982, vol.~69.
+
+\bibitem{Souganidis}
+L.~Evans and P.~E. Souganidis, ``{Differential games and representation
+  formulas for solutions of Hamilton-Jacobi-Isaacs equations},'' \emph{Indiana
+  Univ. Math. J}, vol.~33, no.~5, pp. 773--797, 1984.
+
+\bibitem{LygerosReachability}
+J.~Lygeros, ``On reachability and minimum cost optimal control,''
+  \emph{Automatica}, vol.~40, no.~6, pp. 917--927, 2004.
+
+\bibitem{OsherFronts}
+S.~Osher and J.~A. Sethian, ``Fronts propagating with curvature-dependent
+  speed: Algorithms based on hamilton-jacobi formulations,'' \emph{Journal of
+  computational physics}, vol.~79, no.~1, pp. 12--49, 1988.
+
+\bibitem{Mitchell2005}
+I.~M. Mitchell, A.~M. Bayen, and C.~J. Tomlin, ``{A time-dependent
+  Hamilton-Jacobi formulation of reachable sets for continuous dynamic
+  games},'' \emph{IEEE Transactions on Automatic Control}, vol.~50, no.~7, pp.
+  947--957, 2005.
+
+\bibitem{Dubins1957}
+L.~E. Dubins, ``On curves of minimal length with a constraint on average
+  curvature, and with prescribed initial and terminal positions and tangents,''
+  \emph{American Journal of mathematics}, vol.~79, no.~3, pp. 497--516, 1957.
+
+\bibitem{Merz1972}
+A.~Merz, ``The game of two identical cars,'' \emph{Journal of Optimization
+  Theory and Applications}, vol.~9, no.~5, pp. 324--343, 1972.
+
+\bibitem{DoyleBook}
+K.~Zhou and J.~C. Doyle, \emph{{Essentials of Robust Control}}.\hskip 1em plus
+  0.5em minus 0.4em\relax Prentice hall Upper Saddle River, NJ, 1998, vol. 104.
+
+\bibitem{Bajcsy}
+A.~Bajcsy, S.~Bansal, E.~Bronstein, V.~Tolani, and C.~J. Tomlin, ``An
+  {E}fficient {R}eachability-based {F}ramework for {P}rovably {S}afe
+  {A}utonomous {N}avigation in {U}nknown {E}nvironments,'' in \emph{2019 IEEE
+  58th Conference on Decision and Control (CDC)}.\hskip 1em plus 0.5em minus
+  0.4em\relax IEEE, 2019, pp. 1758--1765.
+
+\bibitem{SylviaScalability}
+S.~Herbert, J.~J. Choi, S.~Sanjeev, M.~Gibson, K.~Sreenath, and C.~J. Tomlin,
+  ``Scalable learning of safety guarantees for autonomous systems using
+  hamilton-jacobi reachability,'' \emph{arXiv preprint arXiv:2101.05916}, 2021.
+
+\bibitem{Bansal}
+S.~Bansal and C.~J. Tomlin, ``{DeepReach : A Deep Learning Approach to
+  High-Dimensional Reachability}.''
+
+\bibitem{KaynamaScalable}
+S.~Kaynama, I.~M. Mitchell, M.~Oishi, and G.~A. Dumont, ``Scalable
+  safety-preserving robust control synthesis for continuous-time linear
+  systems,'' \emph{IEEE Transactions on Automatic Control}, vol.~60, no.~11,
+  pp. 3065--3070, 2015.
+
+\bibitem{FisacTAC}
+J.~F. Fisac, A.~K. Akametalu, M.~N. Zeilinger, S.~Kaynama, J.~Gillula, and
+  C.~J. Tomlin, ``{A General Safety Framework for Learning-Based Control in
+  Uncertain Robotic Systems},'' \emph{IEEE Transactions on Automatic Control},
+  vol.~64, no.~7, pp. 2737--2752, 2019.
+
+\bibitem{FisacICRA}
+J.~F. Fisac, N.~F. Lugovoy, V.~Rubies-Royo, S.~Ghosh, and C.~J. Tomlin,
+  ``{Bridging hamilton-jacobi safety analysis and reinforcement learning},''
+  \emph{Proceedings - IEEE International Conference on Robotics and
+  Automation}, vol. 2019-May, pp. 8550--8556, 2019.
+
+\bibitem{DecompChenHerbert}
+M.~Chen, S.~L. Herbert, M.~S. Vashishtha, S.~Bansal, and C.~J. Tomlin,
+  ``{Decomposition of Reachable Sets and Tubes for a Class of Nonlinear
+  Systems},'' \emph{IEEE Transactions on Automatic Control}, vol.~63, no.~11,
+  pp. 3675--3688, 2018.
+
+\bibitem{FasTrack}
+S.~L. Herbert, M.~Chen, S.~Han, S.~Bansal, J.~F. Fisac, and C.~J. Tomlin,
+  ``Fastrack: A modular framework for fast and guaranteed safe motion
+  planning,'' in \emph{2017 IEEE 56th Annual Conference on Decision and Control
+  (CDC)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2017, pp. 1517--1522.
+
+\bibitem{LevelSetsBook}
+S.~Osher and R.~Fedkiw, ``{Level Set Methods and Dynamic Implicit Surfaces},''
+  \emph{Applied Mechanics Reviews}, vol.~57, no.~3, pp. B15--B15, 2004.
+
+\bibitem{iDG}
+O.~Ogunmolu, N.~Gans, and T.~Summers, ``Minimax iterative dynamic game:
+  Application to nonlinear robot control tasks,'' in \emph{2018 IEEE/RSJ
+  International Conference on Intelligent Robots and Systems (IROS)}.\hskip 1em
+  plus 0.5em minus 0.4em\relax IEEE, 2018, pp. 6919--6925.
+
+\bibitem{QLMOR}
+C.~Gu, ``Qlmor: A projection-based nonlinear model order reduction approach
+  using quadratic-linear representation of nonlinear systems,'' \emph{IEEE
+  Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  vol.~30, no.~9, pp. 1307--1320, 2011.
+
+\bibitem{Mitter1966}
+S.~K. Mitter, ``{Successive approximation methods for the solution of optimal
+  control problems},'' \emph{Automatica}, vol.~3, no. 3-4, pp. 135--149, 1966.
+
+\bibitem{McReynolds1967}
+S.~R. McReynolds, ``{The successive sweep method and dynamic programming},''
+  \emph{Journal of Mathematical Analysis and Applications}, vol.~19, no.~3, pp.
+  565--598, 1967.
+
+\bibitem{Kantarovich}
+L.~Kantarovich and G.~Akilov, \emph{Functional Analysis in Normed
+  Spaces}.\hskip 1em plus 0.5em minus 0.4em\relax Pergamon Press, 1964.
+
+\bibitem{Nouy2009}
+A.~Nouy and O.~P. Le~Ma{\i}ˆtre, ``Generalized spectral decomposition for
+  stochastic nonlinear problems,'' \emph{Journal of Computational Physics},
+  vol. 228, no.~1, pp. 202--235, 2009.
+
+\bibitem{LadevezeBook}
+P.~Ladev{\`e}ze, \emph{Nonlinear computational structural mechanics: new
+  approaches and non-incremental methods of calculation}.\hskip 1em plus 0.5em
+  minus 0.4em\relax Springer Science \& Business Media, 2012.
+
+\bibitem{ChinestaPGD}
+F.~Chinesta, P.~Ladeveze, and E.~Cueto, ``A {S}hort {R}eview on {M}odel {O}rder
+  {R}eduction based on {P}roper {G}eneralized {D}ecomposition,'' \emph{Archives
+  of Computational Methods in Engineering}, vol.~18, no.~4, pp. 395--404, 2011.
+
+\bibitem{NouyFEM}
+A.~Nouy, ``Generalized spectral decomposition method for solving stochastic
+  finite element equations: invariant subspace problem and dedicated
+  algorithms,'' \emph{Computer Methods in Applied Mechanics and Engineering},
+  vol. 197, no. 51-52, pp. 4718--4736, 2008.
+
+\bibitem{Nouy2010}
+A.~Nouy, ``{A priori model reduction through Proper Generalized Decomposition
+  for solving time-dependent partial differential equations},'' \emph{Computer
+  Methods in Applied Mechanics and Engineering}, vol. 199, no. 23-24, pp.
+  1603--1626, 2010.
+
+\bibitem{BasarBook}
+T.~Basar and G.~J. Olsder, \emph{Dynamic noncooperative game theory}.\hskip 1em
+  plus 0.5em minus 0.4em\relax Siam, 1999, vol.~23.
+
+\bibitem{CrandallFractional}
+M.~Crandall and A.~Majda, ``{The method of fractional steps for conservation
+  laws},'' \emph{Numerische Mathematik}, vol.~34, no.~3, pp. 285--314, 1980.
+
+\bibitem{DeLathauwer2000}
+L.~De~Lathauwer, B.~De~Moor, and J.~Vandewalle, ``A multilinear singular value
+  decomposition,'' \emph{SIAM journal on Matrix Analysis and Applications},
+  vol.~21, no.~4, pp. 1253--1278, 2000.
+
+\bibitem{Hackbusch}
+W.~Hackbusch, \emph{Tensor Spaces and Numerical Tensor Calculus}.\hskip 1em
+  plus 0.5em minus 0.4em\relax Springer-Verlag, 2012.
+
+\bibitem{BoydADMM}
+S.~Boyd, N.~Parikh, and E.~Chu, \emph{Distributed optimization and statistical
+  learning via the alternating direction method of multipliers}.\hskip 1em plus
+  0.5em minus 0.4em\relax Now Publishers Inc, 2011.
+
+\bibitem{Tucker66}
+L.~R. Tucker, ``Some mathematical notes on three-mode factor analysis,''
+  \emph{Psychometrika}, vol.~31, no.~3, pp. 279--311, 1966.
+
+\bibitem{KapteynNWayTensors1986}
+A.~Kapteyn, H.~Neudecker, and T.~Wansbeek, ``{An {A}pproach to n-mode
+  {C}omponents {A}nalysis},'' \emph{Psychometrika}, vol.~51, no.~2, pp.
+  269--275, 1986.
+
+\bibitem{MitchellLSToolbox2007}
+I.~M. Mitchell, ``A{ {T}oolbox of {L}evel {S}et {M}ethods}.'' \emph{UBC
+  Department of Computer Science Technical Report TR-2007-11}, 2007.
+
+\bibitem{CuPy}
+R.~Nishino, C.~Loomis, and S.~Hido, ``Cupy: A numpy-compatible library for
+  nvidia gpu calculations,'' \emph{31st confernce on neural information
+  processing systems}, vol. 151, 2017.
+
+\bibitem{TuckerMPI}
+G.~Ballard, A.~Klinvex, and T.~G. Kolda, ``{TuckerMPI: A Parallel C++/MPI
+  Software Package for Large-scale Data Compression via the Tucker Tensor
+  Decomposition},'' \emph{ACM Transactions on Mathematical Software}, vol.~46,
+  no.~2, 2020.
+
+\bibitem{AthansFalb}
+M.~Athans and P.~L. Falb, \emph{{Optimal Control: An Introduction to the Theory
+  and its Applications.}}\hskip 1em plus 0.5em minus 0.4em\relax Courier
+  Corporation, 2013.
+
+\end{thebibliography}

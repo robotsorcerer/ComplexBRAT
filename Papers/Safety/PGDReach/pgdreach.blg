@@ -1,0 +1,73 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: pgdreach.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: IEEEtran.bst
+Reallocating 'name_of_file' (item size: 1) to 10 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Database file #1: ../biblio.bib
+Repeated entry---line 725 of file ../biblio.bib
+ : @article{CrandallLaxFriedrichs
+ :                               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 955 of file ../biblio.bib
+ : 
+ : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.11 (2003/04/02) by Michael Shell.
+-- http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+** IEEEtran BST control entry "IEEEexample:BSTcontrol" detected.
+Warning--empty journal in Mitchell2020
+Warning--empty year in Isaacs1965
+Warning--empty journal in Bansal
+Warning--empty year in Bansal
+
+Done.
+You've used 53 entries,
+            3975 wiz_defined-function locations,
+            1154 strings with 16162 characters,
+and the built_in function-call counts, 39245 in all, are:
+= -- 3272
+> -- 809
+< -- 401
++ -- 463
+- -- 119
+* -- 1856
+:= -- 5950
+add.period$ -- 108
+call.type$ -- 53
+change.case$ -- 43
+chr.to.int$ -- 891
+cite$ -- 57
+duplicate$ -- 2785
+empty$ -- 3070
+format.name$ -- 153
+if$ -- 9042
+int.to.chr$ -- 0
+int.to.str$ -- 53
+missing$ -- 439
+newline$ -- 176
+num.names$ -- 52
+pop$ -- 911
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 4
+skip$ -- 3142
+stack$ -- 0
+substring$ -- 2125
+swap$ -- 2384
+text.length$ -- 104
+text.prefix$ -- 0
+top$ -- 6
+type$ -- 0
+warning$ -- 4
+while$ -- 192
+width$ -- 55
+write$ -- 525
+(There were 2 error messages)

@@ -1,0 +1,205 @@
+\section{Notations and Definitions.}
+\label{sec:notations}
+
+\noindent Throughout this article, time variables \eg $t, t_0, \tau, T$ will always be  real numbers. Vectors will be denoted by small bold-face letters such as $\mathbf{e}, \mathbf{u}, \mathbf{v}$  e.t.c. An $n$-dimensional vector will be the set $\{x_1, x_2, \ldots, x_n\}$. Unless otherwise noted, vector elements will be column-wise stacked. When we refer to a row-vector, we shall introduce the transpose as a superscript operator \ie  $\bm{x}^T$. Matrices and tensors will respectively be denoted by bold-math upper case  Roman and double stroke font letters  e.g. $\mathbf{T}, \mathbf{S}$ (resp. $\mathbf{\mathds{T}}$, $\mathbf{\mathds{S}}$).  We designate uppercase letters $I, \, J, \, K, \, L, \, M, \, N, \, P, \, R$ for tensor sizes (the total number of elements encompassed along a dimension of a tensor), and lowercase letters $i, \,j, \,k, \,l, \, m, \, n, \, p, \, r$ for corresponding tensor indices. We adopt zero-indexing for matrix and tensor operations throughout such that if index $i$ corresponds to size $I$, we write $i = 0, 1, \cdots , I-1$. Lastly, for a tensor with $N$ modes, we denote by $\left[N\right]$ the set $\left\{0,1,\cdots,N-1\right\}$.
+
+%A \textit{basis} for a \textit{vector space} $\mathbb{E}$ is a set of three linearly independent vectors. An \textit{orthonormal basis} is a set of three vectors, $\{\mathbf{e}_i\}_{i=1}^3$, such that $\mathbf{e}_i \cdot \mathbf{e}_j = \delta_{ij}$,
+%
+%\begin{align}
+%    \mathbf{e}_i \cdot \mathbf{e}_j = \delta_{ij} = \begin{cases}
+%        1 \quad i=j, \\
+%        0 \quad i \neq j,
+%    \end{cases}
+%\end{align}
+%
+%where $\delta_{ij}$ is the Kr\"{o}necker delta symbol. %The orthonormal basis set $\{\mathbf{e}_i\}$ forms the right-handed triad of unit vectors, $\mathbf{e}_i \wedge \mathbf{e}_j =  \mathcal{E}_{ijk} \mathbf{e}_k$,
+%
+%\begin{align}
+%    \mathbf{e}_i \wedge \mathbf{e}_j =  \mathcal{E}_{ijk} \mathbf{e}_k,
+%\end{align}
+%
+%where $\wedge$ denotes the vector product and $\mathcal{E}_{ijk}$ is the \textit{alternating symbol},
+%%
+%\begin{align}
+%	\mathcal{E}_{ijk} = 
+%	\begin{cases}
+%		+1  \text{ if $(ijk)$ is a cyclic permutation of (123)}; \\
+%		-1 \text{ if $(ijk)$ is an anticyclic permutation of (123)}; \\
+%		\,\, 0 \text{ otherwise. }
+%	\end{cases}
+%	\label{eq:alt_symbol}
+%\end{align}
+\subsection{Vectors, Matrices, and Tensors.}
+%
+\subsubsection{Vectors} We define the \textit{direction cosines} of the orthonormal basis $\{\basis_i^\prime\}$ oriented with respect to $\{\mathbf{\basis}_j\}$ as $ \mathbf{Q}_{ij} = \mathbf{\basis}_i^\prime \cdot \mathbf{\basis}_j.$
+%
+%\begin{align}
+%    Q_{ij} = \basis_i^\prime \cdot \mathbf{e}_j.
+%\end{align}
+%
+so that by orthonormality and by $\basis_i^\prime = \mathbf{Q}_{ik} \basis_k \, \forall i=(1, 2, 3)$, we have  $\delta_{ij} = \basis_i^\prime \cdot \basis_j^\prime = \mathbf{Q}_{ik} \, \basis_k \cdot \basis_j^\prime = \mathbf{Q}_{ik} \mathbf{Q}_{jk}$, where $\delta_{ij}$ is the Kr\"{o}necker delta symbol.
+%
+%\begin{align}
+%    \delta_{ij} = \basis_i^\prime \cdot \basis_j^\prime = Q_{ik} \, \basis_k \cdot \basis_j^\prime = Q_{ik} Q_{jk}. 
+%\end{align}
+%
+%More generally, 
+%%
+%\begin{align}
+%    \delta_{ij} =  Q_{ik} Q_{jk} = Q_{ki} \, Q_{kj}.
+%\end{align}
+%
+The \textit{triple scalar product}  $\left( \mathbf{u} \wedge \mathbf{v} \right) \cdot \mathbf{w}$ is $\left(\mathcal{E}_{ijp} u_i v_j \mathbf{e}_p \right) \cdot \left( w_k \basis_k \right) = \mathcal{E}_{ijk} u_i v_j w_k$, where $\mathcal{E}_{ijk}$ is the \textit{alternating symbol}.
+%
+%\begin{align}
+%    \left(\mathcal{E}_{ijp} u_i v_j \mathbf{e}_p \right) \cdot \left( w_k \mathbf{e}_k \right) = \mathcal{E}_{ijk} u_i v_j w_k,
+%\end{align}
+%https://www.overleaf.com/project/615c594d6747b57ebc1f3987
+% where the $\wedge$ operator denotes the vector product. 
+%We will represent the set of direction cosines $Q_{ij}$ as $Q$ so that $Q$ is an orthogonal matrix $Q \, Q^T = \identity =  Q \, Q^T$. In this vein, it is trivial to verify that moving between bases is tantamount to $\basis_i^\prime = Q_{ij} \basis_j$ and $\basis_j = Q_{ij} \basis_i^\prime$. 
+%
+For two vectors $\mathbf{u}$ and $\mathbf{v}$ moving between bases $\{\basis_i\}$ and $\{\basis_i^\prime\}$, their components' product $u_i v_j$ transform according to the tensor product\footnote{Or the dyadic product.}, $(\mathbf{u} \otimes \mathbf{v})_{ij} = u_i^\prime v_j^\prime = \mathbf{Q}_{ip} \mathbf{Q}_{jq} u_p v_q$. Thus, $\identity = \delta_{ij} \basis_i \otimes \basis_j:= \basis_i \otimes \basis_j$ for an arbitrary orthonormal basis $\{\basis_i \}$.
+%
+%\begin{align}
+%    u_i^\prime v_j^\prime = Q_{ip} Q_{jq} u_p v_q.
+%\end{align}
+%%
+%We will denote this \textit{tensor product} as $\mathbf{u} \otimes \mathbf{v}$\footnote{We may occasionally follow the convention of calling it the dyadic product as is common in computational mechanics literature.}, so that $(\mathbf{u} \otimes \mathbf{v})_{ij} = u_i v_j$.  It's immediately clear that $\left( \mathbf{v} \otimes \mathbf{u}  \right) = \left( \mathbf{u} \otimes \mathbf{v}  \right)^T$; and we can write
+
+
+\begin{comment}
+\subsubsection{Cartesian Tensors}
+%
+Suppose the multilinear transformation ${\mathds{T}}$ has $n$ indices relative to a rectangular Cartesian basis $\basis_i$ and transforms to a new basis $\basis_i^\prime$ under a (proper) orthogonal matrix $\mathbf{Q}$, then we say $\mathbf{\mathds{T}}$ is a\textit{ Cartesian Tensor of order $n$ -- CT(n)} if its components $\Gamma_{ijk  \ldots}$ transforms as,
+%
+\begin{align}
+	\mathds{T}_{ijk}^\prime = \mathbf{Q}_{ip} \mathbf{Q}_{jq} \mathbf{Q}_{kr} \ldots {\mathds{T}}_{pqr} \ldots
+ \end{align}
+%
+%For example, we will write CT(3) for a Cartesian tensor of order 3. The tensor product $\mathbf{\mathds{S} }\otimes \mathbf{\mathds{T}}$ between a CT(n) tensor, $\mathbf{\mathds{S}}$, and a CT($m$) tensor, $\mathbf{\mathds{T}}$, results in an $(n+m)$-order tensor
+%
+%\begin{align}
+%    \mathbf{\mathds{S}} \otimes \mathbf{\mathds{T}} = \mathbf{\mathds{S}}_{i_1, i_2, \cdots, i_n} \mathbf{\mathds{T}}_{j_1, j_2, \cdots, j_m} \basis_{i_1} \otimes \cdots \otimes \basis_{i_n}  \nonumber \\
+%    \otimes \basis_{j_1} \otimes \cdots \otimes \basis_{j_m}.
+%    \label{eq:tensorproduct}
+%\end{align}
+%
+%As will be seen later in the decomposition scheme of value functions, we will rely on contraction operators on tensors. 
+For a CT($m$) tensor whose components are $\mathds{T}_{i_1 \, i_2, \ldots, i_j, \ldots, i_k \ldots i_m}$, setting any two indices equal (e.g. $j=k$) and summing over the equal indices from $1$ to $3$ yields a tensor of order CT($m-2$). When a tensor, $\mathbf{\mathds{T}}$, is contracted along two indices $p, \, q$, we shall write it as $\bar{\mathbf{\mathds{T}}}_{pq}$. 
+\end{comment}
+
+\subsubsection{Tensor Algebra}
+%
+We refer to the \textit{mode-$n$ unfolding} (or \textit{matricization}) of a tensor, $\mathds{T}$, as the rearrangement of its $N$ elements into a matrix, $\mathds{T}_{n} \in \mathbb{R}^{I_n \times \Pi^{n-1}_{k\neq n} I_k}$  where $n \in \{0, 1, \cdots, N-1\}$. The \textit{multilinear rank}  of $\mathds{T} \in \reline^{I_0 \times I_1 \cdots \times I_{N-1}}$ is an $N$-tuple with elements that correspond to the rank of the mode-$n$ vector space i.e., $\left(R_0, R_1, \cdots, R_{N-1}\right)$. The \textit{Frobenius inner product} induced on the  tensor product space $\mathds{T}_1 \otimes \mathds{T}_2 \, \in \reline^{I_0 \times I_1 \times I_{n-1} \cdots \times I_{N-1}}$ is 
+%
+\begin{align}
+	\langle \mathds{T}_1, \mathds{T}_2 \rangle_F &= \text{trace} \left(\mathds{T}_{2_{(n)}}^T, \mathds{T}_{1_{(n)}} \right) \nonumber \\
+	&= \text{trace} \left(\mathds{T}_{1_{(n)}}^T, \mathds{T}_{2_{(n)}} \right) \label{eq:hilbert-schmidt-inner-product} \\
+	& = \langle \mathds{T}_2, \mathds{T}_1 \rangle_F. \nonumber
+\end{align}
+%
+% (the Frobenius norm of tensor $\mathds{T}$)
+By the \textit{norm of a tensor} with dimension $N$, we shall mean the square root of the sum of squares of all its elements. This is equivalent to the Frobenius norm along any $n$-mode unfolding, $\mathds{T}_{(n)}$, of tensor $\mathds{T}$. Thus, 
+%
+\begin{align}
+	\|\mathds{T}\|_F^2 := \langle \mathds{T}, \mathds{T} \rangle_F = \|\mathds{T}_{(n)}\|^2_F
+\end{align}
+%
+for any $n$-mode unfolding of the tensor. We may otherwise refer to  $\|\cdot \|_F$ as the Hilbert-Schmidt norm. 
+
+Following the convention delineated in \autoref{table:defos}, we define the product of tensor $\mathds{T}$ (of size $I_0 \times I_1 \times I_{n-1} \cdots \times I_{N-1}$) and a matrix $\mathbf{U}$ (of size $J \times I_n$) as
+%
+\begin{align}
+	\mathds{P} = \mathds{T} \otimes_n \mathbf{U} \implies \mathds{P}_{(n)} = \mathbf{U}  \mathds{T}_{(n)}.
+	\label{eq:ttm}
+\end{align}
+%
+For different modes, the ordering of the modes is not consequential so that 
+%
+\begin{align}
+	\mathds{T} \otimes_n \mathbf{U} \otimes_m \mathbf{V} = \mathds{T} \otimes_m \mathbf{V} \otimes_n \mathbf{U} \quad \forall \, m \neq n.
+\end{align}
+%
+However, in the same mode, order matters so that $\mathds{T} \otimes_n \mathbf{U} \otimes_n \mathbf{V} = \mathds{T} \otimes_n \mathbf{V} \, \mathbf{U}$. The \textit{multilinear orthogonal projection} from a tensor space with dimension ${I_0 \times \cdots I_{n-1}  \times I_n \times I_{n+1} \cdots \times I_{N-1}}$ onto the subspace ${I_0 \times \cdots I_{n-1}  \times U_n \times I_{n+1} \cdots \times I_{N-1}}$ is the orthogonal projection along mode $n$ given by
+%
+\begin{align}
+	\pi_n \mathds{T} := \mathds{T}\otimes_n \left(\mathbf{I}-\mathbf{U}_n \mathbf{U}_n^T \right).
+\end{align}
+%
+The rest of the notations we use for tensor operations in this article are described in Table \ref{table:defos}. We refer readers to~\cite{Kolda2009, VannieuwenhovenTruncate2012} for a detailed description of other tensor algebraic notations and multilinear operations. 
+
+\subsection{Sets, Controls, and Games.}
+%
+\noindent We define $\Omega$ as the open set in $\ren$. To avoid the cumbersome phrase ``the state $\bm{x}$ at time $t$", we will associate the pair $(\bm{x}, t)$ with the \textit{phase} of the system for a state $\bm{x}$ at time $t$. Furthermore, we associate the Cartesian product of $\openset$ and the space $T =\reline^1$ of all time values as the \textit{phase space} of $\openset \times T$. The interior of $\openset$ is denoted by $\text{ int } \openset$; whilst the closure of $\openset$ is denoted $\bar{\openset}$. We denote by $\delta \openset \,(:= \bar{\openset} \backslash \text{int } \openset)$ the boundary of the set $\openset$. Unless otherwise stated, vectors $\bm{u}(t)$ and $\bm{v}(t)$ are reserved for admissible control (resp. disturbance) at time $t$. We say $\bm{u}(t)$ (resp. $\bm{v}(t)$) is piecewise continuous in $t$, if for each $t$, $\bm{u} \in \mathcal{U}$ (resp. $\bm{v} \in \mathcal{V}$), $\mathcal{U}, \text{ and } {V}$ are Lebesgue measurable and compact sets. 
+
+At all times, any of $\control$ or $\disturb$ will be under the influence of a \textit{player} such that the motion of a state $\state$ will be influenced by the coercion of that player. Our theater of operations is that of conflicting objectives between players -- so that the problem at hand assumes that of a \textit{game}. And by a game, we do not necessarily refer to a single game, but rather a collection of games.  Each player in a game will constitute either a pursuer, or $\pursuer$, and an evader, or $\evader$.  %While pursuit-evasion game theory originated in control and warfare applications~\cite{Isaacs1965}, its applications go beyond pursuit-evasion analysis.
+%
+
+\begin{table}[tb!]
+	\caption{\raggedright\textbf{Common Notations}}
+	%	
+	\caption*{\raggedright\textbf{Tensor Operations}}
+	\begin{tabular}{ c l  }
+		%\hline \!\! & \!\! \\
+		%
+		{\bf Notation }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{\bf Description} \\
+		%
+		%\hline  \!\! & \!\! \\
+		%
+		{ $\mathds{T}_n$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{$n$-mode unfolding of  $\mathds{\mathds{T}}$.}  \\
+		%
+		{ $\mathbf{G} = \mathds{T}_n \mathds{T}_n^T$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{{Gram matrix}.}  \\
+		%
+		{ $\left[ N \right] = \{0, 1, \cdots, N-1 \}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Total number of modes in $\mathds{T}$.}  \\
+		%
+		{ $\|\mathds{T}\|_F$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{The {Hilbert-Schmidt norm} of $\mathds{T}$.}  \\
+		%
+		{ $\mathds{T} \otimes_n \mathbf{U}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{$n$-mode product of $\mathds{T}$ with matrix $\mathbf{U}$.}  \\
+		%
+		{ $\mathds{T}  \hat{\otimes}_n \mathbf{v}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{$n$-mode product of $\mathds{T}$ with vector $\mathbf{v}$.}  \\
+		%
+		{ $\mathds{T}  \circledast \mathbf{S}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Kronecker product of $\mathds{T}$ with matrix $\mathbf{S}$.}  \\
+		%
+		{ $\mathds{T}  \odot \mathbf{S}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Khatri-Rao product of $\mathds{T}$ with matrix $\mathbf{S}$.}  \\
+		%
+		%\hline 
+	\end{tabular}
+%
+	\caption*{\raggedright\textbf{Differential Optimal Control and Games}}
+	\begin{tabular}{ c l  }
+		%
+%		{ $\state$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{A system state in $\ren$.}  \\
+%		%
+		{ a.e. }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Almost everywhere.}  \\
+		%
+		{ $\bm{\xi}$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{System trajectory. % e.g. obtained from integrating $\state$.
+		}  \\
+		%
+		$\pursuer$, $\evader$  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Pursuer and Evader respectively.}  \\
+		%
+		{ $\bm{V}(t, \bm{x})$}  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Value function of the differential game.}  \\ 
+		%
+		{ $\bm{V}_{\state}(t, \bm{x}), \bm{V}_t(t, \bm{x})$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Spatial derivative (resp. time derivative) of $\valuefunc$.}  \\ 
+		%
+		{ $\lowervalue(t, \bm{x})$, $\uppervalue(t, \bm{x})$ }  & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Lower and upper values of the differential game.}  \\
+		%
+		{ $\lowerham(t;  \cdot)$, $\upperham(t; \cdot)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{A game's lower and upper Hamiltonians.}  \\
+		%
+		%{ } & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{The upper Hamiltonian.}  \\
+		%
+		{ $\mathcal{\bar{U}}, \, \mathcal{\bar{V}}$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Controls set for $\pursuer$ and $\evader$ respectively.}  \\
+		%
+		{ $\mathcal{A}(t), \, \mathcal{B}(t)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Strategies set for  $\pursuer$ and $\evader$, starting at $t$.}  \\
+		%
+		{ $\hilbertspace(t, \bm{x}; \cdot)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{A separable Hilbert-space where $\bm{x}$ is defined.}  \\
+		%
+		{ $\hilbertspace^\star(t, \bm{x}; \cdot)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{Dual of the separable Hilbert-space, $\hilbertspace(\cdot)$.}  \\
+		%
+		{ $\targetset_0(\tau)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{A differential game's target set.}  \\
+		%
+		{ $\targetset([t, 0], \tau)$} & \!\! \parbox[c][0.2in][c]{0.71\columnwidth}{A differential  game's backward reachable set.}  \\
+	\end{tabular}
+\label{table:defos}
+\end{table}
+%
+

@@ -1,0 +1,140 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{times}
+
+% numbers option provides compact numerical references in the text. 
+\usepackage[numbers]{natbib}
+\usepackage{times}
+\usepackage{bm}
+\usepackage{url}
+%\usepackage{tipa}
+\usepackage{tikz}
+\usepackage{soul}
+%\usepackage{cite}
+\usepackage{dsfont }
+\usepackage{color} 
+\usepackage{pifont}
+\usepackage{upgreek}
+\usepackage{upgreek}
+\usepackage{booktabs}
+\usepackage{textcomp}
+%\usepackage{setspace}
+\usepackage{footnote}
+\usepackage{verbatim}
+\usepackage{mathrsfs} 
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{paralist}
+\usepackage{multicol}
+\usepackage{algorithmicx}
+\usepackage[makeroom]{cancel}
+\usepackage[most]{tcolorbox}
+\usepackage{algpseudocode}
+\usepackage[skip=0cm,list=true,labelfont=it]{subcaption}
+\algrenewcommand\textproc{} % to change function names to lower case
+\usepackage[export]{adjustbox}
+\usepackage{amssymb, amsmath, times}
+\usepackage{amsthm}
+\usepackage[pagebackref=true,breaklinks=true,colorlinks=true, citecolor=green,linkcolor=cyan,urlcolor=blue,bookmarks=true]{hyperref}
+%\usepackage{todonotes}
+\def\UrlFont{\rmfamily}
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.eps,.ai}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\addtolength{\textfloatsep}{-3mm}
+\addtolength{\floatsep}{-3mm}
+
+%
+\setlength{\tabcolsep}{1pt} % change column separation 9in tables to 0pt
+
+%\pdfoutput=1    % for arxiv tex processor
+%
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}{}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\newtheorem{corollary}{Corollary}
+
+\pdfinfo{
+   /Author (Homer Simpson)
+   /Title  (Robots: Our new overlords)
+   /CreationDate (D:20101201120000)
+   /Subject (Robots)
+   /Keywords (Robots;Overlords)
+}
+
+\begin{document}
+
+% paper title
+\title{Differential Dynamic Programming for Backward Reachability  Analysis.}
+
+% You will get a Paper-ID when submitting a pdf file to the conference system
+\author{Author Names Omitted for Anonymous Review. Paper-ID [add your ID here]}
+
+%\author{\authorblockN{Michael Shell}
+%\authorblockA{School of Electrical and\\Computer Engineering\\
+%Georgia Institute of Technology\\
+%Atlanta, Georgia 30332--0250\\
+%Email: mshell@ece.gatech.edu}
+%\and
+%\authorblockN{Homer Simpson}
+%\authorblockA{Twentieth Century Fox\\
+%Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\and
+%\authorblockN{James Kirk\\ and Montgomery Scott}
+%\authorblockA{Starfleet Academy\\
+%San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212\\
+%Fax: (888) 555--1212}}
+
+
+% avoiding spaces at the end of the author lines is not a problem with
+% conference papers because we don't use \thanks or \IEEEmembership
+
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\authorblockN{Michael Shell\authorrefmark{1},
+%Homer Simpson\authorrefmark{2},
+%James Kirk\authorrefmark{3}, 
+%Montgomery Scott\authorrefmark{3} and
+%Eldon Tyrell\authorrefmark{4}}
+%\authorblockA{\authorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: mshell@ece.gatech.edu}
+%\authorblockA{\authorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\authorblockA{\authorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\authorblockA{\authorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+\maketitle
+
+\input{sections/def}
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/related}
+\input{sections/back}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/conclude}
+
+
+
+\IEEEpeerreviewmaketitle
+
+
+\section*{Acknowledgments}
+
+%% Use plainnat to work nicely with natbib. 
+
+\bibliographystyle{plainnat}
+\bibliography{../biblio}	 
+
+\end{document}
+
+

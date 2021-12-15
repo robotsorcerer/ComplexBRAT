@@ -132,7 +132,8 @@ def main(args):
 					cp.abs(obj.p2_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[0]), \
 					obj.omega_e_bound + obj.omega_p_bound ]
   
-	finite_diff_data = Bundle({'grid': obj.grid, 'hamFunc': get_hamiltonian_func,
+	finite_diff_data = Bundle({'grid': obj.grid, 
+	                            'hamFunc': get_hamiltonian_func,
 								'partialFunc': get_partial_func,
 								'dissFunc': artificialDissipationGLF,
 								'derivFunc': upwindFirstENO2,

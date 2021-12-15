@@ -187,16 +187,17 @@ def traj_opt(g, value_func_init):
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':g,
 					'hamFunc': dint.hamiltonian,
-					'partialFunc': dint.dynamics,
+					'partialFunc': dint.dissipation,
 					'dissFunc': artificialDissipationGLF,
-					'derivFunc': upwindFirstENO2,
+					'CoStateCalc': upwindFirstENO2,
 					}),
 					positive = False,  # direction to grow the updated level set
 				))
 
 	small = 100*eps
 	t_span = np.linspace(0, 2.0, 20)
-	options = Bundle(dict(factorCFL=0.75, stats='on', maxStep=realmax, 						singleStep='off', postTimestep=postTimeStepTTR))
+	options = Bundle(dict(factorCFL=0.75, stats='on', maxStep=realmax, \
+							singleStep='off', postTimestep=postTimeStepTTR))
 
 	y = copy.copy(value_func_init.flatten())
 	y, finite_diff_data = postTimeStepTTR(0, y, finite_diff_data)

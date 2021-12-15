@@ -1,0 +1,23 @@
+\section{Value Function's ROM Projection Error.}
+\label{app:ortho_proj_error}
+
+The projection error between the original value function $\mathds{V}$ and its reduced basis $\mathds{\hat{V}}$ is
+
+%\begin{subequations}
+\begin{align}
+	\|\mathds{V} &- \mathds{\hat{V}}\|_F^2 = \|\mathds{V} - \valuecore \otimes_0 \mathbf{U}_0  \cdots \otimes_{N-1} \mathbf{U}_{N-1} \|_F^2 \nonumber \\
+	%
+	&= \|\mathds{V} \|_F^2 - 2 \langle \mathds{V}, \valuecore \otimes_0 \mathbf{U}_0   \cdots \otimes_{N-1} \mathbf{U}_{N-1}\rangle  + \nonumber \\
+	%
+	& \qquad \|\valuecore \otimes_0 \mathbf{U}_0   \cdots \otimes_{N-1} \mathbf{U}_{N-1}\|_F^2  \\
+	%
+	&= \|\mathds{V} \|_F^2 - 2 \underbrace{\langle \mathds{V} \otimes_0 \mathbf{U}_0^T   \cdots \otimes_{N-1} \mathbf{U}_{N-1}^T, \valuecore}_{\langle \valuecore, \valuecore \rangle}   +  \|\valuecore\|_F^2 \nonumber \\
+	%
+	%&= \|\mathds{V} \|_F^2 - 2 \langle \mathds{G}, \mathds{G} \rangle  +  \|\mathds{G}\|_F^2 \nonumber \\
+	%
+	%&= \|\mathds{V} \|_F^2 - 2 \| \mathds{G}\|_F  +  \|\mathds{G}\|_F^2 \nonumber \\
+	%
+	\text{ or } \|\mathds{V} &- \mathds{\hat{V}}\|_F^2	= \|\mathds{V} \|_F^2  -  \|\valuecore\|_F^2. 
+	\label{eq:value_approx}
+\end{align}
+%\end{subequations}
