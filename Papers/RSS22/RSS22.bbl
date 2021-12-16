@@ -1,4 +1,4 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{31}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -141,6 +141,13 @@ Shahab Kaynama, Ian~M. Mitchell, Meeko Oishi, and Guy~A. Dumont.
   continuous-time linear systems.
 \newblock \emph{IEEE Transactions on Automatic Control}, 60\penalty0
   (11):\penalty0 3065--3070, 2015.
+
+\bibitem[Liao and Shoemaker(1991)]{Shoemaker1991}
+L-Z Liao and Christine~A Shoemaker.
+\newblock Convergence in unconstrained discrete-time differential dynamic
+  programming.
+\newblock \emph{IEEE Transactions on Automatic Control}, 36\penalty0
+  (6):\penalty0 692--706, 1991.
 
 \bibitem[Lions(1982)]{Lions1982}
 Pierre-Louis Lions.

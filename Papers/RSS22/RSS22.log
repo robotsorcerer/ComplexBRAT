@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  15 DEC 2021 22:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  16 DEC 2021 11:08
 entering extended mode
 **./RSS22.tex
 (RSS22.tex
@@ -1142,53 +1142,32 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (sections/methods.tex
 Underfull \vbox (badness 2922) has occurred while \output is active []
 
+ [3]
+** ATTENTION: \proof is deprecated (line 91). Use \IEEEproof instead.
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--84
+Underfull \hbox (badness 2334) in paragraph at lines 130--132
+[]$\OML/cmm/b/it/10 V[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 x[]\OML/cmm/m/it/10 ; 
+t\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 al-ready con-tains the dom-i-nant modes of
+ []
+
+** ATTENTION: \proof is deprecated (line 181). Use \IEEEproof instead.
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--191
 []\OT1/ptm/m/n/10 run the sys-tem's pas-sive dy-nam-ics with
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--84
+Underfull \hbox (badness 10000) in paragraph at lines 189--191
 \OMS/cmsy/m/n/10 f\OML/cmm/b/it/10 u[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/c
 mr/m/n/10 )\OMS/cmsy/m/n/10 g[]\OML/cmm/m/it/10 ; \OMS/cmsy/m/n/10 f[]g[]$ \OT1
 /ptm/m/n/10 to gen-er-ate nom-i-nal state
  []
 
-[3]
-** ATTENTION: \proof is deprecated (line 111). Use \IEEEproof instead.
-LaTeX Font Info:    Trying to load font information for U+dsrom on input line 1
-18.
-(C:\Program Files\MiKTeX\tex/latex/doublestroke\udsrom.fd
-File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
-)
-Underfull \hbox (badness 2334) in paragraph at lines 150--152
-[]$\OML/cmm/b/it/10 V[]\OT1/cmr/m/n/10 (\OML/cmm/b/it/10 x[]\OML/cmm/m/it/10 ; 
-t\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 al-ready con-tains the dom-i-nant modes of
- []
-
 [4]
 
-LaTeX Warning: Reference `eq:payoff' on page 5 undefined on input line 315.
+LaTeX Warning: Reference `eq:payoff' on page 5 undefined on input line 318.
 
-[5]) (sections/results.tex
-<figures/doub_int_trajos.jpg, id=330, 1017.8025pt x 600.2425pt>
-File: figures/doub_int_trajos.jpg Graphic file (type jpg)
-<use figures/doub_int_trajos.jpg>
-Package pdftex.def Info: figures/doub_int_trajos.jpg  used on input line 34.
-(pdftex.def)             Requested size: 252.0pt x 148.61313pt.
-<figures/switching_curve.jpg, id=334, 1003.75pt x 931.48pt>
-File: figures/switching_curve.jpg Graphic file (type jpg)
-<use figures/switching_curve.jpg>
-Package pdftex.def Info: figures/switching_curve.jpg  used on input line 62.
-(pdftex.def)             Requested size: 123.82964pt x 123.8398pt.
-<figures/attr.jpg, id=335, 942.52126pt x 628.3475pt>
-File: figures/attr.jpg Graphic file (type jpg)
-<use figures/attr.jpg>
-Package pdftex.def Info: figures/attr.jpg  used on input line 66.
-(pdftex.def)             Requested size: 123.84079pt x 123.836pt.
-) (sections/conclude.tex [6 <./figures/doub_int_trajos.jpg> <./figures/switchin
-g_curve.jpg> <./figures/attr.jpg>]) (RSS22.bbl
-(RSS22.brf)
+[5]) (sections/results.tex) (sections/conclude.tex) (RSS22.bbl (RSS22.brf)
 \tf@brf=\write5
 \openout5 = `RSS22.brf'.
 
@@ -1197,7 +1176,7 @@ Underfull \hbox (badness 1584) in paragraph at lines 93--93
 []\OT1/ptm/m/n/10 Jaime F. Fisac, Anayo K. Akamet-alu, Melanie N.
  []
 
-[7])
+[6])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1209,50 +1188,46 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8
+[7
 
 ] (RSS22.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `RSS22.out' has not changed.
-(rerunfilecheck)             Checksum: 1D6B964E55484967E39E574530ACECD1;2404.
+(rerunfilecheck)             Checksum: 88FE3E40395FECBC233AE27694C8F5D0;1454.
 Package rerunfilecheck Info: File `RSS22.brf' has not changed.
-(rerunfilecheck)             Checksum: 19BF8BDAB8CAEB61555848F2515ED855;2841.
+(rerunfilecheck)             Checksum: A3EC7E7A70A4DA51B065EB9961641AEA;2767.
  ) 
 Here is how much of TeX's memory you used:
- 31547 strings out of 478864
- 602240 string characters out of 2858506
- 967432 words of memory out of 3000000
- 48694 multiletter control sequences out of 15000+600000
- 450528 words of font info for 135 fonts, out of 8000000 for 9000
+ 31481 strings out of 478864
+ 601035 string characters out of 2858506
+ 964736 words of memory out of 3000000
+ 48654 multiletter control sequences out of 15000+600000
+ 448118 words of font info for 126 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 102i,18n,108p,1379b,475s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc} <C:\Users\lekanmolu\App
-Data\Local\MiKTeX\fonts/pk/ljfour/public/doublestroke/dpi600\dsrom10.pk><C:/Pro
-gram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><
-C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Fil
-es/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/P
-rogram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public
-/amsfonts/euler/eurb10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
-/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbol
-s/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX/fon
-ts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/ut
-mri8a.pfb>
-Output written on RSS22.pdf (8 pages, 673446 bytes).
+ 102i,18n,108p,1379b,467s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi
+7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Pro
+gram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/
+MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Files/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
+6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Prog
+ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/ams
+fonts/symbols/msam10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/s
+ymbols/msbm10.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:
+/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX
+/fonts/type1/urw/times/utmri8a.pfb>
+Output written on RSS22.pdf (7 pages, 318971 bytes).
 PDF statistics:
- 537 PDF objects out of 1000 (max. 8388607)
- 142 named destinations out of 1000 (max. 500000)
- 244 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 481 PDF objects out of 1000 (max. 8388607)
+ 129 named destinations out of 1000 (max. 500000)
+ 205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

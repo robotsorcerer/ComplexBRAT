@@ -36,15 +36,15 @@ Our dynamics now describe variations from the nonlinear system \cf \eqref{eq:sys
 	\label{eq:variations}
 \end{subequations}
 %
-Abusing notation, we drop the templated time arguments in \eqref{eq:variations} so that our canonical problem becomes 
+Abusing notation, we drop the templated time arguments in \eqref{eq:variations} so that the canonical problem is now 
 %
 %\begin{subequations}
 	\begin{align}
 		\dfrac{d}{dt}\left(\state_r + \delta \state\right) &= f(t; \state_r + \delta \state, \control_r + \delta \control, \disturb_r + \delta \disturb), \,  \\
-	 \state_r(0) 	&+ \delta \state(0) = \state(0).
+	 \state_r(0) 	&+ \delta \state(0) = \state(0),
 	\end{align}
 %
-with terminal value 
+with the associated terminal value 
 %
 \begin{align}
 	\begin{split}
@@ -52,45 +52,29 @@ with terminal value
 		&= 
 		\min \left\{0,  
 		\max_{\delta \control \in \mathcal{U}} \, \min_{\delta \disturb \in \mathcal{V}} \left\langle f(t; \state_r + \delta \state, \right. \right. \\
-		&  \left. \left.  \control_r + \delta \control, \disturb_r + \delta \disturb), \dfrac{\partial \valuefunc}{\partial \state}\left(\state_r + \delta \state, t \right) \right\rangle \right\}. 
+		&  \left. \left.  \control_r + \delta \control, \disturb_r + \delta \disturb), \dfrac{\partial \valuefunc}{\partial \state}\left(\state_r + \delta \state, t \right) \right\rangle \right\},
 	\end{split} \nonumber \\
 	%
 	\valuefunc(\state_r, 0) &= g(0; \state_r(0) + \delta \state (0));
 	\label{eq:canonical_value}
 \end{align}
 %
-and trajectory
+and state trajectory
 %
 \begin{align}
 	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_r + \delta\state, 	\control+\delta\control,\disturb+\delta\disturb).
 \end{align}
 %
 %
-Let the optimal cost  for using the optimal control $\control^\star(\tau) = \control_r(\tau) + \delta \control^\star(\tau)$ when $\tau \in \left[T, 0\right]$ on the phase $(\state_r, \tau)$ be denoted $\valuefunc^\star(\state_r, \tau)$; and the ROM cost for using $\control_r(\tau); \,\, \tau \in \left[t, 0\right]$ be $\valuefunc_r(\state_r, t)$. Suppose further that we denote  the difference between these two costs on the phase $\left(\state_r, t\right)$ by $\costdiff^\star$, then we have
+For $-T \le t \le 0$ and a $\tau \in [t, 0]$, let the optimal cost  for using the optimal control $\control^\star(\tau) = \control_r(\tau) + \delta \control^\star(\tau)$ be $\valuefunc^\star(\state_r, \tau)$; and the optimal cost for using $\control_r(\tau)$ be $\valuefunc_r(\state_r, t)$. Suppose further that the difference between these two costs on the phase $\left(\state_r, t\right)$ is $\costdiff^\star$, then
 %
 \begin{align}
 	\costdiff^\star =\valuefunc^\star(\state_r, t) -\valuefunc_r(\state_r, t).
 	\label{eq:cost_diff}
 \end{align}
 %
-
-The approximation scheme proceeds as follows:
-%
-\begin{itemize}
-	\item approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer and evader's local control schedules, $\{ \control_r(t)\}_{t=T}^0$ and $\{ \disturb_r(t) \}_{t=T}^0$, assumed to be available; % (when these are not available, we can run the passive dynamics of the system);
-	%
-	\item  run the system's passive dynamics with $\{\control_r(t)\}_{t=T}^0, \{ {\disturb_r(t)} \}_{t=0}^T$ to generate  nominal state trajectories $ \{\state_r(t)\}_{t=T}^0$, with neighboring trajectories $\{ \state(t) \}_{t=0}^T$; %deterministic dynamics,
-	%
-	\item choose a small neighborhood, $\{\delta \state(t)\}_{t=T}^0$ of $\{\state(t)\}_{t=T}^0$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state(t)\}_{t=T}^0$;
-	%
-	\item   new state and control sequence pairs become $\delta \state(t) = \state(t) - \state_r(t), \,
-	\delta \control(t) = \control(t) - \control_r(t), \,
-	\delta \disturb(t) = \disturb(t) - \disturb_r(t)$.
-	%
-\end{itemize}
-
 \begin{theorem}
-	The HJI variational inequality \cf \eqref{eq:lower_hji_pde} admits the following approximated expansion on the reduced model:
+	Suppose that $\valuefunc$ is smooth enough, the HJI variational inequality \cf \eqref{eq:lower_hji_pde} admits the following approximated expansion in the state variation $\delta \state$ about the nominal trajectory $\state_r$:
 	\begin{align}
 		\begin{split} 
 			-\frac{\partial \valuefunc_r}{\partial t} -\frac{\partial \costdiff}{\partial t} - \left\langle \dfrac{\partial\valuefunc_{\state}}{\partial t}, \delta\state \right \rangle -  \dfrac{1}{2} \left\langle \delta \state, \dfrac{\partial \valuefunc_{\state\state} }{\partial t}\delta\state \right \rangle &=  \\
@@ -104,31 +88,27 @@ The approximation scheme proceeds as follows:
 	\label{th:quad_approx}
 \end{theorem}
 %
-\begin{corollary}
-	If the viscosity solution obtained via a Lax-Friedrichs integration scheme for solving \eqref{eq:ROM_HJI} converges to a local optimum, then the backward reachable tube will converge to a locally optimal solution. In addition, if we overapproximate the resulting numerical solution, the reachable set or tube will converge to an optimal region in the state space.
-\end{corollary}
-
 \begin{proof}
-	The  singular value decomposition of $\valuefunc$ is 
+%	The  singular value decomposition of $\valuefunc$ is 
+%	%
+%	\begin{align}
+%		\valuefunc = \bm{\Upsilon} \bm{\Lambda} \bm{\Uptheta}^T,
+%	\end{align}
+%	%
+%	where, $\bm{\Upsilon} \in \mathds{C}^{n\times r}, \, \bm{\Lambda} \in \mathds{C}^{r\times r}, \, \bm{\Uptheta} \in \mathds{C}^{m\times r}$,
+%	and $r\le m$ can be an approximate or exact rank of $\valuefunc$. The modes of the reduced basis are the columns of $\bm{\Upsilon}$ which are ideally orthonormal  \ie $\bm{\Upsilon}^\star\, \bm{\Upsilon} = \mathbf{\identity}$. We are concerned with the leading eigen values and eigenvectors of $\valuefunc$; therefore, we project $\valuefunc$ onto the proper orthogonal decomposition (POD) modes in $\bm{\Upsilon}$ according to 
+%	%
+%	\begin{align}
+%		\valuefunc_r = \bm{\Upsilon}^T \valuefunc \bm{\Upsilon}.
+%	\end{align}
+%	%
+%	This reduced model is the Galerkin projection onto the semidiscrete ordinary differential equations (o.d.e.):
+%	%
+%	\begin{align}
+%		\dfrac{d \valuefunc_r}{dt} = \bm{\Upsilon}^T \dfrac{d \valuefunc}{dt} \bm{\Upsilon}.
+%	\end{align}
 	%
-	\begin{align}
-		\valuefunc = \bm{\Upsilon} \bm{\Lambda} \bm{\Uptheta}^T,
-	\end{align}
-	%
-	where, $\bm{\Upsilon} \in \mathds{C}^{n\times r}, \, \bm{\Lambda} \in \mathds{C}^{r\times r}, \, \bm{\Uptheta} \in \mathds{C}^{m\times r}$,
-	and $r\le m$ can be an approximate or exact rank of $\valuefunc$. The modes of the reduced basis are the columns of $\bm{\Upsilon}$ which are ideally orthonormal  \ie $\bm{\Upsilon}^\star\, \bm{\Upsilon} = \mathbf{\identity}$. We are concerned with the leading eigen values and eigenvectors of $\valuefunc$; therefore, we project $\valuefunc$ onto the proper orthogonal decomposition (POD) modes in $\bm{\Upsilon}$ according to 
-	%
-	\begin{align}
-		\valuefunc_r = \bm{\Upsilon}^T \valuefunc \bm{\Upsilon}.
-	\end{align}
-	%
-	This reduced model is the Galerkin projection onto the semidiscrete ordinary differential equations (o.d.e.):
-	%
-	\begin{align}
-		\dfrac{d \valuefunc_r}{dt} = \bm{\Upsilon}^T \dfrac{d \valuefunc}{dt} \bm{\Upsilon}.
-	\end{align}
-	
-	For the moment, let us focus on the l.h.s. of \eqref{eq:canonical_value}. Our derivations  closely follow that of Jacobson~\cite{Jacobson1968new}. The major difference is that our choice of $\state_r$ is guaranteed to be close to that of $\state$ so that we need not prescribe stringent conditions for when local control laws are valid on the nonlinear system.  Suppose the optimal terminal cost, $\valuefunc^\star$, is sufficiently smooth to allow a power series expansion in the state variation $\delta \state$ about reduced state, $\state_r$, we find that 
+	For the moment, let us focus on the l.h.s. of \eqref{eq:canonical_value}. Our derivations  closely follow that of Jacobson~\cite{Jacobson1968new}. The major difference is that our choice of $\state_r$ is guaranteed to be close to that of $\state$ so that we need not prescribe stringent conditions for when local control laws are valid on the nonlinear system. In addition,  we are working within a game theory framework and are solving a terminal value function on the variational HJI problem.  Suppose the optimal terminal cost, $\valuefunc^\star$, is sufficiently smooth to allow a power series expansion in the state variation $\delta \state$ about reduced state, $\state_r$, we find that 
 	%
 	\begin{align}
 		\valuefunc^\star(\state_r + \delta \state, t) &= \valuefunc^\star(\state_r, t) + \left\langle\valuefunc_{\state}, \delta \state \right\rangle + \dfrac{1}{2} \left\langle \delta \state, \valuefunc^\star_{\state\state} \delta\state \right\rangle \nonumber \\
@@ -192,6 +172,29 @@ The approximation scheme proceeds as follows:
 		\label{eq:reduced_canonical}
 	\end{subequations}
 \end{proof} 
+%
+
+\begin{corollary}
+	If the solution to \eqref{eq:ROM_HJI} converges to a local optimum, then the backward reachable set(tube) will converge to a local extrema. In addition, if we overapproximate the resulting numerical solution, the reachable set or tube will locally converge to an optimal region in the state space.
+\end{corollary}
+
+\begin{proof}
+	This corollary is a statement of the local quadratic convergence guarantees of second order gradient methods in differential dynamic programming~\cite{Shoemaker1991}.
+\end{proof}
+The approximation scheme proceeds as follows:
+%
+\begin{itemize}
+	\item approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer and evader's local control schedules, $\{ \control_r(t)\}_{t=T}^0$ and $\{ \disturb_r(t) \}_{t=T}^0$, assumed to be available; % (when these are not available, we can run the passive dynamics of the system);
+	%
+	\item  run the system's passive dynamics with $\{\control_r(t)\}_{t=T}^0, \{ {\disturb_r(t)} \}_{t=0}^T$ to generate  nominal state trajectories $ \{\state_r(t)\}_{t=T}^0$, with neighboring trajectories $\{ \state(t) \}_{t=0}^T$; %deterministic dynamics,
+	%
+	\item choose a small neighborhood, $\{\delta \state(t)\}_{t=T}^0$ of $\{\state(t)\}_{t=T}^0$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state(t)\}_{t=T}^0$;
+	%
+	\item   new state and control sequence pairs become $\delta \state(t) = \state(t) - \state_r(t), \,
+	\delta \control(t) = \control(t) - \control_r(t), \,
+	\delta \disturb(t) = \disturb(t) - \disturb_r(t)$.
+	%
+\end{itemize}
 %
 The left hand side of \eqref{eq:ROM_HJI_Proof} admits a quadratic form, so that we can regress a quadratic form to fit the functionals and derivatives of the optimal structure of the ROB. The r.h.s. can be similarly expanded as above.   Define 
 %

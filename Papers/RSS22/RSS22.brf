@@ -39,10 +39,9 @@
 \backcite {Mitchell2020}{{3}{\mbox {I-B}}{equation.1.13}}
 \backcite {BasarBook}{{3}{\mbox {I-B}}{equation.1.13}}
 \backcite {AthansFalb}{{3}{\mbox {I-B}}{equation.1.13}}
-\backcite {Jacobson1968new}{{4}{II}{equation.2.25}}
-\backcite {QLMOR}{{4}{II}{equation.2.26}}
-\backcite {JacobsonMayne}{{4}{II}{equation.2.26}}
-\backcite {Merz1972}{{5}{II}{equation.2.34}}
-\backcite {Isaacs1965}{{5}{II}{equation.2.34}}
-\backcite {AthansFalb}{{6}{\mbox {III-A}}{figure.caption.1}}
-\backcite {LevelSetsBook}{{6}{\mbox {III-A}}{equation.3.52}}
+\backcite {Jacobson1968new}{{4}{II}{equation.2.22}}
+\backcite {QLMOR}{{4}{II}{equation.2.23}}
+\backcite {JacobsonMayne}{{4}{II}{equation.2.23}}
+\backcite {Shoemaker1991}{{4}{II}{corollary.1}}
+\backcite {Merz1972}{{5}{II}{equation.2.31}}
+\backcite {Isaacs1965}{{5}{II}{equation.2.31}}
