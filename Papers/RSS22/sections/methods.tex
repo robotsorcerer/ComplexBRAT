@@ -5,34 +5,27 @@ We now introduce the quadratic approximation scheme of the value function.
  We seek a pair of \emph{saddle point equilibrium} policies, $(\control^*, \disturb^*)$ that satisfy the following inequalities for a cost $\valuefunc$ at an initial time $T$:
  %
 \begin{align}
-\valuefunc(T; \state(T), \control^*, \disturb) &\leq \valuefunc(T; \state(T), \control^*, \disturb^*) \leq \\
-%
- \valuefunc(T; \state(T), \control, \disturb^*),
- \forall \, \control \in \mc{U}, \disturb \in \mc{V} \text{  and } \state(T).
+	\begin{split}
+		\valuefunc(T; \state, \control^*, \disturb) \leq \valuefunc(T; \state, \control^*, \disturb^*) \leq
+		\valuefunc(T; \state, \control, \disturb^*),  \\ 
+		\forall \, \control \in \mc{U}, \disturb \in \mc{V} \text{  and } \state(T).
+	\end{split}
 \end{align}
 %
-A successive approximation to $\valuefunc$ consists in  maintaining local approximations to the global system dynamics at every iteration so that the local state and controls are $\state_r, \control_r, \disturb_r$. We proceed as follows:
+A successive approximation to $\valuefunc(t; \cdot, \cdot, \cdot)$ consists in  maintaining local approximations to the global system dynamics at every iteration. % with the local state and controls $\state_r, \control_r, \disturb_r$. 
 %
-\begin{itemize}
-	\item Approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer and evader's local control schedules, $\{ \control_r(t)\}$ and $\{ \disturb_r(t) \}$, assumed to be available (when these are not available, we can initialize them to $0$);
-	%
-	\item  we then run the system's passive dynamics with $\{\control_r(t)\}, \{ {\disturb_r(t)} \}$ to generate  a nominal state trajectory $ \{\state_r(t)\}$, with neighboring trajectories $\{ \state(t) \}$; %deterministic dynamics,
-	%
-	\item we choose a small neighborhood, $\{\delta \state(t)\}$ of $\{\state(t)\}$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state(t)\}$;
-	%
-	\item  discretizing time, the new state and control sequence pairs become $\delta \state(t) = \state(t) - \state_r(t), \,
-	\delta \control(t) = \control(t) - \control_r(t), \,
-	\delta \disturb(t) = \disturb(t) - \disturb_r(t)$.
-	%
-\end{itemize}
+%The max-min over the entire control sequences reduces to a stepwise optimization over single controls, starting from a negative time $T$ and going forward in time with %the \textit{stage cost}
+%\begin{align}
+%	V(\state_\tidx) = \max_{\control(t) \sim \mc{U}} \min_{\disturb(t) \sim \mc{V} [\langle \valuefunc,  f(\state_{\tidx+1}, \control_{\tidx+1}, \disturb(t)) \rangle]. \nonumber
+%\end{align}
 %
-The max-min over the entire control sequences reduces to a stepwise optimization over single controls, starting from a negative time $T$ and going forward in time with %the \textit{stage cost}
+First, we apply local controls $\control_r(t) \, \text{ and } \disturb_r(t)$ on \eqref{eq:sys_dyn} so that the nominal value  is $\valuefunc(t; \cdot, \cdot, \cdot)$ for a resulting nominal state $\state_r(\tau)$; $\tau \in \left[-T, 0\right]$. The local system dynamics becomes
+%
 \begin{align}
-	V(\state_\tidx) = \max_{\control(t) \sim \mc{U}} \min_{\disturb(t) \sim \mc{V} [\langle \valuefunc,  f(\state_{\tidx+1}, \control_{\tidx+1}, \disturb(t)) \rangle]. \nonumber
+	\dot{\state}_r(\tau) &= f(t; \state_r(\tau), \control_r(\tau), \disturb_r(\tau)); \,\, \state_r(0) = \state_{r_0}.
 \end{align}
-
-
-Suppose an (optimal) reduced basis with order $r$ has been found that admits the most energetic modes of $\valuefunc$. Call the cost on this basis $\valuefunc_r$. Define the state, control, and disturbance on the reduced basis as $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$ respectively, where $t \in \left[T, 0\right]$. When we decompose the system into the reduced  $\state_r(t), \, \control_r(t), \, \text{ and } \disturb_r(t)$, the dynamics no longer describes the original states and controls, but rather the variation of the state and controls on the reduced basis from the state and the control pairs on the nonlinear system of equation \eqref{eq:sys_dyn} \ie $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ respectively\footnote{Note that $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ are respectively measured with respect to $\state(t), \control(t), \disturb(t)$ and are not necessarily small. However, our case is very much helped when they are small and we conjecture that our decomposition scheme favors the smallness in the values of these variations.}. It follows that we can write the following relations
+%
+Our dynamics now describe variations from the nonlinear system \cf \eqref{eq:sys_dyn} with state and control pairs $\delta \state(t), \, \delta \control(t), \,\delta \disturb(t)$ respectively\footnote{Note that $\delta \state(t), \, \delta \control(t), \,\text{ and } \delta \disturb(t)$ are respectively measured with respect to $\state(t), \control(t), \disturb(t)$ and are not necessarily small.}. Therefore, we write
 %
 \begin{subequations}
 	\begin{align}
@@ -43,16 +36,15 @@ Suppose an (optimal) reduced basis with order $r$ has been found that admits the
 	\label{eq:variations}
 \end{subequations}
 %
-For convenience' sake, let us drop the templated time arguments in \eqref{eq:variations} so that our canonical problem becomes
+Abusing notation, we drop the templated time arguments in \eqref{eq:variations} so that our canonical problem becomes 
 %
-\begin{subequations}
+%\begin{subequations}
 	\begin{align}
-		\eqref{eq:sys_dyn} \implies \dfrac{d}{dt}\left(\state_r + \delta \state\right) &= f(t; \state_r + \delta \state, \control_r + \delta \control, \disturb_r + \delta \disturb), \,  \\
-		& \state_r(0) + \delta \state(0) = \state(0).
+		\dfrac{d}{dt}\left(\state_r + \delta \state\right) &= f(t; \state_r + \delta \state, \control_r + \delta \control, \disturb_r + \delta \disturb), \,  \\
+	 \state_r(0) 	&+ \delta \state(0) = \state(0).
 	\end{align}
-\end{subequations}
 %
-\eqref{eq:lower_visc} implies 
+with terminal value 
 %
 \begin{align}
 	\begin{split}
@@ -63,32 +55,40 @@ For convenience' sake, let us drop the templated time arguments in \eqref{eq:var
 		&  \left. \left.  \control_r + \delta \control, \disturb_r + \delta \disturb), \dfrac{\partial \valuefunc}{\partial \state}\left(\state_r + \delta \state, t \right) \right\rangle \right\}. 
 	\end{split} \nonumber \\
 	%
-	\eqref{eq:lower_visc_boundary} \implies	\valuefunc(\state_r, 0) &= g(0; \state_r(0) + \delta \state (0));
+	\valuefunc(\state_r, 0) &= g(0; \state_r(0) + \delta \state (0));
 	\label{eq:canonical_value}
 \end{align}
 %
-and
+and trajectory
 %
 \begin{align}
-	\eqref{eq:HJ_traj} \implies	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_r + \delta\state, 	\control+\delta\control,\disturb+\delta\disturb).
+	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_r + \delta\state, 	\control+\delta\control,\disturb+\delta\disturb).
 \end{align}
 %
-In particular, on the reduced order basis (ROB), the state dynamics now become
 %
-\begin{subequations}
-	\begin{align}
-		\dot{\state}_r(\tau) &= f(t; \state_r(\tau), \control_r(\tau), \disturb_r(\tau)), \quad \tau \in \left[-T, 0\right] \\
-		\state_r(0) &= \state.
-	\end{align}
-\end{subequations}
-%
-Let the optimal cost  for using the optimal control $\control^\star(\tau) = \control_r(\tau) + \delta \control^\star(\tau)$ when $\tau \in \left[t, 0\right]$ on the phase $(\state_r, t)$ be denoted $\valuefunc^\star(\state_r, t)$; and the ROM cost for using $\control_r(\tau); \,\, \tau \in \left[t, 0\right]$ be $\valuefunc_r(\state_r, t)$. Suppose further that we denote  the difference between these two costs on the phase $\left(\state_r, t\right)$ by $\costdiff^\star$, then we have
+Let the optimal cost  for using the optimal control $\control^\star(\tau) = \control_r(\tau) + \delta \control^\star(\tau)$ when $\tau \in \left[T, 0\right]$ on the phase $(\state_r, \tau)$ be denoted $\valuefunc^\star(\state_r, \tau)$; and the ROM cost for using $\control_r(\tau); \,\, \tau \in \left[t, 0\right]$ be $\valuefunc_r(\state_r, t)$. Suppose further that we denote  the difference between these two costs on the phase $\left(\state_r, t\right)$ by $\costdiff^\star$, then we have
 %
 \begin{align}
 	\costdiff^\star =\valuefunc^\star(\state_r, t) -\valuefunc_r(\state_r, t).
 	\label{eq:cost_diff}
 \end{align}
 %
+
+The approximation scheme proceeds as follows:
+%
+\begin{itemize}
+	\item approximate the nonlinear system dynamics (c.f. \eqref{eq:sys_dyn}), starting with the pursuer and evader's local control schedules, $\{ \control_r(t)\}_{t=T}^0$ and $\{ \disturb_r(t) \}_{t=T}^0$, assumed to be available; % (when these are not available, we can run the passive dynamics of the system);
+	%
+	\item  run the system's passive dynamics with $\{\control_r(t)\}_{t=T}^0, \{ {\disturb_r(t)} \}_{t=0}^T$ to generate  nominal state trajectories $ \{\state_r(t)\}_{t=T}^0$, with neighboring trajectories $\{ \state(t) \}_{t=0}^T$; %deterministic dynamics,
+	%
+	\item choose a small neighborhood, $\{\delta \state(t)\}_{t=T}^0$ of $\{\state(t)\}_{t=T}^0$, which provides an optimal reduction in cost as the dynamics no longer represent those of $\{\state(t)\}_{t=T}^0$;
+	%
+	\item   new state and control sequence pairs become $\delta \state(t) = \state(t) - \state_r(t), \,
+	\delta \control(t) = \control(t) - \control_r(t), \,
+	\delta \disturb(t) = \disturb(t) - \disturb_r(t)$.
+	%
+\end{itemize}
+
 \begin{theorem}
 	The HJI variational inequality \cf \eqref{eq:lower_hji_pde} admits the following approximated expansion on the reduced model:
 	\begin{align}
