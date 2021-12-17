@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  15 DEC 2021 00:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.7.2)  16 DEC 2021 15:37
 entering extended mode
 **./pgdreach.tex
 (pgdreach.tex
@@ -1386,8 +1386,8 @@ Package rerunfilecheck Info: File `pgdreach.brf' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  31878 strings out of 478864
- 609771 string characters out of 2858506
- 970345 words of memory out of 3000000
+ 609631 string characters out of 2858506
+ 970347 words of memory out of 3000000
  48863 multiletter control sequences out of 15000+600000
  459682 words of font info for 161 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
