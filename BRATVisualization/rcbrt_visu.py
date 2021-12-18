@@ -20,7 +20,7 @@ class RCBRTVisualizer(object):
 			colors according to the spectral colormap.
 
 			Inputs:
-				params: Bundle Type  with fields as follows: 
+				params: Bundle Type  with fields as follows:
 
 				Bundle({"grid": obj.grid,
 						'disp': True,
@@ -92,7 +92,7 @@ class RCBRTVisualizer(object):
 
 		data = self.params.data
 
-		if len(self.grid.dim)==3:
+		if self.grid.dim==3:
 
 			self._ax[0].add_collection3d(mesh)
 
@@ -110,7 +110,7 @@ class RCBRTVisualizer(object):
 			self._ax[0].set_title(f"Initial {self.params.level}-Level Value Set", \
 									fontweight=self.params.fontdict.fontweight)
 			self._ax[1].set_title(f'BRT at {0} secs.', fontweight=self.params.fontdict.fontweight)
-		elif len(self.grid.dim)==2:
+		elif self.grid.dim==2:
 			self._ax[0].contourf(self.grid.xs[0], self.grid.xs[1], mesh, colors='cyan')
 			self._ax[0].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
 			self._ax[0].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
@@ -159,7 +159,7 @@ class RCBRTVisualizer(object):
 
 		self.draw()
 		time.sleep(self.params.pause_time)
-		
+
 	def add_legend(self, linestyle, marker, color, label):
 		self._ax_legend.plot([], [], linestyle=linestyle, marker=marker,
 				color=color, label=label)

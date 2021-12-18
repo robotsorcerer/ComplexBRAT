@@ -40,7 +40,7 @@ from BRATSolver.brt_solver import solve_brt
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_true', help='save BRS/BRT at end of sim' )
-parser.add_argument('--visualize', '-vz', action='store_true', help='visualize level sets?' )
+parser.add_argument('--visualize', '-vz', action='store_false', help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
 parser.add_argument('--stochastic', '-st', action='store_true', help='Run trajectories with stochastic dynamics?' )
 parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run trajectories with stochastic dynamics?' )
@@ -88,7 +88,6 @@ def get_partial_func(t, data, derivMin, derivMax, \
 	"""
 	global obj
 
-	# print('dim: ', dim)
 	assert dim>=0 and dim <3, "grid dimension has to be between 0 and 2 inclusive."
 
 	return obj.alpha[dim]
@@ -131,12 +130,12 @@ def main(args):
 	obj.alpha = [ cp.abs(obj.p1_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[1]), \
 					cp.abs(obj.p2_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[0]), \
 					obj.omega_e_bound + obj.omega_p_bound ]
-  
-	finite_diff_data = Bundle({'grid': obj.grid, 
+
+	finite_diff_data = Bundle({'grid': obj.grid,
 	                            'hamFunc': get_hamiltonian_func,
 								'partialFunc': get_partial_func,
 								'dissFunc': artificialDissipationGLF,
-								'derivFunc': upwindFirstENO2,
+								'CoStateCalc': upwindFirstENO2,
 								})
 
 
@@ -189,7 +188,7 @@ def main(args):
 		# # g, data = augmentPeriodic(obj.grid, brt)
 		# for i in range(obj.grid.dim):
 		# 	if (isfield(obj.grid, 'bdry') and id(obj.grid.bdry[i])==id(addGhostPeriodic)):
-				
+
 
 
 if __name__ == '__main__':

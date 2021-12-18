@@ -49,11 +49,11 @@ class DoubleIntegratorVisualizer(object):
 			self._fig = params.fig
 
 		self.grid = params.grid
-		# self.g_rom = params.pgd_grid
+		self.g_rom = params.g_rom
 
 		# move data to cpu
 		self.grid.xs = [self.grid.xs[i].get() for i in range(self.grid.dim)]
-		# self.g_rom.xs = [self.g_rom.xs[i].get() for i in range(self.g_rom.dim)]
+		self.g_rom.xs = [self.g_rom.xs[i].get() for i in range(self.g_rom.dim)]
 
 		self._gs  = gridspec.GridSpec(1, 2, self._fig)
 
@@ -128,9 +128,9 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[0].set_ylim([-1.01, 1.01])
 
 			# Decomposed level set
-			self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], pgd_mesh, colors='magenta')
+			self._ax[1].contour(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, colors='magenta')
 
-			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//10], pgd_mesh[::len(pgd_mesh)//10, 1]
+			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//2], pgd_mesh[::len(pgd_mesh)//2, 0]
 			U, V = Y, Y
 			self._ax[1].quiver(X,Y, 5, 5, angles='xy')
 			self._ax[1].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
@@ -183,7 +183,12 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[0].clabel(CS1, CS1.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
 
 			self._ax[1].cla() if delete_last_plot else self._ax[1].cla()
-			CS2 = self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], pgd_mesh, colors='magenta')
+			CS2 = self._ax[1].contour(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, colors='magenta')
+
+			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//2], pgd_mesh[::len(pgd_mesh)//2, 0]
+			U, V = Y, Y
+			self._ax[1].quiver(X,Y, 5, 5, angles='xy')
+
 			self._ax[1].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_title(f'Decomposed TTR @ {time_step} secs.')
