@@ -20,9 +20,11 @@ from os.path import abspath, join, expanduser
 import matplotlib.pyplot as plt
 from control.phaseplot import phase_plot
 
-sys.path.append(abspath(join('..')))
+from os.path import abspath, join, dirname
+sys.path.append(dirname(dirname(abspath(__file__))))
 from BRATVisualization.DIVisu import DoubleIntegratorVisualizer
-sys.path.append(abspath(join('../..')))
+
+sys.path.append(abspath(join('..'))) # be sure LevelSetPy is in the same level of your folder structure as largeBRAT
 from LevelSetPy.Utilities import *
 from LevelSetPy.Grids import createGrid
 from LevelSetPy.Helper import postTimeStepTTR
@@ -46,12 +48,13 @@ sys.path.append(dirname(dirname(abspath(__file__))))
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_true', help='silent debug print outs' )
-parser.add_argument('--save', '-sv', action='store_true', help='save BRS/BRT at end of sim' )
 parser.add_argument('--visualize', '-vz', action='store_false', help='visualize level sets?' )
 parser.add_argument('--init_cond', '-ic', type=str, default='circle', help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_false', help='load saved brt?' )
+parser.add_argument('--save', '-sv', action='store_true', help='save figures to disk?' )
 parser.add_argument('--verify', '-vf', action='store_true', default=True, help='visualize level sets?' )
-parser.add_argument('--pause_time', '-pz', type=float, default=1, help='pause time between successive updates of plots' )
+parser.add_argument('--direction', '-dr',  action='store_true',  help='direction to grow the level sets. Negative by defalt?' )
+parser.add_argument('--pause_time', '-pz', type=float, default=.1, help='pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -95,26 +98,39 @@ def preprocessing():
 
 	return g, attr, value_func_init
 
-def show_init_levels(g, attr, value_func_init):
 
-	f, (ax1, ax2) = plt.subplots(1,2,figsize=(12, 4))
+def show_init_levels(g, attr, value_func_init):
+	fontdict = {'fontsize':28, 'fontweight':'bold'}
+	f, (ax1, ax2) = plt.subplots(1,2,figsize=(16, 9))
 
 	ax1.contour(g.xs[0], g.xs[1], attr, colors='red')
-	ax1.set_title('Analytical TTR')
-	ax1.set_xlabel(r"$x_1 (m)$")
-	ax1.set_ylabel(r"$x_2 (ms^{-1})$")
+	ax1.set_xlabel(rf"${{x}}_1 ({{m}})$", fontdict =fontdict)
+	ax1.set_ylabel(rf"${{x}}_2 ({{m/s}})$", fontdict =fontdict)
+	ax1.set_title(f'Analytic TTR, [-T] secs.', fontdict =fontdict)
+	ax1.tick_params(axis='both', which='major', labelsize=28)
+	ax1.tick_params(axis='both', which='minor', labelsize=18)
 	ax1.set_xlim([-1.02, 1.02])
 	ax1.set_ylim([-1.01, 1.01])
 	ax1.grid()
 
 	ax2.contour(g.xs[0], g.xs[1], value_func_init, colors='blue')
-	ax2.set_title('Numerical TTR')
-	ax2.set_xlabel(r"$x_1 (m)$")
+	ax2.set_xlabel(rf"${{x}}_1 ({{m}})$", fontdict =fontdict)
+	ax2.set_ylabel(rf"${{x}}_2 ({{m/s}})$", fontdict =fontdict)
+	ax2.set_title(f'LF Approx, [-T] secs.', fontdict =fontdict)
 	ax2.set_xlim([-1.02, 1.02])
 	ax2.set_ylim([-1.01, 1.01])
-	ax2.grid()
+	ax2.grid('on')
+	ax2.tick_params(axis='both', which='major', labelsize=28)
+	ax2.tick_params(axis='both', which='minor', labelsize=18)
+	ax2.legend(loc="center left", fontsize=8)
 
-	f.suptitle(f"Levelsets")
+	f.suptitle(f"Levelsets", fontdict =fontdict)
+
+	if args.save:
+		f.savefig(join(expanduser("~"), \
+		"Documents/Papers/Safety/PGDReach", \
+		"figures/dint_ttr_init_ls.jpg"), \
+		 bbox_inches='tight',facecolor='None')
 
 	f.canvas.draw()
 	f.canvas.flush_events()
@@ -133,7 +149,7 @@ def show_trajectories(g, attr, x_i):
 	x1m  = np.empty((len(x_i), g.xs[0].shape[1], len(t)))
 	x2m = np.empty((len(x_i), g.xs[1].shape[1], len(t)))
 
-	fig, [ax1,ax2] = plt.subplots(1, 2, figsize=(27,12))
+	fig, ax1 = plt.subplots(1, 1, figsize=(16,9))
 
 	for i in range(len(x_i)):
 		for k in range(len(t)):
@@ -143,45 +159,94 @@ def show_trajectories(g, attr, x_i):
 			x2m[i, :,k] = x_i[i][1] + Δ(-u_bound) * t[k]
 			x1m[i, :,k] = x_i[i][0]+.3 + .5 * Δ(-u_bound) * x2p[i,:,k]**2 - .5 * Δ(-u_bound) * x_i[i][1]**2
 
+	fontdict = {'fontsize':28, 'fontweight':'bold'}
 
 	# Plot a few snapshots for different initial conditions.
-	color = iter(plt.cm.viridis(np.linspace(.25, 1, 2*len(x_i))))
-	for init_cond in range(len(x_i)):
+	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, 2*len(x_i))))
+	# repeat for legends
+	for init_cond in range(0, len(x_i)):
 		# state trajectories are unique for every initial cond
 		# here, we pick the last state
-		ax1.plot(x1p[init_cond, -1, :], x2p[init_cond, -1, :], linewidth=2, color=next(color))#, label=rf"$u=+1$")
-		ax1.plot(x1m[init_cond, -1, :], x2m[init_cond, -1, :], '-.', linewidth=2, color=next(color))#, label=rf"$u=+1$")
+		ax1.plot(x1p[init_cond, -1, :], x2p[init_cond, -1, :], linewidth=3, color=next(color), \
+			label=rf"x$_{init_cond+1}^+={x_i[init_cond]}$")
+		ax1.plot(x1m[init_cond, -1, :], x2m[init_cond, -1, :], '-.', linewidth=3, color=next(color) , \
+			label=rf"x$_{init_cond+1}^-={x_i[init_cond]}$")
 
 		#plot the quivers
 		ax1.grid('on')
 		up, vp = x2p[init_cond, -1, ::len(t)//2], [Δ(u_bound)]*len(x2p[init_cond, -1, ::len(t)//2])
 		um, vm = x2m[init_cond, -1, ::len(t)//2], [Δ(-u_bound)]*len(x2m[init_cond, -1, ::len(t)//2])
-		ax1.quiver(x1p[init_cond, -1, ::len(t)//2], x2p[init_cond, -1, ::len(t)//2], up, vp, angles='xy')
-		ax1.quiver(x1m[init_cond, -1, ::len(t)//2], x2m[init_cond, -1, ::len(t)//2], um, vm, angles='xy')
+		ax1.quiver(x1p[init_cond, -1, ::len(t)//2], x2p[init_cond, -1, ::len(t)//2], up, vp, angles='xy')#, width=53-3)
+		ax1.quiver(x1m[init_cond, -1, ::len(t)//2], x2m[init_cond, -1, ::len(t)//2], um, vm, angles='xy')#, width=53-3)
 
-	ax1.set_ylabel(rf"Linear Speed, x$_2$ (m/s)", fontdict=fontdict)
-	ax1.set_xlabel(rf"Position, x$_1$ (m)", fontdict=fontdict)
-	ax1.set_title(rf"$\downarrow: u=-1$ | $\uparrow: \, u=+1$", fontdict=fontdict)
-	ax1.legend(loc="lower right", fontsize=8, bbox_to_anchor=(1.01,.05))
+	ax1.set_ylabel(rf"${{x}}_2 {{m/s}}$", fontdict=fontdict)
+	ax1.set_xlabel(rf"${{x}}_1 ({{m}})$", fontdict=fontdict)
+	ax1.tick_params(axis='both', which='major', labelsize=28)
+	ax1.tick_params(axis='both', which='minor', labelsize=18)
+	ax1.set_title(rf"State Trajectories.", fontdict=fontdict)
+	ax1.legend(loc="center left", fontsize=8)
 
-
-	# Plot all vectograms(snapshots) in space and time.
-	cdata = ax2.pcolormesh(g.xs[0], g.xs[1], attr, shading="nearest", cmap="magma_r")
-	plt.colorbar(cdata, ax=ax2, extend="both")
-	ax2.set_xlabel(r"Position $(m)$", fontdict=fontdict)
-	#ax2.set_ylabel(r"Velocity $(m/s)$", fontdict=fontdict)
-	ax2.set_title(r"Minimum TTR", fontdict=fontdict)
-
-	# fig.suptitle("The Double Integral Plant.", fontdict=fontdict)
-	fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/doub_int_trajos.jpg"),
+	if args.save:
+		fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/doub_int_trajos.jpg"),
 				bbox_inches='tight',facecolor='None')
-
 	fig.canvas.draw()
 	fig.canvas.flush_events()
 	time.sleep(args.pause_time)
 
+### Plot the switching curve
+fontdict = {'fontsize':42, 'fontweight':'bold'}
+def show_switch_curve():
+	# Plot all vectograms(snapshots) in space and time.
+	fig3, ax3 = plt.subplots(1, 1, figsize=(14,13))
+	ax3.grid('on')
+	color = iter(plt.cm.seismic_r(np.linspace(.25, 1, 4)))
+	ax3.plot(dint.Gamma[0,:], linewidth=7.5, color=next(color), label=rf"Switching Curve, $\gamma$")
+	xmin, xmax = ax3.get_xlim()
+	ymin, ymax = ax3.get_ylim()
+	ax3.hlines(0, xmin, xmax, colors='black', linestyles='solid', label='')
+	ax3.vlines(len(dint.Gamma)//2, ymin, ymax, colors='black', linestyles='solid', label='')
+
+	ax3.set_xlim(0, 100)
+	ax3.set_ylim(-.55, .55)
+
+	ax3.set_xlabel(rf"${{x}}_1 ({{m}})$", fontdict=fontdict)
+	ax3.set_ylabel(rf"${{x}}_2 ({{m/s}})$", fontdict=fontdict)
+	ax3.set_title(rf"Switching Curve, $\gamma$", fontdict=fontdict)
+	ax3.tick_params(axis='both', which='major', labelsize=42)
+	ax3.tick_params(axis='both', which='minor', labelsize=22)
+	ax3.legend(fontsize=28)
+	plt.tight_layout()
+
+	# fig.suptitle("The Double Integral Plant.", fontdict=fontdict)
+	if args.save:
+		fig3.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/switching_curve.jpg"),
+				bbox_inches='tight',facecolor='None')
+
+	fig3.canvas.draw()
+	fig3.canvas.flush_events()
+	time.sleep(args.pause_time)
+
+
+def show_attr():
+	# Plot all vectograms in space and time.
+	fig2, ax2 = plt.subplots(1, 1, figsize=(16,9))
+	cdata = ax2.pcolormesh(g.xs[0], g.xs[1], attr, shading="nearest", cmap="magma_r")
+	plt.colorbar(cdata, ax=ax2, extend="both")
+	ax2.set_xlabel(rf"${{x}}_1 ({{m}})$", fontdict=fontdict)
+	ax2.set_ylabel(rf"${{x}}_2 ({{m/s}})$", fontdict=fontdict)
+	ax2.set_title(r"Reach Time", fontdict=fontdict)
+	ax2.tick_params(axis='both', which='major', labelsize=28)
+	ax2.tick_params(axis='both', which='minor', labelsize=18)
+
+	# fig.suptitle("The Double Integral Plant.", fontdict=fontdict)
+	if args.save:
+		fig2.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/attr.jpg"),
+					bbox_inches='tight',facecolor='None')
+
+
+
 def traj_opt(g, value_func_init):
-	global dint, u_bound
+	global dint, u_bound, args
 	#turn the state space over to the gpu
 	g.xs = [cp.asarray(x) for x in g.xs]
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
@@ -191,7 +256,7 @@ def traj_opt(g, value_func_init):
 					'dissFunc': artificialDissipationGLF,
 					'CoStateCalc': upwindFirstENO2,
 					}),
-					positive = False,  # direction to grow the updated level set
+					positive = args.direction,  # direction to grow the updated level set
 				))
 
 	small = 100*eps
@@ -207,7 +272,7 @@ def traj_opt(g, value_func_init):
 	spacing = tuple(g.dx.flatten().tolist())
 	params = Bundle(
 						{'grid': g,
-						#'pgd_grid': g,
+						'g_rom': copy.copy(g),
 						'disp': True,
 						'labelsize': 16,
 						'labels': "Initial 0-LevelSet",
@@ -218,10 +283,10 @@ def traj_opt(g, value_func_init):
 						'pause_time': args.pause_time,
 						'level': 0, # which level set to visualize
 						'winsize': (16,9),
-						'fontdict': Bundle({'fontsize':12, 'fontweight':'bold'}),
+						'fontdict': Bundle({'fontsize':24, 'fontweight':'bold'}),
 						"savedict": Bundle({"save": False,
-									"savename": "rcbrt",
-									"savepath": "../jpeg_dumps/rcbrt"})
+									"savename": "dint_basic.jpg",
+									"savepath": join(expanduser("~"),"Documents/Papers/Safety/PGDReach/figures")})
 						})
 
 	if args.visualize:
@@ -258,6 +323,8 @@ def traj_opt(g, value_func_init):
 		if args.visualize:
 			ls_mesh = value_func.get()
 			viz.update_tube(attr, ls_mesh, ls_mesh, cur_time, delete_last_plot=True)
+			# store this brt
+			value_func_all[idx] = ls_mesh
 
 		itr_end.record()
 		itr_end.synchronize()
@@ -265,8 +332,6 @@ def traj_opt(g, value_func_init):
 
 		print(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}')
 
-		# store this brt
-		value_func_all[idx] = ls_mesh
 		idx += 1
 
 	end_time = cputime()
@@ -274,13 +339,37 @@ def traj_opt(g, value_func_init):
 
 
 if __name__ == '__main__':
-	g, attr, value_func_init = preprocessing()
+	g, attr, value_init = preprocessing()
+	print("Showing analytical time to reach.")
+
+	if args.visualize:
+		plt.ion()
+
+		print("Showing initial level sets.")
+		show_init_levels(g, attr, value_init)
+
+		print('\n\nShowing Trajectories.')
+		xis = [(1,0), (.25, 0), (.5, 0), (.75, 0),  (0,0), (-.25, 0), (-.5, 0), (.75, 0), (-1,0)]
+		# xis = [(1,0), (.5, 0),  (0,0), (-.5, 0), (-1,0)]
+		show_trajectories(g, attr, xis)
+
+		print('\n\nShowing Switch Curve.')
+		show_switch_curve()
+
+		print('\n\nShowing Analytical Time to Reach.')
+		show_attr()
+
+		time.sleep(4)
+		plt.ioff()
+
 	plt.ion()
 
-	show_init_levels(g, attr, value_func_init)
-	# initial conditions
-	x_inits = [(1,0), (.25, 0), (.5, 0), (.75, 0),  (0,0), (-.25, 0), (-.5, 0), (.75, 0), (-1,0)]
-	show_trajectories(g, attr, x_inits)
-	traj_opt(g, value_func_init)
+	print("\n\nEvolving the level set.")
+	traj_opt(g, value_init)
 	plt.ioff()
 	plt.show()
+
+	if args.save:
+		f = plt.gcf()
+		f.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/dint_ttr_final.jpg"),
+			bbox_inches='tight',facecolor='None')

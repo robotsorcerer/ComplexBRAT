@@ -4,7 +4,9 @@ __license__ 	= "Molux License"
 __comment__ 	= "Evader at origin"
 __maintainer__ 	= "Lekan Molu"
 __email__ 		= "patlekno@icloud.com"
+__comment__     = 'RCBRT Air3D Basic'
 __status__ 		= "Completed"
+__date__ 		= "Nov. 2021"
 
 import copy
 import time
@@ -20,8 +22,6 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from skimage import measure
 
 from os.path import abspath, join, dirname
-#sys.path.append(abspath(join('..')))
-#from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 sys.path.append(dirname(dirname(abspath(__file__))))
 
 sys.path.append(abspath(join('..')))
@@ -36,7 +36,6 @@ from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
 from BRATSolver.brt_solver import solve_brt
 
-
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_true', help='save BRS/BRT at end of sim' )
@@ -47,7 +46,7 @@ parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run tra
 parser.add_argument('--verify', '-vf', action='store_true', default=True, help='visualize level sets?' )
 parser.add_argument('--elevation', '-el', type=float, default=5., help='elevation angle for target set plot.' )
 parser.add_argument('--azimuth', '-az', type=float, default=5., help='azimuth angle for target set plot.' )
-parser.add_argument('--pause_time', '-pz', type=float, default=4, help='pause time between successive updates of plots' )
+parser.add_argument('--pause_time', '-pz', type=float, default=.3, help='pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -72,7 +71,7 @@ def get_target(g):
 
 def get_hamiltonian_func(t, data, deriv, finite_diff_data):
 	global obj
-	ham_value = deriv[0] * obj.p1_term + \
+	ham_value = deriv[0] * obj.p1_term - \
 				deriv[1] * obj.p2_term - \
 				obj.omega_e_bound*np.abs(deriv[0]*obj.grid.xs[1] - \
 				deriv[1] * obj.grid.xs[0] - deriv[2])  + \
@@ -137,7 +136,6 @@ def main(args):
 								'dissFunc': artificialDissipationGLF,
 								'CoStateCalc': upwindFirstENO2,
 								})
-
 
 	# Visualization paramters
 	spacing = tuple(obj.grid.dx.flatten().tolist())

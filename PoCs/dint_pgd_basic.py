@@ -1,3 +1,11 @@
+__author__ 		= "Lekan Molu"
+__copyright__ 	= "2021, Large Hamilton-Jacobi Analysis."
+__license__ 	= "Molux License"
+__comment__ 	= "Double Integrator Dynamics Time to reach origin under Maximum Controlled Invariant Subspace."
+__maintainer__ 	= "Lekan Molu"
+__email__ 		= "patlekno@icloud.com"
+__status__ 		= "Working Concept. Stuck on Subspace Identification"
+
 
 import sys
 import copy

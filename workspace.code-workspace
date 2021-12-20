@@ -1,13 +1,13 @@
 {
     "folders": [
         {
-            "path": ".."
+            "path": "."
         },
         {
-            "path": "..\\..\\ROMOpInf"
+            "path": "..\\LevelSetMat"
         },
         {
-            "path": "..\\..\\LyapunovLearner"
+            "path": "..\\LevelSetPy"
         }
     ]
 }

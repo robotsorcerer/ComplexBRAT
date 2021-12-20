@@ -3,6 +3,7 @@ __all__ = ["DoubleIntegratorVisualizer"]
 import os
 import time
 import numpy as np
+from os.path import join, expanduser
 from skimage import measure
 import matplotlib.pylab as plt
 import matplotlib.gridspec as gridspec
@@ -116,14 +117,14 @@ class DoubleIntegratorVisualizer(object):
 									fontweight=self.params.fontdict.fontweight)
 			self._ax[1].set_title(f'BRT at {0} secs.', fontweight=self.params.fontdict.fontweight)
 		elif self.grid.dim==2:
+			self._ax[0].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
+			self._ax[0].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
+			self._ax[0].set_title(f'Analytic @ -T secs.', fontdict =self.params.fontdict.__dict__)
 			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], mesh, colors='red')
-			self._ax[0].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
-			self._ax[0].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
 
 			X, Y = mesh[-1, ::len(mesh)//3], mesh[::len(mesh)//3, 1]
 			U, V = Y, Y
 			self._ax[0].quiver(X,Y, 2, 2, angles='xy')
-			self._ax[0].set_title(f'2D Level Set.')
 			self._ax[0].set_xlim([-1.02, 1.02])
 			self._ax[0].set_ylim([-1.01, 1.01])
 
@@ -133,10 +134,12 @@ class DoubleIntegratorVisualizer(object):
 			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//2], pgd_mesh[::len(pgd_mesh)//2, 0]
 			U, V = Y, Y
 			self._ax[1].quiver(X,Y, 5, 5, angles='xy')
-			self._ax[1].set_xlabel('X', fontdict=self.params.fontdict.__dict__)
 
-			self._ax[1].set_ylabel('Y', fontdict=self.params.fontdict.__dict__)
-			self._ax[1].set_title(f'POD Level Set.')
+			self._ax[1].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
+			self._ax[1].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
+			self._ax[1].set_title(f'Lax-Friedrichs Approx. @ -T secs.', fontdict =self.params.fontdict.__dict__)
+			self._ax[1].contour(self.grid.xs[0], self.grid.xs[1], mesh, colors='red')
+
 			self._ax[1].set_xlim([-1.02, 1.02])
 			self._ax[1].set_ylim([-1.01, 1.01])
 
@@ -175,26 +178,35 @@ class DoubleIntegratorVisualizer(object):
 
 		elif self.grid.dim==2:
 			self._ax[0].cla() if delete_last_plot else self._ax[0].cla()
-			CS1 = self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], amesh, colors='red')
-			self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], ls_mesh, colors='green')
+			CS1 = self._ax[0].contour(self.grid.xs[0], self.grid.xs[1], amesh, linewidths=3,  colors='red')
+			self._ax[0].grid('on')
 			self._ax[0].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
 			self._ax[0].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
-			self._ax[0].set_title(f'Analytic and Numerical TTR @ {time_step} secs.')
+			# self._ax[0].set_title(f'Analytic and Numerical TTR @ {time_step} secs.', fontdict =self.params.fontdict.__dict__)
+			self._ax[0].set_title(f'Analytic TTR@{time_step} secs.', fontdict =self.params.fontdict.__dict__)
+
+			self._ax[0].tick_params(axis='both', which='major', labelsize=28)
+			self._ax[0].tick_params(axis='both', which='minor', labelsize=18)
+			self._ax[0].set_xlim([-1.02, 1.02])
+			self._ax[0].set_ylim([-1.01, 1.01])
 			self._ax[0].clabel(CS1, CS1.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
 
 			self._ax[1].cla() if delete_last_plot else self._ax[1].cla()
-			CS2 = self._ax[1].contour(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, colors='magenta')
-
-			X, Y = pgd_mesh[-1, ::len(pgd_mesh)//2], pgd_mesh[::len(pgd_mesh)//2, 0]
-			U, V = Y, Y
-			self._ax[1].quiver(X,Y, 5, 5, angles='xy')
-
+			CS2 = self._ax[1].contour(self.g_rom.xs[0], self.g_rom.xs[1], pgd_mesh, linewidths=3, colors='magenta')
+			self._ax[1].grid('on')
 			self._ax[1].set_xlabel(rf'$x_1$', fontdict=self.params.fontdict.__dict__)
 			self._ax[1].set_ylabel(rf'$x_2$', fontdict=self.params.fontdict.__dict__)
-			self._ax[1].set_title(f'Decomposed TTR @ {time_step} secs.')
-			self._ax[0].clabel(CS2, CS2.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
+			self._ax[1].set_title(f'LF TTR@{time_step} secs.', fontdict=self.params.fontdict.__dict__)
+			self._ax[1].tick_params(axis='both', which='major', labelsize=28)
+			self._ax[1].tick_params(axis='both', which='minor', labelsize=18)
+			self._ax[1].set_xlim([-1.02, 1.02])
+			self._ax[1].set_ylim([-1.01, 1.01])
+			self._ax[1].clabel(CS2, CS2.levels, inline=True, fmt=self.fmt, fontsize=self.params.fontdict.fontsize)
 
 		plt.tight_layout()
+		f = plt.gcf()
+		f.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", f"figures/dint_ttr_{time_step}.jpg"),
+			bbox_inches='tight',facecolor='None')
 		self.draw()
 		time.sleep(self.params.pause_time)
 

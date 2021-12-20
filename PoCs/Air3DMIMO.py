@@ -21,37 +21,31 @@ import matplotlib.gridspec as gridspec
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from skimage import measure
 
-from os.path import abspath, join, dirname, expanduser
+from os.path import abspath, join, dirname
 sys.path.append(dirname(dirname(abspath(__file__))))
 
 sys.path.append(abspath(join('..')))
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.Grids import createGrid
-from LevelSetPy.DynamicalSystems import DubinsVehicleRel
 from LevelSetPy.InitialConditions import shapeCylinder
 from LevelSetPy.SpatialDerivative import upwindFirstENO2
-from LevelSetPy.ExplicitIntegration.Integration import odeCFL2, odeCFLset
 from LevelSetPy.ExplicitIntegration.Dissipation import artificialDissipationGLF
-from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFriedrichs
 
 from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
 from BRATSolver.brt_solver import solve_brt
 
-from BRATVisualization.rcbrt_visu import RCBRTVisualizer 
-
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
-parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
+parser.add_argument('--save', '-sv', action='store_true', help='save BRS/BRT at end of sim' )
 parser.add_argument('--visualize', '-vz', action='store_false', help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
 parser.add_argument('--stochastic', '-st', action='store_true', help='Run trajectories with stochastic dynamics?' )
 parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run trajectories with stochastic dynamics?' )
 parser.add_argument('--verify', '-vf', action='store_true', default=True, help='visualize level sets?' )
 parser.add_argument('--elevation', '-el', type=float, default=5., help='elevation angle for target set plot.' )
-parser.add_argument('--direction', '-dr',  action='store_true',  help='direction to grow the level sets. Negative by default.' )
-parser.add_argument('--azimuth', '-az', type=float, default=15., help='azimuth angle for target set plot.' )
+parser.add_argument('--azimuth', '-az', type=float, default=5., help='azimuth angle for target set plot.' )
 parser.add_argument('--pause_time', '-pz', type=float, default=.3, help='pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
@@ -68,14 +62,36 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
 
-dubins_rel = DubinsVehicleRel
-u_bound = 1
-w_bound = 1
-fontdict = {'fontsize':16, 'fontweight':'bold'}
+obj = Bundle({})
 
-def preprocessing():
-	global dubins_rel, u_bound, w_bound
+# define the target set
+def get_target(g):
+	cylinder = shapeCylinder(g.grid, g.axis_align, g.center, g.radius)
+	return cylinder
 
+def get_hamiltonian_func(t, data, deriv, finite_diff_data):
+	global obj
+	ham_value = deriv[0] * obj.p1_term + \
+				deriv[1] * obj.p2_term - \
+				obj.omega_e_bound*np.abs(deriv[0]*obj.grid.xs[1] - \
+				deriv[1] * obj.grid.xs[0] - deriv[2])  + \
+				obj.omega_p_bound * np.abs(deriv[2])
+
+	return ham_value, finite_diff_data
+
+def get_partial_func(t, data, derivMin, derivMax, \
+			  schemeData, dim):
+	"""
+		Calculate the extrema of the absolute value of the partials of the
+		analytic Hamiltonian with respect to the costate (gradient).
+	"""
+	global obj
+
+	assert dim>=0 and dim <3, "grid dimension has to be between 0 and 2 inclusive."
+
+	return obj.alpha[dim]
+
+def main(args):
 	grid_min = expand(np.array((-.75, -1.25, -pi)), ax = 1)
 	grid_max = expand(np.array((3.25, 1.25, pi)), ax = 1)
 	pdDims = 2                      # 3rd dimension is periodic
@@ -87,42 +103,51 @@ def preprocessing():
 					resolution-1
 					]])).T.astype(int)
 	grid_max[2, 0] *= (1-2/N[2,0])
-	g = createGrid(grid_min, grid_max, N, pdDims)
 
-	axis_align, center, radius = 2, np.zeros((3, 1)), 0.5
-	value_init = shapeCylinder(g, axis_align, center, radius)	
+	obj.grid = createGrid(grid_min, grid_max, N, pdDims)
 
-	return g, value_init
-
-def main(args):
 	# global params
-	g, value_init = preprocessing()
-	dubins_rel = DubinsVehicleRel(g, u_bound, w_bound)
+	obj.axis_align, obj.center, obj.radius = 2, np.zeros((3, 1)), 0.5
+	data0 = get_target(obj)
+
+	data = cp.asarray(copy.copy(data0))
 
 	# after creating value function, make state space cupy objects
-	g.xs = [cp.asarray(x) for x in g.xs]
-	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-				innerData = Bundle({'grid':g,
-					'hamFunc': dubins_rel.hamiltonian,
-					'partialFunc': dubins_rel.dissipation,
-					'dissFunc': artificialDissipationGLF,
-					'CoStateCalc': upwindFirstENO2,
-					}),
-					positive = args.direction,  # direction to grow the updated level set
-				))
+	obj.grid.vs = [cp.asarray(x) for x in obj.grid.vs]
+	obj.grid.xs = [cp.asarray(x) for x in obj.grid.xs]
+
+	obj.v_e			  = +1
+	obj.v_p			  = +1
+
+	obj.omega_e_bound = +1
+	obj.omega_p_bound = +1
 
 	t_range = [0, 2.5]
 
+	obj.p1_term = obj.v_e - obj.v_p * cp.cos(obj.grid.xs[2])
+	obj.p2_term = -obj.v_p * cp.sin(obj.grid.xs[2])
+	obj.alpha = [ cp.abs(obj.p1_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[1]), \
+					cp.abs(obj.p2_term) + cp.abs(obj.omega_e_bound * obj.grid.xs[0]), \
+					obj.omega_e_bound + obj.omega_p_bound ]
+
+	finite_diff_data = Bundle({'grid': obj.grid,
+	                            'hamFunc': get_hamiltonian_func,
+								'partialFunc': get_partial_func,
+								'dissFunc': artificialDissipationGLF,
+								'CoStateCalc': upwindFirstENO2,
+								})
+
+
 	# Visualization paramters
-	spacing = tuple(g.dx.flatten().tolist())
-	init_mesh = implicit_mesh(value_init, level=0, spacing=spacing, edge_color='b', face_color='b')
+	spacing = tuple(obj.grid.dx.flatten().tolist())
+	init_mesh = implicit_mesh(data.get(), level=0, spacing=spacing, edge_color='b', face_color='b')
 	params = Bundle(
-					{"grid": g,
+					{"grid": obj.grid,
 					 'disp': True,
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
-					 'data': value_init,
+					 'data': data,
 					 'elevation': args.elevation,
 					 'azimuth': args.azimuth,
 					 'mesh': init_mesh,
@@ -130,69 +155,20 @@ def main(args):
 					 'pause_time': args.pause_time,
 					 'level': 0, # which level set to visualize
 					 'winsize': (16,9),
-					 'fontdict': Bundle({'fontsize':18, 'fontweight':'bold'}),
+					 'fontdict': Bundle({'fontsize':12, 'fontweight':'bold'}),
 					 "savedict": Bundle({"save": False,
-									"savename": "dint_basic.jpg",
-									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/PGDReach/figures")
-								 })
-					})
-	args.spacing = spacing
+					 				"savename": "rcbrt",
+					 				"savepath": "../jpeg_dumps/rcbrt"})
+					 })
+
+	args.obj = obj; args.spacing = spacing
 	args.init_mesh = init_mesh; args.params = params
 
 	if args.load_brt:
 		args.save = False
 		brt = np.load("data/rcbrt.npz")
 	else:
-		if args.visualize:
-			viz = RCBRTVisualizer(params=args.params)	
-		t_plot = (t_range[1] - t_range[0]) / 10	
-		small = 100*eps 
-		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
-
-		# Loop through t_range (subject to a little roundoff).
-		t_now = t_range[0]
-		start_time = cputime()
-		itr_start = cp.cuda.Event()
-		itr_end = cp.cuda.Event()
-
-		brt = [value_init]
-		value_rolling = cp.asarray(copy.copy(value_init))
-		
-		while(t_range[1] - t_now > small * t_range[1]):
-			itr_start.record()
-			cpu_start = cputime()
-			time_step = f"{t_now}/{t_range[-1]}"
-
-			# Reshape data array into column vector for ode solver call.
-			y0 = value_rolling.flatten()
-
-			# How far to step?
-			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
-
-			# Integrate a timestep.
-			t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-			cp.cuda.Stream.null.synchronize()
-			t_now = t
-
-			# Get back the correctly shaped data array
-			value_rolling = y.reshape(g.shape)
-
-			if args.visualize:
-				value_rolling_np = value_rolling.get()
-				mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-									edge_color='None',  face_color='red')
-				viz.update_tube(value_rolling_np, mesh, time_step)
-				# store this brt
-				brt.append(value_rolling_np)
-			
-			itr_end.record()
-			itr_end.synchronize()
-			cpu_end = cputime()
-			
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
-			
-		# opt_t, brt = solve_brt(args, t_range, cp.asarray(value_init), finite_diff_data)
+		opt_t, brt = solve_brt(args, t_range, data, finite_diff_data)
 
 	if args.save:
 		import os
@@ -203,7 +179,7 @@ def main(args):
 		x0 = np.array([[1.25, 0, pi]])
 
 		#examine to see if the initial state is in the BRS/BRT
-		gexam = copy.deepcopy(g)
+		gexam = copy.deepcopy(obj.grid)
 
 		#we should be doing a kdtree or flann search here
 		# state_val  = eval(obj.grid, x0, brt)
