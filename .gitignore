@@ -1,3 +1,4 @@
 data/
 //*pyc
 .vscode
+workspace.code-workspace
