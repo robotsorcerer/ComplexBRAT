@@ -1,0 +1,167 @@
+%\section{Background} 
+%\label{sec:prelim} 
+%% 
+%\todo{potentially add in the stuff about HJI here ?}
+
+%\shnote{Time is a bit scrambled up in this section.  need to set straight}
+\subsection{Trajectory Optimization in a Reachable Differential Game Setting}
+\noindent Consider two agents interacting in an environment, $\mc{E}$, over a finite horizon, $[T, 0]$. The states evolve according to the following continuous-time dynamics
+%
+%\begin{subequations}
+	\begin{align}
+		\dot{\state}(t) &= f(t, \state(t), \bm{u}(t), \bm{v}(t)) \quad T \le t \le 0 \\
+		\state(T) &= \state \nonumber
+		\label{eq:sys_dyn}
+	\end{align}
+%\end{subequations}
+%
+\noindent where $\state$ is the state that evolves from some initial negative time $T$ to final time $0$, and $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$ are respectively the control and disturbance signals. Here $f(t, \cdot, \cdot, \cdot)$ and $\state(\cdot)$ are assumed to be bounded and Lipschitz continuous. This bounded Lipschitz continuity property assures uniqueness of the system response $\state(\cdot)$ to controls $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$~\citet{Souganidis}. %,  and we note that a single player definition is defined in~\cite{LygerosReachability}. 
+
+For a state $\state \in \openset$ and a fixed time $t$: $T \le t < 0$, suppose that the set of all controls for players $\pursuer$ and $\evader$ are respectively
+%
+\begin{align}
+	\mathcal{\bar{U}} &\equiv \{\bm{u}: [t, 0] \rightarrow \mathcal{U} | \bm{u} \text{ measurable}, \, \mathcal{U} \in \bb{R}^m \}, \\
+	\mathcal{\bar{V}} &\equiv \{\bm{v}: [t, 0] \rightarrow \mathcal{V} | \bm{v} \text{ measurable},  \,\mathcal{V} \subset \reline^p\}.
+\end{align}
+
+For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state, T)$,  there exists a unique~\citet{Crandall1983viscosity, Evans1984} claim is that % $\xi(t)$ 
+%
+\begin{align}
+	\bm{\xi}(t) = \bm{\xi}(t; T, \state, \bm{u}(\cdot), \bm{v}(\cdot))
+	\label{eq:HJ_traj}
+\end{align}
+%
+that satisfies \eqref{eq:sys_dyn} a.e. with the property that
+\begin{align}
+	\bm{\xi}(T) = \bm{\xi}(T; T, \state, \bm{u}(\cdot), \bm{v}(\cdot)) = \state.
+\end{align}
+%
+Read \eqref{eq:HJ_traj}: the motion of \eqref{eq:sys_dyn} passing through phase $(\bm{x}, T)$ under the action of control $\bm{u}$, and disturbance $\bm{v}$, and observed at a time $t$ afterwards. 
+
+For any optimal control problem, a value function is constructed based on the optimal cost (or payoff) of any input phase $(\state, T)$.  In reachability analysis, typically this is defined using a terminal cost function $g(\cdot): \bb{R}^n \rightarrow \bb{R}$ that satisfies 
+\begin{subequations}
+	\begin{align}
+		| g(\state) | &\le k \\
+		| g(\state) - g(\hat{\state}) \mid &\le k | \state - \hat{\state} \mid
+	\end{align}
+\end{subequations}
+
+%This cost is user-defined, and generally consists of \shmargin{running costs $g(\cdot): \bb{R}^n \rightarrow \bb{R}$ (e.g. fuel consumption)}{can remove g(x) if low on space} and and bounded and uniformly continuous terminal costs $l:[0, T]  \times  \reline^n \times \mathcal{U} \times \mc{V} \rightarrow \bb{R}$ (e.g. reach goal by the end of the time horizon).  
+%These costs satisfy
+%
+% \begin{subequations}
+% 	\begin{align}
+% 		| g(\state) | &\le k_1 \\
+% 		| g(\state) - g(\hat{\state}) \mid &\le k_1 | \state - \hat{\state} \mid\\
+% 		\mid l(t; \state, \control, \disturb) \mid &\le k_2 \\
+% 		\mid l(t; \state, \control, \disturb)  -  l(t; \hat{\state}, \control, \disturb) \mid & \le k_2 \mid \state - \hat{\state} \mid
+% 	\end{align}
+% \end{subequations}
+%
+for constant $k$ and all 
+$T \le t \le 0$, $\hat{\state}, \, \state \in \reline^n$, $\bm{u}\in \mathcal{U}$ and $\disturb \in \mathcal{V}$.  The zero sublevel set of $g(\state)$ \ie
+%
+\begin{align}
+	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \},
+	\label{eq:target_set}
+\end{align}
+%
+is the \textit{target set} in the phase space $\openset \times \mathbb{R}$ (proof in \citet{Mitchell2005}). This target set can represent the failure set (to avoid) or a goal set (to reach) in the state space. Note that the target set, $\mathcal{L}_0$, is a closed subset of $\ren$ and is in the closure of $\openset$. Typically $\mathcal{L}_0$ is user-defined, and $g(x)$ is a signed distance function, that is negative inside the target set and positive elsewhere.
+
+Reachability analysis seeks to capture all initial conditions from which trajectories of the system may enter the target set.  This could be desirable (in the case where the target set is a goal) or undesirable (where the target set represents the failure set). Frequently in reachability analysis one seeks to measure the \textit{minimum cost} over time of trajectories of the system:
+\begin{align}
+	\min_t g(\bm{\xi}(t; T, \state_0, \bm{u}(\cdot), \bm{v}(\cdot))).
+\end{align}
+If this minimum cost is negative, then the trajectory entered the target set \textit{at some time $t\in[T,0]$} over the time horizon. If the minimum cost is positive, then the trajectory will never enter the target set in the time horizon. 
+
+\subsection{Hamilton-Jacobi Reachability:  Construction of the Value Function}
+Rather than computing the minimum cost for every possible trajectory of the system, in safety analysis it is sufficient to consider the minimum cost under optimal behavior from both players.  The optimal behavior of each player depends on whether the target set represents a goal or a failure set. For a safety (avoiding a failure set) problem setup, the evader $\evader$ is seeking to maximize the minimum cost (keeping the system out of the target set) and the pursuer $\pursuer$ seeks to minimize it. 
+Suppose that the pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}, \hat{\bm{u}} \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$.
+%
+The differential game's (lower) value for a solution $\state(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t)$ and $\bm{v}(t) = \beta[\control](\cdot)$ is 
+%
+\begin{align}
+	&V(\state, t) = %\inf_{\beta \in \mathcal{B}(t)} \sup_{\bm{u} \in \mathcal{U}(t)} \bm{P}(\bm{u}, \beta[\bm{u}]) \nonumber \\
+	%&=  
+	\inf_{\beta \in \mathcal{B}(t)} \sup_{\bm{u} \in \mathcal{U}(t)} %\left\{
+	%\int_{t}^{T} l(\tau, \bm{x}(\tau), \bm{u}(\tau), \beta[\bm{u}](\tau)) d\tau +
+	\min_{t\in[T,0]}
+	g\left(\bm{x}(T)\right). %
+	\label{eq:value_lower}
+\end{align}
+
+\noindent For a goal-satisfaction (liveness) problem setup, the behavior of the evader and pursuer are reversed.
+
+
+% Similarly, suppose that  the evader's mapping strategy (starting at $t$) is $\alpha: \mathcal{\bar{V}}({t}) \rightarrow \mathcal{\bar{U}}({t})$ provided for each $t \le \tau \le T$ and $\bm{v}, \hat{\bm{v}} \in \mathcal{\bar{V}}({t})$; then  $\bm{v}(\bar{t}) = \hat{\bm{v}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\alpha[\bm{v}](\bar{t}) = \alpha[\hat{\bm{v}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. The differential game's upper value for a solution $\bm{x}(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t) = \alpha[\bm{v}](\cdot)$ and $\bm{v}(t)$  is 
+% %
+% \begin{align}
+% 	&\uppervalue(\state, t) = %\sup_{\alpha \in \mathcal{A}(t)} \inf_{\bm{v} \in \mathcal{V}(t)}  \bm{P}(\alpha[\bm{v}], \bm{v}) \nonumber \\
+% 	%&=  
+% 	\sup_{\alpha \in \mathcal{A}(t)} \inf_{v \in \mathcal{V}(t)} %\left\{
+% 	%\int_{t}^{T}l(\tau, \bm{x}(\tau), \alpha[\bm{v}](\tau), \bm{v}(\tau)) d\tau  + 
+% 	\min_{t\in[0,T]}
+% 	g\left(\bm{x}(T)\right).
+% 	\label{eq:value_upper}
+% \end{align}
+
+%In backward reachability analysis, the lower value of the differential game \ie ~\eqref{eq:value_lower} is used to give advantage to the pursuer (and therefore consider worst-case conditions). 
+
+
+Optimal trajectories emanating from initial phases $(\state,T)$ where the value function is non-negative will maintain non-negative cost over the entire time horizon, and therefore will never enter the target set. Optimal trajectories from initial phases where the value function is negative will enter the target set at some point within the time horizon.  For the safety problem setup in \eqref{eq:value_lower} we can define the corresponding \textit{robustly controlled backward reachable tube} for $\tau \in [T, 0]$\footnote{The (backward) horizon $T$ is negative.} as the closure of the open set
+%
+\begin{align}
+	\mathcal{L}([\tau, 0], \mathcal{L}_0) &= \{\state \in \openset \,| \, \exists \, \beta \in \mathcal{\bar{V}}(t) \,  \forall \, \bm{u} \in \mathcal{U}(t), \exists \, \bar{t} \in [T, 0], \nonumber \\
+	& \qquad  \qquad \bm{\xi}(\bar{t})%\left(t; \state_0, t_0, \bm{u}(\cdot), \beta[\bm{u}](\cdot) \right)
+	\in  \mathcal{L}_0 \}, \,\bar{t} \in \left[T, 0\right].
+	\label{eq:rcbrt}
+\end{align}
+%
+Read: the set of states from which the strategies of $\pursuer$, and for all controls of $\evader$ imply that we reach the target set within the interval $[T, 0]$.   More specifically, following Lemma 2 of \citet{Mitchell2005}, the states in the reachable set admit the following properties w.r.t the value function $\valuefunc$
+%
+\begin{subequations}
+	\begin{align}
+		\state \in \mathcal{L} &\implies \lowervalue(\state, t) \le 0 \\
+		\lowervalue(\state, t) \le 0 &\implies \state \in \mathcal{L}.
+	\end{align}
+\end{subequations}
+
+The goal of  $\pursuer$ is to drive the system's trajectories into the unsafe set i.e., $\pursuer$ has $\control$ at will and aims to minimize the termination time of the game  (c.f. \eqref{eq:target_set}); and  $\evader$ seeks to avoid the unsafe  set i.e., $\evader$ has controls $\disturb$ at will and seeks to maximize the termination time of the game (c.f.  \eqref{eq:target_set}). For goal-satisfaction (or \textit{liveness}) problem setups, the strategies are flipped and the backward reachable tube instead marks the states from which the evader $\evader$ can successfully reach the target set despite worst-case efforts of the pursuer $\pursuer$.
+
+Computing the value function is in general challenging and non-convex. Additionally, the value function is hardly smooth throughout the state space, so it lacks classical solutions even for smooth Hamiltonian and boundary conditions. However, the value function is a ``viscosity" (generalized)  solution~\citet{Lions1982, Crandall1983viscosity} of the associated HJ-Isaacs (HJI) PDE, \ie solutions which are \textit{locally Lipschitz} in $\openset \times [0, T]$, and with at most first-order partial derivatives in the Hamiltonian.  The HJI PDE is as follows:
+
+%\begin{subequations}
+	\begin{align}
+		\frac{\partial V}{\partial t}{(\bm{x}, t)} & + \min \{0, \lowerham (t; \bm{x}, \bm{u}, \bm{v},\lowervalue_{\state}) \} = 0 \\
+		V(\bm{x},0) &= g(\bm{x})
+		\label{eq:lower_hji_pde}
+	\end{align}
+%\end{subequations}
+%
+\noindent where the vector field $V_{\state}$ is known in terms of the game's terminal conditions so that the overall game is akin to a two-point boundary-value problem. For more details on the construction of this PDE, see \citet{Mitchell2005}.
+
+Instead of using state space discretization methods and employing Lax-Friedrichs schemes to resolve the value function   over a global mesh, we resolve to classical successive sweep optimal control algorithms~\citet{Mitter1966, McReynolds1967}, in particular a differential dynamic programming (DDP) variant~\citet{Mayne1966, Jacobson1968new, JacobsonMayne}, which are iterative algorithms for obtaining solutions to optimal control problems. Similar to the monotone  characteristics of~\citet{CrandallLaxFriedrichs, CrandallFractional}, these methods (under appropriate conditions~\citet{iDG}) assure a monotone solution on the state space without resorting to finite differencing schemes.  
+\todo{LM: Add further spice here}.
+ 
+%Henceforward, for ease of readability, we will remove the minus superscript on the lower value and Hamiltonian. The value function is the viscosity solution to this HJ PDE \cite{Souganidis}. 
+%Note that this PDE must be applied at every grid point in the state space and at every instant of time within the time horizon. As the system scales in dimension, this computation scales exponentially.
+
+Once computed, the value function provides a safety certificate (defined by its zero level set) and corresponding safety controller (defined by the spatial gradients along the zero level set). \shnote{don't know if we should go into the online control portion of this or not}
+
+In addition to producing a value function, the dynamic programming process can be used to generate and minimum time-to-reach (TTR) function. This is a function that maps initial conditions to the minimum time horizon required to reach the target set.  This can be computed by ``stacking'' the zero level sets of the value function as it propagates backwards in time~\citet{Mitchell2020, BasarBook, AthansFalb}. \shnote{cite Ian Mitchell, maybe Insoon;} \lmnote{Is this the right citation you wanted, Sylvia?}
+
+
+% \shnote{
+% \begin{itemize}
+%     \item dynamic system, any assumptions we're making
+%     \item trajectory notation
+%     \item goal: stay safe despite worst case disturbance and/or actions of other agents. Can write this as reachability problem.
+%     \item define target set
+%     \item define terminal cost
+%     \item want to minimize over time
+%     \item define strategies
+%     \item upper and lower value functions (not sure if this is necessary)
+%     \item viscosity solution, Isaac's equation. Explain min with zero
+%     \item use dynamic programming, solve for value function
+%     \item significance of sub-zero level set
+% \end{itemize}}

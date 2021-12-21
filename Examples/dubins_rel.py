@@ -67,13 +67,12 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
 
-dubins_rel = DubinsVehicleRel
 u_bound = 1
 w_bound = 1
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
 def preprocessing():
-	global dubins_rel, u_bound, w_bound
+	global u_bound, w_bound
 
 	grid_min = expand(np.array((-.75, -1.25, -pi)), ax = 1)
 	grid_max = expand(np.array((3.25, 1.25, pi)), ax = 1)
@@ -156,7 +155,7 @@ def main(args):
 		itr_end = cp.cuda.Event()
 
 		brt = [value_init]
-		brt_time = []
+		meshes, brt_time = [], []
 		value_rolling = cp.asarray(copy.copy(value_init))
 
 		while(t_range[1] - t_now > small * t_range[1]):
