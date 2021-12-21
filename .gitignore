@@ -2,3 +2,4 @@ data/
 //*pyc
 .vscode
 workspace.code-workspace
+data/rcbrt.npz
