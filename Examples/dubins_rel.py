@@ -1,10 +1,10 @@
+__comment__     = "Solves the BRT of a P-E Dubins Vehicle in Relative Coordinates (Air3D Basic)."
 __author__ 		= "Lekan Molu"
 __copyright__ 	= "2021, Hamilton-Jacobi Analysis in Python"
 __license__ 	= "Molux License"
 __comment__ 	= "Evader at origin"
 __maintainer__ 	= "Lekan Molu"
 __email__ 		= "patlekno@icloud.com"
-__comment__     = 'RCBRT Air3D Basic'
 __status__ 		= "Completed"
 __date__ 		= "Nov. 2021"
 
@@ -38,8 +38,7 @@ from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFried
 from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
 from BRATSolver.brt_solver import solve_brt
-
-from BRATVisualization.rcbrt_visu import RCBRTVisualizer 
+from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
@@ -90,7 +89,7 @@ def preprocessing():
 	g = createGrid(grid_min, grid_max, N, pdDims)
 
 	axis_align, center, radius = 2, np.zeros((3, 1)), 0.5
-	value_init = shapeCylinder(g, axis_align, center, radius)	
+	value_init = shapeCylinder(g, axis_align, center, radius)
 
 	return g, value_init
 
@@ -145,9 +144,9 @@ def main(args):
 		brt = np.load("data/rcbrt.npz")
 	else:
 		if args.visualize:
-			viz = RCBRTVisualizer(params=args.params)	
-		t_plot = (t_range[1] - t_range[0]) / 10	
-		small = 100*eps 
+			viz = RCBRTVisualizer(params=args.params)
+		t_plot = (t_range[1] - t_range[0]) / 10
+		small = 100*eps
 		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
 
 		# Loop through t_range (subject to a little roundoff).
@@ -157,8 +156,9 @@ def main(args):
 		itr_end = cp.cuda.Event()
 
 		brt = [value_init]
+		brt_time = []
 		value_rolling = cp.asarray(copy.copy(value_init))
-		
+
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
@@ -181,38 +181,33 @@ def main(args):
 			if args.visualize:
 				value_rolling_np = value_rolling.get()
 				mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-									edge_color='None',  face_color='red')
+									edge_color=None,  face_color='maroon')
 				viz.update_tube(value_rolling_np, mesh, time_step)
 				# store this brt
-				brt.append(value_rolling_np)
-			
+				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh)
+
+			if args.save:
+				fig = plt.gcf()
+				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
+					rf"figures/rcbrt_{t_now}.jpg"),
+					bbox_inches='tight',facecolor='None')
+
 			itr_end.record()
 			itr_end.synchronize()
 			cpu_end = cputime()
-			
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
-			
-		# opt_t, brt = solve_brt(args, t_range, cp.asarray(value_init), finite_diff_data)
 
-	if args.save:
-		import os
-		os.makedirs("data") if not os.path.exists("data") else None
-		np.savez_compressed("data/rcbrt.npz", brt=np.asarray(brt), time_span=np.asarray(opt_t))
+			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+
+		if not args.load_brt:
+			os.makedirs("data") if not os.path.exists("data") else None
+			np.savez_compressed("data/rcbrt.npz", brt=np.asarray(brt), \
+				meshes=np.asarray(meshes), brt_time=np.asarray(brt_time))
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
 
 		#examine to see if the initial state is in the BRS/BRT
 		gexam = copy.deepcopy(g)
-
-		#we should be doing a kdtree or flann search here
-		# state_val  = eval(obj.grid, x0, brt)
-
-		# # g, data = augmentPeriodic(obj.grid, brt)
-		# for i in range(obj.grid.dim):
-		# 	if (isfield(obj.grid, 'bdry') and id(obj.grid.bdry[i])==id(addGhostPeriodic)):
-
-
 
 if __name__ == '__main__':
 	main(args)

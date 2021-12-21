@@ -25,7 +25,6 @@ from LevelSetPy.Grids            import createGrid
 from LevelSetPy.Helper           import postTimeStepTTR
 from LevelSetPy.Visualization    import implicit_mesh
 from LevelSetPy.DynamicalSystems import DoubleIntegrator
-from LevelSetPy.DynamicalSystems import DoubleIntegratorROB
 from BRATVisualization.DIVisu    import DoubleIntegratorVisualizer
 
 # POD Decomposition
@@ -276,7 +275,7 @@ def main(g, attr, value_init):
 	gmax = np.array(([[1, 1]]),dtype=np.float64).T
 	gr = createGrid(gmin, gmax, np.array(([value_rob.shape])), None)
 
-	dint_rob = DoubleIntegratorROB(gr)
+	dint_rob = DoubleIntegrator(gr)
 	# value_rob = dint_rob.mttr()
 	reduced_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':gr,
