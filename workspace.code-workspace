@@ -14,6 +14,9 @@
         },
         {
             "path": "..\\..\\gps"
+        },
+        {
+            "path": "..\\..\\..\\MSRProjs\\cereb-rl"
         }
     ]
 }
