@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, journal, twoside]{IEEEtran} 
+
+%\IEEEoverridecommandlockouts  
+     
+%\IEEEpubid{\begin{minipage}[t]{\textwidth}\ \\[10pt]
+%		\footnotesize{~\copyright 2020 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.}
+%\end{minipage}} 
+
+%\overrideIEEEmargins                                      % Needed to meet printer requirements.
+
+%In case you encounter the following error:
+%Error 1010 The PDF file may be corrupt (unable to open PDF file) OR
+%Error 1000 An error occurred while parsing a contents stream. Unable to analyze the PDF file.
+%This is a known problem with pdfLaTeX conversion filter. The file cannot be opened with acrobat reader
+%Please use one of the alternatives below to circumvent this error by uncommenting one or the other
+%\pdfobjcompresslevel=0
+%\pdfminorversion=4
+
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+
+\usepackage{bm}
+\usepackage{url}
+%\usepackage{tipa}
+\usepackage{tikz}
+\usepackage{soul}
+\usepackage{cite}
+\usepackage{ dsfont }
+\usepackage{color} 
+\usepackage{pifont}
+\usepackage{upgreek}
+\usepackage{upgreek}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{footnote}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+%\usepackage{microtype}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{paralist}
+\usepackage{multicol}
+\usepackage{algorithmicx}
+\usepackage[makeroom]{cancel}
+\usepackage[most]{tcolorbox}
+\usepackage{algpseudocode}
+\usepackage[skip=0cm,list=true,labelfont=it]{subcaption}
+\algrenewcommand\textproc{} % to change function names to lower case
+\usepackage[export]{adjustbox}
+\usepackage{amssymb, amsmath, times}
+\usepackage{amsthm}
+\usepackage[pagebackref=true,breaklinks=true,colorlinks=true, citecolor=green,linkcolor=cyan,urlcolor=blue,bookmarks=true]{hyperref}
+%\usepackage{todonotes}
+\def\UrlFont{\rmfamily}
+
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.eps,.ai}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\addtolength{\textfloatsep}{-3mm}
+\addtolength{\floatsep}{-3mm}
+
+%
+\setlength{\tabcolsep}{1pt} % change column separation 9in tables to 0pt
+
+%\pdfoutput=1    % for arxiv tex processor
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}{}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\newtheorem{corollary}{Corollary}
+
+\begin{document}
+
+% activate no dash in reference names 
+\bstctlcite{IEEEexample:BSTcontrol}
+
+\title{LargeBRAT: A Decomposition Scheme for Large Backward  Reach-Avoid Tubes. 
+}
+
+ % Make room for more info lines in the \author command  
+\author{Olalekan Ogunmolu$^1$,  Sylvia Herbert$^2.$  
+	\thanks{\footnotesize $^{1}$ Microsoft Research, 300 Lafayette Street, New York, NY10012, USA.  $^{2}$Department of Mechanical and Aerospace Engineering, UC San Diego, La Jolla, CA, USA.  {\tt\small lekanmolu@microsoft.com, sherbert@eng.ucsd.edu}. }
+	%
+}
+ % Use only for final RAL version. 
+
+\maketitle
+
+\input{sections/def}
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/notations}
+\input{sections/probstate}
+\input{sections/background}
+%\input{sections/methods}
+\input{sections/murmurations}
+\input{sections/results}
+\input{sections/conclude}
+% see https://texfaq.org/FAQ-appendix
+\appendix
+\begin{appendices}
+%	\input{appendices/hilbert-schmidt}
+	\input{appendices/app_proj_error}
+%	\input{appendices/app_head_kine}
+%	\input{appendices/app_contact_bvp}
+\end{appendices}
+
+%\input{sections/acks}
+%Appendixes should appear before the acknowledgment.
+
+%\providecommand\BIBentryALTinterwordstretchfactor{2.5}
+\bibliographystyle{IEEEtran}
+\bibliography{../biblio}	 	
+%
+\end{document}

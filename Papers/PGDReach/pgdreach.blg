@@ -1,0 +1,75 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: pgdreach.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: IEEEtran.bst
+Reallocating 'name_of_file' (item size: 1) to 10 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Database file #1: ../biblio.bib
+Repeated entry---line 830 of file ../biblio.bib
+ : @article{CrandallLaxFriedrichs
+ :                               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 1060 of file ../biblio.bib
+ : 
+ : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "LekanCASE2016Paper"
+-- IEEEtran.bst version 1.11 (2003/04/02) by Michael Shell.
+-- http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+** IEEEtran BST control entry "IEEEexample:BSTcontrol" detected.
+Warning--empty journal in Mitchell2020
+Warning--empty year in Isaacs1965
+Warning--empty journal in Bansal
+Warning--empty year in Bansal
+Warning--empty journal in McQuarrie2021
+
+Done.
+You've used 43 entries,
+            3975 wiz_defined-function locations,
+            1095 strings with 15059 characters,
+and the built_in function-call counts, 33575 in all, are:
+= -- 2788
+> -- 753
+< -- 341
++ -- 425
+- -- 117
+* -- 1618
+:= -- 5034
+add.period$ -- 88
+call.type$ -- 43
+change.case$ -- 37
+chr.to.int$ -- 759
+cite$ -- 48
+duplicate$ -- 2363
+empty$ -- 2561
+format.name$ -- 147
+if$ -- 7738
+int.to.chr$ -- 0
+int.to.str$ -- 43
+missing$ -- 381
+newline$ -- 152
+num.names$ -- 42
+pop$ -- 803
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 4
+skip$ -- 2665
+stack$ -- 0
+substring$ -- 1825
+swap$ -- 2050
+text.length$ -- 88
+text.prefix$ -- 0
+top$ -- 6
+type$ -- 0
+warning$ -- 5
+while$ -- 164
+width$ -- 45
+write$ -- 441
+(There were 2 error messages)

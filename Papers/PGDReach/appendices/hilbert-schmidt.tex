@@ -1,0 +1,17 @@
+\section{Hilbert-Schmidt Norm}
+\label{app:hs}
+
+\noindent Suppose that $\Gamma$ is a tensor, with left and right unitary tensors (obtained via singular value decomposition), $U$ and $V$ respectively, and a corresponding singular value, $\Sigma$. An efficient  scheme for solving for $\Gamma$'s Hilbert-Schmidt norm can be factorized as:
+%
+%\begin{subequations}
+%	\begin{align}
+%		\|\Gamma\|_{HS}^2 &= \text{Trace} \left[\Gamma^T \Gamma \right] \\
+%						&= \text{Trace} \left[(U \Sigma V^T)^T \, (U \Sigma V^T) \right] \\
+%						&= \text{Trace} \left[(U \, U^T) \, (V \, V^T) \,(\Sigma^T\Sigma) \right] \\
+%						&= \text{Trace} \left[(\Sigma^T\Sigma) \right] \\
+%						& = \sum_{i=1}^{N} \lambda_{ii}^2
+%	\end{align}
+%\label{eq:hs_trace}
+%\end{subequations}
+%%
+%where $\lambda_{ii}$ are the diagonal components of $\Sigma$.
