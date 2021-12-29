@@ -1,0 +1,89 @@
+\section{Emergent Complex Behavior from Starlings Murmurations}
+%
+Previous analyses of scalable reachability problems leveraged differential game theory between two players, each possessing at will the control laws that govern state transitions on a vectorgram or vector field of the system~\cite{Mitchell2005, SylviaScalability}. Whilst this has proven useful in finite state space settings~\cite{Bajcsy, Bansal}, scalability of this approach has been a major bottleneck in adapting it to larger state spaces\footnote{In general state spaces with dimensionality $n>12$.}. 
+
+In the process of formulating the results presented in this work, we extensively considered scalable computational methods that exist for next-generation engineered systems~\cite{LadevezeBook, Peherstorfer2016, QLMOR, McQuarrie2021, Nouy2010}, with a particular focus on model reduction as a way to generate principled approximations and multifidelity formulations. However, the work generally treated in this community of research inquiry has limiting control applications since the issues of controllability and observability on the reduced model is generally unaddressed -- and when it is addressed, the problem is assumed to have a linear form in order to make reasoned approximations and inference on reduced models. Having a linear dynamics when a high-dimensional data is projected to a lower-subspace is not necessarily bad when the desired operating region for control is a fixed equilibrium point, known exactly ahead of time, or the nature of the uncertainty in the system is well-understood. Our experience is that these methods require more principled and complicated analysis on reduced subsystems and subspaces in a way that is usually more difficult than solving the problem on the original state space. For example, in projecting to low-order dynamics, if the system is nonlinear, one has to find the \textit{maximally controlled invariant} subspace or manifold of the original system which admits observability and controllability of all desired modes of the original system. 
+
+In our proposal, we borrow ideas from the flocking of animals in nature such as \textit{starlings murmurations} or \textit{schools of fishes} traveling in a large group at any one time in their natural environment. Following the large-scale field study and analyses of the emergent collective complex behaviors observed in starlings murmurations~\cite{Ballerini1232}; in empirical simulations~\cite{Vicsek1995novel}; and theoretical analysis in control theory~\cite{JadbabaieCoord}, we now synthesize this knowledge from these respective studies in formulating a framework for computing large backward reach-avoid sets and tubes (or LargeBRATs). In the next subsection, we lay the foundations for our intuition based on these studies in cnstructing a scalable reachability problem.
+
+\subsection{Group BRAT strategies from local anisotropic policies}
+
+\textbf{Flocks behavior}:
+%
+\begin{itemize}
+	\item flocks may contract -- contract the modes of your tensor 
+	%
+	\item flocks may expand -- add new modes to your tensor where the new modes consist of the new state space of your birds
+	%
+	\item when a flock splits, divide your tensor into two.
+\end{itemize}
+
+\subsection{Isotropic Universal BRATs from local group anisotropic policies}
+
+
+
+\subsection{Spatial parameterization of vehicles in a flock( state space) -- Topological distance metric}
+
+\begin{itemize}
+	\item put reference bird at origin; then randomly initialize other birds with a random walk in the state space with a covariance of .5~\cite{LekanCASE2016Paper}
+	%
+	\item we randomly initialized covariance in random walker at start
+	%
+	\item nth nearest neighbors construction~\cite{VicsekPhaseNovel}
+	%
+	\item birds positioning on grids at start of experiment
+	%
+	\item topological distance from reference bird in a flock~\cite{JadbabaieCoord}
+	%
+	\item metric distance between birds in the flock
+	%
+	\item every local flock has its own value function governed by a target set
+	%
+	\begin{itemize}
+		\item here, the 
+	\end{itemize}
+	%
+	\item every bird is spatially correlated on a large grid that parameterizes a flock
+	%
+	\begin{itemize}
+		\item we initialize the flock's state coverage as follows
+		%
+		\item the evader (or reference vehicle) holds has a state space that spans the following intervals on the $x,y,z$ state plane
+		$[x_1^-, x_1^+, x_2^-, x_2^+, x_3^-, x_3^+]$
+		%
+		\item every follower vehicle in the flock has its state space coverage specified as
+		$[x_1^- -\epsilon, x_1^+ - \epsilon, x_2^- -\epsilon, x_2^+, x_3^- -\epsilon, x_3^+ - \epsilon]$
+		%
+		\item we find that this initialization helps the agents maintain good coverage on the entire state space: it easily provides bounds, a nice spatial distribution of flight coverage. For instance, if all flocks are positioned at the origin of their grids, then what we have is a single line of leader vs multiple followers that achieves
+		%
+		\item every flock has its own payoff, which are related to that of nearest neighbor interacting flocks via dispersal or X surfaces/lines/or hyperplanes.
+	\end{itemize}
+	
+	\item Excerpt below from Ballerini et. al:
+	%
+	\textit{Numerical models with isotropic interaction break the directional symmetry, giving a nonzero velocity of the aggregation, but fail to reproduce the structural anisotropy (3, 4). This suggests that the anisotropy is not simply an effect of the existence of a preferential direction (the velocity), but is rather an explicit consequence of the anisotropic character of the interaction itself. Vision is a natural candidate, given its anisotropic nature in both birds and fishes. In particular, starlings have lateral visual axes and a blind rear sector (5), and this fact is likely to be related to the lack of nearest neighbors in the front-rear direction. Indeed, several studies interpreted the anisotropic flight formations in birds as the result of the optical characteristics of the birds' eye (6, 7, 8). To investigate further this hypothesis, it would be very important to have an argument that connects in a quantitative way the physiological field of view of the birds to the actual position of the nearest neighbors. Unfortunately, there is no such model to-date. A distinct idea is that the mutual position chosen by the animals is the one that maximizes the sensitivity to changes of heading and speed of their neighbors (9). According to this hypothesis, even though vision is the main mechanism of interaction, optimization determines the anisotropy of neighbors, and not the eye's structure. There is also the possibility that each individual keeps the front neighbor at larger distances to avoid collisions. This collision avoidance mechanism is vision-based but not related to the eye's structure.
+	}%
+	\marginote{The question here is how to create a value function for each flock that reproduces structural anisotropy}
+\end{itemize}
+
+\subsection{Grids contraction, expansion, or splitting when agents switch flocks}
+
+\begin{itemize}
+	\item put flock information in a tensor 
+	%
+	\item when a bird leaves a flock, contract the tensor
+	%
+	\item  when a bird joins a flock, expand the tensor by one more mode
+	%
+	\item add a value function for every tensor
+	%
+	\item the interaction among flocks is therefore easily capturable by tensor interactions
+	%
+	\item tensor interaction allows us to simplify the algebra of interaction of agents
+\end{itemize}
+
+
+\subsection{Anisotropic control law derivation for flock control}
+
+\subsection{Isotropic control law derivation for group cohesion}
+
