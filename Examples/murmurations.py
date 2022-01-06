@@ -13,9 +13,11 @@ import time
 import logging
 import argparse
 import sys, os
+import random
 import cupy as cp
 import numpy  as np
 from math import pi
+import numpy.linalg as LA
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
@@ -23,21 +25,16 @@ from skimage import measure
 
 from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
-
 sys.path.append(abspath(join('..')))
+
+from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
-from LevelSetPy.Grids import createGrid
-from LevelSetPy.DynamicalSystems import DubinsVehicleRel
-from LevelSetPy.InitialConditions import shapeCylinder
-from LevelSetPy.SpatialDerivative import upwindFirstENO2
-from LevelSetPy.ExplicitIntegration.Integration import odeCFL2, odeCFLset
-from LevelSetPy.ExplicitIntegration.Dissipation import artificialDissipationGLF
-from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFriedrichs
-
-from os.path import dirname, abspath, join
-sys.path.append(dirname(dirname(abspath(__file__))))
-from BRATSolver.brt_solver import solve_brt
+from LevelSetPy.DynamicalSystems import *
+from LevelSetPy.BoundaryCondition import *
+from LevelSetPy.InitialConditions import *
+from LevelSetPy.SpatialDerivative import *
+from LevelSetPy.ExplicitIntegration.Dissipation import *
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
@@ -62,7 +59,6 @@ if not args.silent:
 else:
 	logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 # Turn off pyplot's spurious dumps on screen
 logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
@@ -71,31 +67,120 @@ u_bound = 1
 w_bound = 1
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
-def preprocessing():
+def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
+				periodic_dims=2, \
+				reach_rad=.2, avoid_rad=.3):
+	"""
+		Params
+		======
+		gmin: minimum bounds of the grid
+		gmax: maximum bounds of the grid
+		num_points: number of points on the grid
+		num_agents: number of agents in this flock
+		init_xyzs: initial positions of the birds in this flock
+		label: label of this flock among all flocks
+		periodic_dims: periodic dimensions
+		reach_rad: reach for external disturbance
+		avoid_rad: avoid radius for topological interactions
+	"""
 	global u_bound, w_bound
 
-	grid_min = expand(np.array((-.75, -1.25, -pi)), ax = 1)
-	grid_max = expand(np.array((3.25, 1.25, pi)), ax = 1)
-	pdDims = 2                      # 3rd dimension is periodic
-	resolution = 100
-	N = np.array(([[
-					resolution,
-					np.ceil(resolution*(grid_max[1, 0] - grid_min[1, 0])/ \
-								(grid_max[0, 0] - grid_min[0, 0])),
-					resolution-1
-					]])).T.astype(int)
-	grid_max[2, 0] *= (1-2/N[2,0])
-	g = createGrid(grid_min, grid_max, N, pdDims)
+	assert gmin.ndim==2, 'gmin must be of at least 2 dims'
+	assert gmax.ndim==2, 'gmax must be of at least 2 dims'
+	gmin = to_column_mat(gmin)
+	gmax = to_column_mat(gmax)
+	grid = createGrid(gmin, gmax, num_points, periodic_dims)
+	
+	vehicles = [BirdSingle(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), \
+						   center=np.zeros((3,1)), neigh_rad=3, \
+						   label=i+1, init_random=False) for i in range(num_agents)]                
+	flock = BirdFlock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
 
-	axis_align, center, radius = 2, np.zeros((3, 1)), 0.5
-	value_init = shapeCylinder(g, axis_align, center, radius)
+	return flock
 
-	return g, value_init
+def get_avoid_brt(flock, compute_mesh=True):
+	"""
+		Get the avoid BRT for this flock. That is, every bird 
+		within a flock must avoid one another.
+
+		Parameters:
+		==========
+		.flock: This flock of vehicles.
+		.compute_mesh: compute mesh of local payoffs for each bird in this flock?
+	"""
+	idx=.3
+	for vehicle in flock.vehicles:
+		vehicle_state = vehicle.cur_state
+		# make the radius of the target setthe turn radius of this vehicle
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), \
+										radius=vehicle.cur_state[-1].take(0))
+		spacing=tuple(flock.grid.dx.flatten().tolist())
+		if compute_mesh:
+			vehicle.mesh   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
+	
+	"""
+		Now compute the overall payoff for the flock
+	   	by taking a union of all the avoid sets.
+	"""
+	prev_vehicle = flock.vehicles[0]
+	for idx, vehicle in enumerate(flock.vehicles[1:]):
+		flock.payoff = shapeUnion(prev_vehicle.payoff, vehicle.payoff)
+		prev_vehicle = vehicle
+	
+	if compute_mesh:
+		spacing=tuple(flock.grid.dx.flatten().tolist())
+		flock.mesh = implicit_mesh(flock.payoff, 0, spacing, edge_color='c', face_color='r')    
+	
+	return flock 
+
+def visualize_init_avoid_tube(flock, save=True, xlim=(0, 1.5), \
+								ylim=(0, 2), zlim=(0, 5.9)):
+	"""
+		For a flock, whose mesh has been precomputed, 
+		visualize the initial backward avoid tube.
+	"""
+	# visualize avoid set 
+	fontdict = {'fontsize':16, 'fontweight':'bold'}
+
+	fig = plt.figure(1, figsize=(16,9), dpi=100)
+	ax = plt.subplot(111, projection='3d')
+	ax.add_collection3d(flock.mesh)
+	ax.set_xlim(0, 1.5)
+	ax.set_ylim(0.5, 2)
+	ax.set_zlim(0, 5.9)
+
+	ax.grid('on')
+	# ax.tick_params(axis='both', which='major', labelsize=18)
+	ax.axes.get_xaxis().set_ticks([])
+	ax.axes.get_yaxis().set_ticks([])
+	# ax.tick_params(axis='both', which='minor', labelsize=18)
+	# ax.legend(loc="center left", fontsize=8)
+
+	ax.set_xlabel(rf'x$_1$ (m)', fontdict=fontdict)
+	ax.set_ylabel(rf'x$_2$ (m)', fontdict=fontdict)
+	ax.set_zlabel(rf'$\omega (rad)$',fontdict=fontdict)
+
+	ax.set_title(f'Flock {flock.label}\'s Avoid Tube. Num_agents={flock.N}', fontdict=fontdict)
+	ax.view_init(azim=-45, elev=30)
+
+	fig.savefig(join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
+									"figures/flock_avoid_tube.jpg"), bbox_inches='tight',facecolor='None')
 
 def main(args):
 	# global params
-	g, value_init = preprocessing()
-	dubins_rel = DubinsVehicleRel(g, u_bound, w_bound)
+
+	gmin = np.asarray([[-1, -1, -np.pi]]).T
+	gmax = np.asarray([[1, 1, np.pi] ]).T
+	num_agents = 8  
+
+	H         = .1
+	H_STEP    = .05
+	neigh_rad = 0.3
+	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
+	# INIT_RPYS = np.array([[0, 0,  i * (pi/2)/num_agents] for i in range(num_agents)])
+
+	flock0 = get_flock(gmin, gmax, 101, INIT_XYZS, 1, 2, .2, .3)
+	# get the payoff for this flock 
 
 	# after creating value function, make state space cupy objects
 	g.xs = [cp.asarray(x) for x in g.xs]
