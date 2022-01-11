@@ -94,12 +94,11 @@ class RCBRTVisualizer(object):
 
 		if self.grid.dim==3:
 
-			self._ax[0].add_collection3d(mesh)
+			self._ax[0].add_collection3d(mesh.mesh)
 
-			xlim = (min(data[0].ravel()), max(data[0].ravel()))
-			ylim = (min(data[0].ravel()), max(data[0].ravel()))
-			# ylim = (self.params.grid.min.item(1)-.8, self.params.grid.min.item(1)+4.)
-			zlim = (self.params.grid.min.item(2)-1.3, self.params.grid.max.item(2)+5.0)
+			xlim = (mesh.verts[:, 0].min(), mesh.verts[:,0].max())
+			ylim = (mesh.verts[:, 1].min(), mesh.verts[:,1].max())
+			zlim = (mesh.verts[:, 2].min(), mesh.verts[:,2].max())
 
 			self._ax[0].set_xlim3d(*xlim)
 			self._ax[0].set_ylim3d(*ylim)
@@ -108,7 +107,7 @@ class RCBRTVisualizer(object):
 			self._ax[0].set_title(f'BRT\'s {self.params.level}-Level Tube.', \
 									fontdict=self.params.fontdict.__dict__)
 		elif self.grid.dim==2:
-			self._ax[0].contourf(self.grid.xs[0], self.grid.xs[1], mesh, colors='cyan')
+			self._ax[0].contourf(self.grid.xs[0], self.grid.xs[1], mesh.mesh, colors='cyan')
 			self._ax[0].set_title(f'BRT\'s {self.params.level}-LevelSet.', \
 									fontdict=self.params.fontdict.__dict__)
 		self._ax[0].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict.__dict__)
@@ -135,12 +134,11 @@ class RCBRTVisualizer(object):
 			plt.cla()
 
 		if self.grid.dim==3:
-			self._ax[1].add_collection3d(mesh)
+			self._ax[1].add_collection3d(mesh.mesh)
 
-			xlim = (min(data[0].ravel())-2, max(data[0].ravel())+2)
-			ylim = (min(data[0].ravel())-2, max(data[0].ravel())+2)
-			# ylim = (min(data[1].ravel())-1.0, max(data[1].ravel())+2.)
-			zlim = (min(data[2].ravel())-1.3, max(data[2].ravel())+4.8)
+			xlim = (mesh.verts[:, 0].min(), mesh.verts[:,0].max())
+			ylim = (mesh.verts[:, 1].min(), mesh.verts[:,1].max())
+			zlim = (mesh.verts[:, 2].min(), mesh.verts[:,2].max())
 
 			self._ax[1].set_xlim3d(*xlim)
 			self._ax[1].set_ylim3d(*ylim)

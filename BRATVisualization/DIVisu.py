@@ -100,11 +100,12 @@ class DoubleIntegratorVisualizer(object):
 			self._ax[0].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 			self._ax[1].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 
-			self._ax[0].add_collection3d(mesh)
+			self._ax[0].add_collection3d(mesh.mesh)
 
-			xlim = (min(data[0].ravel()), max(data[0].ravel()))
-			ylim = (self.params.grid.min.item(1)-.5, self.params.grid.min.item(1)+4.)
-			zlim = (self.params.grid.min.item(2)-1.3, self.params.grid.max.item(2)+4.5)
+
+			xlim = (mesh.verts[:, 0].min(), mesh.verts[:,0].max())
+			ylim = (mesh.verts[:, 1].min(), mesh.verts[:,1].max())
+			zlim = (mesh.verts[:, 2].min(), mesh.verts[:,2].max())
 
 			self._ax[0].set_xlim3d(*xlim)
 			self._ax[0].set_ylim3d(*ylim)
@@ -160,14 +161,14 @@ class DoubleIntegratorVisualizer(object):
 
 
 		if self.grid.dim==3:
-			self._ax[1].add_collection3d(mesh)
+			self._ax[1].add_collection3d(amesh.mesh)
 
-			self._ax[1].add_collection3d(mesh)
+			self._ax[1].add_collection3d(amesh.mesh)
 			self._ax[1].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 
-			xlim = (min(data[0].ravel())-2, max(data[0].ravel())+2)
-			ylim = (min(data[1].ravel())-3, max(data[1].ravel())+2.)
-			zlim = (min(data[2].ravel())-1.3, max(data[2].ravel())+4.1)
+			xlim = (amesh.verts[:, 0].min(), amesh.verts[:,0].max())
+			ylim = (amesh.verts[:, 1].min(), amesh.verts[:,1].max())
+			zlim = (amesh.verts[:, 2].min(), amesh.verts[:,2].max())
 
 			self._ax[1].set_xlim3d(*xlim)
 			self._ax[1].set_ylim3d(*ylim)
