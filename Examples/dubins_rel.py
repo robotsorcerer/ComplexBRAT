@@ -37,7 +37,6 @@ from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFried
 
 from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
-from BRATSolver.brt_solver import solve_brt
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
