@@ -15,10 +15,8 @@ import logging
 import argparse
 import cupy as cp
 import numpy as np
-import scipy.linalg as la
 from os.path import abspath, join, expanduser
 import matplotlib.pyplot as plt
-from control.phaseplot import phase_plot
 
 from os.path import abspath, join, dirname
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -30,12 +28,6 @@ from LevelSetPy.Grids import createGrid
 from LevelSetPy.Helper import postTimeStepTTR
 from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.DynamicalSystems import DoubleIntegrator
-
-# POD Decomposition
-from LevelSetPy.POD import *
-
-# Chambolle-Pock for Total Variation De-Noising
-from LevelSetPy.Optimization import chambollepock
 
 # Value co-state and Lax-Friedrichs upwinding schemes
 from LevelSetPy.InitialConditions import *
@@ -54,7 +46,7 @@ parser.add_argument('--load_brt', '-lb', action='store_false', help='load saved 
 parser.add_argument('--save', '-sv', action='store_true', help='save figures to disk?' )
 parser.add_argument('--verify', '-vf', action='store_true', default=True, help='visualize level sets?' )
 parser.add_argument('--direction', '-dr',  action='store_true',  help='direction to grow the level sets. Negative by defalt?' )
-parser.add_argument('--pause_time', '-pz', type=float, default=.1, help='pause time between successive updates of plots' )
+parser.add_argument('--pause_time', '-pz', type=float, default=2, help='pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -123,7 +115,7 @@ def show_init_levels(g, attr, value_func_init):
 	ax2.tick_params(axis='both', which='minor', labelsize=18)
 	ax2.legend(loc="center left", fontsize=8)
 
-	f.suptitle(f"Levelsets", fontdict =fontdict)
+	# f.suptitle(f"Levelsets", fontdict =fontdict)
 
 	if args.save:
 		f.savefig(join(expanduser("~"), \
@@ -225,6 +217,7 @@ def show_switch_curve():
 	fig3.canvas.flush_events()
 	time.sleep(args.pause_time)
 
+
 def show_attr():
 	# Plot all vectograms in space and time.
 	fig2, ax2 = plt.subplots(1, 1, figsize=(16,9))
@@ -240,6 +233,8 @@ def show_attr():
 	if args.save:
 		fig2.savefig(join(expanduser("~"),"Documents/Papers/Safety/PGDReach", "figures/attr.jpg"),
 					bbox_inches='tight',facecolor='None')
+
+
 
 def traj_opt(g, value_func_init):
 	global dint, u_bound, args
@@ -341,21 +336,21 @@ if __name__ == '__main__':
 	if args.visualize:
 		plt.ion()
 
-		print("Showing initial level sets.")
-		show_init_levels(g, attr, value_init)
+		# print("Showing initial level sets.")
+		# # show_init_levels(g, attr, value_init)
+		#
+		# print('\n\nShowing Trajectories.')
+		# xis = [(1,0), (.25, 0), (.5, 0), (.75, 0),  (0,0), (-.25, 0), (-.5, 0), (.75, 0), (-1,0)]
+		# # xis = [(1,0), (.5, 0),  (0,0), (-.5, 0), (-1,0)]
+		# show_trajectories(g, attr, xis)
 
-		print('\n\nShowing Trajectories.')
-		xis = [(1,0), (.25, 0), (.5, 0), (.75, 0),  (0,0), (-.25, 0), (-.5, 0), (.75, 0), (-1,0)]
-		# xis = [(1,0), (.5, 0),  (0,0), (-.5, 0), (-1,0)]
-		show_trajectories(g, attr, xis)
+		# print('\n\nShowing Switch Curve.')
+		# show_switch_curve()
 
-		print('\n\nShowing Switch Curve.')
-		show_switch_curve()
+		# print('\n\nShowing Analytical Time to Reach.')
+		# show_attr()
 
-		print('\n\nShowing Analytical Time to Reach.')
-		show_attr()
-
-		time.sleep(4)
+		time.sleep(args.pause_time)
 		plt.ioff()
 
 	plt.ion()

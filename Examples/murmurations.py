@@ -67,9 +67,7 @@ u_bound = 1
 w_bound = 1
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
-def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
-				periodic_dims=2, \
-				reach_rad=.2, avoid_rad=.3):
+def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,				periodic_dims=2, 				reach_rad=.2, avoid_rad=.3):
 	"""
 		Params
 		======
@@ -91,9 +89,7 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
 	gmax = to_column_mat(gmax)
 	grid = createGrid(gmin, gmax, num_points, periodic_dims)
 	
-	vehicles = [BirdSingle(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), \
-						   center=np.zeros((3,1)), neigh_rad=3, \
-						   label=i+1, init_random=False) for i in range(num_agents)]                
+	vehicles = [BirdSingle(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), 						   center=np.zeros((3,1)), neigh_rad=3, 						   label=i+1, init_random=False) for i in range(num_agents)]                
 	flock = BirdFlock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
 
 	return flock
@@ -109,11 +105,12 @@ def get_avoid_brt(flock, compute_mesh=True):
 		.compute_mesh: compute mesh of local payoffs for each bird in this flock?
 	"""
 	idx=.3
+	color = plt.cm.ocean(flock.label)
+
 	for vehicle in flock.vehicles:
 		vehicle_state = vehicle.cur_state
 		# make the radius of the target setthe turn radius of this vehicle
-		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), \
-										radius=vehicle.cur_state[-1].take(0))
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), 										radius=vehicle.cur_state[-1].take(0))
 		spacing=tuple(flock.grid.dx.flatten().tolist())
 		if compute_mesh:
 			vehicle.mesh   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
@@ -129,12 +126,12 @@ def get_avoid_brt(flock, compute_mesh=True):
 	
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
-		flock.mesh = implicit_mesh(flock.payoff, 0, spacing, edge_color='c', face_color='r')    
+		mesh = implicit_mesh(flock.payoff, 0, spacing, edge_color='.4', face_color='c')    
+		flock.mesh, flock.verts = mesh.mesh, mesh.verts
 	
 	return flock 
 
-def visualize_init_avoid_tube(flock, save=True, xlim=(0, 1.5), \
-								ylim=(0, 2), zlim=(0, 5.9)):
+def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	"""
 		For a flock, whose mesh has been precomputed, 
 		visualize the initial backward avoid tube.
@@ -145,81 +142,98 @@ def visualize_init_avoid_tube(flock, save=True, xlim=(0, 1.5), \
 	fig = plt.figure(1, figsize=(16,9), dpi=100)
 	ax = plt.subplot(111, projection='3d')
 	ax.add_collection3d(flock.mesh)
-	ax.set_xlim(0, 1.5)
-	ax.set_ylim(0.5, 2)
-	ax.set_zlim(0, 5.9)
+
+
+	xlim = (flock.verts[:, 0].min(), flock.verts[:,0].max())
+	ylim = (flock.verts[:, 1].min(), flock.verts[:,1].max())
+	zlim = (flock.verts[:, 2].min(), flock.verts[:,2].max())
+
+	# create grid that contains just this zero-level set to avoid computational craze 
+	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
+	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
+
+	# create reduced grid upon which this zero level set dwells
+	flock.grid_zero = createGrid(gmin, gmax, flock.grid.N, 2)
+
+	ax.set_xlim(xlim)
+	ax.set_ylim(ylim)
+	ax.set_zlim(zlim)
 
 	ax.grid('on')
-	# ax.tick_params(axis='both', which='major', labelsize=18)
-	ax.axes.get_xaxis().set_ticks([])
-	ax.axes.get_yaxis().set_ticks([])
-	# ax.tick_params(axis='both', which='minor', labelsize=18)
-	# ax.legend(loc="center left", fontsize=8)
+	ax.tick_params(axis='both', which='major', labelsize=10)
 
-	ax.set_xlabel(rf'x$_1$ (m)', fontdict=fontdict)
-	ax.set_ylabel(rf'x$_2$ (m)', fontdict=fontdict)
-	ax.set_zlabel(rf'$\omega (rad)$',fontdict=fontdict)
+	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
 
-	ax.set_title(f'Flock {flock.label}\'s Avoid Tube. Num_agents={flock.N}', fontdict=fontdict)
+	if title:
+		ax.set_title(title, fontdict=fontdict)
+	else:
+		ax.set_title(f'Flock {flock.label}\'s Avoid Tube. Num_agents={flock.N}', fontdict=fontdict)
 	ax.view_init(azim=-45, elev=30)
 
-	fig.savefig(join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
-									"figures/flock_avoid_tube.jpg"), bbox_inches='tight',facecolor='None')
+	if save:
+		fig.savefig(fname, bbox_inches='tight',facecolor='None')
+
 
 def main(args):
 	# global params
 
 	gmin = np.asarray([[-1, -1, -np.pi]]).T
 	gmax = np.asarray([[1, 1, np.pi] ]).T
-	num_agents = 8  
+	num_agents = 5
 
 	H         = .1
 	H_STEP    = .05
 	neigh_rad = 0.3
+
+	# Please note the way I formulate the initial states here. Linear speed is constant but heading is different.
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
-	# INIT_RPYS = np.array([[0, 0,  i * (pi/2)/num_agents] for i in range(num_agents)])
-
-	flock0 = get_flock(gmin, gmax, 101, INIT_XYZS, 1, 2, .2, .3)
-	# get the payoff for this flock 
-
+	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, 1, 2, .2, .3)
+	get_avoid_brt(flock0, compute_mesh=True)
+	visualize_init_avoid_tube(flock0, save=True, fname=join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
+										f"figures/flock_{flock0.label}.jpg"))
+	
 	# after creating value function, make state space cupy objects
+	g = flock0.grid
 	g.xs = [cp.asarray(x) for x in g.xs]
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':g,
-					'hamFunc': dubins_rel.hamiltonian,
-					'partialFunc': dubins_rel.dissipation,
+					'hamFunc': flock0.hamiltonian,
+					'partialFunc': flock0.dissipation,
 					'dissFunc': artificialDissipationGLF,
 					'CoStateCalc': upwindFirstENO2,
 					}),
-					positive = args.direction,  # direction to grow the updated level set
+					positive = False,  # direction to grow the updated level set
 				))
 
 	t_range = [0, 2.5]
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
-	init_mesh = implicit_mesh(value_init, level=0, spacing=spacing, edge_color='b', face_color='b')
+	init_mesh = flock0.mesh
 	params = Bundle(
 					{"grid": g,
 					 'disp': True,
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
-					 'data': value_init,
-					 'elevation': args.elevation,
-					 'azimuth': args.azimuth,
+					 'data': flock0.mesh,
+					 'elevation': 10,
+					 'azimuth': 10,
 					 'mesh': init_mesh,
 					 'init_conditions': False,
 					 'pause_time': args.pause_time,
 					 'level': 0, # which level set to visualize
-					 'winsize': (16,9),
+					 'winsize': (12,9),
 					 'fontdict': Bundle({'fontsize':18, 'fontweight':'bold'}),
 					 "savedict": Bundle({"save": False,
 									"savename": "dint_basic.jpg",
 									"savepath": join(expanduser("~"),
 									"Documents/Papers/Safety/PGDReach/figures")
 								 })
-					})
+					}
+					)
 	args.spacing = spacing
 	args.init_mesh = init_mesh; args.params = params
 
@@ -239,9 +253,9 @@ def main(args):
 		itr_start = cp.cuda.Event()
 		itr_end = cp.cuda.Event()
 
-		brt = [value_init]
+		brt = [flock0.payoff]
 		meshes, brt_time = [], []
-		value_rolling = cp.asarray(copy.copy(value_init))
+		value_rolling = cp.asarray(copy.copy(flock0.payoff))
 
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
