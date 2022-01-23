@@ -20,8 +20,7 @@ from math import pi
 import numpy.linalg as LA
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from skimage import measure
+# from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -30,11 +29,17 @@ sys.path.append(abspath(join('..')))
 from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
-from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.BoundaryCondition import *
+from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.InitialConditions import *
-from LevelSetPy.SpatialDerivative import *
-from LevelSetPy.ExplicitIntegration.Dissipation import *
+
+from Libs.upwind_first_eno2 import upwindFirstENO2
+from Libs.ode_cfl_2 import odeCFL2
+from Libs.ode_cfl_set import odeCFLset
+from Libs.artificial_diss_glf import artificialDissipationGLF
+from Libs.term_restrict_update import termRestrictUpdate
+from Libs.term_lax_friedrich import termLaxFriedrichs
+
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
@@ -67,7 +72,10 @@ u_bound = 1
 w_bound = 1
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
-def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,				periodic_dims=2, 				reach_rad=.2, avoid_rad=.3):
+
+def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
+				periodic_dims=2, \
+				reach_rad=.2, avoid_rad=.3):
 	"""
 		Params
 		======
@@ -89,8 +97,10 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,				periodic_
 	gmax = to_column_mat(gmax)
 	grid = createGrid(gmin, gmax, num_points, periodic_dims)
 	
-	vehicles = [BirdSingle(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), 						   center=np.zeros((3,1)), neigh_rad=3, 						   label=i+1, init_random=False) for i in range(num_agents)]                
-	flock = BirdFlock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
+	vehicles = [Bird(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), \
+						   center=np.zeros((3,1)), neigh_rad=3, \
+						   label=i+1, init_random=False) for i in range(num_agents)]                
+	flock = Flock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
 
 	return flock
 
@@ -110,10 +120,11 @@ def get_avoid_brt(flock, compute_mesh=True):
 	for vehicle in flock.vehicles:
 		vehicle_state = vehicle.cur_state
 		# make the radius of the target setthe turn radius of this vehicle
-		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), 										radius=vehicle.cur_state[-1].take(0))
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), \
+										radius=vehicle.cur_state[-1].take(0))
 		spacing=tuple(flock.grid.dx.flatten().tolist())
 		if compute_mesh:
-			vehicle.mesh   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
+			vehicle.mesh_bundle   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
 	
 	"""
 		Now compute the overall payoff for the flock
@@ -126,8 +137,8 @@ def get_avoid_brt(flock, compute_mesh=True):
 	
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
-		mesh = implicit_mesh(flock.payoff, 0, spacing, edge_color='.4', face_color='c')    
-		flock.mesh, flock.verts = mesh.mesh, mesh.verts
+		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing, edge_color='.4', face_color='c')    
+		# flock.mesh, flock.verts = mesh_bundle.mesh, mesh_bundle.verts
 	
 	return flock 
 
@@ -191,8 +202,8 @@ def main(args):
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
 	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, 1, 2, .2, .3)
 	get_avoid_brt(flock0, compute_mesh=True)
-	visualize_init_avoid_tube(flock0, save=True, fname=join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
-										f"figures/flock_{flock0.label}.jpg"))
+	# visualize_init_avoid_tube(flock0, save=True, fname=join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
+	# 									f"figures/flock_{flock0.label}.jpg"))
 	
 	# after creating value function, make state space cupy objects
 	g = flock0.grid
@@ -206,31 +217,29 @@ def main(args):
 					}),
 					positive = False,  # direction to grow the updated level set
 				))
-
 	t_range = [0, 2.5]
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
-	init_mesh = flock0.mesh
+	init_mesh = flock0.mesh_bundle
 	params = Bundle(
 					{"grid": g,
 					 'disp': True,
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
-					 'data': flock0.mesh,
 					 'elevation': 10,
 					 'azimuth': 10,
 					 'mesh': init_mesh,
-					 'init_conditions': False,
 					 'pause_time': args.pause_time,
+					 'title': f'Flock {flock0.label}\'s Avoid Tube. Num Agents={flock0.N}',
 					 'level': 0, # which level set to visualize
-					 'winsize': (12,9),
-					 'fontdict': Bundle({'fontsize':18, 'fontweight':'bold'}),
-					 "savedict": Bundle({"save": False,
+					 'winsize': (16,9),
+					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
+					 "savedict": Bundle({"save": True,
 									"savename": "dint_basic.jpg",
 									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/PGDReach/figures")
+									"Documents/Papers/Safety/WAFR2022/figures/murmur_")
 								 })
 					}
 					)
@@ -239,10 +248,10 @@ def main(args):
 
 	if args.load_brt:
 		args.save = False
-		brt = np.load("data/rcbrt.npz")
+		brt = np.load("data/murmurations.npz")
 	else:
 		if args.visualize:
-			viz = RCBRTVisualizer(params=args.params)
+			viz = RCBRTVisualizer(params=params)
 		t_plot = (t_range[1] - t_range[0]) / 10
 		small = 100*eps
 		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
@@ -270,36 +279,35 @@ def main(args):
 
 			# Integrate a timestep.
 			t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-			cp.cuda.Stream.null.synchronize()
-			t_now = t
+		# 	cp.cuda.Stream.null.synchronize()
+		# 	t_now = t
 
-			# Get back the correctly shaped data array
-			value_rolling = y.reshape(g.shape)
+		# 	# Get back the correctly shaped data array
+		# 	value_rolling = y.reshape(g.shape)
 
-			if args.visualize:
-				value_rolling_np = value_rolling.get()
-				mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-									edge_color=None,  face_color='maroon')
-				viz.update_tube(value_rolling_np, mesh, time_step)
-				# store this brt
-				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh)
+		# 	if args.visualize:
+		# 		value_rolling_np = value_rolling.get()
+		# 		mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
+		# 							edge_color=None,  face_color='maroon')
+		# 		viz.update_tube(value_rolling_np, mesh, time_step)
+		# 		# store this brt
+		# 		brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh)
 
-			if args.save:
-				fig = plt.gcf()
-				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
-					rf"figures/rcbrt_{t_now}.jpg"),
-					bbox_inches='tight',facecolor='None')
+		# 	if args.save:
+		# 		fig = plt.gcf()
+		# 		fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
+		# 			rf"figures/rcbrt_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
 
-			itr_end.record()
-			itr_end.synchronize()
-			cpu_end = cputime()
+		# 	itr_end.record()
+		# 	itr_end.synchronize()
+		# 	cpu_end = cputime()
 
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+		# 	info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
 
-		if not args.load_brt:
-			os.makedirs("data") if not os.path.exists("data") else None
-			np.savez_compressed("data/rcbrt.npz", brt=np.asarray(brt), \
-				meshes=np.asarray(meshes), brt_time=np.asarray(brt_time))
+		# if not args.load_brt:
+		# 	os.makedirs("data") if not os.path.exists("data") else None
+		# 	np.savez_compressed("data/rcbrt.npz", brt=np.asarray(brt), \
+		# 		meshes=np.asarray(meshes), brt_time=np.asarray(brt_time))
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
