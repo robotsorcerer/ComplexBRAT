@@ -1,4 +1,4 @@
-__comment__     = "Solves the BRT of a P-E Dubins Vehicle in Relative Coordinates (Air3D Basic)."
+__comment__     = "Solves the Complex Backward Reach Avoid Tubes for a Murmuration of Starlings."
 __author__ 		= "Lekan Molu"
 __copyright__ 	= "2021, Hamilton-Jacobi Analysis in Python"
 __license__ 	= "Molux License"
@@ -19,12 +19,12 @@ import numpy  as np
 from math import pi
 import numpy.linalg as LA
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-# from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
 sys.path.append(abspath(join('..')))
+
+from Libs import *
 
 from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
@@ -33,12 +33,6 @@ from LevelSetPy.BoundaryCondition import *
 from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.InitialConditions import *
 
-from Libs.upwind_first_eno2 import upwindFirstENO2
-from Libs.ode_cfl_2 import odeCFL2
-from Libs.ode_cfl_set import odeCFLset
-from Libs.artificial_diss_glf import artificialDissipationGLF
-from Libs.term_restrict_update import termRestrictUpdate
-from Libs.term_lax_friedrich import termLaxFriedrichs
 
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
@@ -138,7 +132,6 @@ def get_avoid_brt(flock, compute_mesh=True):
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
 		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing, edge_color='.4', face_color='c')    
-		# flock.mesh, flock.verts = mesh_bundle.mesh, mesh_bundle.verts
 	
 	return flock 
 
@@ -200,7 +193,24 @@ def main(args):
 
 	# Please note the way I formulate the initial states here. Linear speed is constant but heading is different.
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
-	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, 1, 2, .2, .3)
+	
+	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	# add other flocks to this state space
+	flock1 = get_flock(gmin, gmax, 101, num_agents, 1.1*INIT_XYZS, label=2,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	flock2 = get_flock(gmin, gmax, 101, num_agents, -1.1*INIT_XYZS, label=3,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+
+	flock3 = get_flock(gmin, gmax, 101, num_agents, 1.5*INIT_XYZS, label=4,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	flock4 = get_flock(gmin, gmax, 101, num_agents, -1.5*INIT_XYZS, label=5,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+
+	flock6 = get_flock(gmin, gmax, 101, num_agents, 2.0*INIT_XYZS, label=6,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)						
+	flock5 = get_flock(gmin, gmax, 101, num_agents, -2.0*INIT_XYZS, label=7,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
 	get_avoid_brt(flock0, compute_mesh=True)
 	# visualize_init_avoid_tube(flock0, save=True, fname=join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
 	# 									f"figures/flock_{flock0.label}.jpg"))
@@ -275,7 +285,7 @@ def main(args):
 			y0 = value_rolling.flatten()
 
 			# How far to step?
-			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
+			t_span = cp.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
 
 			# Integrate a timestep.
 			t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
