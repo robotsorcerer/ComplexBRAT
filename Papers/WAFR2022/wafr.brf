@@ -1,7 +1,7 @@
 \backcite {OsherShuENO}{{1}{1}{figure.caption.2}}
 \backcite {CrandallLaxFriedrichs}{{1}{1}{figure.caption.2}}
 \backcite {Evans1984}{{1}{1}{figure.caption.2}}
-\backcite {Crandall1984Approx}{{1}{1}{Hfootnote.1}}
+\backcite {Crandall1984Approx, OsherShuENO}{{1}{1}{Hfootnote.1}}
 \backcite {SylviaScalability, Bansal2018, Bajcsy}{{2}{1}{figure.caption.2}}
 \backcite {Bellman1957}{{2}{1}{figure.caption.2}}
 \backcite {Ballerini1232, Cavagna2010Scale, Bialek2012Statistical}{{2}{1}{figure.caption.3}}
@@ -50,5 +50,7 @@
 \backcite {Crandall1984Approx}{{12}{9}{Hfootnote.9}}
 \backcite {Isaacs1965}{{13}{4.3}{equation.1.4.16}}
 \backcite {Isaacs1965}{{13}{4.3}{equation.1.4.16}}
-\backcite {Ballerini1232}{{13}{4.3}{equation.1.4.16}}
+\backcite {OsherShuENO, Crandall1984Approx}{{15}{4.3}{equation.1.4.21}}
+\backcite {Ballerini1232}{{15}{5}{section.1.5}}
+\backcite {Ballerini1232}{{15}{5}{equation.1.5.26}}
 \backcite {LekanCASE2016Paper}{{15}{5.1}{subsection.1.5.1}}

@@ -4,6 +4,23 @@
 In all our experiments, robust cohesion and anisotropy is reinforced by having one player be a pursuer against a flock of evaders as seen in \autoref{fig:robust_heading}. We initialize each flock's agents to distinct positions on the vectogram. All agents share the same linear speed, $v$ but varying orientations $\langle w^{(i)} (t) \rangle_r$ that are averaged across every nearest neighbor in a flock according to \eqref{eq:DubinsJadbabaie}. Nearest neighbors are updated according to Algorithm \ref{alg:neighbors}.
 %
 
+At issue is a family of games based on different starting points for local flocks that on the whole constitute a murmuration. Therefore, we pre-define payoffs for each individual agent in every flock implicitly on a flock's state space as $\valuefunc: [-T, 0]\times \mc{X} \rightarrow \bb{R}$. 
+%
+In starlings, agents move in local flocks of six to seven nearest neighbors~\cite{Ballerini1232} in order to preserve cohesion and heading consensus. Therefore, we define the target set and the tube as
+%
+\begin{align}
+	\targetset_0 &= \left\{ \state \in \bar{\openset} | \valuefunc(\state, 0) \le 0 \right\}, \\
+	\mathcal{L}([\tau, 0],  \mathcal{L}_0) &= \left\{\state\in \bar{\openset}  | \valuefunc(\state, \tau) \le 0\right\}
+\end{align}
+%
+where $\tau \in  [-T, 0]$. Abusing notation and dropping the $i$th superscript for an agent, we construct $\valuefunc(\cdot)$ as 
+%
+\begin{align}
+	\valuefunc(\state, 0) = \sqrt{\state_1^2 + \state_2^2} - r_c
+\end{align}
+%
+where $r_c$ is the capture radius, equivalent to the topological range for a flock as reported in~\cite{Ballerini1232}. 
+
 
 \subsection{Interagents Spatial Structure}
 
