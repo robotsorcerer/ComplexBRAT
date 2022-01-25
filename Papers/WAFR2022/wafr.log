@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.1.13)  24 JAN 2022 20:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.1.13)  25 JAN 2022 11:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1219,8 +1219,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 
 LaTeX Warning: Reference `sec:results' on page 4 undefined on input line 73.
 
-) (./sections/notations.tex) (./sections/background.tex [4] [5] [6] [7])
-(./sections/methods.tex [8]
+) (./sections/notations.tex) (./sections/background.tex [4]
+Underfull \vbox (badness 2229) has occurred while \output is active []
+
+ [5]
+[6] [7]) (./sections/methods.tex [8]
 Overfull \hbox (14.53015pt too wide) detected at line 41
 []
  []
@@ -1250,7 +1253,7 @@ Package hyperref Warning: No autoref name for `algorithm' on input line 157.
 
 Package hyperref Warning: No autoref name for `algorithm' on input line 157.
 
-<figures/flock_pursuer.jpg, id=245, 3212.0pt x 2409.0pt>
+<figures/flock_pursuer.jpg, id=244, 3212.0pt x 2409.0pt>
 File: figures/flock_pursuer.jpg Graphic file (type jpg)
 <use figures/flock_pursuer.jpg>
 Package pdftex.def Info: figures/flock_pursuer.jpg  used on input line 172.
@@ -1266,10 +1269,10 @@ Overfull \hbox (7.43611pt too wide) detected at line 289
 []
  []
 
-[14]
+[14]) (./sections/expts.tex
 
 LaTeX Warning: Citation `LekanCASE2016Paper' on page 15 undefined on input line
- 320.
+ 11.
 
 ) (./sections/conclude.tex) (./wafr.bbl (./wafr.brf)
 \tf@brf=\write5
@@ -1280,39 +1283,39 @@ Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
 
-Underfull \hbox (badness 2856) in paragraph at lines 98--98
+Underfull \hbox (badness 2856) in paragraph at lines 85--85
 []\OT1/ptm/m/n/9 (+20) Haiken, M.: These birds flock in mes-mer-iz-ing swarms o
 f thou-sands-but why is
  []
 
 
-Underfull \hbox (badness 2980) in paragraph at lines 98--98
+Underfull \hbox (badness 2980) in paragraph at lines 85--85
 \OT1/ptm/m/n/9 (+20) still a mys-tery. (2021).  URL [][]$https : / / www . nati
 onalgeographic . com / animals / article /
  []
 
 [16]) [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 114.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 114.
  (./wafr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 114.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 114.
 Package rerunfilecheck Info: File `wafr.out' has not changed.
 (rerunfilecheck)             Checksum: 8777CCA1737B833D6CB26B31913C20D0;127.
 Package rerunfilecheck Info: File `wafr.brf' has not changed.
-(rerunfilecheck)             Checksum: E0FA4B7608F73765F16B1D354688D994;2880.
+(rerunfilecheck)             Checksum: A5B4DD7C9C183B6B0EF6320206CAB40C;2880.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 113.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 114.
  ) 
 Here is how much of TeX's memory you used:
- 22830 strings out of 494847
- 407070 string characters out of 6179080
- 510255 words of memory out of 5000000
- 25206 multiletter control sequences out of 15000+600000
- 51434 words of font info for 277 fonts, out of 8000000 for 9000
+ 22825 strings out of 494847
+ 406974 string characters out of 6179080
+ 510192 words of memory out of 5000000
+ 25201 multiletter control sequences out of 15000+600000
+ 51185 words of font info for 276 fonts, out of 8000000 for 9000
  62 hyphenation exceptions out of 8191
  55i,22n,77p,2422b,514s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1329,18 +1332,17 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cou
-rier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on wafr.pdf (17 pages, 4110539 bytes).
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/
+uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on wafr.pdf (17 pages, 4101640 bytes).
 PDF statistics:
- 479 PDF objects out of 1000 (max. 8388607)
- 422 compressed objects within 5 object streams
- 122 named destinations out of 1000 (max. 500000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 419 compressed objects within 5 object streams
+ 121 named destinations out of 1000 (max. 500000)
  40514 words of extra memory for PDF output out of 42996 (max. 10000000)
 

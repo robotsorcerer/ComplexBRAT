@@ -5,11 +5,11 @@ The style file: styles/bibtex/spmpsci_unsrt.bst
 Database file #1: ../biblio.bib
 Warning--entry type for "NatGeo" isn't style-file defined
 --line 5 of file ../biblio.bib
-Repeated entry---line 890 of file ../biblio.bib
+Repeated entry---line 883 of file ../biblio.bib
  : @article{CrandallLaxFriedrichs
  :                               ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 1132 of file ../biblio.bib
+You're missing a field name---line 1125 of file ../biblio.bib
  : 
  : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
 (Error may have been on previous line)
@@ -18,45 +18,45 @@ Warning--I didn't find a database entry for "LekanCASE2016Paper"
 Warning--empty year in Isaacs1965
 Warning--empty journal in Bansal
 Warning--empty year in Bansal
-You've used 29 entries,
+You've used 28 entries,
             2946 wiz_defined-function locations,
-            819 strings with 10238 characters,
-and the built_in function-call counts, 24064 in all, are:
-= -- 2900
-> -- 513
+            811 strings with 10107 characters,
+and the built_in function-call counts, 23249 in all, are:
+= -- 2814
+> -- 486
 < -- 4
-+ -- 338
-- -- 182
-* -- 1090
-:= -- 2292
-add.period$ -- 35
-call.type$ -- 29
-change.case$ -- 177
++ -- 323
+- -- 172
+* -- 1045
+:= -- 2203
+add.period$ -- 33
+call.type$ -- 28
+change.case$ -- 169
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 2714
-empty$ -- 1455
-format.name$ -- 204
-if$ -- 4931
+cite$ -- 31
+duplicate$ -- 2628
+empty$ -- 1404
+format.name$ -- 193
+if$ -- 4766
 int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 308
-newline$ -- 129
-num.names$ -- 58
-pop$ -- 1103
+int.to.str$ -- 28
+missing$ -- 295
+newline$ -- 124
+num.names$ -- 56
+pop$ -- 1072
 preamble$ -- 1
-purify$ -- 149
+purify$ -- 142
 quote$ -- 0
-skip$ -- 1329
+skip$ -- 1293
 stack$ -- 0
-substring$ -- 1159
-swap$ -- 2334
+substring$ -- 1130
+swap$ -- 2261
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 110
+type$ -- 106
 warning$ -- 3
-while$ -- 120
-width$ -- 31
-write$ -- 301
+while$ -- 116
+width$ -- 30
+write$ -- 289
 (There were 2 error messages)

@@ -1,11 +1,11 @@
 \backcite {OsherShuENO}{{1}{1}{figure.caption.2}}
 \backcite {CrandallLaxFriedrichs}{{1}{1}{figure.caption.2}}
 \backcite {Evans1984}{{1}{1}{figure.caption.2}}
+\backcite {Crandall1984Approx}{{1}{1}{Hfootnote.1}}
 \backcite {SylviaScalability, Bansal2018, Bajcsy}{{2}{1}{figure.caption.2}}
 \backcite {Bellman1957}{{2}{1}{figure.caption.2}}
-\backcite {Crandall1984Approx}{{2}{1}{Hfootnote.1}}
-\backcite {Ballerini1232, Cavagna2010Scale, Bialek2012Statistical}{{3}{1}{figure.caption.3}}
-\backcite {JadbabaieCoord}{{3}{1}{figure.caption.3}}
+\backcite {Ballerini1232, Cavagna2010Scale, Bialek2012Statistical}{{2}{1}{figure.caption.3}}
+\backcite {JadbabaieCoord}{{2}{1}{figure.caption.3}}
 \backcite {NatGeo}{{3}{1}{figure.caption.3}}
 \backcite {NatGeo}{{3}{1}{figure.caption.3}}
 \backcite {Ballerini1232}{{3}{1}{figure.caption.3}}
@@ -17,7 +17,7 @@
 \backcite {Mitchell2020}{{3}{1.1}{subsection.1.1.1}}
 \backcite {SylviaScalability, Bajcsy, DecompChenHerbert}{{3}{1.1}{subsection.1.1.1}}
 \backcite {Mitchell2005}{{3}{1.1}{subsection.1.1.1}}
-\backcite {JadbabaieCoord}{{4}{1.1}{subsection.1.1.1}}
+\backcite {JadbabaieCoord}{{3}{1.1}{subsection.1.1.1}}
 \backcite {Isaacs1965}{{5}{2.1}{subsection.1.2.1}}
 \backcite {Isaacs1965}{{5}{3}{section.1.3}}
 \backcite {Merz1972}{{5}{3}{section.1.3}}

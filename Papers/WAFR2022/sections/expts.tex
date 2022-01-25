@@ -1,0 +1,71 @@
+\section{Experiments}
+\label{sec:expts}
+%
+In all our experiments, robust cohesion and anisotropy is reinforced by having one player be a pursuer against a flock of evaders as seen in \autoref{fig:robust_heading}. We initialize each flock's agents to distinct positions on the vectogram. All agents share the same linear speed, $v$ but varying orientations $\langle w^{(i)} (t) \rangle_r$ that are averaged across every nearest neighbor in a flock according to \eqref{eq:DubinsJadbabaie}. Nearest neighbors are updated according to Algorithm \ref{alg:neighbors}.
+%
+
+
+\subsection{Interagents Spatial Structure}
+
+\begin{itemize}
+	\item put reference bird at origin; then randomly initialize other birds with a random walk in the state space with a covariance of .5~\cite{LekanCASE2016Paper}
+	%
+	\item we randomly initialized covariance in random walker at start
+	%
+	\item every local flock has its own value function governed by a target set
+	%
+	%
+	\item every bird is spatially correlated on a large grid that parameterizes a flock
+\end{itemize}
+%
+\begin{itemize}
+	\item we initialize the flock's state coverage as follows
+	%
+	\item the evader (or reference vehicle) holds has a state space that spans the following intervals on the $x,y,z$ state plane
+	$[x_1^-, x_1^+, x_2^-, x_2^+, x_3^-, x_3^+]$
+	%
+	\item every follower vehicle in the flock has its state space coverage specified as
+	$[x_1^- -\epsilon, x_1^+ - \epsilon, x_2^- -\epsilon, x_2^+, x_3^- -\epsilon, x_3^+ - \epsilon]$
+	%
+	\item we find that this initialization helps the agents maintain good coverage on the entire state space: it easily provides bounds, a nice spatial distribution of flight coverage. For instance, if all flocks are positioned at the origin of their grids, then what we have is a single line of leader vs multiple followers that achieves
+	%
+	\item every flock has its own payoff, which are related to that of nearest neighbor interacting flocks via dispersal or X surfaces/lines/or hyperplanes.
+\end{itemize}
+
+
+\begin{comment}
+	\begin{itemize}
+		\item we compare the distance between linear position of agents to determine nearest neighbors;
+		in comparing distances, we only use the L2 norm of the linear positions of a reference agent w.r.t every other agent in a flock and assign an agent as being a nearest neighbor if the difference between the norm of the position of two birds is less than a pre-specified radius $r$.
+		%
+		\item flocks may contract -- contract the modes of your tensor
+		%
+		\item flocks may expand -- add new modes to your tensor where the new modes consist of the new state space of your birds
+		%
+		\item when a flock splits, divide your tensor into two.
+		%
+		\item  to do this, make initial velocities parallel so that the equations of relative motion mean that the Evaders can maintain the initial separation forever by simply duplicating the strategy of the P. The barrier of a local flock is thus closed, so that the game of kind is ensued with finding the determination of the closed surface.
+		%
+		\item  see solution to the homicidal chauffeur game in 9.1 of Isaacs
+	\end{itemize}
+	\subsection{Grids contraction, expansion, or splitting when agents switch flocks}
+	
+	\begin{itemize}
+		RA-L/IROS Paper
+		\item put flock information in a tensor
+		% anisotropic kinematic behavioral law.
+		
+		
+		%
+		Within a flock, agents are potentially numerous and exhibit an
+		\item when a bird leaves a flock, contract the tensor
+		%
+		\item  when a bird joins a flock, expand the tensor by one more mode
+		%
+		\item add a value function for every tensor
+		%
+		\item the interaction among flocks is therefore easily capturable by tensor interactions
+		%
+		\item tensor interaction allows us to simplify the algebra of interaction of agents
+	\end{itemize}
+\end{comment}

@@ -8,18 +8,17 @@
 
 \bibitem{OsherShuENO}
 Osher, S., Shu, C.W.: {High-Order Essentially Nonoscillatory Schemes for
-  Rotary-Wing Wake Computations}.
-\newblock Journal of Aircraft \textbf{41}(2), 258--267 (2004).
-\newblock \doi{10.2514/1.9320}
+  Hamilton-Jacobi Equations}.
+\newblock SIAM Journal of Numerical Analysis \textbf{28}(4), 907--922 (1991)
 
 \bibitem{CrandallLaxFriedrichs}
-Crandall, M.G., Majda, A.: Monotone difference approximations for scalar
-  conservation laws.
+Crandall, M.G., Majda, A.: {Monotone Difference Approximations For Scalar
+  Conservation Laws}.
 \newblock Mathematics of Computation \textbf{34}(149), 1--21 (1980)
 
 \bibitem{Evans1984}
-Evans, L., Souganidis, P.E.: {Differential games and representation formulas
-  for solutions of Hamilton-Jacobi-Isaacs equations}.
+Evans, L., Souganidis, P.E.: {Differential Games And Representation Formulas
+  For Solutions Of Hamilton-Jacobi-Isaacs Equations}.
 \newblock Indiana Univ. Math. J \textbf{33}(5), 773--797 (1984)
 
 \bibitem{Crandall1984Approx}
@@ -50,23 +49,11 @@ Bajcsy, A., Bansal, S., Bronstein, E., Tolani, V., Tomlin, C.J.: An {E}fficient
 Bellman, R.: {Dynamic programming}.
 \newblock Princeton University Press (1957)
 
-\bibitem{Mitchell2020}
-Mitchell, I.: {A Robust Controlled Backward Reach Tube with (Almost) Analytic
-  Solution for Two Dubins Cars}.
-\newblock {EPiC Series in Computing} \textbf{74}, 242--258 (2020)
-
-\bibitem{Mitchell2005}
-Mitchell, I.M., Bayen, A.M., Tomlin, C.J.: {A time-dependent Hamilton-Jacobi
-  formulation of reachable sets for continuous dynamic games}.
-\newblock IEEE Transactions on Automatic Control \textbf{50}(7), 947--957
-  (2005).
-\newblock \doi{10.1109/TAC.2005.851439}
-
 \bibitem{Ballerini1232}
 Ballerini, M., Cabibbo, N., Candelier, R., Cavagna, A., Cisbani, E., Giardina,
   I., Lecomte, V., Orlandi, A., Parisi, G., Procaccini, A., Viale, M.,
-  Zdravkovic, V.: Interaction ruling animal collective behavior depends on
-  topological rather than metric distance: Evidence from a field study.
+  Zdravkovic, V.: {interaction Ruling Animal Collective Behavior Depends On
+  Topological Rather Than Metric Distance: Evidence From A Field Study}.
 \newblock Proceedings of the National Academy of Sciences \textbf{105}(4),
   1232--1237 (2008).
 \newblock \doi{10.1073/pnas.0711437105}.
@@ -74,7 +61,7 @@ Ballerini, M., Cabibbo, N., Candelier, R., Cavagna, A., Cisbani, E., Giardina,
 
 \bibitem{Cavagna2010Scale}
 Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R., Stefanini,
-  F., Viale, M.: Scale-free correlations in starling flocks.
+  F., Viale, M.: Scale-ffee correlations in starling flocks.
 \newblock Proceedings of the National Academy of Sciences \textbf{107}(26),
   11,865--11,870 (2010)
 
@@ -105,12 +92,24 @@ Crandall, M.G., Lions, P.L.: Viscosity solutions of hamilton-jacobi equations.
 Lygeros, J.: On reachability and minimum cost optimal control.
 \newblock Automatica \textbf{40}(6), 917--927 (2004)
 
+\bibitem{Mitchell2020}
+Mitchell, I.: {A Robust Controlled Backward Reach Tube with (Almost) Analytic
+  Solution for Two Dubins Cars}.
+\newblock {EPiC Series in Computing} \textbf{74}, 242--258 (2020)
+
 \bibitem{DecompChenHerbert}
 Chen, M., Herbert, S.L., Vashishtha, M.S., Bansal, S., Tomlin, C.J.:
   {Decomposition of Reachable Sets and Tubes for a Class of Nonlinear Systems}.
 \newblock IEEE Transactions on Automatic Control \textbf{63}(11), 3675--3688
   (2018).
 \newblock \doi{10.1109/TAC.2018.2797194}
+
+\bibitem{Mitchell2005}
+Mitchell, I.M., Bayen, A.M., Tomlin, C.J.: {A time-dependent Hamilton-Jacobi
+  formulation of reachable sets for continuous dynamic games}.
+\newblock IEEE Transactions on Automatic Control \textbf{50}(7), 947--957
+  (2005).
+\newblock \doi{10.1109/TAC.2005.851439}
 
 \bibitem{Isaacs1965}
 Isaacs, R.: Differential games 1965.
@@ -160,10 +159,5 @@ Nishino, R., Loomis, C., Hido, S.: Cupy: A numpy-compatible library for nvidia
   gpu calculations.
 \newblock 31st confernce on neural information processing systems \textbf{151}
   (2017)
-
-\bibitem{VicsekPhaseNovel}
-Vicsek, T., Czir{\'o}k, A., Ben-Jacob, E., Cohen, I., Shochet, O.: Novel type
-  of phase transition in a system of self-driven particles.
-\newblock Physical review letters \textbf{75}(6), 1226 (1995)
 
 \end{thebibliography}
