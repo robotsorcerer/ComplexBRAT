@@ -1,0 +1,115 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a proceedings volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass{styles/svproc}
+%\documentclass[11pt]{article}
+%\usepackage[english]{babel}
+%\usepackage[T1]{fontenc}
+%\usepackage{uarial}
+%\renewcommand{\familydefault}{\sfdefault}
+\usepackage{blindtext}
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% to typeset URLs, 'URIs, and DOIs
+\usepackage{url}
+\def\UrlFont{\rmfamily}
+% *** CITATION PACKAGES ***
+\usepackage{cite}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+
+\usepackage{bm}
+%\usepackage{natbib}
+\usepackage{tikz}
+\usepackage{soul}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{pifont}
+\usepackage{dsfont}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+\usepackage{paralist}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{footnote}
+\usepackage{verbatim}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[export]{adjustbox}
+\usepackage{amssymb, amsmath, times}
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\usepackage[pagebackref=true,breaklinks=true,colorlinks=true, citecolor=green,linkcolor=cyan,urlcolor=blue,bookmarks=true]{hyperref}
+
+
+\theoremstyle{remark}
+%\newtheorem*{remark}{Remark}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\algnewcommand\textproc{\textsf}
+
+\addtolength{\textfloatsep}{-3mm}
+\addtolength{\floatsep}{-3mm}
+
+\pdfoutput=1    % for arxiv tex processor
+
+\begin{document}
+\mainmatter              % start of a contribution
+%
+\title{LargeBRAT! Complex Backward Reach-Avoid Tubes: An Emergent Collective Behavior %from Local Topological Interactions 
+	 Perspective.
+}
+%
+\titlerunning{Scalable Reachability Analysis}  %
+%
+\author{
+	Olalekan Ogunmolu$^{\star}$, Sylvia Herbert$^\dagger$
+}
+%
+\authorrunning{\textit{Lekan Molu}} % abbreviated author list (for running head)
+%
+\institute{
+	$^\star$Microsoft Research, NYC,  300 Lafayette Street,
+New York, NY 10012, USA \\
+$^\dagger$Department of Mechanical and Aerospace Engineering, UC San Diego, La Jolla, CA, USA.  {\tt\small lekanmolu@microsoft.com, sherbert@eng.ucsd.edu}. 
+} 
+
+\maketitle              % typeset the title of the contribution
+
+\input{sections/def}
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/notations}
+\input{sections/background}
+\input{sections/methods}
+%\input{sections/results}
+%\input{sections/discuss}
+%\input{sections/probstate}
+\input{sections/conclude}
+
+%
+% ---- Bibliography ----
+%
+%\begin{thebibliography}{6}
+%
+\providecommand\BIBentryALTinterwordstretchfactor{2.5}
+\bibliographystyle{styles/bibtex/spmpsci_unsrt}
+\bibliography{../biblio}
+
+\end{document}

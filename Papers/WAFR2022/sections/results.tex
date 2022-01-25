@@ -1,0 +1,189 @@
+\section{Results and Discussion.}
+\label{sec:results}
+We now provide results and analysis of the proposed numerical algorithm on benchmark control problems.
+
+\subsection{Time Optimal Control of the Double Integrator}
+%
+Here, we analyze our proposal on a time-optimal control problem. Specifically, we consider the  double integral plant which has the following second-order dynamics
+%
+\begin{align}
+	\ddot{\state}(t) = \control(t).
+	\label{eq:double_integ}
+\end{align}
+%
+This admits bounded control signals $\mid \control(t) \mid \le 1$ for all $t$. After a change of variables,we have the following system of first-order differential equations
+%
+\begin{align}
+	\dot{\state}_1(t) &= \state_2(t),\quad
+	\dot{\state}_2(t) = \control(t), \quad \mid \control(t) \mid \le 1. \nonumber
+	\label{eq:double_integ_first_ord}
+\end{align}
+%
+The \textit{reachability problem is to address the possibility of reaching all points in the state space in a \textbf{transient} manner}. %That is, we would like to find the set of points on the state space, at a particular time step, such that we can bring the system to equilibrium, say, $\left(0, 0\right)$ -- and once we reach equilibrium,  we would like to remain on these states for all future times. 
+Therefore, we set the running cost to zero, so that the Hamiltonian is $H = p_1 \dot{\state}_1 + p_2 \dot{\state}_2$. The necessary optimality condition stipulates that the minimizing control law is $\control(t) = -\text{ sign }(p_2(t))$. On a finite time interval, say, $t \in [t_0, t_f]$, the time-optimal $\control(t)$ is a constant $k$ so that for initial conditions $\state_1(t_0) = \bm{\xi}_1$ and $\state_2(t_0) = \bm{\xi}_2$, it can be  verified that the state trajectories obey the relation
+%
+\begin{align}
+	\state_1(t) = \bm{\xi}_1 + \frac{1}{2} k  \left(\state_2^2 - \bm{\xi}_2^2\right), \,\text{where, } t = k \left(\state_2(t) - \bm{\xi}_2\right).
+\end{align}
+%of this the terminal state of a chosen value function on the origin of the 
+
+The trajectories traced out over a finite time horizon $t=[-1, 1]$ on a state space and under the control laws $\control(t) = \pm 1$ is depicted in \autoref{fig:ttr_trajectories}. 
+ %
+\begin{figure}[tb!]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/doub_int_trajos.jpg}
+	\caption{State trajectories of the double integral plant. The solid curves are trajectories generated for $\control=+1$ while the dashed curves are trajectories for $\control = -1$.}
+	\label{fig:ttr_trajectories}
+\end{figure}
+%
+The curves with arrows that point upwards denote trajectories under the control law  $\control=+1$; call these trajectories $\switchcurve_+$; while the  trajectories with dashed curves and downward pointing arrows were executed under $\control=-1$; call these trajectories $\switchcurve_-$. The time to go from any point on any of the intersections to the origin on the state trajectories of \autoref{fig:ttr_trajectories} is our approximation problem.  This minimum time admits an analytical solution~\cite{AthansFalb} given by
+%
+\begin{align}
+	t^\star(\state_1, \state_2) = %t^\star = 
+	\begin{cases}
+		\state_2 + \sqrt{4 \state_1 + 2 \state_2^2} \, &\text{if } \, \state_1 > \dfrac{1}{2} \state_2 |\state_2| \\
+		%
+		-\state_2 + \sqrt{-4 \state_1 + 2 \state_2^2} \, &\text{if }  \, \state_1 < -\dfrac{1}{2} \state_2 |\state_2| \\
+		%
+		|\state_2| &\text{if } \state_1 = \dfrac{1}{2} \state_2 |\state_2|.
+	\end{cases}
+\end{align}
+
+
+Let us define $R_+$ as the portions of the state space above the curve $\switchcurve$ and $R_-$ as the portions of the state space below the curve $\switchcurve$.  The confluence of the locus of points on $\switchcurve_+$ and $\switchcurve_-$ is the switching curve, depicted on the left inset of \autoref{fig:attr}, and given as
+%
+\begin{align}
+	\switchcurve \triangleq \switchcurve_+ \cup \switchcurve_- &= \left\{(\state_1, \state_2): \state_1 = \frac{1}{2}\state_2 \mid \state_2 \mid \right\}.
+\end{align}
+%
+\begin{figure}[tb!]
+	\centering
+%	\begin{minipage}[b]{.24\textwidth}
+%		\includegraphics[width=1.0\textwidth, height=1.0\textwidth]{figures/switching_curve.jpg}
+%	\end{minipage}
+	%\hfill 
+	\begin{minipage}[b]{.98\textwidth}
+		\includegraphics[width=1.0\textwidth]{figures/attr.jpg}
+		%\subcaption{\footnotesize Fabric in uncured silicone.}
+	\end{minipage}
+	\caption{\footnotesize %(L) Switching curve for the double integral plant. (R) 
+		Analytical time to reach the origin on the state grid, $\left(\reline \times \reline\right)$; the switching curve corresponds to the bright orange coloration for states on $(0,0)$.}
+	\label{fig:attr}
+\end{figure}
+%
+%\begin{figure}[tb!]
+%\centering 
+%\includegraphics[width=\columnwidth]{figures/attr.jpg}
+%\caption{Analytical time to reach the origin of the state space on $\left(\reline \times \reline\right)$; the switching curve corresponds to the bright orange coloration for states on $(0,0)$.}
+%\label{fig:attr}
+%\end{figure}
+%
+%
+We now state the \textbf{time-optimal control problem}: \textit{The control problem is to find the control law that forces \eqref{eq:double_integ_first_ord} to the origin $\left(0,0\right)$ in the \textbf{shortest possible time}}. The time-optimal control law, $\control^\star$, that solves this problem is unique and is
+%
+\begin{align}
+	\control^\star &= \control^\star(\state_1, \state_2) = +1 \quad \forall \left(\state_1, \state_2\right) \in \switchcurve_+ \cup \reline_+ \nonumber \\
+	%
+	\control^\star &= \control^\star(\state_1, \state_2) = -1 \quad \forall \left(\state_1, \state_2\right) \in \switchcurve_- \cup \reline_-  \\
+	%
+	\control^\star &= -\text{sgn} \left\{\state_2\right\} \quad \forall \left(\state_1, \state_2\right) \in \switchcurve. \nonumber
+\end{align}
+%
+The minimum cost for the problem at hand is the minimum time for states $(\state_1, \state_2)$ to reach the origin $(0, 0)$, defined as 
+%
+\begin{align}
+	V^\star(\state, t) = t^\star(\state_1, \state_2)
+\end{align}
+%
+with the associated terminal value
+%
+\begin{align}
+	-\dfrac{\partial \valuefunc^\star (\state, t)}{\partial t} = \hamfunc\left(t, \state, \dfrac{\partial \valuefunc^\star (\state, t)}{\partial t}, \control \right)\bigg\rvert_{\substack{\state=\state^\star\\ \control=\control^\star}}
+\end{align}
+%
+where 
+%
+\begin{align}
+	\hamfunc(t; \state, \control, p_1, p_2) = \state_2(t) p_1(t) + \control(t)p_2(t)
+\end{align}
+%
+and 
+%
+\begin{align}
+	p_1 = \dfrac{\partial t^\star}{\partial \state_1}, \,\, 
+	p_2 = \dfrac{\partial t^\star}{\partial \state_2}
+\end{align}
+%
+so that the HJ equation is
+%
+\begin{align}
+	\dfrac{\partial t^\star}{\partial t} &+ \state_2 \dfrac{\partial t^\star}{\partial \state_1} - \dfrac{\partial t^\star}{\partial \state_2} = 0 & \text{if }  \, \state_1 > -\dfrac{1}{2} \state_2 |\state_2|  \nonumber \\
+	%
+	\dfrac{\partial t^\star}{\partial t} &+ \state_2 \dfrac{\partial t^\star}{\partial \state_1} + \dfrac{\partial t^\star}{\partial \state_2} = 0  & \text{if }  \, \state_1 < -\dfrac{1}{2} \state_2 |\state_2|  \nonumber \\
+	%
+	\dfrac{\partial t^\star}{\partial t} &+ \state_2 \dfrac{\partial t^\star}{\partial \state_1} - \text{sgn}\{\state_2\} \dfrac{\partial t^\star}{\partial \state_2} = 0  & \text{if }  \, \state_1 = -\dfrac{1}{2} \state_2 |\state_2|.  
+	\label{eq:dint_time_optimal}
+\end{align}
+%
+%or can be verified to be 
+%
+%\begin{align}
+%	\begin{align}
+%		\dfrac{2 \state_2}{\sqrt{4\state_1 + 2 \state_2^2}}-1-\dfrac{2 \state_2}{\sqrt{4\state_1 + 2 \state_2^2}}
+%	\end{align}
+%\end{align}
+
+We compare our approximated terminal value solution using our proposal against (i) the numerical solution found via level sets methods~\cite{LevelSetsBook}  and (ii) the analytical solution of the \textit{time to reach (TTR) the origin} problem.
+
+\begin{figure}[tb!]
+	\centering
+	\begin{minipage}[b]{.95\textwidth}
+		\includegraphics[width=\textwidth]{figures/dint_ttr_0.25.jpg}
+	\end{minipage}
+	%	
+%	\begin{minipage}[b]{.45\textwidth}
+%		\includegraphics[width=\textwidth]{figures/dint_ttr_1.5.jpg}
+%	\end{minipage}
+	%
+	\begin{minipage}[b]{.95\textwidth}
+		\includegraphics[width=\textwidth]{figures/dint_ttr_2.0.jpg}
+	\end{minipage}
+	\caption{\footnotesize Time to reach the origin at different integration steps. Left: Analytic Time to Reach the Origin. Right: Lax-Friedrichs Approximation to Time to Reach the Origin.}
+	\label{fig:ttr_ls}
+\end{figure}
+
+A point $(\state_1, \state_2)$ on the state grid belongs to the set of states $S(t^\star)$ from which it can be forced to the origin $(0, 0)$ in the same minimum time $t^\star$. We call the set $S(t^\star)$ the minimum isochrone\footnote{These are the isochrones of the system -- akin to the isochrone map used in geography, hydrology and transportation planning for depicting areas of equal travel time to a goal state.}. The level sets of \eqref{eq:dint_time_optimal} correspond to the \textit{isochrones} of the system as illustrated in \autoref{fig:ttr_ls}. From the results shown in \autoref{fig:ttr_ls}, we see that the the approximation to the isochrones by a Lax-Fridrichs scheme (right insets in the figure) are very similar. The expansion in the sets is because we overapproximate the reachable sets at each step of the integration scheme.
+
+\subsection{Dubins Car Dynamics}
+
+
+\begin{figure}[tb!]
+	\centering
+	\begin{minipage}[b]{.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/rcbrt_0.25.jpg}
+	\end{minipage}
+	%	
+	\begin{minipage}[b]{.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/rcbrt_1.0.jpg}
+	\end{minipage}
+	%
+	\begin{minipage}[b]{.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/rcbrt_1.75.jpg}
+	\end{minipage}
+	%	
+	\begin{minipage}[b]{.45\textwidth}
+		\includegraphics[width=\textwidth]{figures/rcbrt_2.5.jpg}
+	\end{minipage}
+	\caption{\footnotesize Time to reach the origin at different integration steps. Left: Analytic Time to Reach the Origin. Right: Lax-Friedrichs Approximation to Time to Reach the Origin.}
+	\label{fig:dubins_tube_basic}
+\end{figure}
+
+\section{Flock Avoid Tubes}
+
+% see large BRAT notes
+
+\begin{figure}[tb!]
+	\centering
+		\includegraphics[width=\columnwidth]{figures/flock_avoid_tube.jpg}
+	\caption{Example avoid Tube For a Flock of 8 Agents on a Local Grid. This tube was constructed by taking a union of respective payoffs for each agent within the flock. As seen, the tube is a closed set, and it encodes the position and orientation of each bird at an initial time, $t_0$. }
+\end{figure}

@@ -101,3 +101,53 @@
         combo_payoff = np.minimum(payoff_avoid, payoff_capture)
 
         return combo_payoff
+
+
+
+    def do_runge_kutta4(self, cur_state, t_span, M=4, h=2):
+        """
+            .cur_state: state at time space
+            .t_span
+            .M: RK steps per interval
+            .h: time step
+        """
+        # integrate the dynamics with 4th order RK scheme
+        X = np.array(cur_state) if isinstance(cur_state, list) else cur_state
+
+        for j in range(M):
+            if np.any(t_span): # integrate for this much time steps
+                hh = (t_span[1]-t_span[0])/10/M
+                for h in np.arange(t_span[0], t_span[1], hh):
+                    k1 = self.dynamics(X)
+                    k2 = self.dynamics(X + h/2 * k1)
+                    k3 = self.dynamics(X + h/2 * k2)
+                    k4 = self.dynamics(X + h * k3)
+
+                    X  = X+(h/6)*(k1 + 2*k2 + 2*k3 + k4)
+            else:
+                k1 = self.dynamics(X)
+                k2 = self.dynamics(X + h/2 * k1)
+                k3 = self.dynamics(X + h/2 * k2)
+                k4 = self.dynamics(X + h * k3)
+
+                X  = X+(h/6)*(k1 +2*k2 +2*k3 +k4)
+
+        return X
+
+
+    def dynamics(self, cur_state, disturb=np.zeros((3,1))):
+        """
+            Dubins Vehicle Dynamics in absolute coordinates.
+            Please consult Merz, 1972 for a detailed reference.
+
+            \dot{x}_1 = v cos x_3
+            \dot{x}_2 = v sin x_3
+            \dot{x}_3 = w
+        """
+        xdot = [
+                self.v_e * np.cos(cur_state[2]) + disturb[0],
+                self.v_e * np.sin(cur_state[2]) + disturb[1],
+                (cp.ones_like(cur_state[2])/(1+self.valence))*(self.w_e + cp.sum([x.w_e for x in self.neighbors]))+ disturb[2],
+        ]
+
+        return cp.asarray(xdot)

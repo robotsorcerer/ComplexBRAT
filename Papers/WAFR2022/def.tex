@@ -1,0 +1,237 @@
+\definecolor{light-blue}{rgb}{0.30,0.35,1}
+\definecolor{light-green}{rgb}{0.20,0.49,.85}
+\definecolor{purple}{rgb}{0.70,0.69,.2}
+
+\newcommand{\maybe}[1]{\textcolor{gray}{\textbf{MAYBE: }{#1}}}
+\newcommand{\inspect}[1]{\textcolor{cyan}{\textbf{CHECK THIS: }{#1}}}
+\newcommand{\more}[1]{\textcolor{red}{\textbf{MORE: }{#1}}}
+\renewcommand{\figureautorefname}{Fig.}
+\renewcommand{\sectionautorefname}{$\S$}
+\renewcommand{\equationautorefname}{eq.}
+\renewcommand{\subsectionautorefname}{$\S$}
+
+% FYA
+\newcommand{\cmt}[1]{{\footnotesize\textcolor{red}{#1}}}%{#2}
+%\newcommand{\note}[1]{\cmt{Note: #1}}
+\newcommand{\todo}[1]{\textcolor{cyan}{TO-DO: #1}}
+\newcommand{\lekan}[1]{\cmt{\textbf{LO}: #1}}
+\newcommand{\nick}[1]{\cmt{\textbf{NG}: #1}}
+\newcommand{\mike}[1]{\cmt{\textbf{Mike}: #1}}
+\newcommand{\steve}[1]{\cmt{\textbf{SJ}: #1}}
+\newcommand{\review}[1]{\noindent\textcolor{red}{$\rightarrow$ #1}}
+\newcommand{\response}[1]{\noindent{#1}}
+\newcommand{\stopped}[1]{\color{red}STOPPED HERE #1\hrulefill}
+
+%Text commands
+\newcounter{mnote}
+\newcommand{\marginote}[1]{\addtocounter{mnote}{1}\marginpar{\themnote. \scriptsize #1}}
+\setcounter{mnote}{0}
+% \newcommand{\comment}[1]{}
+\newcommand{\ie}{i.e.,\ }
+\newcommand{\eg}{e.g.\ }
+\newcommand{\cf}{c.f.\ }
+\newcommand{\yes}{\checkmark}
+\newcommand{\no}{\ding{55}}
+
+%Reference commands
+\newcommand{\flabel}[1]{\label{fig:#1}}
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+\newcommand{\tlabel}[1]{\label{tab:#1}}
+\newcommand{\elabel}[1]{\label{eq:#1}}
+\newcommand{\alabel}[1]{\label{alg:#1}}
+\newcommand{\fref}[1]{\cref{fig:#1}}
+\newcommand{\sref}[1]{\cref{sec:#1}}
+\newcommand{\tref}[1]{\cref{tab:#1}}
+\newcommand{\eref}[1]{\cref{eq:#1}}
+\newcommand{\aref}[1]{\cref{alg:#1}}
+
+%Math commands
+\newcommand*\idx[2][]
+{
+\def\next{#1}%
+\ifx\empty\next
+  (#2)
+\else
+  (#1, #2)
+\fi
+}
+\newcommand*\elt[3][]
+{
+\def\next{#1}%
+\ifx\empty\next
+  #2\idx{#3}
+\else
+  #1\idx{#2,#3}
+\fi
+}
+\newcommand*\pd[3][]
+{
+\def\next{#1}%
+\ifx\empty\next
+  \frac{\partial#2}{\partial #3}
+\else
+  \frac{{\partial^{#1} #2}}{\partial#3^{#1}}
+\fi
+}
+\newcommand*\pdn[3]
+{
+\frac{{\partial#1}^{#3}}{\partial^{#3} #2}
+}
+% \newcommand{\wtsa}{\theta_{\infn}}
+% \newcommand{\wtsb}{\theta_{\outfn}}
+\newcommand{\bull}[1]{$\bullet$ #1}
+\newcommand{\argmax}{\text{argmax}}
+\newcommand{\argmin}{\text{argmin}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\deq}{\mathrel{\stackrel{\text{\tiny{def}}}{=}}}
+\newcommand{\opequals}[1]{\ #1\hspace{-3pt}=\hspace{1pt}}
+\newcommand{\plusequals}{\opequals{+}}
+\newcommand{\minusequals}{\opequals{-}}
+\newcommand{\timesequals}{\opequals{*}}
+% \newcommand{\minusequals}{\ -\hspace{-3.2pt}=\hspace{1pt}}
+% \newcommand{\timesequals}{\ *\hspace{-3.2pt}=\hspace{1pt}}
+\newcommand{\front}[1]{beg(#1)}
+\newcommand{\back}[1]{end(#1)}
+\newcommand{\stddev}{\sigma}
+\newcommand{\variance}{\stddev^2}
+\newcommand{\ifelse}[3]{\begin{cases}#1 \text{ if } #2\\#3 \text{ otherwise}\end{cases}}
+
+
+%Figure commands
+\newcommand{\figdir}{figures/}
+\newcommand{\capt}[2]{\caption[#1]{#1#2}}
+\newcommand{\qcapt}[1]{\capt{#1}{}}
+\newcommand{\figheadingnospace}[1]{\center{\textbf{#1}}}
+\newcommand{\figheading}[1]{\figheadingnospace{#1}\vspace{3mm}}
+\newcommand{\fig}[5]
+{
+\begin{figure}
+\begin{center}
+\includegraphics[width=#3\columnwidth]{figures/#1}
+\end{center}
+\capt{#4}{#5}
+\flabel{#2}
+\end{figure}
+}
+\newcommand{\figtbph}[5]
+{
+\begin{figure}[tbph]
+\begin{center}
+\includegraphics[width=#3\columnwidth]{figures/#1}
+\end{center}
+\capt{#4}{#5}
+\flabel{#2}
+\end{figure}
+}
+\newcommand{\figt}[5]
+{
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=#3\columnwidth]{figures/#1}
+\end{center}
+\capt{#4}{#5}
+\label{#2}
+\end{figure}
+}
+\newcommand{\figstar}[5]
+{
+\begin{figure*}
+\begin{center}
+\includegraphics[width=#3\textwidth]{figures/#1}
+\end{center}
+\capt{#4}{#5}
+\flabel{#2}
+\end{figure*}
+}
+\newcommand{\qfig}[3]{\fig{#1}{#1}{#2}{#3}{}}
+
+\def\tidx{t}
+%\def\value{V}
+% from https://www.cs.jhu.edu/~jason/advice/write-the-paper-first.html
+\newcommand{\Note}[1]{}
+\renewcommand{\Note}[1]{\hl{[#1]}}  % comment ot this definition to suppress all Notes
+\newcommand{\NoteSigned}[3]{{\sethlcolor{#2}\Note{#1: #3}}}
+\newcommand{\NoteLO}[1]{\NoteSigned{LO}{YellowGreen}{#1}}  % use for notes from Lekan
+\newcommand{\NoteDN}[1]{\NoteSigned{DN}{LightBlue}{#1}}    % use for notes from Dan
+
+%\algnewcommand\algorithmicforeach{\textbf{for each}}
+%\algdef{S}[FOR]{Foreach}[1]{\algorithmicforeach\ #1\ \algorithmicdo} %
+
+\newcommand{\bolditalic}[1]{\textbf{#1}}
+\theoremstyle{definition}
+\newcommand{\ttbf}[1]{\textbf{\texttt{#1}}}
+\newcommand{\ttit}[1]{\texttt{#1}}
+%\newtheorem{definition}{Definition}[]
+%\newtheorem{theorem}{Theorem}[]
+
+% BOO defos
+\def\action{\text{\textit{a}}} 
+\def\state{\text{\textit{s}}} 
+\def\statenext{\text{\textit{s}}_{\tidx+1}} 
+\def\reward{\text{\textit{r}}} 
+\def\dosegrid{4^\circ}
+\def\actionspace{\mc{A}} 
+\def\buf{\mc{W}}
+\def\capmax{\mc{M}}
+\def\patient{\text{\textit{p}}}
+\def\patients{\text{\textit{P}}}
+\def\slice{\text{\textit{N}}}
+\def\beamangle{\theta}
+\def\beamlets{\mc{B}}
+\def\dosemat{\mc{D}}
+\def\voxtot{\mc{X}}
+\def\dij{\dosemat_{ij}}
+\def\beamsall{\bm{\Theta}}
+\def\experience{\bf{\textit{e}}}
+\def\qfunc{\textit{Q}}
+%\def\neti{\qfunc_{{\text{\textit{net}}}_\textit{1}}}
+\def\neti{\bm{f_\psi}}
+\def\netii{g_\phi}
+\def\bixel{x}
+%\def\netii{\qfunc_{{\text{\textit{net}}}_\textit{2}}}
+\def\acti{\action_\tidx}
+\def\actii{\action_\tidx^2}
+\def\optimalval{v^\star(\textit{s})}
+\def\beamblock{\textbf{\textit{B}}}
+\def\featureplanes{\textbf{\textit{X}}}
+\def\dosemask{\textbf{\textit{D}}}
+\def\lastfeatureplane{\textbf{\textit{E}}}
+\def\featurebinmask{\textbf{\textit{Y}}}
+
+% DP defs
+\def\stateset{\mc{S}}
+\def\cost{Q} % cost to go
+\def\basis{\bm{\Psi}}
+\def\policy{\bm{\pi}}
+\def\policyimproved{\bar{\policy}}
+\def\policyspace{\bm{\Pi}}
+\def\visitcount{\mathds{N}(\state, \action)}
+\def\netprobs{P(\state,	\action)}
+
+\def\valuenet{v_\psi(\state)}
+\def\probneti{p(\state, \action)}
+
+
+% Tree defs
+\def\treepol{\bm \pi_z}
+\def\explorefactor{c}
+\def\uval{U(\state, \action)}
+\def\node{\textbf{\textit{x}}}
+\def\newnode{\bar \node}
+\def\pointerparent{\textit{\node.p}}
+\def\pointerchild{\textit{\node.child}}
+
+%BADMM settings
+\def\lagrangian{\mc{L}}
+\def\primal{\textbf{\textit{x}}} 
+\def\admmvar{\textbf{\textit{z}}}
+\def\dual{\bm{\lambda}}
+\def\Amat{\textbf{\textit{A}}}
+\def\Bmat{\textbf{\textit{B}}}
+\def\cvec{\textbf{\textit{c}}}
+\def\admmpen{\rho}
+\def\kldiv{\textbf{D}_{KL}}
+
+% algo defs
+\def\game{\Gamma}

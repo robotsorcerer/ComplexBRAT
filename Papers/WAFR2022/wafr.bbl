@@ -1,0 +1,169 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{OsherShuENO}
+Osher, S., Shu, C.W.: {High-Order Essentially Nonoscillatory Schemes for
+  Rotary-Wing Wake Computations}.
+\newblock Journal of Aircraft \textbf{41}(2), 258--267 (2004).
+\newblock \doi{10.2514/1.9320}
+
+\bibitem{CrandallLaxFriedrichs}
+Crandall, M.G., Majda, A.: Monotone difference approximations for scalar
+  conservation laws.
+\newblock Mathematics of Computation \textbf{34}(149), 1--21 (1980)
+
+\bibitem{Evans1984}
+Evans, L., Souganidis, P.E.: {Differential games and representation formulas
+  for solutions of Hamilton-Jacobi-Isaacs equations}.
+\newblock Indiana Univ. Math. J \textbf{33}(5), 773--797 (1984)
+
+\bibitem{Crandall1984Approx}
+Crandall, M.G., Lions, P.L.: {Two Approximations of Solutions of
+  Hamilton-Jacobi Equations}.
+\newblock Mathematics of Computation \textbf{43}(167), 1 (1984)
+
+\bibitem{SylviaScalability}
+Herbert, S., Choi, J.J., Sanjeev, S., Gibson, M., Sreenath, K., Tomlin, C.J.:
+  Scalable learning of safety guarantees for autonomous systems using
+  hamilton-jacobi reachability.
+\newblock arXiv preprint arXiv:2101.05916  (2021)
+
+\bibitem{Bansal2018}
+Bansal, S., Chen, M., Herbert, S., Tomlin, C.J.: {Hamilton-Jacobi Reachability:
+  A Brief Overview and Recent Advances}.
+\newblock 2017 IEEE 56th Annual Conference on Decision and Control, ACC 2017
+  pp. 2242--2253 (2018)
+
+\bibitem{Bajcsy}
+Bajcsy, A., Bansal, S., Bronstein, E., Tolani, V., Tomlin, C.J.: An {E}fficient
+  {R}eachability-based {F}ramework for {P}rovably {S}afe {A}utonomous
+  {N}avigation in {U}nknown {E}nvironments.
+\newblock In: 2019 IEEE 58th Conference on Decision and Control (CDC), pp.
+  1758--1765. IEEE (2019)
+
+\bibitem{Bellman1957}
+Bellman, R.: {Dynamic programming}.
+\newblock Princeton University Press (1957)
+
+\bibitem{Mitchell2020}
+Mitchell, I.: {A Robust Controlled Backward Reach Tube with (Almost) Analytic
+  Solution for Two Dubins Cars}.
+\newblock {EPiC Series in Computing} \textbf{74}, 242--258 (2020)
+
+\bibitem{Mitchell2005}
+Mitchell, I.M., Bayen, A.M., Tomlin, C.J.: {A time-dependent Hamilton-Jacobi
+  formulation of reachable sets for continuous dynamic games}.
+\newblock IEEE Transactions on Automatic Control \textbf{50}(7), 947--957
+  (2005).
+\newblock \doi{10.1109/TAC.2005.851439}
+
+\bibitem{Ballerini1232}
+Ballerini, M., Cabibbo, N., Candelier, R., Cavagna, A., Cisbani, E., Giardina,
+  I., Lecomte, V., Orlandi, A., Parisi, G., Procaccini, A., Viale, M.,
+  Zdravkovic, V.: Interaction ruling animal collective behavior depends on
+  topological rather than metric distance: Evidence from a field study.
+\newblock Proceedings of the National Academy of Sciences \textbf{105}(4),
+  1232--1237 (2008).
+\newblock \doi{10.1073/pnas.0711437105}.
+\newblock \urlprefix\url{https://www.pnas.org/content/105/4/1232}
+
+\bibitem{Cavagna2010Scale}
+Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R., Stefanini,
+  F., Viale, M.: Scale-free correlations in starling flocks.
+\newblock Proceedings of the National Academy of Sciences \textbf{107}(26),
+  11,865--11,870 (2010)
+
+\bibitem{Bialek2012Statistical}
+Bialek, W., Cavagna, A., Giardina, I., Mora, T., Silvestri, E., Viale, M.,
+  Walczak, A.M.: Statistical mechanics for natural flocks of birds.
+\newblock Proceedings of the National Academy of Sciences \textbf{109}(13),
+  4786--4791 (2012)
+
+\bibitem{JadbabaieCoord}
+Jadbabaie, A., Lin, J., Morse, A.S.: Coordination of groups of mobile
+  autonomous agents using nearest neighbor rules.
+\newblock IEEE Transactions on automatic control \textbf{48}(6), 988--1001
+  (2003)
+
+\bibitem{NatGeo}
+Haiken, M.: These birds flock in mesmerizing swarms of thousands—but why is
+  still a mystery. (2021).
+\newblock
+  \urlprefix\url{https://www.nationalgeographic.com/animals/article/these-birds-flock-in-mesmerizing-swarms-why-is-still-a-mystery}
+
+\bibitem{Crandall1983viscosity}
+Crandall, M.G., Lions, P.L.: Viscosity solutions of hamilton-jacobi equations.
+\newblock Transactions of the American mathematical society \textbf{277}(1),
+  1--42 (1983)
+
+\bibitem{LygerosReachability}
+Lygeros, J.: On reachability and minimum cost optimal control.
+\newblock Automatica \textbf{40}(6), 917--927 (2004)
+
+\bibitem{DecompChenHerbert}
+Chen, M., Herbert, S.L., Vashishtha, M.S., Bansal, S., Tomlin, C.J.:
+  {Decomposition of Reachable Sets and Tubes for a Class of Nonlinear Systems}.
+\newblock IEEE Transactions on Automatic Control \textbf{63}(11), 3675--3688
+  (2018).
+\newblock \doi{10.1109/TAC.2018.2797194}
+
+\bibitem{Isaacs1965}
+Isaacs, R.: Differential games 1965.
+\newblock Kreiger, Huntigton, NY
+
+\bibitem{Merz1972}
+Merz, A.: The game of two identical cars.
+\newblock Journal of Optimization Theory and Applications \textbf{9}(5),
+  324--343 (1972)
+
+\bibitem{Dubins1957}
+Dubins, L.E.: On curves of minimal length with a constraint on average
+  curvature, and with prescribed initial and terminal positions and tangents.
+\newblock American Journal of mathematics \textbf{79}(3), 497--516 (1957)
+
+\bibitem{DoyleBook}
+Zhou, K., Doyle, J.C.: {Essentials of Robust Control}, vol. 104.
+\newblock Prentice hall Upper Saddle River, NJ (1998)
+
+\bibitem{Souganidis}
+Evans, L., Souganidis, P.E.: {Differential games and representation formulas
+  for solutions of Hamilton-Jacobi-Isaacs equations}.
+\newblock Indiana Univ. Math. J \textbf{33}(5), 773--797 (1984)
+
+\bibitem{Bansal}
+Bansal, S., Tomlin, C.J.: {DeepReach : A Deep Learning Approach to
+  High-Dimensional Reachability}
+
+\bibitem{BasarBook}
+Basar, T., Olsder, G.J.: Dynamic noncooperative game theory, vol.~23.
+\newblock Siam (1999)
+
+\bibitem{Helbing20}
+Helbing, D., Farkas, I., Vicsek, T.: Simulating dynamical features of escape
+  panic.
+\newblock Nature \textbf{407}(6803), 487--490 (2000)
+
+\bibitem{Crandall1984}
+Crandall, M.G., Evans, L.C., Lions, P.L.: {Some Properties of Viscosity
+  Solutions of Hamilton-Jacobi Equations}.
+\newblock Transactions of the American Mathematical Society \textbf{282}(2),
+  487 (1984).
+\newblock \doi{10.2307/1999247}
+
+\bibitem{CuPy}
+Nishino, R., Loomis, C., Hido, S.: Cupy: A numpy-compatible library for nvidia
+  gpu calculations.
+\newblock 31st confernce on neural information processing systems \textbf{151}
+  (2017)
+
+\bibitem{VicsekPhaseNovel}
+Vicsek, T., Czir{\'o}k, A., Ben-Jacob, E., Cohen, I., Shochet, O.: Novel type
+  of phase transition in a system of self-driven particles.
+\newblock Physical review letters \textbf{75}(6), 1226 (1995)
+
+\end{thebibliography}
