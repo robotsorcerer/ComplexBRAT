@@ -1,10 +1,11 @@
 \section{Materials and Methods.}
 \label{sec:methods}
 %
-We cast the heading verification problem within a backward reachability analysis, where each agent within a flock have their respective payoff. Agents within a flock maintain cohesion by keeping track of their nearest neighbors' topological distance~\cite{Ballerini1232}. Capture occurs when an agent $j$ is on or within a circular bound (specified by a radius, $r$ in topological coordinates) around an agent $i$.  To avoid capture, flocks can dynamically split their value functions. The value functions can be stitched together under a smoothness of boundaries assumption (as is observed in natural swarms) in order to fend off attacks from a pursuing player as well as manage the computation of a large RCBRT verification problem.
+We cast the heading verification problem within a backward reachability analysis, where each agent within a flock have their respective payoff. Agents within a flock maintain cohesion by keeping track of their nearest neighbors' topological distance~\cite{Ballerini1232}. Capture occurs when an agent $j$ is on or within a circular bound (specified by a radius, $r$ in topological coordinates) around an agent $i$.  
+In starlings murmurations, to avoid capture, flocks can dynamically split their value functions. We leave the formulation of these dynamic splits of value functions to a future work and here focus on separated value functions on distinct manifolds of the state space. After resolving the extrema, the value functions can be stitched together under a smoothness of boundaries assumption (as is observed in natural swarms) in order to fend off attacks from a pursuing player. % as well as manage the computation of a large RCBRT verification problem.
 
 %
- We synthesize the kinematics of agents that interact on distinct separate manifolds of the state space. These manifolds are called flocks in our description\footnote{Let the reader understand that we use the concept of a flock loosely. The value function could represent the cost of any large-scale control problem.}. For each flock, there corresponds local value functions that encode a desirable anisotropic density and structural patterns we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. By solving for these respective value functions simultaneously and in parallel, we can stitch them together at the end of each integration step by considering the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} of the value functions at the end of each integration step. These simple tricks allows us to compute large backward reach-avoid tubes that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}.
+ We synthesize the kinematics of agents that interact on distinct manifolds of the state space. These manifolds are called flocks in our description\footnote{Let the cursory reader understand that we use the concept of a flock loosely. The value function could represent the cost of any large-scale control problem.}. For each flock, there corresponds local value functions that encode a desirable anisotropic density and structural pattern we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. We consider the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} of the value functions at the end of each integration step. \todo{These simple tricks allows us to compute large backward reach-avoid tubes that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}}.
  
  \textbf{Assumptions}:
 The many interacting subsystems under consideration employ
@@ -40,7 +41,7 @@ Let us now formalize definitions that will aid the modularization of the problem
 		\label{eq:DubinsJadbabaie}
 	\end{align}
 	%
-	\text{ for agents } $i = \{1, 2, 3, ..., n\}$, where $t$ is the continuous-time index, $\state$ denotes points in $\ren$, and $w^{(i)}(t) \rangle_r$ is the average orientation of agent $i$ w.r.t its neighbors is $\langle w^{(i)}(t) \rangle_r$.
+	\text{ for agents } $i = \{1, 2, 3, ..., n\}$, where $t$ is the continuous-time index, $\state$ denotes points in $\ren$, and $w^{(i)}(t) \rangle_r$ is the average orientation of agent $i$ w.r.t its neighbors is $\langle w^{(i)}(t) \rangle_r$. The averaging over the degrees of freedom of other agents in \eqref{eq:DubinsJadbabaie} is consistent with the \textit{mean field theory}, whereby the effect of all other agents on any one agent is an approximation of a single averaged influence.
 
 %Observe that the model of \eqref{eq:DubinsJadbabaie} is similar to the Dubins dynamics~\cite{Dubins1957} with the only difference being the update rule in the headings of the agents. This headings update rule is similar to the one used in statistical mechanics or  statistical physics (the physics of many interacting molecules)~\cite{Wilson1975}. We note here that it was recently adopted in control theory literature by Jadbabaie~\cite{JadbabaieCoord} in proving Viscek et al.'s self-driven particles simulations~\cite{Vicsek1995novel}.
 
@@ -51,7 +52,7 @@ Let us now formalize definitions that will aid the modularization of the problem
 %
 %The target set of each local group of agents within a flock, we leverage Definition 5.7 of \cite{BasarBook}.
 %
-\begin{definition}[Definition 5.7,~\cite{BasarBook}]
+\begin{definition}[Flock Heading as an N-Person Game. Def. 5.7,~\cite{BasarBook}]
 	We consider the heading goal for a local group $F_j$\footnote{The subscript $j$ of $F$ is used to identify a distinct flock of agents within a murmuration on a state space.} within a murmuration of flocks $\flock$ as  an $N$-person differential game with a target set $\targetset_0^{j}$. The strategy $N$-tuple is said to be playable at $(\state_0, t_0)$ if it generates a trajectory $\traj(\cdot)$ such that $(\state(t), t) \in \targetset_0^{j}$ for finite $t$. Such a trajectory $\traj(\cdot)$ is said to be terminating.
 \end{definition}
 %
@@ -60,16 +61,17 @@ Let us now formalize definitions that will aid the modularization of the problem
 %\begin{theorem}
 %	Something sm,ething
 %\end{theorem}
-
-As mentioned in the introduction, we cannot solve the initial value problem in a classical way on $\ren \times [T, 0]$ in general. Viscosity solutions provide a particular means of finding a unique solution with a clear interpretation in terms of the generalized optimal control problem, even in the presence of stochastic perturbations. 
+%
+%As mentioned in the introduction, we cannot solve the initial value problem in a classical way on $\ren \times [T, 0]$ in general. 
+Viscosity solutions provide a particular means of finding a unique solution with a clear interpretation in terms of the generalized optimal control problem, even in the presence of stochastic perturbations. 
 %
 %Collective natural behavior in animals suggests that topological distance is used in maintaining group structure when density varies, so that the relationship between agents in a flock is not determined by the metric distance between nearest neighbors but rather the number of intermediate agents that separates two agent from one another.  Therefore, the neighbors of agent $i$ at time $t$ are those which are either within, or on a circle specified by a topological  distance, $r_c$. The topological metric is given  by the label of an agent and it quantifies the number of intermediate agents that separate two agents. 
 %
 %This is consistent with collective animal behaviors where individuals' bookkeeping on their neighbors' positions helps maintain the strength of an interaction when density varies or when they need to rorientation is its control input, given by the average of its own orientation and that of its neighbors. Instead of metric distance interaction rules that make agents very vulnerable to predation~\cite{Ballerini1232}, we resort to a topological interaction rule\footnote{With metric distance rules, we will have to formulate the breaking apart of value functions that encode a consensus heading problem in order to resolve the extrema of multiple payoffs; which is typically what we want to mitigate against during real-world autonomous tasks.}. 
-
+%
 Each agent within a flock interacts with a fixed number of neighbors, $n_c$, within a fixed topological range, $r_c$. This topological range %is given by the difference in the numerical label of individuals \cf \autoref{def:flock}, and 
 is consistent with findings in collective swarm behaviors and it reinforces \textit{group cohesion}~\cite{Ballerini1232}. However, we are interested in \textit{robust group cohesion} in reachability analysis. Therefore, we let a pursuer, $\pursuer$, with a worst-possible disturbance attack the flock, and we take it that flocks of agents constitute an evading player, $\evader$. 
-
+%
 %
 Returning to \eqref{eq:DubinsJadbabaie}, for a single flock, we now provide a sketch for the HJI formulation for a heading consensus problem. 
 
@@ -154,17 +156,15 @@ What constitutes an agent's neighbors are computed based on empirical findings a
 \end{algorithm}
 %
 
-The algorithm for computing the nearest neighbors is given in Algorithm \autoref{alg:neighbors}. On lines \autoref{alg:neighbors:line:lateral_vision_left} and \autoref{alg:neighbors:line:lateral_vision_right} of Algorithm \autoref{alg:neighbors}, cohesion is reinforced by leveraging the observations above. 
+The algorithm for computing the nearest neighbors is given in Algorithm \autoref{alg:neighbors}. On lines \autoref{alg:neighbors:line:lateral_vision_left} and \autoref{alg:neighbors:line:lateral_vision_right} of Algorithm \autoref{alg:neighbors}, cohesion is reinforced by leveraging the observations above. While the neighbor updates for an agent involve an $O(n^2)$ algorithm in Algorithm \ref{alg:neighbors}, we are merely dealing with $6-7$ agents at a time in a local flock; thus the computational cost is measly.
+
 Each agent within a flock $\flock_j$ interacts with a fixed number of neighbors, $n_c$, within a fixed topological range, $r_c$. This topological range %is given by the difference in the numerical label of individuals \cf \autoref{def:flock}, and 
 is consistent with findings in collective swarm behaviors and it reinforces \textit{group cohesion}~\cite{Ballerini1232}. However, we are interested in \textit{robust group cohesion} in reachability analysis. Therefore, we let a pursuer, $\pursuer$, with a worst-possible disturbance attack the flock, and we take it that flocks of agents constitute an evading player, $\evader$. 
 
 \subsection{Global Isotropy via Local Anisotropy}
 %
-It has been observed that structural anisotropy is not merely an effect of a preferential velocity in animal flocking kinematics but rather an explicit effect of the anisotropic interaction character itself.
+It has been observed that structural anisotropy is not merely an effect of a preferential velocity in animal flocking kinematics but rather an explicit effect of the anisotropic interaction character itself. By this theory, agents choose a mutual position on the state space in order to maximize the sensitivity to changes in heading and speed of neighbors\footnote{``Even though vision is the main mechanism of interaction, optimization determines the anisotropy of neighbors, and not the eye's structure. There is also the possibility that each individual keeps the front neighbor at larger distances to avoid collisions. This collision avoidance mechanism is vision-based but not related to the eye's structure." -- Ballerini et. al~\cite{Ballerini1232}.}.
  
-\textit{ A distinct idea is that the mutual position chosen by the animals is the one that maximizes the sensitivity to changes of heading and speed of their neighbors (9). According to this hypothesis, even though vision is the main mechanism of interaction, optimization determines the anisotropy of neighbors, and not the eye's structure. There is also the possibility that each individual keeps the front neighbor at larger distances to avoid collisions. This collision avoidance mechanism is vision-based but not related to the eye's structure.
-}%
-
 Because of the robust group cohesion philosophy, we take it that every agent within a flock $flock_j$, under attack is in relative coordinates with a pursuer, $\pursuer^j$. By averaging the heading of individual agents orientations with that of its neighbors\cf \eqref{eq:DubinsJadbabaie}, individual agents within a flock can achieve  instantaneous  response to danger when a pursuer is nearby. \todo{In this specialized case,  capture does not necessarily occur, because the $\evader$ and $\pursuer$'s speeds and maximum turn radius are equal}: if both players start the game with the same initial velocity and orientation, the relative equations of motion show that $\evader$ can mimic $\pursuer$'s strategy by forever keeping the starting radial separation~\cite{Merz1972}. As such, the \textit{barrier} is closed and the \textit{game of kind} is to determine the surface. However, owing to the high-dimensionality of the state space, we cannot resolve this barrier analytically, hence we resort to numerical approximation methods -- in particular, we leverage a parallel Lax-Friedrichs integration scheme~\cite{Crandall1984} which we implement in Cupy~\cite{CuPy} in order to provide a \textit{consistent} and \textit{monotone} solution to the Hamiltonians of these HJI equations\footnote{Consistent solutions to HJ equations are those whose explicit marching schemes via discrete  approximations to the HJ IVP agree with the nonlinear HJ solution~\cite{Crandall1984Approx}. Such schemes are said to be \textit{monotone} \eg on $\left[-\reline, \reline\right]$ if the numerical approximation to the vector field of interest is a nondecreasing function of each argument of the discrete approximation to the vector field.}. 
 %
 \begin{figure}[tb!]
@@ -174,7 +174,7 @@ Because of the robust group cohesion philosophy, we take it that every agent wit
 \label{fig:robust_heading}
 \end{figure}
 
-Therefore, for an agent $i$ within a flock with index $j$ in a murmuration, the equations of motion under attack from a predator (see \autoref{fig:robust_heading}) is %and terminal conditions are given by
+Therefore, for an agent $i$ within a flock with index $j$ in a murmuration, the equations of motion under attack from a predator (see \autoref{fig:robust_heading}) in relative coordinates is %and terminal conditions are given by
 %
 \begin{align}
 \left[\begin{array}{c}
@@ -293,20 +293,32 @@ From \eqref{eq:HamiltonianOverall}, we thus write
 \end{align}
 %
 
-We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. We define the numerical monotone flux, 	$\hat{\hamfunc}^{LF}$, of $\hamfunc(\cdot)$ as 
+We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. We define the numerical monotone flux, 	$\hat{\hamfunc}_j^{(i)}\equiv \hat{\hamfunc}_{p_k}^{(i)_j}$, of $\hamfunc_j^{(i)}(\cdot)$ as 
 %
 \begin{align}
-	\hat{\hamfunc}^{LF}(u^+, u^-, v^+, v^-, \bm{w}^+, \bm{w}^-) = \hamfunc\left(\frac{u^+ +u^-}{2}, \frac{v^+ +v^-}{2}, \frac{\bm{w}^+ +\bm{w}^-}{2}\right) \nonumber
+	\hat{\hamfunc}_j^{(i)}(u^+, u^-, v^+, v^-, w^+, w^-) = \hamfunc_j^{(i)}\left(\frac{u^+ +u^-}{2}, \frac{v^+ +v^-}{2}, \frac{w^+ +w^-}{2}\right) \nonumber
 	%
 	\\
 	%
-	- \dfrac{1}{2}\left[ \alpha^x\left(u^+ - u^-\right) + \alpha^y\left(v^+ - v^-\right) + \alpha^z\left(\bm{w}^+ - \bm{w}^-\right)\right]
+	- \dfrac{1}{2}\left[ \alpha_x^{(i)_j} \left(u^+ - u^-\right) + \alpha_y^{(i)_j}\left(v^+ - v^-\right) + \alpha_z^{(i)_j}\left(w^+ - w^-\right)\right]
 \end{align}
 %
 where
 %
-\begin{align}
-	\alpha^x = \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_u(u,v,w)|, \, \alpha^y = \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_v(u,v,w)|, \, \&, \alpha^z = \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_w(u,v,w)|
-\end{align}
+\begin{subequations}
+	\begin{align}
+		\alpha_x^{(i)_j} &= \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_{u}^{(i)_j}(u, v, w)| = |1 - \cos \state_3^{(i)_j}|+ |\bar{w}_e^j \state_2^{(i)_j}|, 
+		%
+		\\
+		%
+		\, \alpha_y^{(i)_j} &= \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_{v}^{(i)_j}(u, v, w)| = |\sin \state_3^{(i)_j}| + |\bar{w}_e^j \state_1^{(i)_j}|, \,  \\
+		%
+		\text{ and }\, \alpha_z^{(i)_j} &= \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_{w}^{(i)_j}(u, v, w)| = |\underline{w}_p^j + \bar{w}_e^j|
+	\end{align}
+\end{subequations}
 %
-are the so-called dissipation coefficients. Here, the subscripts of $\hamfunc$ partial derivatives w.r.t the subscript variable, and the flux is monotone for $a \le u^\pm \le b, c \le v^\pm \le d, e \le w^\pm \le f$
+are dissipation coefficients, controlling the level of numerical viscosity. Here, the subscripts of $\hamfunc$ are the partial derivatives w.r.t the subscript variable, and the flux is monotone for $a \le u^\pm \le b, c \le v^\pm \le d, e \le w^\pm \le f$.
+
+\todo{How to set the total dissipation for all the respective Hamiltonians?}
+
+\todo{Mention upwinding scheme and smoothing scheme for integration of the BRTs.}

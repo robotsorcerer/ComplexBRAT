@@ -118,7 +118,7 @@ class RCBRTVisualizer(object):
 		if self.params.savedict.save:
 			self._fig.savefig(join(self.fname+"0"+".jpg"), bbox_inches='tight',facecolor='None')
 
-	def update_tube(self, mesh, time_step, delete_last_plot=False):
+	def update_tube(self, mesh_bundle, time_step, delete_last_plot=False):
 		"""
 			Inputs:
 				data - BRS/BRT data.
@@ -128,7 +128,7 @@ class RCBRTVisualizer(object):
 
 		"""
 		self._ax[1].grid('on')
-		self._ax[1].add_collection3d(mesh)
+		self._ax[1].add_collection3d(mesh_bundle.mesh)
 		self._ax[1].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 
 		self._ax[1].axes.get_xaxis().set_ticks([])
@@ -138,24 +138,24 @@ class RCBRTVisualizer(object):
 			plt.cla()
 
 		if self.grid.dim==3:
-			self._ax[1].add_collection3d(mesh.mesh)
+			self._ax[1].add_collection3d(mesh_bundle.mesh)
 
-			xlim, ylim, zlim = self.get_lims(mesh.verts)
+			xlim, ylim, zlim = self.get_lims(mesh_bundle.verts)
 
 			self._ax[1].set_xlim3d(*xlim)
 			self._ax[1].set_ylim3d(*ylim)
 			self._ax[1].set_zlim3d(*zlim)
 
 		elif len(self.grid.dim)==2:
-			self._ax[1].contourf(self.grid.xs[0], self.grid.xs[1], mesh, colors='cyan')
+			self._ax[1].contourf(self.grid.xs[0], self.grid.xs[1], mesh_bundle, colors='cyan')
 
 		self._ax[1].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict)
 		self._ax[1].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict)
 		self._ax[1].set_zlabel(rf'$\omega (^\circ)$',fontdict=self.params.fontdict)
 		self._ax[1].set_title(f'BRT at {time_step} secs.', fontdict=self.params.fontdict)
 		
-		if self.params.save:
-			self._fig.savefig(join(self.fname+str(time_step)+".jpg"), bbox_inches='tight',facecolor='None')
+		# if self.params.savedict.save:
+		# 	self._fig.savefig(join(self.fname+self.params.savedict.savename+"_"+str(time_step)+".jpg"), bbox_inches='tight',facecolor='None')
 
 		self.draw()
 		time.sleep(self.params.pause_time)
@@ -175,3 +175,46 @@ class RCBRTVisualizer(object):
 	def draw(self, ax=None):
 		self._fig.canvas.draw()
 		self._fig.canvas.flush_events()
+
+
+def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
+	"""
+		For a flock, whose mesh has been precomputed, 
+		visualize the initial backward avoid tube.
+	"""
+	# visualize avoid set 
+	fontdict = {'fontsize':16, 'fontweight':'bold'}
+
+	fig = plt.figure(1, figsize=(16,9), dpi=100)
+	ax = plt.subplot(111, projection='3d')
+	ax.add_collection3d(flock.mesh)
+
+
+	xlim = (flock.verts[:, 0].min(), flock.verts[:,0].max())
+	ylim = (flock.verts[:, 1].min(), flock.verts[:,1].max())
+	zlim = (flock.verts[:, 2].min(), flock.verts[:,2].max())
+
+	# create grid that contains just this zero-level set to avoid computational craze 
+	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
+	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
+
+	ax.set_xlim(xlim)
+	ax.set_ylim(ylim)
+	ax.set_zlim(zlim)
+
+	ax.grid('on')
+	ax.tick_params(axis='both', which='major', labelsize=10)
+
+	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
+
+	if title:
+		ax.set_title(title, fontdict=fontdict)
+	else:
+		ax.set_title(f'Flock {flock.label}\'s Avoid Tube. Num_agents={flock.N}', fontdict=fontdict)
+	ax.view_init(azim=-45, elev=30)
+
+	if save:
+		fig.savefig(fname, bbox_inches='tight',facecolor='None')
+

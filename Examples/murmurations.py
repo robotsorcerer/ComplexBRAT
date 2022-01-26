@@ -135,57 +135,12 @@ def get_avoid_brt(flock, compute_mesh=True):
 	
 	return flock 
 
-def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
-	"""
-		For a flock, whose mesh has been precomputed, 
-		visualize the initial backward avoid tube.
-	"""
-	# visualize avoid set 
-	fontdict = {'fontsize':16, 'fontweight':'bold'}
-
-	fig = plt.figure(1, figsize=(16,9), dpi=100)
-	ax = plt.subplot(111, projection='3d')
-	ax.add_collection3d(flock.mesh)
-
-
-	xlim = (flock.verts[:, 0].min(), flock.verts[:,0].max())
-	ylim = (flock.verts[:, 1].min(), flock.verts[:,1].max())
-	zlim = (flock.verts[:, 2].min(), flock.verts[:,2].max())
-
-	# create grid that contains just this zero-level set to avoid computational craze 
-	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
-	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
-
-	# create reduced grid upon which this zero level set dwells
-	flock.grid_zero = createGrid(gmin, gmax, flock.grid.N, 2)
-
-	ax.set_xlim(xlim)
-	ax.set_ylim(ylim)
-	ax.set_zlim(zlim)
-
-	ax.grid('on')
-	ax.tick_params(axis='both', which='major', labelsize=10)
-
-	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
-	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
-	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
-
-	if title:
-		ax.set_title(title, fontdict=fontdict)
-	else:
-		ax.set_title(f'Flock {flock.label}\'s Avoid Tube. Num_agents={flock.N}', fontdict=fontdict)
-	ax.view_init(azim=-45, elev=30)
-
-	if save:
-		fig.savefig(fname, bbox_inches='tight',facecolor='None')
-
-
 def main(args):
 	# global params
 
 	gmin = np.asarray([[-1, -1, -np.pi]]).T
 	gmax = np.asarray([[1, 1, np.pi] ]).T
-	num_agents = 5
+	num_agents = 7
 
 	H         = .1
 	H_STEP    = .05
@@ -238,8 +193,8 @@ def main(args):
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
-					 'elevation': 10,
-					 'azimuth': 10,
+					 'elevation': 5,
+					 'azimuth': 5,
 					 'mesh': init_mesh,
 					 'pause_time': args.pause_time,
 					 'title': f'Flock {flock0.label}\'s Avoid Tube. Num Agents={flock0.N}',
@@ -247,9 +202,9 @@ def main(args):
 					 'winsize': (16,9),
 					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
 					 "savedict": Bundle({"save": True,
-									"savename": "dint_basic.jpg",
+									"savename": "murmur",
 									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/WAFR2022/figures/murmur_")
+									"Documents/Papers/Safety/WAFR2022/figures/")
 								 })
 					}
 					)
@@ -289,30 +244,31 @@ def main(args):
 
 			# Integrate a timestep.
 			t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-		# 	cp.cuda.Stream.null.synchronize()
-		# 	t_now = t
+			cp.cuda.Stream.null.synchronize()
+			t_now = t
 
-		# 	# Get back the correctly shaped data array
-		# 	value_rolling = y.reshape(g.shape)
+			# Get back the correctly shaped data array
+			value_rolling = y.reshape(g.shape)
 
-		# 	if args.visualize:
-		# 		value_rolling_np = value_rolling.get()
-		# 		mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-		# 							edge_color=None,  face_color='maroon')
-		# 		viz.update_tube(value_rolling_np, mesh, time_step)
-		# 		# store this brt
-		# 		brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh)
+			if args.visualize:
+				value_rolling_np = value_rolling.get()
+				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
+									edge_color=.4,  face_color='magenta')
+				viz.update_tube(mesh_bundle, time_step)
+				# store this brt
+				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh_bundle)
 
-		# 	if args.save:
-		# 		fig = plt.gcf()
-		# 		fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
-		# 			rf"figures/rcbrt_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+			if args.save:
+				fig = plt.gcf()
+				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
+					rf"figures/murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+				# save this brt
 
-		# 	itr_end.record()
-		# 	itr_end.synchronize()
-		# 	cpu_end = cputime()
+			itr_end.record()
+			itr_end.synchronize()
+			cpu_end = cputime()
 
-		# 	info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
 
 		# if not args.load_brt:
 		# 	os.makedirs("data") if not os.path.exists("data") else None

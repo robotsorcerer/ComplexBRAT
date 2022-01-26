@@ -44,13 +44,14 @@
 \backcite {Ballerini1232}{{10}{4.1}{subsection.1.4.1}}
 \backcite {Ballerini1232, JadbabaieCoord, Helbing20}{{10}{4.2}{subsection.1.4.2}}
 \backcite {Ballerini1232}{{10}{4.2}{algorithm.1}}
+\backcite {Ballerini1232}{{10}{9}{Hfootnote.9}}
 \backcite {Merz1972}{{11}{4.3}{subsection.1.4.3}}
 \backcite {Crandall1984}{{11}{4.3}{subsection.1.4.3}}
 \backcite {CuPy}{{11}{4.3}{subsection.1.4.3}}
-\backcite {Crandall1984Approx}{{12}{9}{Hfootnote.9}}
+\backcite {Crandall1984Approx}{{12}{10}{Hfootnote.10}}
 \backcite {Isaacs1965}{{13}{4.3}{equation.1.4.16}}
 \backcite {Isaacs1965}{{13}{4.3}{equation.1.4.16}}
 \backcite {OsherShuENO, Crandall1984Approx}{{15}{4.3}{equation.1.4.21}}
 \backcite {Ballerini1232}{{15}{5}{section.1.5}}
-\backcite {Ballerini1232}{{15}{5}{equation.1.5.26}}
-\backcite {LekanCASE2016Paper}{{15}{5.1}{subsection.1.5.1}}
+\backcite {Ballerini1232}{{16}{5}{equation.1.5.26}}
+\backcite {LekanCASE2016Paper}{{16}{5.1}{subsection.1.5.1}}
