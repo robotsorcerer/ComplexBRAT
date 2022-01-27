@@ -30,7 +30,7 @@ from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.BoundaryCondition import *
-from LevelSetPy.DynamicalSystems import *
+# from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.InitialConditions import *
 
 
@@ -115,10 +115,10 @@ def get_avoid_brt(flock, compute_mesh=True):
 		vehicle_state = vehicle.cur_state
 		# make the radius of the target setthe turn radius of this vehicle
 		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), \
-										radius=vehicle.cur_state[-1].take(0))
+										radius=vehicle_state[-1].take(0))
 		spacing=tuple(flock.grid.dx.flatten().tolist())
-		if compute_mesh:
-			vehicle.mesh_bundle   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
+		# if compute_mesh:
+		# 	vehicle.mesh_bundle   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
 	
 	"""
 		Now compute the overall payoff for the flock
@@ -142,7 +142,7 @@ def main(args):
 	gmax = np.asarray([[1, 1, np.pi] ]).T
 	num_agents = 7
 
-	H         = .1
+	H         = .4 #.1
 	H_STEP    = .05
 	neigh_rad = 0.3
 
@@ -186,16 +186,15 @@ def main(args):
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
-	init_mesh = flock0.mesh_bundle
 	params = Bundle(
 					{"grid": g,
 					 'disp': True,
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
-					 'elevation': 5,
+					 'elevation': 10,
 					 'azimuth': 5,
-					 'mesh': init_mesh,
+					 'mesh': flock0.mesh_bundle,
 					 'pause_time': args.pause_time,
 					 'title': f'Flock {flock0.label}\'s Avoid Tube. Num Agents={flock0.N}',
 					 'level': 0, # which level set to visualize
@@ -209,7 +208,7 @@ def main(args):
 					}
 					)
 	args.spacing = spacing
-	args.init_mesh = init_mesh; args.params = params
+	args.init_mesh = flock0.mesh_bundle; args.params = params
 
 	if args.load_brt:
 		args.save = False
@@ -217,7 +216,7 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_plot = (t_range[1] - t_range[0]) / 10
+		t_plot = (t_range[1] - t_range[0]) / 5 #10
 		small = 100*eps
 		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
 
@@ -253,7 +252,7 @@ def main(args):
 			if args.visualize:
 				value_rolling_np = value_rolling.get()
 				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-									edge_color=.4,  face_color='magenta')
+									edge_color='.35',  face_color='magenta')
 				viz.update_tube(mesh_bundle, time_step)
 				# store this brt
 				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh_bundle)

@@ -158,10 +158,8 @@ class Flock(Bird):
                 self._compare_neighbor(self.vehicles[i], self.vehicles[j])
 
         # recursively update each agent's headings based on neighbors
-        # for idx in range(len(self.vehicles)):
-        #     self._update_headings(self.vehicles[idx], idx)
-        for idx, agent in enumerate(self.vehicles):
-            self._update_headings(agent, idx)
+        for idx in range(len(self.vehicles)):
+            self._update_headings(self.vehicles[idx], idx)
 
     def _compare_neighbor(self, agent1, agent2):
         "Check if agent1 is a neighbor of agent2."
@@ -212,16 +210,14 @@ class Flock(Bird):
                     .derivFunc: Upwinding scheme (upwindFirstENO2).
                     .innerFunc: terminal Lax Friedrichs integration scheme.
         """
-        # do housekeeping: update neighbors and headings
-        self._housekeeping()
 
         hams = [vehicle.hamiltonian(t, data, value_derivs, finite_diff_bundle) for vehicle in self.vehicles]
         
-        ham = hams[0]
-        for idx in range(1, len(hams)):
-            ham = cp.add(ham, hams[idx])
+        # ham = hams[0]
+        # for idx in range(1, len(hams)):
+        #     ham = cp.add(ham, hams[idx])
         
-        return ham
+        return hams
 
     def dissipation(self, t, data, derivMin, derivMax, \
                       schemeData, dim):
@@ -232,9 +228,11 @@ class Flock(Bird):
 
         alphas = [vehicle.dissipation(t, data, derivMin, derivMax, schemeData, dim).take(0) for vehicle in self.vehicles]
         
-        alphas = max(alphas)
+        # alphas = np.maximum.reduce(alphas)
+        # alphas = max(alphas)
         
-        return cp.asarray(alphas)
+        # return cp.asarray(alphas)
+        return alphas
 
     def __eq__(self,other):
         if hash(self)==hash(other):

@@ -252,33 +252,20 @@ class Bird():
         p1, p2, p3 = value_derivs[0], value_derivs[1], value_derivs[2]
         cur_state = cp.asarray(self.cur_state)
 
-        p1_coeff = self.v_e - self.v_p * cp.cos(cur_state[2,0])
-        p2_coeff = self.v_p* cp.sin(cur_state[2,0])
+        p1_coeff = self.v_e * cp.cos(cur_state[2,0])
+        p2_coeff = self.v_e* cp.sin(cur_state[2,0])
 
         # find lower and upper bound of orientation of vehicles that are neighbors
-        w_e_upper_bound = max([cur_state[2,0] for state in self.neighbors])#.item(0)
-        w_e_lower_bound = min([cur_state[2,0] for state in self.neighbors])#.item(0)
+        w_e_upper_bound = max([state.cur_state[2,0] for state in self.neighbors])#.item(0)
+        w_e_lower_bound = min([state.cur_state[2,0] for state in self.neighbors])#.item(0)
 
-        Hxp = (p1 * p1_coeff - p2 * p2_coeff + cur_state[2,0]) + \
+        Hxp = (p1 * p1_coeff + p2 * p2_coeff + cur_state[2,0]) + \
                w_e_upper_bound*cp.abs(p2 * cur_state[0,0] - p1*cur_state[1,0]+p3) -\
                 self.w(-1) * cp.abs(p3)         
-
-        """
-        cur_state = [self.grid.xs[i].get() for i in range(3)]
-        p1_coeff = self.v_e - self.v_p * np.cos(cur_state[2])
-        p2_coeff = self.v_p* np.sin(cur_state[2])
-
-        # find lower and upper bound of orientation of vehicles that are neighbors
-        w_e_upper_bound = np.maximum.reduce([cur_state[2] for state in self.neighbors])#.item(0)
-        w_e_lower_bound = np.minimum.reduce([cur_state[2] for state in self.neighbors])#.item(0)
-
-        Hxp =  (p1 * p1_coeff - p2 * p2_coeff + cur_state[2]) + \
-               w_e_upper_bound*cp.abs(p2 * cur_state[0] - p1*cur_state[1]+p3) -\
-                self.w(-1) * cp.abs(p3) 
         
         # Note the sign of w
-        """
-        return  Hxp
+
+        return Hxp
 
     def dissipation(self, t, data, derivMin, derivMax, schemeData, dim):
         """
@@ -304,19 +291,6 @@ class Bird():
             return np.abs(self.v_p * np.sin(cur_state[2,0])) + np.abs(w_e_upper_bound * cur_state[0])
         elif dim==2:
             return np.abs(self.w_p + w_e_upper_bound)
-        
-        """
-            cur_state = [self.grid.xs[i].get() for i in range(3)]
-            w_e_upper_bound = np.maximum.reduce([cur_state[2] for state in self.neighbors])#.item(0)
-            w_e_lower_bound = np.minimum.reduce([cur_state[2] for state in self.neighbors])#.item(0)
-
-            if dim==0:
-                return np.abs(self.v_e - self.v_p * np.cos(cur_state[2])) + np.abs(w_e_upper_bound * cur_state[1])
-            elif dim==1:
-                return np.abs(self.v_p * np.sin(cur_state[2])) + np.abs(w_e_upper_bound * self.grid.xs[0])
-            elif dim==2:
-                return np.abs(self.w_p + w_e_upper_bound)
-        """
 
     def __hash__(self):
         # hash method to distinguish agents from one another

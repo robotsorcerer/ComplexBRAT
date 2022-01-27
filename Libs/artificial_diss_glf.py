@@ -102,7 +102,10 @@ def artificialDissipationGLF(t, data, derivL, derivR, schemeData):
           #from O&F, the coeffs are 
           # set to the max possible values of |H_{x|y}| respectively
           alpha = cp.max(alpha.flatten())
+        # elif isinstance(alpha, list):
+        #   # many-body system          
 
+        
         stepBoundInv += (alpha / grid.dx.item(i))
 
     stepBound = (1 / stepBoundInv).get().item()
