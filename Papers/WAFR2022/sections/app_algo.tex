@@ -1,0 +1,66 @@
+\section{Nearest Neighbor Algorithm} 
+\label{sec:nearest_neigh_algo}
+
+\begin{algorithm}[tb!]
+	\caption{Nearest Neighbors For Agents in a Flock.
+		\label{alg:neighbors}}
+	\begin{algorithmic}[1]
+		\State Given a set of agents $\bm{a} = \{a_1, a_2, \cdots, a_{n_a} \,| \,[a] = n_a\}$ 
+		\Comment{$n_a$ agents in a flock  $\flock_k$.}
+		\Function{UpdateNeighbor}{$n$}
+		%\Comment{$N$: Total number of agents in flock.}
+		%
+		\For{$i$ in $1, \dots, n$}
+		\Comment{Look to the right and update neighbors.}
+		\label{alg:neighbors:line:lateral_vision_left}
+		\For{$j$ in $i+1, \dots, n$}
+		\State \textsc{Compare\_Neighbor($a[i]$, $a[j]$)}
+		\EndFor
+		%
+		\For{$j$ in $i-1$ down to $0$}		
+		\label{alg:neighbors:line:lateral_vision_right}
+		\Comment{Look to the left and update neighbors.}
+		\State \textsc{Compare\_Neighbor($a[i]$, $a[j]$)}
+		\EndFor
+		\EndFor
+		%
+		\For{each $a_i \in \flock_k, \, i=1, \cdots n_a$}
+		\Comment{Recursively update agents' headings.}
+		\State Update headings according to \eqref{eq:DubinsJadbabaie}.
+		\EndFor 
+		\EndFunction
+	\end{algorithmic}
+	%
+	\hrule
+	%
+	\begin{algorithmic}[1]
+		\Function{Compare\_Neighbor}{$a_1$, $a_2$}
+		\Comment{$(a_1, a_2)$: distinct instances of AGENT.}
+		\If{$|a_1.$label - $a_2.$label$|$ $< a_1.r^1_c$
+			\Comment{$r^n_c$: agent $n$'s capture radius.}
+			\State $a_1.$\textsf{\textsc{update\_neighbors}}($a_2$)}
+		\EndIf
+		\EndFunction
+	\end{algorithmic}
+	%
+	\hrule
+	%
+	\begin{algorithmic}[1]
+		\Procedure{Agent}{$a_i$, \textsf{Neighbors}=$\{\}$}  
+		\Comment{Neighbors: Set of neighbors of this agent.}
+		\State \Comment{Agent $a_i$ with attributes \textsf{label $\in \bb{N}$, avoid and capture radii, $r_a, r_c$.}}
+		\Function{\textsf{\textsc{update\_neighbors}}}{\textsf{neigh}}	
+		\If{\textsf{length(neigh)}$ > 1$}
+		\Comment{Multiple neighbors.}
+		\For{each \textsf{neighbor} of \textsf{neigh}}
+		\State \textsc{\textsf{update\_neighbors}}(\textup{neighbor})
+		\Comment{Recursive updates.}
+		\EndFor 
+		\EndIf
+		%
+		\State Add \textup{\textsf{neigh}} to \textsf{Neighbors}
+		\EndFunction
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+%

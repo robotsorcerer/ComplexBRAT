@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.6.23)  27 JAN 2022 19:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.6.23)  27 JAN 2022 21:13
 entering extended mode
 **./wafr.tex
 (wafr.tex
@@ -1247,10 +1247,81 @@ Overfull \hbox (14.53015pt too wide) detected at line 42
  []
 
 [8]
+
+Package hyperref Warning: No autoref name for `algorithm' on input line 94.
+
+
+Package hyperref Warning: No autoref name for `algorithm' on input line 94.
+
+
+Package hyperref Warning: No autoref name for `algorithm' on input line 94.
+
+
+Package hyperref Warning: No autoref name for `algorithm' on input line 94.
+
+[9]
+<figures/flock_pursuer.jpg, id=248, 847.165pt x 566.115pt>
+File: figures/flock_pursuer.jpg Graphic file (type jpg)
+<use figures/flock_pursuer.jpg>
+Package pdftex.def Info: figures/flock_pursuer.jpg  used on input line 107.
+(pdftex.def)             Requested size: 347.12354pt x 231.96179pt.
+ [10]
+Underfull \vbox (badness 6188) has occurred while \output is active []
+
+ [11 <./figures/flock_pursuer.jpg>]
+Overfull \hbox (7.43611pt too wide) detected at line 211
+[]
+ []
+
+[12]
+Overfull \hbox (9.8585pt too wide) in paragraph at lines 231--233
+[]\OT1/ptm/m/n/10 (-20) . De-note by $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; y; z
+\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (-20) a generic point in $\U/msb/m/n/10 R[]$
+ \OT1/ptm/m/n/10 (-20) so that given mesh sizes $\OML/cmm/m/it/10 x;  y;  z;
+  t  >
+ []
+
+) (sections/expts.tex [13]
+<figures/flock_1.jpg, id=308, 544.9158pt x 522.5121pt>
+File: figures/flock_1.jpg Graphic file (type jpg)
+<use figures/flock_1.jpg>
+Package pdftex.def Info: figures/flock_1.jpg  used on input line 41.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+<figures/flock_2.jpg, id=309, 544.9158pt x 522.5121pt>
+File: figures/flock_2.jpg Graphic file (type jpg)
+<use figures/flock_2.jpg>
+Package pdftex.def Info: figures/flock_2.jpg  used on input line 43.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+<figures/flock_3.jpg, id=310, 544.9158pt x 522.5121pt>
+File: figures/flock_3.jpg Graphic file (type jpg)
+<use figures/flock_3.jpg>
+Package pdftex.def Info: figures/flock_3.jpg  used on input line 45.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+<figures/flock_4.jpg, id=311, 544.9158pt x 522.5121pt>
+File: figures/flock_4.jpg Graphic file (type jpg)
+<use figures/flock_4.jpg>
+Package pdftex.def Info: figures/flock_4.jpg  used on input line 47.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+<figures/flock_5.jpg, id=312, 544.9158pt x 522.5121pt>
+File: figures/flock_5.jpg Graphic file (type jpg)
+<use figures/flock_5.jpg>
+Package pdftex.def Info: figures/flock_5.jpg  used on input line 49.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+<figures/flock_6.jpg, id=313, 544.9158pt x 522.5121pt>
+File: figures/flock_6.jpg Graphic file (type jpg)
+<use figures/flock_6.jpg>
+Package pdftex.def Info: figures/flock_6.jpg  used on input line 51.
+(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
+
+Overfull \hbox (7.06055pt too wide) detected at line 65
+[]
+ []
+
+) (sections/conclude.tex) (sections/acks.tex) (sections/app_algo.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 97.
-LaTeX Font Info:    Trying to load font information for OT1+phv on input line 1
-32.
+put line 6.
+LaTeX Font Info:    Trying to load font information for OT1+phv on input line 4
+1.
 
 (C:\Users\lekanmolu\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
@@ -1259,86 +1330,13 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `phv' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 159.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 159.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 159.
-
-
-Package hyperref Warning: No autoref name for `algorithm' on input line 159.
-
-[9]
-<figures/flock_pursuer.jpg, id=247, 847.165pt x 566.115pt>
-File: figures/flock_pursuer.jpg Graphic file (type jpg)
-<use figures/flock_pursuer.jpg>
-Package pdftex.def Info: figures/flock_pursuer.jpg  used on input line 172.
-(pdftex.def)             Requested size: 347.12354pt x 231.96179pt.
- [10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11 <./figures/flock_pursuer.jpg>] [12]
-Overfull \hbox (7.43611pt too wide) detected at line 276
-[]
- []
-
-[13]
-Overfull \hbox (9.8585pt too wide) in paragraph at lines 296--299
-[]\OT1/ptm/m/n/10 (-20) . De-note by $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x; y; z
-\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (-20) a generic point in $\U/msb/m/n/10 R[]$
- \OT1/ptm/m/n/10 (-20) so that given mesh sizes $\OML/cmm/m/it/10 x;  y;  z;
-  t  >
- []
-
-) (sections/expts.tex [14]
-<figures/flock_1.jpg, id=312, 544.9158pt x 522.5121pt>
-File: figures/flock_1.jpg Graphic file (type jpg)
-<use figures/flock_1.jpg>
-Package pdftex.def Info: figures/flock_1.jpg  used on input line 41.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_2.jpg, id=313, 544.9158pt x 522.5121pt>
-File: figures/flock_2.jpg Graphic file (type jpg)
-<use figures/flock_2.jpg>
-Package pdftex.def Info: figures/flock_2.jpg  used on input line 43.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_3.jpg, id=314, 544.9158pt x 522.5121pt>
-File: figures/flock_3.jpg Graphic file (type jpg)
-<use figures/flock_3.jpg>
-Package pdftex.def Info: figures/flock_3.jpg  used on input line 45.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_4.jpg, id=315, 544.9158pt x 522.5121pt>
-File: figures/flock_4.jpg Graphic file (type jpg)
-<use figures/flock_4.jpg>
-Package pdftex.def Info: figures/flock_4.jpg  used on input line 47.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_5.jpg, id=316, 544.9158pt x 522.5121pt>
-File: figures/flock_5.jpg Graphic file (type jpg)
-<use figures/flock_5.jpg>
-Package pdftex.def Info: figures/flock_5.jpg  used on input line 49.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_6.jpg, id=317, 544.9158pt x 522.5121pt>
-File: figures/flock_6.jpg Graphic file (type jpg)
-<use figures/flock_6.jpg>
-Package pdftex.def Info: figures/flock_6.jpg  used on input line 51.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-
-Underfull \vbox (badness 2237) has occurred while \output is active []
-
- [15 <./figures/flock_1.jpg> <./figures/flock_2.jpg> <./figures/flock_3.jpg> <.
-/figures/flock_4.jpg> <./figures/flock_5.jpg> <./figures/flock_6.jpg>]
-Overfull \hbox (7.06055pt too wide) detected at line 65
-[]
- []
-
-) (sections/conclude.tex) (wafr.bbl (wafr.brf)
+)
+(wafr.bbl (wafr.brf)
 \tf@brf=\write5
 \openout5 = `wafr.brf'.
 
-
+ [14] [15 <./figures/flock_1.jpg> <./figures/flock_2.jpg> <./figures/flock_3.jp
+g> <./figures/flock_4.jpg> <./figures/flock_5.jpg> <./figures/flock_6.jpg>]
 Underfull \hbox (badness 1454) in paragraph at lines 73--73
 []\OT1/ptm/m/n/9 (+20) Haiken, M.: These birds flock in mes-mer-iz-ing swarms o
 f thou-sands|but why is
@@ -1354,16 +1352,16 @@ onalgeographic . com / animals / article /
 Package rerunfilecheck Info: File `wafr.out' has not changed.
 (rerunfilecheck)             Checksum: 6F0F7AFB9D21AC7E36D47A974108B5B5;533.
 Package rerunfilecheck Info: File `wafr.brf' has not changed.
-(rerunfilecheck)             Checksum: 829BBCCB0819FD792595DCB5CE1C7190;2832.
+(rerunfilecheck)             Checksum: 195BB3C62115674C0EB2D00EFF96A9BC;2831.
  ) 
 Here is how much of TeX's memory you used:
- 26534 strings out of 479333
- 474380 string characters out of 2855169
- 792964 words of memory out of 3000000
- 42884 multiletter control sequences out of 15000+200000
- 454396 words of font info for 342 fonts, out of 3000000 for 9000
+ 26545 strings out of 479333
+ 474656 string characters out of 2855169
+ 791013 words of memory out of 3000000
+ 42887 multiletter control sequences out of 15000+200000
+ 454314 words of font info for 342 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
- 113i,22n,116p,2425b,552s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 113i,22n,116p,2425b,554s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/lekanmolu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc
 }<C:/Users/lekanmolu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb><C:/Users/lekanmolu/AppData/Local/Programs/MiKTeX/fonts/type1/pub
@@ -1389,9 +1387,9 @@ Data/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lekanm
 olu/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/le
 kanmolu/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/User
 s/lekanmolu/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on wafr.pdf (17 pages, 2466753 bytes).
+Output written on wafr.pdf (17 pages, 2467720 bytes).
 PDF statistics:
- 485 PDF objects out of 1000 (max. 8388607)
- 126 named destinations out of 1000 (max. 500000)
+ 490 PDF objects out of 1000 (max. 8388607)
+ 128 named destinations out of 1000 (max. 500000)
  65110 words of extra memory for PDF output out of 74296 (max. 10000000)
 

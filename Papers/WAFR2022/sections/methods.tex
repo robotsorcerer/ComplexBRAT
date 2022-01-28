@@ -91,72 +91,7 @@ What constitutes an agent's neighbors are computed based on empirical findings a
 \end{definition}
 %
 
-
-\begin{algorithm}[tb!]
-\caption{Nearest Neighbors For Agents in a Flock.
-		\label{alg:neighbors}}
-\begin{algorithmic}[1]
-	\State Given a set of agents $\bm{a} = \{a_1, a_2, \cdots, a_{n_a} \,| \,[a] = n_a\}$ 
-	\Comment{$n_a$ agents in a flock  $\flock_k$.}
-	\Function{UpdateNeighbor}{$n$}
-	%\Comment{$N$: Total number of agents in flock.}
-	%
-	\For{$i$ in $1, \dots, n$}
-		\Comment{Look to the right and update neighbors.}
-		\label{alg:neighbors:line:lateral_vision_left}
-		\For{$j$ in $i+1, \dots, n$}
-			\State \textsc{Compare\_Neighbor($a[i]$, $a[j]$)}
-		\EndFor
-		%
-		\For{$j$ in $i-1$ down to $0$}		
-		\label{alg:neighbors:line:lateral_vision_right}
-		\Comment{Look to the left and update neighbors.}
-		\State \textsc{Compare\_Neighbor($a[i]$, $a[j]$)}
-		\EndFor
-	\EndFor
-	%
-	\For{each $a_i \in \flock_k, \, i=1, \cdots n_a$}
-	 \Comment{Recursively update agents' headings.}
-	 \State Update headings according to \eqref{eq:DubinsJadbabaie}.
-	\EndFor 
-\EndFunction
-\end{algorithmic}
-%
-\hrule
-%
-\begin{algorithmic}[1]
-	\Function{Compare\_Neighbor}{$a_1$, $a_2$}
-	\Comment{$(a_1, a_2)$: distinct instances of AGENT.}
-	\If{$|a_1.$label - $a_2.$label$|$ $< a_1.r^1_c$
-		\Comment{$r^n_c$: agent $n$'s capture radius.}
-		\State $a_1.$\textsf{\textsc{update\_neighbors}}($a_2$)}
-	\EndIf
-	\EndFunction
-\end{algorithmic}
-%
-\hrule
-%
-\begin{algorithmic}[1]
-	\Procedure{Agent}{$a_i$, \textsf{Neighbors}=$\{\}$}  
-	\Comment{Neighbors: Set of neighbors of this agent.}
-	\State \Comment{Agent $a_i$ with attributes \textsf{label $\in \bb{N}$, avoid and capture radii, $r_a, r_c$.}}
-	\Function{\textsf{\textsc{update\_neighbors}}}{\textsf{neigh}}	
-	\If{\textsf{length(neigh)}$ > 1$}
-		\Comment{Multiple neighbors.}
-		\For{each \textsf{neighbor} of \textsf{neigh}}
-			\State \textsc{\textsf{update\_neighbors}}(\textup{neighbor})
-			\Comment{Recursive updates.}
-		\EndFor 
-	\EndIf
-	%
-	\State Add \textup{\textsf{neigh}} to \textsf{Neighbors}
-	\EndFunction
-	\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-%
-
-The algorithm for computing the nearest neighbors is given in Algorithm \autoref{alg:neighbors}. On lines \autoref{alg:neighbors:line:lateral_vision_left} and \autoref{alg:neighbors:line:lateral_vision_right} of Algorithm \autoref{alg:neighbors}, cohesion is reinforced by leveraging the observations above. While the neighbor updates for an agent involve an $O(n^2)$ algorithm in Algorithm \ref{alg:neighbors}, we are merely dealing with $6-7$ agents at a time in a local flock; thus the computational cost is measly.
+The algorithm for computing the nearest neighbors is given in Algorithm \autoref{alg:neighbors} in \autoref{sec:nearest_neigh_algo}. On lines \autoref{alg:neighbors:line:lateral_vision_left} and \autoref{alg:neighbors:line:lateral_vision_right} of Algorithm \autoref{alg:neighbors}, cohesion is reinforced by leveraging the observations above. While the neighbor updates for an agent involve an $O(n^2)$ algorithm in Algorithm \ref{alg:neighbors}, we are merely dealing with $6-7$ agents at a time in a local flock; thus the computational cost is measly.
 
 Each agent within a flock $\flock_j$ interacts with a fixed number of neighbors, $n_c$, within a fixed topological range, $r_c$. This topological range %is given by the difference in the numerical label of individuals \cf \autoref{def:flock}, and 
 is consistent with findings in collective swarm behaviors and it reinforces \textit{group cohesion}~\cite{Ballerini1232}. However, we are interested in \textit{robust group cohesion} in reachability analysis. Therefore, we let a pursuer, $\pursuer$, with a worst-possible disturbance attack the flock, and we take it that flocks of agents constitute an evading player, $\evader$. 
@@ -293,8 +228,7 @@ From \eqref{eq:HamiltonianOverall}, we thus write
 \end{align}
 %
 
-We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w,\cdots$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{N}\}; .$%the discretized approximation at $(x_i, y_j, z_k, t_n)=(i\Delta x)$. 
-We define the numerical monotone flux, 	$\hat{\hamfunc}_j^{(i)}\equiv \hat{\hamfunc}_{p_k}^{(i)_j}$, of $\hamfunc_j^{(i)}(\cdot)$ as 
+We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w,\cdots$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{N}\}$. We define the numerical monotone flux, 	$\hat{\hamfunc}_j^{(i)}\equiv \hat{\hamfunc}_{p_k}^{(i)_j}$, of $\hamfunc_j^{(i)}(\cdot)$ as 
 %
 \begin{align}
 	\hat{\hamfunc}_j^{(i)}(u^+, u^-, v^+, v^-, w^+, w^-) = \hamfunc_j^{(i)}\left(\frac{u^+ +u^-}{2}, \frac{v^+ +v^-}{2}, \frac{w^+ +w^-}{2}\right) \nonumber

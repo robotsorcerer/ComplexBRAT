@@ -40,15 +40,15 @@
 \backcite {Ballerini1232}{{9}{4}{section*.6}}
 \backcite {Ballerini1232}{{9}{4.1}{subsection.1.4.1}}
 \backcite {Ballerini1232, JadbabaieCoord, Helbing20}{{9}{4.2}{subsection.1.4.2}}
-\backcite {Ballerini1232}{{9}{4.2}{algorithm.1}}
+\backcite {Ballerini1232}{{9}{4.2}{section*.7}}
+\backcite {Merz1972}{{10}{4.3}{subsection.1.4.3}}
+\backcite {Crandall1984}{{10}{4.3}{subsection.1.4.3}}
+\backcite {CuPy}{{10}{4.3}{subsection.1.4.3}}
 \backcite {Ballerini1232}{{10}{9}{Hfootnote.9}}
-\backcite {Merz1972}{{11}{4.3}{subsection.1.4.3}}
-\backcite {Crandall1984}{{11}{4.3}{subsection.1.4.3}}
-\backcite {CuPy}{{11}{4.3}{subsection.1.4.3}}
-\backcite {Crandall1984Approx}{{11}{10}{Hfootnote.10}}
+\backcite {Crandall1984Approx}{{10}{10}{Hfootnote.10}}
+\backcite {Isaacs1965}{{11}{4.3}{equation.1.4.16}}
 \backcite {Isaacs1965}{{12}{4.3}{equation.1.4.16}}
-\backcite {Isaacs1965}{{12}{4.3}{equation.1.4.16}}
-\backcite {OsherShuENO, Crandall1984Approx}{{14}{4.3}{equation.1.4.21}}
-\backcite {Ballerini1232}{{15}{5}{section.1.5}}
-\backcite {LevelSetsBook}{{15}{5}{equation.1.5.24}}
-\backcite {Ballerini1232}{{15}{5}{equation.1.5.25}}
+\backcite {OsherShuENO, Crandall1984Approx}{{13}{4.3}{equation.1.4.21}}
+\backcite {Ballerini1232}{{14}{5}{section.1.5}}
+\backcite {LevelSetsBook}{{14}{5}{equation.1.5.24}}
+\backcite {Ballerini1232}{{14}{5}{equation.1.5.25}}
