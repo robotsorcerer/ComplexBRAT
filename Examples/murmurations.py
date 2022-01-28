@@ -18,6 +18,8 @@ import cupy as cp
 import numpy  as np
 from math import pi
 import numpy.linalg as LA
+import matplotlib as mpl
+mpl.use('Qt5Agg')
 import matplotlib.pyplot as plt
 
 from os.path import abspath, join, dirname, expanduser
@@ -30,7 +32,6 @@ from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.BoundaryCondition import *
-# from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.InitialConditions import *
 
 
@@ -46,7 +47,7 @@ parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run tra
 parser.add_argument('--verify', '-vf', action='store_true', default=True, help='visualize level sets?' )
 parser.add_argument('--elevation', '-el', type=float, default=5., help='elevation angle for target set plot.' )
 parser.add_argument('--direction', '-dr',  action='store_true',  help='direction to grow the level sets. Negative by default.' )
-parser.add_argument('--azimuth', '-az', type=float, default=15., help='azimuth angle for target set plot.' )
+parser.add_argument('--azimuth', '-az', type=float, default=10., help='azimuth angle for target set plot.' )
 parser.add_argument('--pause_time', '-pz', type=float, default=.3, help='pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
@@ -65,6 +66,52 @@ logger = logging.getLogger(__name__)
 u_bound = 1
 w_bound = 1
 fontdict = {'fontsize':16, 'fontweight':'bold'}
+
+
+def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
+	"""
+		For a flock, whose mesh has been precomputed, 
+		visualize the initial backward avoid tube.
+	"""
+	# visualize avoid set 
+	fontdict = {'fontsize':16, 'fontweight':'bold'}
+	mesh_bundle = flock.mesh_bundle
+		
+	fig = plt.figure(1, figsize=(16,9), dpi=100)
+	ax = plt.subplot(111, projection='3d')
+	ax.add_collection3d(mesh_bundle.mesh)
+
+
+	xlim = (mesh_bundle.verts[:, 0].min(), mesh_bundle.verts[:,0].max())
+	ylim = (mesh_bundle.verts[:, 1].min(), mesh_bundle.verts[:,1].max())
+	zlim = (mesh_bundle.verts[:, 2].min(), mesh_bundle.verts[:,2].max())
+
+	# create grid that contains just this zero-level set to avoid computational craze 
+	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
+	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
+
+	# create reduced grid upon which this zero level set dwells
+	flock.grid_zero = createGrid(gmin, gmax, flock.grid.N, 2)
+
+	ax.set_xlim(xlim)
+	ax.set_ylim(ylim)
+	ax.set_zlim(zlim)
+
+	ax.grid('on')
+	ax.tick_params(axis='both', which='major', labelsize=10)
+
+	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
+
+	if title:
+		ax.set_title(title, fontdict=fontdict)
+	else:
+		ax.set_title(f'Flock {flock.label}\'s ({flock.N} Agents) Payoff.', fontdict=fontdict)
+	ax.view_init(azim=-45, elev=30)
+
+	if save:
+		plt.savefig(fname, bbox_inches='tight',facecolor='None')
 
 
 def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
@@ -142,33 +189,75 @@ def main(args):
 	gmax = np.asarray([[1, 1, np.pi] ]).T
 	num_agents = 7
 
-	H         = .4 #.1
+	H         = .4
 	H_STEP    = .05
-	neigh_rad = 0.3
-
+	neigh_rad = 0.4
+	reach_rad = .2
 	# Please note the way I formulate the initial states here. Linear speed is constant but heading is different.
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
-	
+
+	# color thingy
+	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents-1)))
+
+	# save shenanigans
+	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures")
+
 	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock0, compute_mesh=True)
+	if args.visualize:
+		visualize_init_avoid_tube(flock0, save=True, fname=join(base_path, f"flock_{flock0.label}.jpg"))
+		plt.show()                                
+
 	# add other flocks to this state space
-	flock1 = get_flock(gmin, gmax, 101, num_agents, 1.1*INIT_XYZS, label=2,\
+	flock1 = get_flock(gmin, gmax, 101, num_agents-1, 1.1*INIT_XYZS, label=2,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock1, compute_mesh=True)
+	flock1.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock1, save=True, fname=join(base_path, f"flock_{flock1.label}.jpg"))
+		plt.show()                                
+
 	flock2 = get_flock(gmin, gmax, 101, num_agents, -1.1*INIT_XYZS, label=3,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock2, compute_mesh=True)
+	flock2.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock2, save=True, fname=join(base_path, f"flock_{flock2.label}.jpg"))
+		plt.show()                                
 
-	flock3 = get_flock(gmin, gmax, 101, num_agents, 1.5*INIT_XYZS, label=4,\
+	flock3 = get_flock(gmin, gmax, 101, num_agents-1, 1.5*INIT_XYZS, label=4,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock3, compute_mesh=True)
+	flock3.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock3, save=True, fname=join(base_path, f"flock_{flock3.label}.jpg"))
+		plt.show()                                
+
 	flock4 = get_flock(gmin, gmax, 101, num_agents, -1.5*INIT_XYZS, label=5,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock4, compute_mesh=True)
+	flock4.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock4, save=True, fname=join(base_path, f"flock_{flock4.label}.jpg"))
+		plt.show()                                
 
-	flock6 = get_flock(gmin, gmax, 101, num_agents, 2.0*INIT_XYZS, label=6,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)						
-	flock5 = get_flock(gmin, gmax, 101, num_agents, -2.0*INIT_XYZS, label=7,\
+
+	flock5 = get_flock(gmin, gmax, 101, num_agents-1, 2.0*INIT_XYZS, label=6,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3)	                    
+	get_avoid_brt(flock5, compute_mesh=True)
+	flock5.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock5, save=True, fname=join(base_path, f"flock_{flock5.label}.jpg"))
+		plt.show()                                
+						
+	flock6 = get_flock(gmin, gmax, 101, num_agents, -1.8*INIT_XYZS, label=7,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock0, compute_mesh=True)
-	# visualize_init_avoid_tube(flock0, save=True, fname=join(expanduser("~"), "Documents/Papers/Safety/WAFR2022", \
-	# 									f"figures/flock_{flock0.label}.jpg"))
+	get_avoid_brt(flock6, compute_mesh=True)
+	flock6.mesh_bundle.mesh.set_facecolor(next(color))
+	if args.visualize:
+		visualize_init_avoid_tube(flock6, save=True, fname=join(base_path, f"flock_{flock6.label}.jpg"))
+		plt.show()     
 	
 	# after creating value function, make state space cupy objects
 	g = flock0.grid
