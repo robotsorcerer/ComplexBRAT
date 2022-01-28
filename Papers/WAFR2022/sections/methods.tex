@@ -46,7 +46,7 @@ Let us now formalize definitions that will aid the modularization of the problem
 %Observe that the model of \eqref{eq:DubinsJadbabaie} is similar to the Dubins dynamics~\cite{Dubins1957} with the only difference being the update rule in the headings of the agents. This headings update rule is similar to the one used in statistical mechanics or  statistical physics (the physics of many interacting molecules)~\cite{Wilson1975}. We note here that it was recently adopted in control theory literature by Jadbabaie~\cite{JadbabaieCoord} in proving Viscek et al.'s self-driven particles simulations~\cite{Vicsek1995novel}.
 
 \begin{definition}[Payoff of a Flock]
-	To every agent $i$ within a flock, $F$, with finite number of agents $N$, we associate a payoff, $\valuefunc(\state^{(i)})$, that encodes the outcome of its topological interaction with its neighbors. 
+	To every flock $F_j$ with a finite number of agents $N$, we associate a payoff that defines the outcome of the  topological interaction between every agent that constitutes its kinematic behavior. %with its neighbors. 
 	\label{def:payoff}
 \end{definition}
 %
@@ -125,25 +125,27 @@ w_p^{(j)}(t) - \langle w_e^{(i)_j}(t) \rangle_r
 \end{align}
 %
 where $N$ is the number of flocks. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration. As mentioned in Section \ref{sec:notations}, the evading player at anytime has controls $\{\control^1, \control^2, \cdots \control^n\}$ for agents $i=1, \cdots, n$ completely  under its will. Solving for such complex backward reach-avoid tube is akin to splitting the state space into a number of parts separated by surfaces. 
-We assume that the \textit{value} of a flock heading control (differential game) exists, so that the terminal value function is
+We assume that the \textit{value} of a flock heading control (differential game) exists, so that the terminal value function from \eqref{eq:lower_hji_pde} can be written as $\valuefunc = \valuefunc_1 \cup \cdots \cup \valuefunc_n$.%is
 %
-\begin{subequations}
-\begin{align}
-&\frac{\partial \lowervalue_j}{\partial t} + \lowerham_j (t; \state, \bm{u}, \bm{v}, \lowervalue_{\state_j}) = 0, \,\, t\in \left[0, T\right]\, \state \in \ren  \\
-&\lowervalue_j(\state, T) = g_j(x(T)), \quad \state \in \reline^m , \quad j = 1, \cdots, n
-\label{eq:lower_visc_boundary_surfaces}
-\end{align}
-\label{eq:lower_visc_surfaces}
-\end{subequations}
+%\begin{subequations}
+%\begin{align}
+%&\frac{\partial \lowervalue_j}{\partial t} + \lowerham_j (t; \state, \bm{u}, \bm{v}, \lowervalue_{\state_j}) = 0, \,\, t\in \left[0, T\right]\, \state \in \ren  \\
+%&\lowervalue_j(\state, T) = g_j(x(T)), \quad \state \in \reline^m , \quad j = 1, \cdots, n
+%\label{eq:lower_visc_boundary_surfaces}
+%\end{align}
+%\label{eq:lower_visc_surfaces}
+%\end{subequations}
+%%
+%with lower Hamiltonian, 
+%%
+%\begin{align}
+%&\lowerham_j (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f_j(t; \state, \bm{u}, \bm{v}), p_j  \rangle, \quad j = 1, \cdots, n,
+%\label{eq:lower_visc_ham_surfaces}
+%\end{align}
 %
-with lower Hamiltonian, 
-%
-\begin{align}
-&\lowerham_j (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f_j(t; \state, \bm{u}, \bm{v}), p_j  \rangle, \quad j = 1, \cdots, n,
-\label{eq:lower_visc_ham_surfaces}
-\end{align}
-%
-where $n$ is the total number of separate and distinct flocks on a state space. We follow ~\cite{Isaacs1965}'s definition by ascribing to these surfaces the term \textit{singular surfaces}, which signifies $(n-1)$-manifolds in $n$-space.  On the respective surfaces, we are concerned with the resolution of the respective \textit{values} \ie  $\{\valuefunc_1, \cdots, \valuefunc_n\}$  for distinct flocks $\{\flock_1, \flock_2, \cdots, \flock_n\}$ on the distinct surfaces of the state spaces $\{\stspace_1, \stspace_2, \cdots, \stspace_n\}$. The reader should note that $\stspace = \stspace_1 \cup \stspace_2 \cup \cdots \cup \stspace_n$. %On each surface, the solution to the respective $\valuefunc_i$ is $C_1$ smooth. 
+where $n$ is the total number of separate and distinct flocks on a state space. This equation is a generalization of the terminal value function of \cite{Mitchell2005}, whose resolution admits a viscosity solution to the terminal HJI PDE problem \eqref{eq:lower_hji_pde}.
+
+We follow ~\cite{Isaacs1965}'s definition by ascribing to these surfaces the term \textit{singular surfaces}, which signifies $(n-1)$-manifolds in $n$-space.  On the respective surfaces, we are concerned with the resolution of the respective \textit{values} \ie  $\{\valuefunc_1, \cdots, \valuefunc_n\}$  for distinct flocks $\{\flock_1, \flock_2, \cdots, \flock_n\}$ on the distinct surfaces of the state spaces $\{\stspace_1, \stspace_2, \cdots, \stspace_n\}$. The reader should note that $\stspace = \stspace_1 \cup \stspace_2 \cup \cdots \cup \stspace_n$. %On each surface, the solution to the respective $\valuefunc_i$ is $C_1$ smooth. 
 Similarly, we  attribute the term \textit{in the small} to determine the smooth parts of the singular surface solution, and when they are stitched together into the total solution, we shall describe them as \textit{in the large}. 
 
 
@@ -153,7 +155,7 @@ There exists at least one value $\bar{\alpha}$ of $\alpha$ such that if $\alpha 
 
 
 
-Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do not change, so that when capture can occur, a necessary condition to be satisfied by the saddle-point controls of the players is the Hamiltonian. For  a flock, $j$, this is the total energy exerted by each agent $i$ in the flock so that we can write the total Hamiltonian of a murmuration as 
+Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do not change, so that when capture can occur, a necessary condition to be satisfied by the saddle-point controls of the players is the Hamiltonian. For  a flock, $j$, this is the total energy exerted by each agent $i$ in the flock so that we can write the \textit{main equation} or total Hamiltonian of a murmuration as 
 %
 \begin{align}
 \hamfunc(\state, p) = \sum_{j=1}^{N_f} \sum_{i=1}^{N_a} H^{(i)}_j(\state, p)
@@ -176,7 +178,7 @@ w_p^j(t) - \langle w_e^{(i)_j}(t) \rangle_r
 \label{eq:Hamiltonian}
 \end{align}
 %
-where $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$ is the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(i)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $i$, inclusive of agent $i$ at time $t$; similarly, $\bar{w}_e^{(i)_j}$ is  the maximum orientation among all of the orientation of agent $i$'s neighbors. For the pursuer, its minimum and maximum turn rates are fixed so that we have $\underline{w}_p^{j}$ as the minimum turn bound of the pursuing vehicle, and $\bar{w}_p^j$ is the maximum turn bound of the pursuing vehicle. Henceforth, we drop the templated time arguments for ease of readability. Rewriting \eqref{eq:Hamiltonian}, we find $\bm{H}^{(i)}_j(\state, p)$ as
+where $p_k^{(i)_j}(t)\mid_{k=1,2,3}$ are the adjoint vectors~\cite{Merz1972}, $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$ is the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(i)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $i$, inclusive of agent $i$ at time $t$; similarly, $\bar{w}_e^{(i)_j}$ is  the maximum orientation among all of the orientation of agent $i$'s neighbors. For the pursuer, its minimum and maximum turn rates are fixed so that we have $\underline{w}_p^{j}$ as the minimum turn bound of the pursuing vehicle, and $\bar{w}_p^j$ is the maximum turn bound of the pursuing vehicle. Henceforth, we drop the templated time arguments for ease of readability. Rewriting \eqref{eq:Hamiltonian}, we find $\bm{H}^{(i)}_j(\state, p)$ as
 %
 \begin{align}
 \begin{split}
@@ -197,12 +199,12 @@ where $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^
 %
 &=p_1^{(i)_j} \left(v_e^{(i)_j} - v_p^{j} \cos \state_3^{(i)_j}\right) -  p_2^{(i)_j} v_p^{j} \sin \state_3^{(i)_j}  \\
 %
-& \qquad + \left(		
-\max_{w_e^{(i)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(i)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \begin{bmatrix}
-\langle w_e^{(i)_j}\rangle_r \left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}  \state_2^{(i)_j} \right) 
+& \, + \left(		
+\max_{\langle w_e^{(i)_j}\rangle_r \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \begin{bmatrix}
+\langle w_e^{(i)_j}\rangle_r \left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}  \state_2^{(i)_j} + p_3^{(i)_j}\right) 
 % 
-\\ 
-- p_3^{(i)_j} \left(w_p^j - \langle w_e^{(i)}\rangle_r\right)
+%\\ 
+- p_3^{(i)_j} w_p^j 
 \end{bmatrix}
 \right).
 \end{split}
@@ -210,20 +212,19 @@ where $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^
 \label{eq:ham_flock_interm}
 \end{align}
 %
-In this work, we consider the special case where the linear speeds of the evaders and pursuer are equal \ie $v_e = v_p = +1$.  Then the Hamiltonian $\bm{H}^{(i)}_j(\state, p)$ in \eqref{eq:ham_flock_interm} becomes 
+In this work, we consider the special case where the linear speeds of the evaders and pursuer are equal \ie $v_e = v_p = +1$.  Then the main equation in \eqref{eq:ham_flock_interm} becomes 
 %
 \begin{align}
-\hamfunc^{(i)}_j(\state, p) &= p_1^{(i)_j} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \bigg|p_3^{(i)_j}\bigg| \nonumber 	\\
-& \qquad\qquad  
- + \bar{w}_e^j \bigg|\left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right)\bigg|  .
+\hamfunc^{(i)}_j(\state, p) &= p_1^{(i)_j} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \text{ sign }(p_3^{(i)_j}) + \nonumber 	\\
+& \qquad  \bar{w}_e^j \text{ sign}\left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right)  .
 \end{align}
 %
 From \eqref{eq:HamiltonianOverall}, we thus write
 %
 \begin{align}
-\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \bigg|p_3^{(i)_j}\bigg|  \nonumber 	\\
+\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \text{ sign } p_3^{(i)_j}  \nonumber 	\\
 & \qquad\qquad %+\bar{w}_e^j |p_3^{(i)_j}| 
-+ \bar{w}_e^j \bigg| p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\bigg|.
++ \bar{w}_e^j \text{ sign} \left( p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right).
 \label{eq:HamiltonianCompletada}
 \end{align}
 %

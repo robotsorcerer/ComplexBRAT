@@ -11,9 +11,7 @@
 \backcite {JadbabaieCoord}{{2}{1}{figure.caption.2}}
 \backcite {Crandall1984Approx, OsherShuENO}{{2}{1}{Hfootnote.1}}
 \backcite {Ballerini1232}{{3}{1}{figure.caption.2}}
-\backcite {Crandall1984Approx}{{3}{1}{figure.caption.2}}
-\backcite {Crandall1983viscosity}{{3}{1}{figure.caption.2}}
-\backcite {Mitchell2005, LygerosReachability}{{3}{1}{figure.caption.2}}
+\backcite {Crandall1984Approx, OsherShuENO}{{3}{1}{figure.caption.2}}
 \backcite {JadbabaieCoord}{{3}{1}{figure.caption.2}}
 \backcite {Mitchell2020}{{3}{1}{figure.caption.2}}
 \backcite {Isaacs1965}{{4}{2.1}{subsection.1.2.1}}
@@ -23,32 +21,31 @@
 \backcite {Dubins1957}{{5}{3}{section.1.3}}
 \backcite {Merz1972}{{5}{3}{section.1.3}}
 \backcite {DoyleBook}{{5}{3}{section.1.3}}
-\backcite {Souganidis}{{5}{3.1}{equation.1.3.3}}
-\backcite {Souganidis}{{6}{3.1}{equation.1.3.5}}
-\backcite {Crandall1983viscosity}{{6}{3.1}{equation.1.3.5}}
-\backcite {Evans1984}{{6}{3.1}{equation.1.3.5}}
-\backcite {Souganidis}{{6}{3.1}{equation.1.3.7a}}
-\backcite {Souganidis}{{6}{3.1}{equation.1.3.8}}
+\backcite {Crandall1983viscosity}{{5}{3.1}{equation.1.3.3}}
+\backcite {Evans1984}{{5}{3.1}{equation.1.3.3}}
+\backcite {Souganidis}{{6}{3.1}{equation.1.3.5a}}
+\backcite {Mitchell2005}{{6}{3.1}{equation.1.3.7c}}
+\backcite {Mitchell2005}{{6}{3.1}{equation.1.3.7c}}
 \backcite {Mitchell2005}{{6}{3.1}{equation.1.3.8}}
-\backcite {Mitchell2005}{{6}{3.1}{equation.1.3.9}}
-\backcite {Mitchell2005}{{7}{3.1}{equation.1.3.10}}
 \backcite {Ballerini1232}{{7}{4}{section.1.4}}
-\backcite {Ballerini1232}{{8}{4}{section.1.4}}
-\backcite {Bansal, SylviaScalability, DecompChenHerbert}{{8}{4}{section.1.4}}
+\backcite {Ballerini1232}{{7}{4}{section.1.4}}
+\backcite {Bansal, SylviaScalability, DecompChenHerbert}{{7}{4}{section.1.4}}
+\backcite {Isaacs1965}{{7}{6}{Hfootnote.6}}
 \backcite {BasarBook}{{8}{3}{section*.6}}
-\backcite {Isaacs1965}{{8}{6}{Hfootnote.6}}
-\backcite {Ballerini1232}{{9}{4}{section*.6}}
-\backcite {Ballerini1232}{{9}{4.1}{subsection.1.4.1}}
-\backcite {Ballerini1232, JadbabaieCoord, Helbing20}{{9}{4.2}{subsection.1.4.2}}
+\backcite {Ballerini1232}{{8}{4}{section*.6}}
+\backcite {Ballerini1232}{{8}{4.1}{subsection.1.4.1}}
+\backcite {Ballerini1232, JadbabaieCoord, Helbing20}{{8}{4.2}{subsection.1.4.2}}
 \backcite {Ballerini1232}{{9}{4.2}{section*.7}}
-\backcite {Merz1972}{{10}{4.3}{subsection.1.4.3}}
-\backcite {Crandall1984}{{10}{4.3}{subsection.1.4.3}}
-\backcite {CuPy}{{10}{4.3}{subsection.1.4.3}}
-\backcite {Ballerini1232}{{10}{9}{Hfootnote.9}}
-\backcite {Crandall1984Approx}{{10}{10}{Hfootnote.10}}
-\backcite {Isaacs1965}{{11}{4.3}{equation.1.4.16}}
-\backcite {Isaacs1965}{{12}{4.3}{equation.1.4.16}}
-\backcite {OsherShuENO, Crandall1984Approx}{{13}{4.3}{equation.1.4.21}}
-\backcite {Ballerini1232}{{14}{5}{section.1.5}}
-\backcite {LevelSetsBook}{{14}{5}{equation.1.5.24}}
-\backcite {Ballerini1232}{{14}{5}{equation.1.5.25}}
+\backcite {Merz1972}{{9}{4.3}{subsection.1.4.3}}
+\backcite {Crandall1984}{{9}{4.3}{subsection.1.4.3}}
+\backcite {CuPy}{{9}{4.3}{subsection.1.4.3}}
+\backcite {Ballerini1232}{{9}{9}{Hfootnote.9}}
+\backcite {Crandall1984Approx}{{9}{10}{Hfootnote.10}}
+\backcite {Mitchell2005}{{11}{4.3}{equation.1.4.11}}
+\backcite {Isaacs1965}{{11}{4.3}{equation.1.4.11}}
+\backcite {Isaacs1965}{{11}{4.3}{equation.1.4.11}}
+\backcite {Merz1972}{{11}{4.3}{equation.1.4.13}}
+\backcite {OsherShuENO, Crandall1984Approx}{{12}{4.3}{equation.1.4.16}}
+\backcite {Ballerini1232}{{13}{5}{section.1.5}}
+\backcite {LevelSetsBook}{{13}{5}{equation.1.5.19}}
+\backcite {Ballerini1232}{{13}{5}{equation.1.5.20}}

@@ -215,11 +215,20 @@ class Flock(Bird):
         # do housekeeping: update neighbors and headings
         self._housekeeping()
 
-        hams = [vehicle.hamiltonian(t, data, value_derivs, finite_diff_bundle) for vehicle in self.vehicles]
+        # randomly drop one agent from the flock for the pursuer to attack
+        attacked_idx = np.random.choice(len(self.vehicles))
+
+        # update vehicles not under attack
+        vehicles = [x for x in self.vehicles if x is not self.vehicles[attacked_idx]]
         
-        ham = hams[0]
-        for idx in range(1, len(hams)):
-            ham = cp.add(ham, hams[idx])
+        # get hamiltonian of non-attcked agents
+        unattacked_hams = [vehicle.hamiltonian_abs(t, data, value_derivs, finite_diff_bundle) for vehicle in vehicles]
+        unattacked_hams = cp.sum(cp.asarray(unattacked_hams), axis=0)
+
+        # try computing the attack of a pursuer against the targeted agent
+        attacked_ham = self.vehicles[attacked_idx].hamiltonian(t, data, value_derivs, finite_diff_bundle)
+
+        # sum all the energies of the system
         
         return ham
 

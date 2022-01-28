@@ -18,9 +18,10 @@ In all our experiments, robust cohesion and anisotropy is reinforced by having o
 %	\label{fig:starlings}
 %\end{figure}
 %
-At issue is a family of games based on different starting points for local flocks that on the whole constitute a murmuration. Therefore, we pre-define payoffs for each individual agent in every flock implicitly on a flock's state space as $\valuefunc: [-T, 0]\times \mc{X} \rightarrow \bb{R}$. 
+At issue is a family of games based on different starting points for local flocks that on the whole constitute a murmuration (see \autoref{fig:flocks_multi}). 
+In starlings, agents move in local flocks of six to seven nearest neighbors~\cite{Ballerini1232} in order to preserve cohesion and heading consensus.  Therefore, we implicitly compute the payoff for each individual agent in every flock. In this light, a flock's payoff is a union (element-wise minimum f respective payoff points) of the payoff of every agent within it.  %and the f implicitly on a flock's state space as $\valuefunc: [-T, 0]\times \mc{X} \rightarrow \bb{R}$. 
 %
-In starlings, agents move in local flocks of six to seven nearest neighbors~\cite{Ballerini1232} in order to preserve cohesion and heading consensus. Therefore, we define the target set and the tube as
+Therefore, we define the target set and the tube as
 %
 \begin{align}
 	&\targetset_0 = \left\{ \state \in \bar{\openset} | \valuefunc(\state, 0) \le 0, \valuefunc(\state, 0) = \valuefunc_1(\state_1, 0) \cup \cdots \cup \valuefunc_n(\state_n, 0)\right\} , \\
@@ -50,7 +51,7 @@ where $r_c$ is the capture radius, equivalent to the topological range for a flo
 		&
 		\includegraphics[height=12em,width=10em]{figures/flock_6.jpg}
 	\end{tabular}
-	\caption{\footnotesize Illustrative Initial Zero-Level RCBRT for Different Flocks in our Proposal: Avoid RCBRT of the aggregated payoffs of all  agents that constitute each arbitrary flock that constitute a murmuration in our setup.  (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$).} 
+	\caption{\footnotesize Illustrative Initial Zero-Level RCBRT for Different Flocks in our Experiment. These are the avoid RCBRTs of the aggregated payoffs of all  agents that constitute each  flock within a murmuration.  (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$).} 
 	\label{fig:flocks_multi}
 \end{figure}
 
@@ -60,6 +61,8 @@ Every local flock has its own payoff, whose target set, together with those of n
 %
 \begin{align}
 	\state^{(i)_j} = \left[\begin{array}{ccc}
-		r_c \cos (\frac{5\pi}{2}\frac{i}{6}), & 	r_c \sin (\frac{5\pi}{2}\frac{i}{6}), & H+i\,\delta H
-	\end{array}\right] \, \text{for } i=1, \cdots, n, H=0.1, \delta H = 0.05.
+		r_c \cos (\frac{i\pi}{4}), & 	r_c \sin (\frac{i\pi}{4}), & h+i\,\delta h
+	\end{array}\right]^T \, %\text{for } i=1, \cdots, n, 
 \end{align}
+%
+where $h=0.1, \, \delta h = 0.05$ and $r_c$ is a collision avoidance radius.

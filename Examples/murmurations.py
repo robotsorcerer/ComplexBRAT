@@ -41,6 +41,7 @@ parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
 parser.add_argument('--visualize', '-vz', action='store_false', help='visualize level sets?' )
+parser.add_argument('--show_flock_payoff', '-sp', action='store_false', default=False, help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
 parser.add_argument('--stochastic', '-st', action='store_true', help='Run trajectories with stochastic dynamics?' )
 parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run trajectories with stochastic dynamics?' )
@@ -114,9 +115,35 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 		plt.savefig(fname, bbox_inches='tight',facecolor='None')
 
 
+def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
+	"""
+		Get the avoid BRT for this flock. That is, every bird 
+		within a flock must avoid one another.
+
+		Parameters:
+		==========
+		.flock: This flock of vehicles.
+		.compute_mesh: compute mesh of local payoffs for each bird in this flock?
+	"""
+	for vehicle in flock.vehicles:
+		# make the radius of the target setthe turn radius of this vehicle
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle.cur_state), \
+										radius=vehicle.neigh_rad)
+	"""
+		Now compute the overall payoff for the flock
+	   	by taking a union of all the avoid sets.
+	"""
+	flock.payoff = np.minimum.reduce([veh.payoff for veh in flock.vehicles])
+	if compute_mesh:
+		spacing=tuple(flock.grid.dx.flatten().tolist())
+		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing,edge_color=None, face_color=color)    
+		
+	return flock 
+
+
 def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
-				periodic_dims=2, \
-				reach_rad=.2, avoid_rad=.3):
+				periodic_dims=2, reach_rad=.2, avoid_rad=.3,
+				base_path='', save=True, color='blue'):
 	"""
 		Params
 		======
@@ -139,126 +166,53 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
 	grid = createGrid(gmin, gmax, num_points, periodic_dims)
 	
 	vehicles = [Bird(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), \
-						   center=np.zeros((3,1)), neigh_rad=3, \
-						   label=i+1, init_random=False) for i in range(num_agents)]                
+					center=np.zeros((3,1)), neigh_rad=.3, label=i+1, init_random=False) \
+					for i in range(num_agents)]                
 	flock = Flock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
+	get_avoid_brt(flock, compute_mesh=True, color=color)
+
+	if args.visualize and args.show_flock_payoff:
+		visualize_init_avoid_tube(flock, save, fname=join(base_path, f"flock_{flock.label}.jpg"))         
+		plt.show() 
 
 	return flock
 
-def get_avoid_brt(flock, compute_mesh=True):
-	"""
-		Get the avoid BRT for this flock. That is, every bird 
-		within a flock must avoid one another.
-
-		Parameters:
-		==========
-		.flock: This flock of vehicles.
-		.compute_mesh: compute mesh of local payoffs for each bird in this flock?
-	"""
-	idx=.3
-	color = plt.cm.ocean(flock.label)
-
-	for vehicle in flock.vehicles:
-		vehicle_state = vehicle.cur_state
-		# make the radius of the target setthe turn radius of this vehicle
-		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle_state), \
-										radius=vehicle_state[-1].take(0))
-		spacing=tuple(flock.grid.dx.flatten().tolist())
-		# if compute_mesh:
-		# 	vehicle.mesh_bundle   = implicit_mesh(vehicle.payoff, level=0, spacing=spacing, edge_color='r', face_color='k')
-	
-	"""
-		Now compute the overall payoff for the flock
-	   	by taking a union of all the avoid sets.
-	"""
-	prev_vehicle = flock.vehicles[0]
-	for idx, vehicle in enumerate(flock.vehicles[1:]):
-		flock.payoff = shapeUnion(prev_vehicle.payoff, vehicle.payoff)
-		prev_vehicle = vehicle
-	
-	if compute_mesh:
-		spacing=tuple(flock.grid.dx.flatten().tolist())
-		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing, edge_color=None, face_color='crimson')      
-	
-	return flock 
 
 def main(args):
 	# global params
-
-	gmin = np.asarray([[-1, -1, -np.pi]]).T
-	gmax = np.asarray([[1, 1, np.pi] ]).T
+	gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
+	gmax = np.asarray([[1.5, 1.5, np.pi] ]).T
 	num_agents = 7
 
-	H         = .4
-	H_STEP    = .05
+	H         = 0.4
+	H_STEP    = 0.05
 	neigh_rad = 0.4
 	reach_rad = .2
+
 	# Please note the way I formulate the initial states here. Linear speed is constant but heading is different.
-	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
+	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*np.pi/4), neigh_rad*np.sin((i/6)*np.pi/4), H+i*H_STEP] for i in range(num_agents)])
+	# INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
 
 	# color thingy
-	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents-1)))
+	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents)))
 
 	# save shenanigans
 	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures")
-
-	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock0, compute_mesh=True)
-	if args.visualize:
-		visualize_init_avoid_tube(flock0, save=True, fname=join(base_path, f"flock_{flock0.label}.jpg"))
-		plt.show()                                
-
-	# add other flocks to this state space
+	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1, periodic_dims=2, \
+						reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
 	flock1 = get_flock(gmin, gmax, 101, num_agents-1, 1.1*INIT_XYZS, label=2,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock1, compute_mesh=True)
-	flock1.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock1, save=True, fname=join(base_path, f"flock_{flock1.label}.jpg"))
-		plt.show()                                
-
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	           
 	flock2 = get_flock(gmin, gmax, 101, num_agents, -1.1*INIT_XYZS, label=3,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock2, compute_mesh=True)
-	flock2.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock2, save=True, fname=join(base_path, f"flock_{flock2.label}.jpg"))
-		plt.show()                                
-
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                         
 	flock3 = get_flock(gmin, gmax, 101, num_agents-1, 1.5*INIT_XYZS, label=4,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock3, compute_mesh=True)
-	flock3.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock3, save=True, fname=join(base_path, f"flock_{flock3.label}.jpg"))
-		plt.show()                                
-
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                             
 	flock4 = get_flock(gmin, gmax, 101, num_agents, -1.5*INIT_XYZS, label=5,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock4, compute_mesh=True)
-	flock4.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock4, save=True, fname=join(base_path, f"flock_{flock4.label}.jpg"))
-		plt.show()                                
-
-
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                
 	flock5 = get_flock(gmin, gmax, 101, num_agents-1, 2.0*INIT_XYZS, label=6,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)	                    
-	get_avoid_brt(flock5, compute_mesh=True)
-	flock5.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock5, save=True, fname=join(base_path, f"flock_{flock5.label}.jpg"))
-		plt.show()                                
-						
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	          
 	flock6 = get_flock(gmin, gmax, 101, num_agents, -1.8*INIT_XYZS, label=7,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3)
-	get_avoid_brt(flock6, compute_mesh=True)
-	flock6.mesh_bundle.mesh.set_facecolor(next(color))
-	if args.visualize:
-		visualize_init_avoid_tube(flock6, save=True, fname=join(base_path, f"flock_{flock6.label}.jpg"))
-		plt.show()     
-	
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
+
 	# after creating value function, make state space cupy objects
 	g = flock0.grid
 	g.xs = [cp.asarray(x) for x in g.xs]
@@ -294,10 +248,7 @@ def main(args):
 									"savepath": join(expanduser("~"),
 									"Documents/Papers/Safety/WAFR2022/figures/")
 								 })
-					}
-					)
-	args.spacing = spacing
-	args.init_mesh = flock0.mesh_bundle; args.params = params
+					})
 
 	if args.load_brt:
 		args.save = False
@@ -348,8 +299,8 @@ def main(args):
 
 			if args.save:
 				fig = plt.gcf()
-				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
-					rf"figures/murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+				fig.savefig(join(base_path,
+					rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
 				# save this brt
 
 			itr_end.record()

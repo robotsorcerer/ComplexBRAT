@@ -146,7 +146,7 @@ for constant $k$ and all $T \le t \le 0$, $\hat{\state}, \, \state \in \reline^n
 	\label{eq:target_set_syk}
 \end{align}
 
-Suppose that the pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}, \hat{\bm{u}} \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. The player $\pursuer$ is controlling $\beta$ and minimizing, while the player $\evader$ is controlling its strategy, $\alpha$, and maximizing. %While the terms pursuer and evader
+Suppose that the pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}, \hat{\bm{u}} \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. \textit{The player $\pursuer$ is controlling the strategy $\beta$ and minimizing}, while the \textit{player $\evader$ is controlling its strategy, $\alpha$, and maximizing}. %While the terms pursuer and evader
 %
 The differential game's lower value for a solution $\state(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t)$ and $\bm{v}(t) = \beta[\control](\cdot)$ is 
 %
@@ -156,35 +156,35 @@ The differential game's lower value for a solution $\state(t)$ that solves \eqre
 	\int_{t}^{T} l(\tau, \bm{x}(\tau), \bm{u}(\tau), \beta[\bm{u}](\tau)) d\tau + g\left(\bm{x}(T)\right). %
 	\label{eq:value_lower}
 \end{align}
-
-We now establish the following Lemma from~\cite{Souganidis} that will aid the construction of the \textit{robustly controlled backward reachable tube} -- our main emphasis in this paper. 
 %
-\begin{lemma}
-	The lower value $\lowervalue$ of a differential game's terminal cost problem is the viscosity solution to the lower Isaac's equation 
-	%
-	\begin{subequations}
-		\begin{align}
-			&\frac{\partial \lowervalue}{\partial t} + \lowerham (t; \state, \bm{u}, \bm{v}, \lowervalue_{\state}) = 0, \,\, t\in \left[0, T\right]\, \state \in \ren  \\
-			&\lowervalue(\state, T) = g(x(T)), \quad \state \in \reline^m
-			\label{eq:lower_visc_boundary}
-		\end{align}
-		\label{eq:lower_visc}
-	\end{subequations}
-	%
-	with lower Hamiltonian, 
-	%
-	\begin{align}
-		&\lowerham (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f(t; \state, \bm{u}, \bm{v}), p  \rangle.
-		\label{eq:lower_visc_ham}
-	\end{align}
-	%
-	where $p$, the co-state, is the spatial derivative of $\lowervalue$ w.r.t $\state$.
-	\label{lemma:lower_visc_lemma}
-\end{lemma}
+%We now establish the following Lemma from~\cite{Souganidis} that will aid the construction of the \textit{robustly controlled backward reachable tube} -- our main emphasis in this paper. 
 %
-\begin{proof}
-	This lemma is an adaptation of \cite[Th 4.1]{Souganidis}.
-\end{proof}
+%\begin{lemma}
+%	The lower value $\lowervalue$ of a differential game's terminal cost problem is the viscosity solution to the lower Isaac's equation 
+%	%
+%	\begin{subequations}
+%		\begin{align}
+%			&\frac{\partial \lowervalue}{\partial t} + \lowerham (t; \state, \bm{u}, \bm{v}, \lowervalue_{\state}) = 0, \,\, t\in \left[0, T\right]\, \state \in \ren  \\
+%			&\lowervalue(\state, T) = g(x(T)), \quad \state \in \reline^m
+%			\label{eq:lower_visc_boundary}
+%		\end{align}
+%		\label{eq:lower_visc}
+%	\end{subequations}
+%	%
+%	with lower Hamiltonian, 
+%	%
+%	\begin{align}
+%		&\lowerham (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f(t; \state, \bm{u}, \bm{v}), p  \rangle.
+%		\label{eq:lower_visc_ham}
+%	\end{align}
+%	%
+%	where $p$, the co-state, is the spatial derivative of $\lowervalue$ w.r.t $\state$.
+%	\label{lemma:lower_visc_lemma}
+%\end{lemma}
+%%
+%\begin{proof}
+%	This lemma is an adaptation of \cite[Th 4.1]{Souganidis}.
+%\end{proof}
 
 For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state_0, t_0)$, Crandall~\cite{Crandall1983viscosity} and Evan's~\cite{Evans1984} claim is that there exists a unique function % $\xi(t)$  
 %
@@ -212,14 +212,74 @@ a.e. with the property that
 %
 Read \eqref{eq:HJ_traj}: the motion of \eqref{eq:sys_dyn} passing through phase $(\bm{x}_0, t_0)$ under the action of control $\bm{u}$, and disturbance $\bm{v}$, and observed at a time $t$ afterwards. One way to design a system verification problem is compute the reachable set of states that lie along the trajectory \eqref{eq:HJ_traj} such that we evade the unsafe sets up to a time \eg $t_f$ within a given time bound  $\left[t_0, t_f\right]$. In this regard, we discard \eqref{eq:value_lower}'s \textit{cost-to-go} and certify safety as resolving a time-bounded terminal value, $g(\state(T))$ at time $T$ up to a final time \eg $0$.
 
-In backward reachability analysis, the lower value of the differential game~\cite{Souganidis} is used in constructing an analysis of the backward reachable set (or tube). Therefore, we can cast a target set as the time-resolved terminal value $\lowervalue(\state, T) = g(\state(T))$ so that given a time bound, and an unsafe set of states, the time-bounded safety verification problem consists in certifying that there is no phase within the target set \eqref{eq:target_set} such that the solution to \eqref{eq:sys_dyn} enters the unsafe set. Following the backward reachability formulation of \cite{Mitchell2005}, we say the zero sublevel set of $g(\cdot)$ in \eqref{eq:lower_visc} \ie
+%In backward reachability analysis, the lower value of the differential game~\cite{Souganidis} is used in constructing an analysis of the backward reachable set (or tube). Therefore, we can cast a target set as the time-resolved terminal value $\lowervalue(\state, T) = g(\state(T))$ so that given a time bound, and an unsafe set of states, the time-bounded safety verification problem consists in certifying that there is no phase within the target set \eqref{eq:target_set} such that the solution to \eqref{eq:sys_dyn} enters the unsafe set. 
+
+\begin{lemma}
+	The backward reachability problem on the resolution of the infimum-supremum over the \textit{non-anticipative strategies} of $\pursuer$ and the \textit{controls} of $\evader$ with the time of capture resolved as an extremum of the cost functional over a time interval is given by %~\cite{LygerosReachability}. 
+	\begin{subequations}
+		\begin{align}
+			\frac{\partial \lowervalue}{\partial t}{(\bm{x}, t)} & + \min \{0, \lowerham (t; \bm{x}, \bm{u}, \bm{v},\lowervalue_{\state}) \} = 0, \, \state \in \ren, t \in \left[-T, 0\right]\\
+			%
+			\lowervalue(\bm{x},0) &= g(\bm{x}), \\
+%		\end{align}
+%	\end{subequations}
+%	&\text{ where } %the Hamiltonian is defined as} \nonumber \\
+%	%
+%	\begin{align}
+	\text{ where } 	\lowerham (t; \state, \bm{u}, \bm{v}, p) &= \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f(t; \state, \bm{u}, \bm{v}), p  \rangle,
+		\label{eq:lower_visc_ham}
+	\end{align}
+	\label{eq:lower_hji_pde}
+	\end{subequations}
+	%
+	and $p$, the co-state, is the spatial derivative of $\lowervalue$ w.r.t $\state$.
+	%
+	\noindent where the vector field $\lowervalue_{\state}$ is known in terms of the game's terminal conditions so that the overall game is akin to a two-point boundary-value problem.
+	\label{lemma:rcbrt}
+\end{lemma} 
 %
-\begin{align}
-	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \},
-	\label{eq:target_set}
-\end{align}
+\noindent Henceforward, for ease of readability, we will remove the minus superscript on the lower value and Hamiltonian \eqref{eq:lower_visc_ham}. 
 %
-is the \textit{target set} in the phase space $\openset \times \mathbb{R}$ for a backward reachability problem (proof in \cite{Mitchell2005}). This target set can represent the failure set, regions of danger, or obstacles to be avoided etc in the state space. Note that the target set, $\mathcal{L}_0$, is a closed subset of $\ren$ and is in the closure of $\openset$. And the \textit{robustly controlled backward reachable tube} for $\tau \in [-T, 0]$\footnote{The (backward) horizon, $-T$ is negative for $T>0$.} is the closure of the open set
+\begin{proof}
+	%
+	Lemma \ref{lemma:rcbrt} is an adaptation of ~\cite{Mitchell2005}.
+\end{proof}
+
+%\begin{lemma}
+%	The lower value $\lowervalue$ of a differential game's terminal cost problem is the viscosity solution to the lower Isaac's equation 
+%	%
+%	\begin{subequations}
+%		\begin{align}
+%			&\frac{\partial \lowervalue}{\partial t} + \lowerham (t; \state, \bm{u}, \bm{v}, \lowervalue_{\state}) = 0, \,\, t\in \left[-T, 0\right]\, \state \in \ren  \\
+%			&\lowervalue(\state, T) = g(x(T)), \quad \state \in \reline^m
+%			\label{eq:lower_visc_boundary}
+%		\end{align}
+%		\label{eq:lower_visc}
+%	\end{subequations}
+%	%
+%	whose Hamiltonian is, 
+%	%
+%	\begin{align}
+%		&\lowerham (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f(t; \state, \bm{u}, \bm{v}), p  \rangle.
+%		\label{eq:lower_visc_ham}
+%	\end{align}
+%	%
+%	where $p$, the co-state, is the spatial derivative of $\lowervalue$ w.r.t $\state$.
+%	\label{lemma:lower_visc_lemma}
+%\end{lemma}
+%
+%\begin{proof}
+%	This lemma is an adaptation of \cite[Th 4.1]{Souganidis}.
+%\end{proof}
+
+In the sentiment of \cite{Mitchell2005}, we say the zero sublevel set of $g(\cdot)$ in \eqref{eq:lower_hji_pde} \ie $\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \},$
+%
+%\begin{align}
+%	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \},
+%	\label{eq:target_set}
+%\end{align}
+%
+is the \textit{target set} in the phase space $\openset \times \mathbb{R}$ for a backward reachability problem. This target set can represent the failure set, regions of danger, or obstacles to be avoided etc in the state space. Note that the target set, $\mathcal{L}_0$, is a closed subset of $\ren$ and is in the closure of $\openset$. And the \textit{robustly controlled backward reachable tube} for $\tau \in [-T, 0]$\footnote{The (backward) horizon, $-T$ is negative for $T>0$.} is the closure of the open set
 %
 \begin{align}
 	\mathcal{L}([\tau, 0], \mathcal{L}_0) &= \{\state \in \openset \,| \, \exists \, \beta \in \mathcal{\bar{V}}(t) \,  \forall \, \bm{u} \in \mathcal{U}(t), \exists \, \bar{t} \in [-T, 0], \nonumber \\
@@ -236,19 +296,18 @@ Read: the set of states from which the strategies $\beta$ of $\pursuer$, and for
 	\end{align}
 %\end{subequations}
 %
-Observe:
+%Observe:
+%%
+%\begin{itemize}
+%	\item The goal of the pursuer, or $\pursuer$, is to drive the system's trajectories into the unsafe set i.e., $\pursuer$ has $\control$ at will and aims to minimize the termination time of the game  (c.f. \eqref{eq:target_set});
+%	%
+%	\item The evader, or $\evader$, seeks to avoid the unsafe  set i.e., $\evader$ has controls $\disturb$ at will and seeks to maximize the termination time of the game (c.f.  \eqref{eq:target_set});
+%	%
+%	\item $\evader$ has regular controls, $\bm{u}$, drawn from a Lebesgue measurable set, $\mathcal{U}$ (c.f. \eqref{eq:value_lower});
+%	%
+%	\item $\pursuer$ possesses \textit{nonanticipative strategies} (c.f. \eqref{eq:value_lower}) \ie  $\beta[\bm{u}](\cdot)$ such that for any of the ordinary controls, $\bm{u}(\cdot) \in \mathcal{U}$ of $\evader$, $\pursuer$ knows how to optimally respond to $\evader$'s inputs.
+%\end{itemize}
 %
-\begin{itemize}
-	\item The goal of the pursuer, or $\pursuer$, is to drive the system's trajectories into the unsafe set i.e., $\pursuer$ has $\control$ at will and aims to minimize the termination time of the game  (c.f. \eqref{eq:target_set});
-	%
-	\item The evader, or $\evader$, seeks to avoid the unsafe  set i.e., $\evader$ has controls $\disturb$ at will and seeks to maximize the termination time of the game (c.f.  \eqref{eq:target_set});
-	%
-	\item $\evader$ has regular controls, $\bm{u}$, drawn from a Lebesgue measurable set, $\mathcal{U}$ (c.f. \eqref{eq:value_lower});
-	%
-	\item $\pursuer$ possesses \textit{nonanticipative strategies} (c.f. \eqref{eq:value_lower}) \ie  $\beta[\bm{u}](\cdot)$ such that for any of the ordinary controls, $\bm{u}(\cdot) \in \mathcal{U}$ of $\evader$, $\pursuer$ knows how to optimally respond to $\evader$'s inputs.
-\end{itemize}
-%
-This is a classic reachability problem on the resolution of the infimum-supremum over the \textit{strategies} of $\pursuer$ and \textit{controls} of $\evader$ with the time of capture resolved as an extremum of a cost functional) over a time interval \ie %~\cite{LygerosReachability}. 
 % The order of play is non-consequential because: 
 %
 %\begin{itemize}		
@@ -263,15 +322,6 @@ This is a classic reachability problem on the resolution of the infimum-supremum
 %\todo{We obtain a \textit{pseudo iterative dynamic game}~\cite{iDG}, albeit in open-loop settings, where either player infers the current state useful enough for generating closed-loop input control laws.} 
 %An implicit surface function, $\{\lowervalue{(\state, t)}: \left[-T, 0\right] \times \mathcal{X}\rightarrow\mathbb{R}, \, \forall \, t>0\}$ \ie the terminal value $\lowervalue {(\state, t)}$, that characterizes the target set $\targetset_0$ is the viscosity solution to the HJI PDE
 %
-\begin{subequations}
-	\begin{align}
-		\frac{\partial \lowervalue}{\partial t}{(\bm{x}, t)} & + \min \{0, \lowerham (t; \bm{x}, \bm{u}, \bm{v},\lowervalue_{\state}) \} = 0 \\
-		\lowervalue(\bm{x},0) &= g(\bm{x}),
-	\end{align}
-	\label{eq:lower_hji_pde}
-\end{subequations}
-%
-\noindent where the vector field $\lowervalue_{\state}$ is known in terms of the game's terminal conditions so that the overall game is akin to a two-point boundary-value problem. Henceforward, for ease of readability, we will remove the minus superscript on the lower value and Hamiltonian \eqref{eq:lower_visc_ham}. 
 
 
 %\begin{align}
