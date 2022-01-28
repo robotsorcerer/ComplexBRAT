@@ -293,7 +293,8 @@ From \eqref{eq:HamiltonianOverall}, we thus write
 \end{align}
 %
 
-We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. We define the numerical monotone flux, 	$\hat{\hamfunc}_j^{(i)}\equiv \hat{\hamfunc}_{p_k}^{(i)_j}$, of $\hamfunc_j^{(i)}(\cdot)$ as 
+We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w,\cdots$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{N}\}; .$%the discretized approximation at $(x_i, y_j, z_k, t_n)=(i\Delta x)$. 
+We define the numerical monotone flux, 	$\hat{\hamfunc}_j^{(i)}\equiv \hat{\hamfunc}_{p_k}^{(i)_j}$, of $\hamfunc_j^{(i)}(\cdot)$ as 
 %
 \begin{align}
 	\hat{\hamfunc}_j^{(i)}(u^+, u^-, v^+, v^-, w^+, w^-) = \hamfunc_j^{(i)}\left(\frac{u^+ +u^-}{2}, \frac{v^+ +v^-}{2}, \frac{w^+ +w^-}{2}\right) \nonumber

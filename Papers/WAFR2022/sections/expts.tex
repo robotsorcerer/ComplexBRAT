@@ -4,16 +4,30 @@
 In all our experiments, robust cohesion and anisotropy is reinforced by having one player be a pursuer against a flock of evaders as seen in \autoref{fig:robust_heading}. We initialize each flock's agents to distinct positions on the vectogram. All agents share the same linear speed, $v$ but varying orientations $\langle w^{(i)} (t) \rangle_r$ that are averaged across every nearest neighbor in a flock according to \eqref{eq:DubinsJadbabaie}. Nearest neighbors are updated according to Algorithm \ref{alg:neighbors}.
 %
 
+%\begin{figure}[tb!]
+%	\centering
+%	%
+%	\begin{minipage}[b]{.45\textwidth}
+%		\includegraphics[width=1.1\textwidth, height=1.4\textwidth]{figures/payoff_single.jpg}
+%	\end{minipage}
+%		%
+%	\begin{minipage}[b]{.45\textwidth}
+%		\includegraphics[width=1.\textwidth, height=1.4\textwidth]{figures/flock_1.jpg}
+%	\end{minipage}
+%	\footnotesize{\caption{Left:Initial zero level RCBRT of a single agent's payoff within a flock.   Right: Avoid zero level RCBRT of the aggregated payoffs of all  agents that constitute an arbitrary flock in our setup.  (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$).}}
+%	\label{fig:starlings}
+%\end{figure}
+%
 At issue is a family of games based on different starting points for local flocks that on the whole constitute a murmuration. Therefore, we pre-define payoffs for each individual agent in every flock implicitly on a flock's state space as $\valuefunc: [-T, 0]\times \mc{X} \rightarrow \bb{R}$. 
 %
 In starlings, agents move in local flocks of six to seven nearest neighbors~\cite{Ballerini1232} in order to preserve cohesion and heading consensus. Therefore, we define the target set and the tube as
 %
 \begin{align}
-	\targetset_0 &= \left\{ \state \in \bar{\openset} | \valuefunc(\state, 0) \le 0 \right\}, \\
-	\mathcal{L}([\tau, 0],  \mathcal{L}_0) &= \left\{\state\in \bar{\openset}  | \valuefunc(\state, \tau) \le 0\right\}
+	&\targetset_0 = \left\{ \state \in \bar{\openset} | \valuefunc(\state, 0) \le 0, \valuefunc(\state, 0) = \valuefunc_1(\state_1, 0) \cup \cdots \cup \valuefunc_n(\state_n, 0)\right\} , \\
+	&\mathcal{L}([\tau, 0],  \mathcal{L}_0) = \left\{\state\in \bar{\openset}  | \valuefunc(\state, \tau) \le 0, \valuefunc(\state, 0) = \valuefunc_1(\state_1, 0) \cup \cdots \cup \valuefunc_n(\state_n, 0)\right\} \nonumber
 \end{align}
 %
-where $\tau \in  [-T, 0]$. Abusing notation and dropping the $i$th superscript for an agent, we construct $\valuefunc(\cdot)$ as 
+where $\tau \in  [-T, 0]$. A pictorial representation of the zero-level RCBRT of a differential  game with six-seven agents in the evading flock (\cf\autoref{fig:robust_heading}), constructed from a union of each agent's respective payoff,  is depicted in \autoref{fig:flocks_multi}. Each agent's payoff is implicitly defined by a signed distance representation on the state space~\cite{LevelSetsBook}. Abusing notation and dropping the $i$th superscript for an agent, we construct $\valuefunc(\cdot)$ as 
 %
 \begin{align}
 	\valuefunc(\state, 0) = \sqrt{\state_1^2 + \state_2^2} - r_c
@@ -21,64 +35,31 @@ where $\tau \in  [-T, 0]$. Abusing notation and dropping the $i$th superscript f
 %
 where $r_c$ is the capture radius, equivalent to the topological range for a flock as reported in~\cite{Ballerini1232}. 
 
+\begin{figure}[tb!]
+	\centering
+	\begin{tabular}{ccc} 
+		\includegraphics[height=12em,width=10em]{figures/flock_1.jpg} 
+		&
+		\includegraphics[height=12em,width=10em]{figures/flock_2.jpg} 
+		& 
+		\includegraphics[height=12em,width=10em]{figures/flock_3.jpg} 
+		\\	
+		\includegraphics[height=12em,width=10em]{figures/flock_4.jpg}
+		&
+		\includegraphics[height=12em,width=10em]{figures/flock_5.jpg} 
+		&
+		\includegraphics[height=12em,width=10em]{figures/flock_6.jpg}
+	\end{tabular}
+	\caption{\footnotesize Illustrative Initial Zero-Level RCBRT for Different Flocks in our Proposal: \textit{Avoid RCBRT} of the aggregated payoffs of all  agents that constitute each arbitrary flock that constitute a murmuration in our setup.  (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$).} 
+	\label{fig:flocks_multi}
+\end{figure}
 
 \subsection{Interagents Spatial Structure}
 
-\begin{itemize}
-	\item put reference bird at origin; then randomly initialize other birds with a random walk in the state space with a covariance of .5~\cite{LekanCASE2016Paper}
-	%
-	\item every local flock has its own value function governed by a target set
-	%
-	%
-	\item every bird is spatially correlated on a large grid that parameterizes a flock
-	%
-	\item we initialize the flock's state coverage as follows
-	%
-	\item the evader (or reference vehicle) holds has a state space that spans the following intervals on the $x,y,z$ state plane
-	$[x_1^-, x_1^+, x_2^-, x_2^+, x_3^-, x_3^+]$
-	%
-	\item every follower vehicle in the flock has its state space coverage specified as
-	$[x_1^- -\epsilon, x_1^+ - \epsilon, x_2^- -\epsilon, x_2^+, x_3^- -\epsilon, x_3^+ - \epsilon]$
-	%
-	\item we find that this initialization helps the agents maintain good coverage on the entire state space: it easily provides bounds, a nice spatial distribution of flight coverage. For instance, if all flocks are positioned at the origin of their grids, then what we have is a single line of leader vs multiple followers that achieves
-	%
-	\item every flock has its own payoff, which are related to that of nearest neighbor interacting flocks via dispersal or X surfaces/lines/or hyperplanes.
-\end{itemize}
-
-
-\begin{comment}
-	\begin{itemize}
-		\item we compare the distance between linear position of agents to determine nearest neighbors;
-		in comparing distances, we only use the L2 norm of the linear positions of a reference agent w.r.t every other agent in a flock and assign an agent as being a nearest neighbor if the difference between the norm of the position of two birds is less than a pre-specified radius $r$.
-		%
-		\item flocks may contract -- contract the modes of your tensor
-		%
-		\item flocks may expand -- add new modes to your tensor where the new modes consist of the new state space of your birds
-		%
-		\item when a flock splits, divide your tensor into two.
-		%
-		\item  to do this, make initial velocities parallel so that the equations of relative motion mean that the Evaders can maintain the initial separation forever by simply duplicating the strategy of the P. The barrier of a local flock is thus closed, so that the game of kind is ensued with finding the determination of the closed surface.
-		%
-		\item  see solution to the homicidal chauffeur game in 9.1 of Isaacs
-	\end{itemize}
-	\subsection{Grids contraction, expansion, or splitting when agents switch flocks}
-	
-	\begin{itemize}
-		RA-L/IROS Paper
-		\item put flock information in a tensor
-		% anisotropic kinematic behavioral law.
-		
-		
-		%
-		Within a flock, agents are potentially numerous and exhibit an
-		\item when a bird leaves a flock, contract the tensor
-		%
-		\item  when a bird joins a flock, expand the tensor by one more mode
-		%
-		\item add a value function for every tensor
-		%
-		\item the interaction among flocks is therefore easily capturable by tensor interactions
-		%
-		\item tensor interaction allows us to simplify the algebra of interaction of agents
-	\end{itemize}
-\end{comment}
+Every local flock has its own payoff, whose target set, together with those of nearest neighbors being interacted with are related by the surfaces. The zero level set of the union of these payoffs constitute the avoid set for a heading consensus. To ensure adequate spatial separation between every agent, we initialize a flock's $j$'s agents, $i=1,\ldots, n$ on the vectogram in the following way:
+%
+\begin{align}
+	\state^{(i)_j} = \left[\begin{array}{ccc}
+		r_c \cos (\frac{5\pi}{2}\frac{i}{6}), & 	r_c \sin (\frac{5\pi}{2}\frac{i}{6}), & H+i\,\delta H
+	\end{array}\right] \, \text{for } i=1, \cdots, n, H=0.1, \delta H = 0.05.
+\end{align}

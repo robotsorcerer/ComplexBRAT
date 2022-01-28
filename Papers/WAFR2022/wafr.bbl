@@ -59,18 +59,6 @@ Ballerini, M., Cabibbo, N., Candelier, R., Cavagna, A., Cisbani, E., Giardina,
 \newblock \doi{10.1073/pnas.0711437105}.
 \newblock \urlprefix\url{https://www.pnas.org/content/105/4/1232}
 
-\bibitem{Cavagna2010Scale}
-Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R., Stefanini,
-  F., Viale, M.: Scale-ffee correlations in starling flocks.
-\newblock Proceedings of the National Academy of Sciences \textbf{107}(26),
-  11,865--11,870 (2010)
-
-\bibitem{Bialek2012Statistical}
-Bialek, W., Cavagna, A., Giardina, I., Mora, T., Silvestri, E., Viale, M.,
-  Walczak, A.M.: Statistical mechanics for natural flocks of birds.
-\newblock Proceedings of the National Academy of Sciences \textbf{109}(13),
-  4786--4791 (2012)
-
 \bibitem{JadbabaieCoord}
 Jadbabaie, A., Lin, J., Morse, A.S.: Coordination of groups of mobile
   autonomous agents using nearest neighbor rules.
@@ -159,5 +147,9 @@ Nishino, R., Loomis, C., Hido, S.: Cupy: A numpy-compatible library for nvidia
   gpu calculations.
 \newblock 31st confernce on neural information processing systems \textbf{151}
   (2017)
+
+\bibitem{LevelSetsBook}
+Osher, S., Fedkiw, R.: {Level Set Methods and Dynamic Implicit Surfaces}.
+\newblock Applied Mechanics Reviews \textbf{57}(3), B15--B15 (2004)
 
 \end{thebibliography}
