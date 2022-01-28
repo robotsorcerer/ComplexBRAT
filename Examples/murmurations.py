@@ -131,7 +131,7 @@ def get_avoid_brt(flock, compute_mesh=True):
 	
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
-		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing, edge_color='.4', face_color='c')    
+		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing, edge_color=None, face_color='crimson')      
 	
 	return flock 
 
@@ -216,7 +216,7 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_plot = (t_range[1] - t_range[0]) / 5 #10
+		t_plot = (t_range[1] - t_range[0]) / 10
 		small = 100*eps
 		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
 
