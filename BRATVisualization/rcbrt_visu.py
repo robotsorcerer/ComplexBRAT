@@ -113,16 +113,12 @@ class RCBRTVisualizer(object):
 									fontdict=self.params.fontdict)
 		self._ax[0].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict)
 		self._ax[0].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict)
-		self._ax[0].set_zlabel(rf'$\omega (^\circ)$',fontdict=self.params.fontdict)
+		self._ax[0].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict)
 		
-		if self.params.savedict.save:
-			self._fig.savefig(join(self.fname+"0"+".jpg"), bbox_inches='tight',facecolor='None')
-
 	def update_tube(self, mesh_bundle, time_step, delete_last_plot=False):
 		"""
 			Inputs:
-				data - BRS/BRT data.
-				mesh - zero-level set mesh of the BRT(S).
+				mesh_bundle - zero-level set mesh of the BRT(S).
 				time_step - The timne step at which we solved  this BRS/BRT.
 				delete_last_plot - Whether to clear scene before updating th plot.
 
@@ -151,12 +147,9 @@ class RCBRTVisualizer(object):
 
 		self._ax[1].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict)
 		self._ax[1].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict)
-		self._ax[1].set_zlabel(rf'$\omega (^\circ)$',fontdict=self.params.fontdict)
+		self._ax[1].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict)
 		self._ax[1].set_title(f'BRT at {time_step} secs.', fontdict=self.params.fontdict)
 		
-		# if self.params.savedict.save:
-		# 	self._fig.savefig(join(self.fname+self.params.savedict.savename+"_"+str(time_step)+".jpg"), bbox_inches='tight',facecolor='None')
-
 		self.draw()
 		time.sleep(self.params.pause_time)
 

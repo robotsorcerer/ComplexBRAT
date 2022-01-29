@@ -1,7 +1,7 @@
 \section{Experiments}
 \label{sec:expts}
 %
-In all our experiments, robust cohesion and anisotropy is reinforced by having one player be a pursuer against a flock of evaders as seen in \autoref{fig:robust_heading}. We initialize each flock's agents to distinct positions on the vectogram. All agents share the same linear speed, $v$ but varying orientations $\langle w^{(i)} (t) \rangle_r$ that are averaged across every nearest neighbor in a flock according to \eqref{eq:DubinsJadbabaie}. Nearest neighbors are updated according to Algorithm \ref{alg:neighbors}.
+We initialize each flock's agents to distinct positions on the vectogram. All agents share the same linear speed, $v$ and their orientations, $\langle w^{(i)} (t) \rangle_r$, are averaged  across every agent that falls within a nearest neighboring radius, $r_i$ of the label of agent $i$. This is expressed on line \ref{alg:neighbors:line_neigh_rad} of Algorithm \ref{alg:neighbors} . in a flock according to \eqref{eq:DubinsJadbabaie}. Nearest neighbors are updated according to Algorithm \ref{alg:neighbors}. In all our experiments, robust cohesion and anisotropy is reinforced by having an attacking  pursuer play against an evading flock as seen in \autoref{fig:robust_heading}: in every iteration of the game, we randomly pick an agent within a flock, and have the pursuer play a zero-sum against it. Since the orientations of neighboring agents are averaged with that of the singled-out bird, the information is inevitably propagated across the entire flock, and hence the murmuration, so that we can maintain robust cohesion.
 %
 
 %\begin{figure}[tb!]

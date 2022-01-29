@@ -37,6 +37,7 @@
 		\Function{Compare\_Neighbor}{$a_1$, $a_2$}
 		\Comment{$(a_1, a_2)$: distinct instances of AGENT.}
 		\If{$|a_1.$label - $a_2.$label$|$ $< a_1.r^1_c$
+			\label{alg:neighbors:line_neigh_rad}
 			\Comment{$r^n_c$: agent $n$'s capture radius.}
 			\State $a_1.$\textsf{\textsc{update\_neighbors}}($a_2$)}
 		\EndIf

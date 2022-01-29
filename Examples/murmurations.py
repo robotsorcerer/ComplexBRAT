@@ -19,7 +19,7 @@ import numpy  as np
 from math import pi
 import numpy.linalg as LA
 import matplotlib as mpl
-mpl.use('Qt5Agg')
+# mpl.use('Qt5Agg')
 import matplotlib.pyplot as plt
 
 from os.path import abspath, join, dirname, expanduser
@@ -29,6 +29,7 @@ sys.path.append(abspath(join('..')))
 from Libs import *
 
 from LevelSetPy.Grids import *
+from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.BoundaryCondition import *
@@ -40,7 +41,7 @@ from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
-parser.add_argument('--visualize', '-vz', action='store_false', help='visualize level sets?' )
+parser.add_argument('--visualize', '-vz', action='store_false', default=True, help='visualize level sets?' )
 parser.add_argument('--show_flock_payoff', '-sp', action='store_false', default=False, help='visualize level sets?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
 parser.add_argument('--stochastic', '-st', action='store_true', help='Run trajectories with stochastic dynamics?' )
@@ -65,9 +66,8 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
 
 u_bound = 1
-w_bound = 1
+w_bound = deg2rad(45)
 fontdict = {'fontsize':16, 'fontweight':'bold'}
-
 
 def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	"""
@@ -114,7 +114,6 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	if save:
 		plt.savefig(fname, bbox_inches='tight',facecolor='None')
 
-
 def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	"""
 		Get the avoid BRT for this flock. That is, every bird 
@@ -128,12 +127,12 @@ def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	for vehicle in flock.vehicles:
 		# make the radius of the target setthe turn radius of this vehicle
 		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle.cur_state), \
-										radius=vehicle.neigh_rad)
+										radius=vehicle.payoff_width)
 	"""
 		Now compute the overall payoff for the flock
 	   	by taking a union of all the avoid sets.
 	"""
-	flock.payoff = np.minimum.reduce([veh.payoff for veh in flock.vehicles])
+	flock.payoff = shapeUnion([veh.payoff for veh in flock.vehicles])
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
 		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing,edge_color=None, face_color=color)    
@@ -161,12 +160,14 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
 
 	assert gmin.ndim==2, 'gmin must be of at least 2 dims'
 	assert gmax.ndim==2, 'gmax must be of at least 2 dims'
+
 	gmin = to_column_mat(gmin)
 	gmax = to_column_mat(gmax)
+
 	grid = createGrid(gmin, gmax, num_points, periodic_dims)
 	
-	vehicles = [Bird(grid, 1, 1, np.expand_dims(init_xyzs[i], 1) , random.random(), \
-					center=np.zeros((3,1)), neigh_rad=.3, label=i+1, init_random=False) \
+	vehicles = [Bird(grid, u_bound, w_bound, np.expand_dims(init_xyzs[i], 1) , random.random(), \
+					center=np.zeros((3,1)), neigh_rad=3, label=i+1, init_random=False) \
 					for i in range(num_agents)]                
 	flock = Flock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
 	get_avoid_brt(flock, compute_mesh=True, color=color)
@@ -191,7 +192,6 @@ def main(args):
 
 	# Please note the way I formulate the initial states here. Linear speed is constant but heading is different.
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*np.pi/4), neigh_rad*np.sin((i/6)*np.pi/4), H+i*H_STEP] for i in range(num_agents)])
-	# INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*2*np.pi+np.pi/2), neigh_rad*np.sin((i/6)*2*np.pi+np.pi/2), H+i*H_STEP] for i in range(num_agents)])
 
 	# color thingy
 	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents)))
@@ -239,7 +239,7 @@ def main(args):
 					 'azimuth': 5,
 					 'mesh': flock0.mesh_bundle,
 					 'pause_time': args.pause_time,
-					 'title': f'Flock {flock0.label}\'s Avoid Tube. Num Agents={flock0.N}',
+					 'title': f'Initial Flock\'s of {flock0.N} agent\'s BRT.',
 					 'level': 0, # which level set to visualize
 					 'winsize': (16,9),
 					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
@@ -270,6 +270,8 @@ def main(args):
 		meshes, brt_time = [], []
 		value_rolling = cp.asarray(copy.copy(flock0.payoff))
 
+		color = iter(plt.cm.prism(np.linspace(.25, 2, 100)))
+
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
@@ -291,8 +293,8 @@ def main(args):
 
 			if args.visualize:
 				value_rolling_np = value_rolling.get()
-				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
-									edge_color='.35',  face_color='magenta')
+				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
+									edge_color=None,  face_color=next(color))
 				viz.update_tube(mesh_bundle, time_step)
 				# store this brt
 				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh_bundle)

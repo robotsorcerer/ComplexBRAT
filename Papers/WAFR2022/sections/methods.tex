@@ -150,61 +150,73 @@ Similarly, we  attribute the term \textit{in the small} to determine the smooth 
 
 
 %W this would introduce computational complexity issues and resolving the respective boundaries of the value functions.
-To encourage robust cohesion, a pursuer can attack any flock or a group of flocks within the murmuration from two distinct surfaces, which we call a $\pursuer$ or an $\evader$ direction. We call the side of the surface reached after penetration in the $\pursuer-[\evader-]$ direction the $\pursuer-[\evader]$ \textit{side}. %Points $\state$ on the so oriented surface 
+To encourage robust cohesion, a pursuer can attack any flock or \todo{a group of flocks within the murmuration from two distinct surfaces: a $\pursuer$ or an $\evader$ direction. We call the side of the surface reached after penetration in the $\pursuer-[\evader-]$ direction the $\pursuer-[\evader]$ \textit{side}}. %Points $\state$ on the so oriented surface 
 There exists at least one value $\bar{\alpha}$ of $\alpha$ such that if $\alpha = \bar{\alpha}$, no vector in the $\beta$-vectogram\footnote{A $\beta-$vectogram is the resulting state space when a the strategy $\beta$ is applied in computing the optimal control law for an agent.} penetrates the surface in the $E$-direction. Similar arguments can be made for $\bar{\beta}$ which prevents penetration in the $P$-direction. We adopt ~\cite{Isaacs1965}'s terminology and call these surfaces semi-permeable surfaces (SPS).
 
 
 
-Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do not change, so that when capture can occur, a necessary condition to be satisfied by the saddle-point controls of the players is the Hamiltonian. For  a flock, $j$, this is the total energy exerted by each agent $i$ in the flock so that we can write the \textit{main equation} or total Hamiltonian of a murmuration as 
+Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do not change, so that when capture can occur, a necessary condition to be satisfied by the saddle-point controls of the players is the Hamiltonian. For  a flock, $\flock_j$, this is the total energy exerted by each agent $i$ in the flock so that we can write the \textit{main equation} or total Hamiltonian of a murmuration as 
 %
 \begin{align}
-\hamfunc(\state, p) = \sum_{j=1}^{N_f} \sum_{i=1}^{N_a} H^{(i)}_j(\state, p)
+\hamfunc(\state, p) = \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \sum_{j=1}^{N_f} \left(\sum_{i=1}^{N_a-1} H^{(i)_j}_f(\state, p) + H^{(k)_j}_a(\state, p) \right)
 \label{eq:HamiltonianOverall}
 \end{align}
 %
-where $N_f$ is the total number of distinct flocks in a murmuration, $N_a$ is the total number of agents within flock $j$. $H^{(i)}_j(\state, p)$ is the Hamiltonian of flock $j$,  given by
+where $N_f$ is the total number of distinct flocks in a murmuration, $N_a$ is the total number of agents within flock $\flock_j$; $\sum_{i=1}^{N_a-1} \hamfunc^{(i)_j}_f(\state, p)$ is the  Hamiltonian of the agents in the evading flock $\flock_j$, not under attack by $\pursuer$, while $\hamfunc^{(k)_j}_a(\state, p)$ is the Hamiltonian for the agent under attack by $\pursuer$;  $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$ is the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(k)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $k$, inclusive of agent $k$ at time $t$; similarly, $\bar{w}_e^{(k)_j}$ is  the maximum orientation among all of the orientation of agent $k$'s neighbors. The Hamiltonian of the free agents is the summation of all the mechanical energy in the system so that we have
 %
 \begin{align}
-\hamfunc^{(i)}_j(\state, p)&= - \left(\max_{w_e^{(i)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(i)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]}  \left[\begin{array}{ccc} p_1^{(i)_j}(t) & p_2^{(i)_j}(t) & p_3^{(i)_j}(t) \end{array}\right] \right. \nonumber \\ 
+	\sum_{i=1}^{N_a-1} H^{(i)_j}_f(\state, p) + H^{(k)_j}_a(\state, p) = \sum_{i=1}^{N_a-1} \begin{bmatrix}
+		p_1^{(i)_j} & p_3^{(i)_j} & p_3^{(i)_j}
+	\end{bmatrix} 
+	%
+	\begin{bmatrix}
+		v^{(i)_j} \cos \state_3 \\ v^{(i)_j} \sin \state_3 \\ \langle w_e^{(i)_j}\rangle_r
+	\end{bmatrix}.
+\end{align}
+
+We write the Hamiltonian of the free agents in absolute coordinates and the Hamiltonian of the agent under attacked in relative coordinates with respect to the pursuer so that \eqref{eq:HamiltonianOverall} can be re-written as
+%
+\begin{align}
+\hamfunc^{(k)_j}_a(\state, p)&= - \left(\max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]}  \left[\begin{array}{ccc} p_1^{(k)_j}(t) & p_2^{(k)_j}(t) & p_3^{(k)_j}(t) \end{array}\right] \right. \nonumber \\ 
 %
 & \qquad\qquad\qquad \left. 
 \begin{bmatrix}
--v_e^{(i)_j}(t) + v_p^{(j)} \cos \state_3^{(i)_j}(t) + \langle w_e^{(i)_j} \rangle_r (t) \state_2^{(i)_j}(t)
+-v_e^{(k)_j}(t) + v_p^{(j)} \cos \state_3^{(k)_j}(t) + \langle w_e^{(k)_j} \rangle_r (t) \state_2^{(k)_j}(t)
 \\ 
-v_p^{j}(t)\sin \state_3^{(i)_j}(t) -\langle w_e^{(i)_j} \rangle_r (t) \state_1^{(i)_j}(t)
+v_p^{j}(t)\sin \state_3^{(k)_j}(t) -\langle w_e^{(k)_j} \rangle_r (t) \state_1^{(k)_j}(t)
 \\ 
-w_p^j(t) - \langle w_e^{(i)_j}(t) \rangle_r
+w_p^j(t) - \langle w_e^{(k)_j}(t) \rangle_r
 \end{bmatrix}\right),
 \label{eq:Hamiltonian}
 \end{align}
 %
-where $p_k^{(i)_j}(t)\mid_{k=1,2,3}$ are the adjoint vectors~\cite{Merz1972}, $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$ is the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(i)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $i$, inclusive of agent $i$ at time $t$; similarly, $\bar{w}_e^{(i)_j}$ is  the maximum orientation among all of the orientation of agent $i$'s neighbors. For the pursuer, its minimum and maximum turn rates are fixed so that we have $\underline{w}_p^{j}$ as the minimum turn bound of the pursuing vehicle, and $\bar{w}_p^j$ is the maximum turn bound of the pursuing vehicle. Henceforth, we drop the templated time arguments for ease of readability. Rewriting \eqref{eq:Hamiltonian}, we find $\bm{H}^{(i)}_j(\state, p)$ as
+where $p_l^{(k)_j}(t)\mid_{l=1,2,3}$ are the adjoint vectors~\cite{Merz1972}. For the pursuer, its minimum and maximum turn rates are fixed so that we have $\underline{w}_p^{j}$ as the minimum turn bound of the pursuing vehicle, and $\bar{w}_p^j$ is the maximum turn bound of the pursuing vehicle. Henceforth, we drop the templated time arguments for ease of readability. Rewriting \eqref{eq:Hamiltonian}, we find $\bm{H}^{(k)}_j(\state, p)$ as
 %
 \begin{align}
 \begin{split}
-&\hamfunc^{(i)}_j(\state, p)=- \left(\max_{w_e^{(i)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(i)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]}  
+&\hamfunc^{(k)_j}_a(\state, p)=- \left(\max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]}  
 \left[
--p_1^{(i)_j} v_e^{(i)_j} + p_1^{(i)_j} v_p^{j} \cos \state_3^{(i)_j} 
+-p_1^{(k)_j} v_e^{(k)_j} + p_1^{(k)_j} v_p^{j} \cos \state_3^{(k)_j} 
 \right. \right.  \\ 
 %
-& \left. \left. +  p_1^{(i)_j}\langle w_e^{(i)_j} \rangle_r \state_2^{(i)_j} 
+& \left. \left. +  p_1^{(k)_j}\langle w_e^{(k)_j} \rangle_r \state_2^{(k)_j} 
 %
-+ p_2^{(i)_j} v_p^{j} \sin \state_3^{(i)_j} - p_2^{(i)_j} \langle w_e^{(i)_j} \rangle_r  \state_1^{(i)_j} 
++ p_2^{(k)_j} v_p^{j} \sin \state_3^{(k)_j} - p_2^{(k)_j} \langle w_e^{(k)_j} \rangle_r  \state_1^{(i)_j} 
 %
-+ p_3^{(i)_j}\left(w_p^j - \langle w_e^{(i)} \rangle_r\right)
++ p_3^{(k)_j}\left(w_p^j - \langle w_e^{(k)} \rangle_r\right)
 \right] 
 %
 \right),
 \\
 %
-&=p_1^{(i)_j} \left(v_e^{(i)_j} - v_p^{j} \cos \state_3^{(i)_j}\right) -  p_2^{(i)_j} v_p^{j} \sin \state_3^{(i)_j}  \\
+&=p_1^{(k)_j} \left(v_e^{(k)_j} - v_p^{j} \cos \state_3^{(k)_j}\right) -  p_2^{(k)_j} v_p^{j} \sin \state_3^{(k)_j}  \\
 %
 & \, + \left(		
-\max_{\langle w_e^{(i)_j}\rangle_r \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \begin{bmatrix}
-\langle w_e^{(i)_j}\rangle_r \left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}  \state_2^{(i)_j} + p_3^{(i)_j}\right) 
+\max_{\langle w_e^{(k)_j}\rangle_r \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \begin{bmatrix}
+\langle w_e^{(k)_j}\rangle_r \left(p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}  \state_2^{(k)_j} + p_3^{(k)_j}\right) 
 % 
 %\\ 
-- p_3^{(i)_j} w_p^j 
+- p_3^{(k)_j} w_p^j 
 \end{bmatrix}
 \right).
 \end{split}
@@ -212,19 +224,28 @@ where $p_k^{(i)_j}(t)\mid_{k=1,2,3}$ are the adjoint vectors~\cite{Merz1972}, $w
 \label{eq:ham_flock_interm}
 \end{align}
 %
-In this work, we consider the special case where the linear speeds of the evaders and pursuer are equal \ie $v_e = v_p = +1$.  Then the main equation in \eqref{eq:ham_flock_interm} becomes 
+In this work, we consider the special case where the linear speeds of the evaders and pursuer are equal \ie $v_e = v_p = +1 m/s$.  Then the main equation in \eqref{eq:ham_flock_interm} becomes 
 %
 \begin{align}
-\hamfunc^{(i)}_j(\state, p) &= p_1^{(i)_j} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \text{ sign }(p_3^{(i)_j}) + \nonumber 	\\
-& \qquad  \bar{w}_e^j \text{ sign}\left(p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right)  .
+\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(1 - \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j \text{ sign }(p_3^{(k)_j}) \nonumber 	\\
+& \quad +  \bar{w}_e^j \text{ sign}\left(p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\right)  .
 \end{align}
 %
 From \eqref{eq:HamiltonianOverall}, we thus write
 %
 \begin{align}
-\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \text{ sign } p_3^{(i)_j}  \nonumber 	\\
-& \qquad\qquad %+\bar{w}_e^j |p_3^{(i)_j}| 
-+ \bar{w}_e^j \text{ sign} \left( p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right).
+\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a-1} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j \text{ sign } p_3^{(i)_j}  
+%
+\nonumber 	\\
+%
+& 
++ \bar{w}_e^j \text{ sign} \left( p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}\right) +
+%
+p_1^{(i)_j}v^{(i)_j} \cos \state_3 
+%
+\nonumber 	\\
+%
+&+ p_2^{(i)_j} v^{(i)_j} \sin \state_3 + p_3^{(i)_j} \langle w_e^{(i)_j}\rangle_r.
 \label{eq:HamiltonianCompletada}
 \end{align}
 %
