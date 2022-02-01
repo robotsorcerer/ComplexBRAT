@@ -1,63 +1,63 @@
-This is BibTeX, Version 0.99d
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: wafr.aux
-Reallocating 'name_of_file' (item size: 1) to 28 items.
 The style file: styles/bibtex/spmpsci_unsrt.bst
-Reallocating 'name_of_file' (item size: 1) to 10 items.
 Database file #1: ../biblio.bib
 Warning--entry type for "NatGeo" isn't style-file defined
 --line 5 of file ../biblio.bib
-Repeated entry---line 883 of file ../biblio.bib
+Repeated entry---line 929 of file ../biblio.bib
  : @article{CrandallLaxFriedrichs
  :                               ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 1125 of file ../biblio.bib
+You're missing a field name---line 1171 of file ../biblio.bib
  : 
  : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 Warning--empty year in Isaacs1965
+Warning--there's a number but no volume in Mitchell2001
+Warning--missing institution in SeqCompKoditschek
 Warning--empty journal in Bansal
 Warning--empty year in Bansal
-You've used 27 entries,
+You've used 33 entries,
             2946 wiz_defined-function locations,
-            799 strings with 9683 characters,
-and the built_in function-call counts, 21447 in all, are:
-= -- 2592
-> -- 424
+            843 strings with 11221 characters,
+and the built_in function-call counts, 26893 in all, are:
+= -- 3254
+> -- 556
 < -- 4
-+ -- 284
-- -- 148
-* -- 948
-:= -- 2043
-add.period$ -- 32
-call.type$ -- 27
-change.case$ -- 154
++ -- 368
+- -- 196
+* -- 1204
+:= -- 2572
+add.period$ -- 42
+call.type$ -- 33
+change.case$ -- 200
 chr.to.int$ -- 0
-cite$ -- 30
-duplicate$ -- 2437
-empty$ -- 1326
-format.name$ -- 168
-if$ -- 4412
+cite$ -- 38
+duplicate$ -- 3045
+empty$ -- 1628
+format.name$ -- 222
+if$ -- 5520
 int.to.chr$ -- 0
-int.to.str$ -- 27
-missing$ -- 275
-newline$ -- 120
-num.names$ -- 54
-pop$ -- 965
+int.to.str$ -- 33
+missing$ -- 341
+newline$ -- 147
+num.names$ -- 66
+pop$ -- 1191
 preamble$ -- 1
-purify$ -- 128
+purify$ -- 163
 quote$ -- 0
-skip$ -- 1218
+skip$ -- 1521
 stack$ -- 0
-substring$ -- 1030
-swap$ -- 2072
+substring$ -- 1287
+swap$ -- 2605
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 102
-warning$ -- 3
-while$ -- 111
-width$ -- 29
-write$ -- 279
+type$ -- 130
+warning$ -- 5
+while$ -- 137
+width$ -- 35
+write$ -- 345
 (There were 2 error messages)

@@ -1,4 +1,4 @@
-\section{Backward Reachability for Systems Verification.}
+\section{Reachability for Systems Verification.}
 \label{sec:related}
 %\subsection{Dynamic Programming and Two-Person Games.}
 
@@ -122,36 +122,60 @@ The non-local PDE of \ie \eqref{eq:value_lower} is hardly smooth throughout the 
  With the \textsc{inf-sup} construction above, it is easy to cast the two-person game into a verification problem, whereupon we discard the stage cost and resolve the safety verification problem by solving for the terminal cost.
 \end{comment}
 
-\noindent A basic characteristic of a control system is to determine the  point sets within the state space that are \textit{reachable} with a control input choice. An example objective in \textit{reachability analysis} could be a target ($\targetset$) protection objective by an evading player, $\evader$, from a pursuing player $\pursuer$. Our treatment here is a special case of Isaac's homicidal chauffeur's game~\cite{Isaacs1965}, whereupon a $\pursuer$ and $\evader$ travel at a constant linear speeds but have different headings, \eg where the $\pursuer$ seeks to drive an evader, $\evader$, into a target (or target set/tube), $\targetset$. When resolving the 
-outcome of the game, a notion of \textit{payoffs} is used. The payoff could be the distance from the target to the point/region of capture. 
+\noindent A basic characteristic of a control system is to determine the  point sets within the state space that are \textit{reachable} with a control input choice. An example objective in \textit{reachability analysis} could be a target ($\targetset$) protection objective by an evading player from a pursuing player. Our treatment here is a special case of Isaac's homicidal chauffeur's game~\cite{Isaacs1965}, whereupon $\pursuer$ and $\evader$ travel at constant linear speeds but have different headings, \eg where the $\pursuer$ seeks to drive an evader, $\evader$, into a target  set or tube, $\targetset$. %When resolving the outcome of the game, a notion of \textit{payoffs} is used. The payoff could be the distance from the target to the point/region of capture. 
 
-\textit{Backward reachability} consists in avoiding an unsafe set of states under the worst-possible disturbance and at all times. The verification problem may consist in finding a \textit{set of reachable states} that lie along the trajectories of the solution to a first order nonlinear P.D.E. that originates from some initial state $\state_0 = \state(0)$ up to a specified time bound, $t=t_f$. \textit{From a set of initial and unsafe state sets, and a time bound, the time-bounded safety verification problem is to determine if there is an initial state and a time within the bound that the solution to the P.D.E. enters the unsafe set}.
- 
-Backward reachable sets (BRS) or tubes (BRTs) are popularly analyzed as a game of two vehicles with non-stochastic dynamics~\cite{Merz1972}. Such BRTs possess discontinuity at cross-over points (which exist at edges) on the surface of the  tube, and may be non-convex. Mitchell's construction~\cite{Mitchell2005} does not necessarily use a state feedback control law during games and the worst-possible disturbance assumption is not formally inculcated in the backward reachability analyses used. In a sense, it is reasonable to ignore nonlinear robust control (\eg $\mathcal{H}_\infty$) analyses for Dubins vehicles~\cite{Dubins1957} with constant inputs that only vary in sign for either player \cite{Merz1972} since the worst possible disturbance is known ahead of the game. In realistic problems, one may  leverage an $\mathcal{H}_\infty$ scheme~\cite{DoyleBook}'s  in constructing an appropriate \textit{worst-possible} disturbance that  guarantees robustness in continuous control applications. We leave this to a future work. %Therefore, treating the end-point constraints under these discontinuity characterizations need careful consideration and analysis when switching control laws if the underlying P.D.E does not have continuous partial  derivatives (we discuss this further in section \ref{sec:methods}). 
+ %$Mitchell's construction~\cite{Mitchell2005} does not necessarily use a state feedback control law during games and the worst-possible disturbance assumption is not formally inculcated in the backward reachability analyses used. In a sense, it is reasonable to ignore nonlinear robust control (\eg $\mathcal{H}_\infty$) analyses for Dubins vehicles~\cite{Dubins1957} with constant inputs that only vary in sign for either player \cite{Merz1972} since the worst possible disturbance is known ahead of the game. In realistic problems, one may  leverage an $\mathcal{H}_\infty$ scheme~\cite{DoyleBook}'s  in constructing an appropriate \textit{worst-possible} disturbance that  guarantees robustness in continuous control applications. We leave this to a future work. %Therefore, treating the end-point constraints under these discontinuity characterizations need careful consideration and analysis when switching control laws if the underlying P.D.E does not have continuous partial  derivatives (we discuss this further in section \ref{sec:methods}). 
 
-\subsection{Reachability from Differential Games Optimal Control}
+\subsection{Backward Reachability from Differential Games Optimal Control}
 
-\noindent   In general, we seek for a \textit{terminal payoff} $g(\cdot): \bb{R}^n \rightarrow \bb{R}$ to satisfy
+\noindent   \textit{Backward reachability} consists in avoiding an unsafe set of states under the worst-possible disturbance and at all times. The verification problem may consist in finding a \textit{set of reachable states} that lie along the trajectories of the solution to a first order nonlinear P.D.E. that originates from some initial state $\state_0 = \state(0)$ up to a specified time bound, $t=t_f$: \textit{from a set of initial and unsafe state sets, the time-bounded safety verification problem is to determine if there is an initial phase that the solution to the P.D.E. enters an unsafe set}. Backward reachable sets (BRS) or tubes (BRTs) are popularly analyzed as a game of two vehicles with non-stochastic dynamics~\cite{Merz1972}. Such BRTs possess discontinuity at cross-over points (which exist at edges) on the surface of the  tube, and may be non-convex. In general, we seek for a \textit{terminal payoff} $g(\cdot): \bb{R}^n \rightarrow \bb{R}$ to satisfy
 %
-\begin{subequations}
+%\begin{subequations}
 	\begin{align}
 		| g(\state) | &\le k, \quad | g(\state) - g(\hat{\state}) \mid \le k | \state - \hat{\state} \mid
 	\end{align}
-\end{subequations}
+%\end{subequations}
 %
-for constant $k$ and all $T \le t \le 0$, $\hat{\state}, \, \state \in \reline^n$, $\bm{u}\in \mathcal{U}$ and $\disturb \in \mathcal{V}$.  The zero sublevel set of $g(\state)$ is
+for constant $k$ and all $T \le t \le 0$, $\hat{\state}, \, \state \in \reline^n$, $\bm{u}\in \mathcal{U}$ and $\disturb \in \mathcal{V}$.  %The zero sublevel set of $g(\state)$ constitutes the target set~\cite{Mitchell2001} and is given by $\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \}$. 
 %
-\begin{align}
-	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \}.
-	\label{eq:target_set_syk}
-\end{align}
-
+%\begin{align}
+%	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \}.
+%	\label{eq:target_set_syk}
+%\end{align}
+%
 Suppose that the pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}, \hat{\bm{u}} \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. \textit{The player $\pursuer$ is controlling the strategy $\beta$ and minimizing}, while the \textit{player $\evader$ is controlling its strategy, $\alpha$, and maximizing}. %While the terms pursuer and evader
 %
-The differential game's lower value for a solution $\state(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t)$ and $\bm{v}(t) = \beta[\control](\cdot)$ is 
+
+For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state_0, t_0)$, Crandall~\cite{Crandall1983viscosity} and Evan's~\cite{Evans1984} claim is that there exists a unique trajectory % $\xi(t)$  
 %
 \begin{align}
-	&\lowervalue(\state, t) = \inf_{\beta \in \mathcal{B}(t)} \sup_{\bm{u} \in \mathcal{U}(t)} \bm{P}(\bm{u}, \beta[\bm{u}]) \nonumber \\
+	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot))
+	\label{eq:HJ_traj}
+\end{align}
+%
+that satisfies 
+%
+\begin{subequations}
+	\begin{align}
+		\dot{\state}(\tau) &= f(\tau, \state(\tau), \bm{u}(\tau), \bm{v}(\tau)) \quad T \le \tau \le t, \quad \state(t) = \state,
+	\end{align}
+	\label{eq:sys_dyn}
+\end{subequations}
+%
+\noindent where $f(\tau, \cdot, \cdot, \cdot)$ and $\state(\cdot)$ are bounded and Lipschitz continuous. This bounded Lipschitz continuity property assures uniqueness of the system response $\state(\cdot)$ to controls $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$~\cite{Souganidis}. 
+%
+a.e. with the property that
+%
+\begin{align}
+	\bm{\xi}(t_0) = \bm{\xi}(t_0; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot)) = \state_0.
+\end{align}
+%
+Read \eqref{eq:HJ_traj}: the motion of \eqref{eq:sys_dyn} passing through phase $(\bm{x}_0, t_0)$ under the action of control $\bm{u}$, and disturbance $\bm{v}$, and observed at a time $t$ afterwards. 
+
+In backward reachability analysis, the lower value of the differential game~\cite{Souganidis} is used in constructing an analysis of the backward reachable set (or tube). The differential game's lower value for a solution $\state(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t)$ and $\bm{v}(t) = \beta[\control](\cdot)$ is used in backward reachability analysis, given as
+%
+\begin{align}
+	&\lowervalue(\state, t) = \inf_{\beta \in \mathcal{B}(t)} \sup_{\bm{u} \in \mathcal{U}(t)} \bm{\Phi}(\bm{u}, \beta[\bm{u}]) \nonumber \\
 	&=  \inf_{\beta \in \mathcal{B}(t)} \sup_{\bm{u} \in \mathcal{U}(t)} %\left\{
 	\int_{t}^{T} l(\tau, \bm{x}(\tau), \bm{u}(\tau), \beta[\bm{u}](\tau)) d\tau + g\left(\bm{x}(T)\right). %
 	\label{eq:value_lower}
@@ -186,33 +210,8 @@ The differential game's lower value for a solution $\state(t)$ that solves \eqre
 %	This lemma is an adaptation of \cite[Th 4.1]{Souganidis}.
 %\end{proof}
 
-For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state_0, t_0)$, Crandall~\cite{Crandall1983viscosity} and Evan's~\cite{Evans1984} claim is that there exists a unique function % $\xi(t)$  
-%
-\begin{align}
-	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot))
-	\label{eq:HJ_traj}
-\end{align}
-%
-that satisfies 
-%
-\begin{subequations}
-	\begin{align}
-		\dot{\state}(\tau) &= f(\tau, \state(\tau), \bm{u}(\tau), \bm{v}(\tau)) \quad T \le \tau \le t, \quad \state(t) = \state,
-	\end{align}
-	\label{eq:sys_dyn}
-\end{subequations}
-%
-\noindent where $f(\tau, \cdot, \cdot, \cdot)$ and $\state(\cdot)$ are bounded and Lipschitz continuous. This bounded Lipschitz continuity property assures uniqueness of the system response $\state(\cdot)$ to controls $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$~\cite{Souganidis}. 
-%
-a.e. with the property that
-%
-\begin{align}
-	\bm{\xi}(t_0) = \bm{\xi}(t_0; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot)) = \state_0.
-\end{align}
-%
-Read \eqref{eq:HJ_traj}: the motion of \eqref{eq:sys_dyn} passing through phase $(\bm{x}_0, t_0)$ under the action of control $\bm{u}$, and disturbance $\bm{v}$, and observed at a time $t$ afterwards. One way to design a system verification problem is compute the reachable set of states that lie along the trajectory \eqref{eq:HJ_traj} such that we evade the unsafe sets up to a time \eg $t_f$ within a given time bound  $\left[t_0, t_f\right]$. In this regard, we discard \eqref{eq:value_lower}'s \textit{cost-to-go} and certify safety as resolving a time-bounded terminal value, $g(\state(T))$ at time $T$ up to a final time \eg $0$.
 
-%In backward reachability analysis, the lower value of the differential game~\cite{Souganidis} is used in constructing an analysis of the backward reachable set (or tube). Therefore, we can cast a target set as the time-resolved terminal value $\lowervalue(\state, T) = g(\state(T))$ so that given a time bound, and an unsafe set of states, the time-bounded safety verification problem consists in certifying that there is no phase within the target set \eqref{eq:target_set} such that the solution to \eqref{eq:sys_dyn} enters the unsafe set. 
+%. Therefore, we can cast a target set as the time-resolved terminal value $\lowervalue(\state, T) = g(\state(T))$ so that given a time bound, and an unsafe set of states, the time-bounded safety verification problem consists in certifying that there is no phase within the target set \eqref{eq:target_set} such that the solution to \eqref{eq:sys_dyn} enters the unsafe set. 
 
 \begin{lemma}
 	The backward reachability problem on the resolution of the infimum-supremum over the \textit{non-anticipative strategies} of $\pursuer$ and the \textit{controls} of $\evader$ with the time of capture resolved as an extremum of the cost functional over a time interval is given by %~\cite{LygerosReachability}. 
@@ -279,7 +278,8 @@ In the sentiment of \cite{Mitchell2005}, we say the zero sublevel set of $g(\cdo
 %	\label{eq:target_set}
 %\end{align}
 %
-is the \textit{target set} in the phase space $\openset \times \mathbb{R}$ for a backward reachability problem. This target set can represent the failure set, regions of danger, or obstacles to be avoided etc in the state space. Note that the target set, $\mathcal{L}_0$, is a closed subset of $\ren$ and is in the closure of $\openset$. And the \textit{robustly controlled backward reachable tube} for $\tau \in [-T, 0]$\footnote{The (backward) horizon, $-T$ is negative for $T>0$.} is the closure of the open set
+is the \textit{target set} in the phase space $\openset \times \mathbb{R}$ for a backward reachability problem~\cite{Mitchell2001}. %The reachable set of states could be for example those that lie along the trajectory of \eqref{eq:HJ_traj} such that we evade the unsafe sets up to a time \eg $t_f$ within a given time bound  $\left[t_0, t_f\right]$. 
+This target set\footnote{Note that the target set, $\mathcal{L}_0$, is a closed subset of $\ren$ and is in the closure of $\openset$.} can represent the failure set, regions of danger, or obstacles to be avoided e.t.c. in the vectogram.  And the \textit{robustly controlled backward reachable tube} for $\tau \in [-T, 0]$\footnote{The (backward) horizon, $-T$ is negative for $T>0$.} is the closure of the open set
 %
 \begin{align}
 	\mathcal{L}([\tau, 0], \mathcal{L}_0) &= \{\state \in \openset \,| \, \exists \, \beta \in \mathcal{\bar{V}}(t) \,  \forall \, \bm{u} \in \mathcal{U}(t), \exists \, \bar{t} \in [-T, 0], \nonumber \\
