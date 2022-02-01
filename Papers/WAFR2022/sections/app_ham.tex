@@ -1,29 +1,51 @@
-\section{Hamiltonian of a Flock}
+\section{Hamiltonian of a Murmuration}
 \label{app:ham}
 
-In this appendix, we provide a derivation for the Hamiltonian of a flock, and by extension, that of a murmuration.
+In this appendix, we provide a derivation for the Hamiltonian of a flock, and by extension, that of a murmuration. In our derivations, the zero-level set is constructed implicitly from the  isocontour of a signed distance function as described in \cite[Chapter II]{LevelSetsBook}. 
 
-Recall from \eqref{eq:HamiltonianOverall} 
-that the total Hamiltonian of a flock is a sum of the mechanical energy of the free agents in a flock and the individual under attack \ie
+We introduce the union operator,$\bigcup$, below in lieu of the arithmetic summation symbol since the respective payoffs of each agent in a flock are implicitly initialized as signed distance functions on the state space. It is trivial to extend these results to other arithmetic or Boolean operators depending on different task domains. 
+
+Recall that if $\Phi_1(\state, t)$ and $\Phi_2(\state, t)$ are respectively the payoffs for agents $1$ and $2$, constructed from signed distance functions, then the \textit{union of their interiors}\footnote{We are only concerned with states that are within or on the boundary of the zero-level set or tube in backward reachability analysis. This follows from \eqref{eq:reachables}.} is given by 
 %
 \begin{align}
-	\hamfunc(\state, p) = \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \sum_{j=1}^{n_f} \left( H^{(k)_j}_a(\state, p) + \sum_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p)  \right)
+	\min(\Phi_1(\state, t), \Phi_2(\state, t)).
+\end{align}
+%
+
+Recall from \eqref{eq:HamiltonianOverall} 
+that the total Hamiltonian of a flock is a union of the mechanical energy of the free agents in a flock and the individual under attack \ie
+%
+\begin{align}
+	\hamfunc(\state, p) &= \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \bigcup_{j=1}^{n_f} \left[ H^{(k)_j}_a(\state, p) \bigcup \left( \bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) \right) \right] 
 \end{align}
 
 \begin{proof}[Proof of Theorem \ref{th:ham_sum}]
 The Hamiltonian of the free agents is the summation of all the mechanical energy in the system in absolute coordinates \ie %so that we have
 %
 \begin{align}
-	\sum_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) = \sum_{i=1}^{n_a-1} \begin{bmatrix}
+	\bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) = \bigcup_{i=1}^{n_a-1} \begin{bmatrix}
 		p_1^{(i)_j} & p_3^{(i)_j} & p_3^{(i)_j}
 	\end{bmatrix} 
 	%
 	\begin{bmatrix}
 		v^{(i)_j} \cos \state_3 \\ v^{(i)_j} \sin \state_3 \\ \langle w_e^{(i)_j}\rangle_r
-	\end{bmatrix}.
+	\end{bmatrix}
 \end{align}
 %
+where we have again dropped the time arguments for convenience. It follows that
+%
+\begin{align}
+	\bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) = \bigcup_{i=1}^{n_a-1} 
+	%
+		\left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_3^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right].
+\end{align}
+
 We write the Hamiltonian of the free agents in absolute coordinates and the Hamiltonian of the agent under attack in relative coordinates with respect to the pursuer so that \eqref{eq:HamiltonianOverall} can be re-written as
+%
+%\begin{align}		
+%	\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(v_e^{(k)_j} - v_p^{j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v_p^{j}  \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}| \nonumber 	\\
+%	& \quad +  \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|.
+%\end{align}
 %
 \begin{align}
 	\hamfunc^{(k)_j}_a(\state, p)&= - \left(\max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]}  \begin{bmatrix}p_1^{(k)_j}(t) & p_2^{(k)_j}(t) & p_3^{(k)_j}(t) \end{bmatrix}\right. \nonumber \\ 
@@ -76,14 +98,47 @@ It follows that we have from \eqref{eq:ham_flock_interm} that
 %
 \begin{align}
 	\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(v_e^{(k)_j} - v_p^{j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v_p^{j}  \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}| \nonumber 	\\
-	& \quad +  \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|.
+	& \quad +  \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
 \end{align}
 %
-In this work, we consider the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$.  \textit{A fortiori} the main equation in \eqref{eq:ham_flock_interm} becomes 
+and that
 %
 \begin{align}
-	\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(1 - \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}| \nonumber 	\\
-	& \quad +  \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|  .
+	\hamfunc^{(i)_j}_f(\state, p) &= \left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_3^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right]
 \end{align}
 %
+\textit{A fortiori} the main equation in \eqref{eq:HamiltonianOverall} becomes 
+%
+\begin{align}
+	\hamfunc(\state, p) & = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
+	%
+	\left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_2^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
+	%
+	& \qquad \left. \bigcup_{k=1}^{n_a} \left[
+	%
+	p_1^{(k)_j} \left(v^{(k)_j}  - v^{(k)_j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
+	%
+	& \qquad \qquad\qquad \left.  \left. 
+	+ \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
+	\right] \right).
+\end{align}
+
+
+In this work, we consider the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$.  
+%
+\textit{A fortiori}, we have the Hamiltonian for a murmuration as 
+%
+\begin{align}
+	\hamfunc(\state, p) & = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
+	%
+	\left[p_1^{(i)_j} \,  \cos \state_3 + p_2^{(i)_j} \,  \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
+	%
+	& \qquad \left. \bigcup_{k=1}^{n_a} \left[
+	%
+	p_1^{(k)_j} \left(1 - \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
+	%
+	& \qquad \qquad\qquad \left.  \left. 
+	 + \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
+	 \right] \right).
+\end{align}
 \end{proof}

@@ -209,13 +209,13 @@ As mentioned in Section \ref{sec:notations}, the evading player at anytime has c
 
 
 \subsection{Flock Motion from Aggregated Hamiltonians}
-We assume that the \textit{value} of a flock heading control (differential game) exists, so that by an extension of Hamilton's principle of least action, the terminal motion of a flock coincide with the extremal of the payoff functional 
+We introduce the union operator \ie $\cup$ below in lieu of the summation symbol since the respective payoffs of each agent in a flock is implicitly initialized as a signed distance function on the state space.  We assume that the \textit{value} of a flock heading control (differential game) exists.  And by an extension of Hamilton's principle of least action, the terminal motion of a flock coincide with the extremal of the payoff functional 
 %
 \begin{align}
-	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(1)} (\control^{(1)}, \beta^{(1)}[\control^{(1)}])dt + g^{(1)}(\state(T)) + \nonumber
+	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(1)} (\control^{(1)}, \beta^{(1)}[\control^{(1)}])dt \cup  g^{(1)}(\state(T)) \cup \nonumber
 	%
 	\\
-	&\, \cdots + \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(n)} (\control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
+	&\, \cdots \cup \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(n)} (\control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
 \end{align}
 %
 %\begin{subequations}
@@ -237,7 +237,7 @@ We assume that the \textit{value} of a flock heading control (differential game)
 where $n$ is the total number of distinct flocks in a murmuration. The resolution of this equation  admits a viscosity solution~\cite{Evans1984} to following variational terminal HJI PDE \cite{Mitchell2005}
 %
 \begin{align}
-	\sum_{i=1}^{n_f}\left[\sum_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^i(\state, \valuefunc_x(\state, t))\right]\right)\right] = 0.
+	\cup_{i=1}^{n_f}\left[\cup_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^i(\state, \valuefunc_x(\state, t))\right]\right)\right] = 0.
 \end{align}
 %
 
@@ -251,14 +251,11 @@ Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do no
 	For  a flock, $\flock_j$, the Hamiltonian is the total energy given by a summation of the exerted energy by each agent $i$ so that we can write the \textit{main equation} or total Hamiltonian of a murmuration as 
 	%
 	\begin{align}
-		\hamfunc(\state, p) &= \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \sum_{j=1}^{n_f} \left( H^{(k)_j}_a(\state, p) + \sum_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p)  \right) \\
-		%
-		\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(v_e^{(k)_j} - v_p^{j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v_p^{j}  \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}| \nonumber 	\\
-			& \quad +  \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|.
+		\hamfunc(\state, p) &= \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \bigcup_{j=1}^{n_f} \left[ H^{(k)_j}_a(\state, p) \bigcup \left( \bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) \right) \right] 
 		\label{eq:HamiltonianOverall}
 	\end{align}
 	%
-	where $n_f$ is the total number of distinct flocks in a murmuration, $n_a$ is the total number of agents within flock $\flock_j$; $\sum_{i=1}^{n_a-1} \hamfunc^{(i)_j}_f(\state, p)$ is the  Hamiltonian of the agents in the evading flock $\flock_j$, not under attack by $\pursuer$, while $\hamfunc^{(k)_j}_a(\state, p)$ is the Hamiltonian for the agent under attack by $\pursuer$;  $w_e^{(i)_j}$ is the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$ is the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(k)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $k$, inclusive of agent $k$ at time $t$; similarly, $\bar{w}_e^{(k)_j}$ is  the maximum orientation among all of the orientation of agent $k$'s neighbors. 
+	where $\hamfunc^{(k)_j}_a(\state, p)$ are the respective Hamiltonians of  individuals $k = 1, \cdots, n_a$ under attack by a pursuing agent, $\pursuer$ and $H^{(i)_j}_f(\state, p)$ are the respective Hamiltonians of the free agents, $i=1, \cdots, n_f$, within an evading flock in a murmuration, and not under the direct influence of capture or attack by $\pursuer$; we denote by  $w_e^{(i)_j}$ the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$  the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(k)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $k$, inclusive of agent $k$ at time $t$; similarly, $\bar{w}_e^{(k)_j}$ is  the maximum orientation among all of the orientation of agent $k$'s neighbors. 
 	\label{th:ham_sum}
 \end{theorem}
 %
@@ -266,7 +263,7 @@ Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do no
 	The complete proof is provided in Appendix \ref{app:ham}.
 \end{proof}
 %
-From \eqref{eq:HamiltonianOverall}, and for the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$, we have (derived in Appendix \ref{app:ham})
+From \eqref{eq:HamiltonianOverall}, and for the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$, we have (see Appendix \ref{app:ham}):
 %
 \begin{align}
 	\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a-1} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j | p_3^{(i)_j}  |

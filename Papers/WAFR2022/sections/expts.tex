@@ -55,7 +55,7 @@ where $r_c$ is the capture radius, equivalent to the topological range for a flo
 	\label{fig:flocks_multi}
 \end{figure}
 
-\subsection{Interagents Spatial Structure}
+%\subsection{Interagents Spatial Structure}
 
 Every local flock has its own payoff, whose target set, together with those of nearest neighbors being interacted with are related by the surfaces. The zero level set of the union of these payoffs constitute the avoid set for a heading consensus. To ensure adequate spatial separation between every agent, we initialize a flock's $j$'s agents, $i=1,\ldots, n$ on the vectogram in the following way:
 %
@@ -66,3 +66,18 @@ Every local flock has its own payoff, whose target set, together with those of n
 \end{align}
 %
 where $h=0.1, \, \delta h = 0.05$ and $r_c$ is a collision avoidance radius.
+
+\begin{figure}[tb!]
+	\centering
+	\begin{minipage}[b]{\textwidth}		
+		\includegraphics[width=\textwidth]{figures/murmurations_1.5.jpg} 
+	\end{minipage}
+	%	
+	\begin{minipage}[b]{\textwidth}		
+		\includegraphics[width=\textwidth]{figures/murmurations_2.0.jpg} 
+	\end{minipage}
+	%	
+	\caption{\footnotesize RCBRT of an Evading Flock at Different Lax-Friedrichs' integration Timesteps.   
+		(Metric reach radius=$0.2m$, Avoid Radius=$0.2m$. Topological radius=3 units).} 
+	\label{fig:flocks_rcbrt}
+\end{figure}
