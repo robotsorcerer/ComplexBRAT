@@ -10,6 +10,7 @@ __date__ 		= "Nov. 2021"
 
 import copy
 import time
+import h5py
 import logging
 import argparse
 import sys, os
@@ -269,9 +270,11 @@ def main(args):
 		meshes, brt_time = [], []
 		value_rolling = cp.asarray(copy.copy(flock0.payoff))
 
-		color = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
+		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
+		color = next(colors)
 		options = Bundle(dict(factorCFL=0.6, stats='on', singleStep='off'))
-
+		
+		idx = 0
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
@@ -294,7 +297,7 @@ def main(args):
 			if args.visualize:
 				value_rolling_np = value_rolling.get()
 				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
-									edge_color=None,  face_color=next(color))
+									edge_color=None,  face_color=color)
 				viz.update_tube(mesh_bundle, time_step, True)
 				# store this brt
 				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh_bundle)
@@ -303,18 +306,21 @@ def main(args):
 				fig = plt.gcf()
 				fig.savefig(join(base_path,
 					rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+				
 				# save this brt
+				savename = join("data/", rf"murmurations.hdf5")
+				if os.path.exists(savename):
+					os.removedirs(savename)
 
+				with h5py.File(savename, 'a') as h5file:
+					h5file.create_dataset(f'murmurations/time_{idx:0>3}', data=value_rolling_np, compression="gzip")
+
+			idx += 1
 			itr_end.record()
 			itr_end.synchronize()
 			cpu_end = cputime()
 
 			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
-
-		# if not args.load_brt:
-		# 	os.makedirs("data") if not os.path.exists("data") else None
-		# 	np.savez_compressed("data/rcbrt.npz", brt=np.asarray(brt), \
-		# 		meshes=np.asarray(meshes), brt_time=np.asarray(brt_time))
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
