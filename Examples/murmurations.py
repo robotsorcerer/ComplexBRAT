@@ -225,7 +225,6 @@ def main(args):
 					}),
 					positive = False,  # direction to grow the updated level set
 				))
-	t_range = [0, 2.5]
 
 	# Visualization paramters
 	spacing = tuple(g.dx.flatten().tolist())
@@ -256,9 +255,9 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_plot = (t_range[1] - t_range[0]) / 10
+		t_range = [0, 100]
+		t_plot = (t_range[1] - t_range[0]) / 100
 		small = 100*eps
-		options = Bundle(dict(factorCFL=0.95, stats='on', singleStep='off'))
 
 		# Loop through t_range (subject to a little roundoff).
 		t_now = t_range[0]
@@ -270,7 +269,8 @@ def main(args):
 		meshes, brt_time = [], []
 		value_rolling = cp.asarray(copy.copy(flock0.payoff))
 
-		color = iter(plt.cm.prism(np.linspace(.25, 2, 100)))
+		color = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
+		options = Bundle(dict(factorCFL=0.6, stats='on', singleStep='off'))
 
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
