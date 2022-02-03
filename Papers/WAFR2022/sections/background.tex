@@ -122,7 +122,7 @@ The non-local PDE of \ie \eqref{eq:value_lower} is hardly smooth throughout the 
  With the \textsc{inf-sup} construction above, it is easy to cast the two-person game into a verification problem, whereupon we discard the stage cost and resolve the safety verification problem by solving for the terminal cost.
 \end{comment}
 
-\noindent A basic characteristic of a control system is to determine the  point sets within the state space that are \textit{reachable} with a control input choice. An example objective in \textit{reachability analysis} could be a target ($\targetset$) protection objective by an evading player from a pursuing player. Our treatment here is a special case of Isaac's homicidal chauffeur's game~\cite{Isaacs1965}, whereupon $\pursuer$ and $\evader$ travel at constant linear speeds but have different headings, \eg where the $\pursuer$ seeks to drive an evader, $\evader$, into a target  set or tube, $\targetset$. %When resolving the outcome of the game, a notion of \textit{payoffs} is used. The payoff could be the distance from the target to the point/region of capture. 
+\noindent A basic characteristic of a control system is to determine the  point sets within the state space that are \textit{reachable} with a control input choice. An example objective in \textit{reachability analysis} could be a target ($\targetset$) protection objective by an evading player from a pursuing player. Our treatment here is a special case of Isaac's homicidal chauffeur's game~\cite{Isaacs1965}, whereupon $\pursuer$ and $\evader$ travel at constant linear speeds but have different headings, \eg where the $\pursuer$ seeks to drive an evader, $\evader$, into a target  set ($\targetset_0$) or tube, $\targetset[\left[-T, 0\right], \targetset_0]$. %When resolving the outcome of the game, a notion of \textit{payoffs} is used. The payoff could be the distance from the target to the point/region of capture. 
 
  %$Mitchell's construction~\cite{Mitchell2005} does not necessarily use a state feedback control law during games and the worst-possible disturbance assumption is not formally inculcated in the backward reachability analyses used. In a sense, it is reasonable to ignore nonlinear robust control (\eg $\mathcal{H}_\infty$) analyses for Dubins vehicles~\cite{Dubins1957} with constant inputs that only vary in sign for either player \cite{Merz1972} since the worst possible disturbance is known ahead of the game. In realistic problems, one may  leverage an $\mathcal{H}_\infty$ scheme~\cite{DoyleBook}'s  in constructing an appropriate \textit{worst-possible} disturbance that  guarantees robustness in continuous control applications. We leave this to a future work. %Therefore, treating the end-point constraints under these discontinuity characterizations need careful consideration and analysis when switching control laws if the underlying P.D.E does not have continuous partial  derivatives (we discuss this further in section \ref{sec:methods}). 
 
@@ -132,7 +132,7 @@ The non-local PDE of \ie \eqref{eq:value_lower} is hardly smooth throughout the 
 %
 %\begin{subequations}
 	\begin{align}
-		| g(\state) | &\le k, \quad | g(\state) - g(\hat{\state}) \mid \le k | \state - \hat{\state} \mid
+		| g(\state(t)) | &\le k, \quad | g(\state(t)) - g(\hat{\state(t)}) \mid \le k | \state(t) - \hat{\state}(t) \mid
 	\end{align}
 %\end{subequations}
 %
@@ -142,35 +142,30 @@ for constant $k$ and all $T \le t \le 0$, $\hat{\state}, \, \state \in \reline^n
 %	\mathcal{L}_0 = \{ \state \in \bar{\Omega} \,|\, g(\state) \le 0 \}.
 %	\label{eq:target_set_syk}
 %\end{align}
-%
-Suppose that the pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}, \hat{\bm{u}} \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. \textit{The player $\pursuer$ is controlling the strategy $\beta$ and minimizing}, while the \textit{player $\evader$ is controlling its strategy, $\alpha$, and maximizing}. %While the terms pursuer and evader
-%
 
-For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state_0, t_0)$, Crandall~\cite{Crandall1983viscosity} and Evan's~\cite{Evans1984} claim is that there exists a unique trajectory % $\xi(t)$  
+Now, suppose that a pursuer's mapping strategy (starting at $t$) is $\beta: \mathcal{\bar{U}}({t}) \rightarrow \mathcal{\bar{V}}({t})$ provided for each $t \le \tau \le T$ and $\bm{u}(t), \hat{\bm{u}}(t) \in \mathcal{\bar{U}}({t})$; then $\bm{u}(\bar{t}) = \hat{\bm{u}}(\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$ implies $\beta[\bm{u}](\bar{t}) = \beta[\hat{\bm{u}}](\bar{t}) \,\, \text{ a.e. on } t \le \bar{t}  \le \tau$. Suppose further that the player $\pursuer$ is controlling the strategy $\beta$ and minimizing, while the player $\evader$ is controlling its strategy, $\alpha$, and maximizing. %While the terms pursuer and evader
+%
+For any admissible control-disturbance pair $(\bm{u}(\cdot), \bm{v}(\cdot))$ and initial phase $(\state_0, t_0)$, Crandall~\cite{Crandall1983viscosity} and Evan's~\cite{Evans1984} claim is that there exists a unique trajectory, $\bm{\xi}(t)$, the motion of the dynamical system, \eqref{eq:sys_dyn}, passing through phase $(\bm{x}_0, t_0)$ under the action of control $\bm{u}$, and a worst-possible disturbance $\bm{v}$, and observed at a time $t$ afterwards \ie
 %
 \begin{align}
-	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot))
+	\bm{\xi}(t) = \bm{\xi}(t; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot)).
 	\label{eq:HJ_traj}
 \end{align}
 %
-that satisfies 
+Equation \eqref{eq:HJ_traj} is a solution of the following dynamical system, represented as a first-order p.d.e.
 %
-\begin{subequations}
 	\begin{align}
 		\dot{\state}(\tau) &= f(\tau, \state(\tau), \bm{u}(\tau), \bm{v}(\tau)) \quad T \le \tau \le t, \quad \state(t) = \state,
+		\label{eq:sys_dyn}
 	\end{align}
-	\label{eq:sys_dyn}
-\end{subequations}
 %
-\noindent where $f(\tau, \cdot, \cdot, \cdot)$ and $\state(\cdot)$ are bounded and Lipschitz continuous. This bounded Lipschitz continuity property assures uniqueness of the system response $\state(\cdot)$ to controls $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$~\cite{Souganidis}. 
+\noindent almost everywhere (a.e.); where $f(\tau, \cdot, \cdot, \cdot)$ and $\state(\cdot)$ are bounded and Lipschitz continuous. This bounded Lipschitz continuity property assures uniqueness of the system response $\state(\cdot)$ to controls $\bm{u}(\cdot)$ and $\bm{v}(\cdot)$~\cite{Souganidis}. 
 %
 a.e. with the property that
 %
 \begin{align}
 	\bm{\xi}(t_0) = \bm{\xi}(t_0; t_0, \state_0, \bm{u}(\cdot), \bm{v}(\cdot)) = \state_0.
 \end{align}
-%
-Read \eqref{eq:HJ_traj}: the motion of \eqref{eq:sys_dyn} passing through phase $(\bm{x}_0, t_0)$ under the action of control $\bm{u}$, and disturbance $\bm{v}$, and observed at a time $t$ afterwards. 
 
 In backward reachability analysis, the lower value of the differential game~\cite{Souganidis} is used in constructing an analysis of the backward reachable set (or tube). The differential game's lower value for a solution $\state(t)$ that solves \eqref{eq:sys_dyn} for $\bm{u}(t)$ and $\bm{v}(t) = \beta[\control](\cdot)$ is used in backward reachability analysis, given as
 %
@@ -220,11 +215,7 @@ In backward reachability analysis, the lower value of the differential game~\cit
 			\frac{\partial \lowervalue}{\partial t}{(\bm{x}, t)} & + \min \{0, \lowerham (t; \bm{x}, \bm{u}, \bm{v},\lowervalue_{\state}) \} = 0, \, \state \in \ren, t \in \left[-T, 0\right]\\
 			%
 			\lowervalue(\bm{x},0) &= g(\bm{x}), \\
-%		\end{align}
-%	\end{subequations}
-%	&\text{ where } %the Hamiltonian is defined as} \nonumber \\
-%	%
-%	\begin{align}
+			%			
 	\text{ where } 	\lowerham (t; \state, \bm{u}, \bm{v}, p) &= \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f(t; \state, \bm{u}, \bm{v}), p  \rangle,
 		\label{eq:lower_visc_ham}
 	\end{align}

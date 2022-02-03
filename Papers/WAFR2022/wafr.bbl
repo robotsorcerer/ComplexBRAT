@@ -169,9 +169,4 @@ Osher, S., Shu, C.W.: {Efficient Implementation of Essentially Non-Oscillatory
 Osher, S., Fedkiw, R.: {Level Set Methods and Dynamic Implicit Surfaces}.
 \newblock Applied Mechanics Reviews \textbf{57}(3), B15--B15 (2004)
 
-\bibitem{MitchellLSToolbox2007}
-Mitchell, I.M.: A{ {T}oolbox of {L}evel {S}et {M}ethods}.
-\newblock UBC Department of Computer Science Technical Report TR-2007-11
-  (2007)
-
 \end{thebibliography}

@@ -5,11 +5,7 @@ In this appendix, we provide a derivation for the Hamiltonian of a flock, and by
 
 We introduce the union operator,$\bigcup$, below in lieu of the arithmetic summation symbol since the respective payoffs of each agent in a flock are implicitly initialized as signed distance functions on the state space. It is trivial to extend these results to other arithmetic or Boolean operators depending on different task domains. 
 
-Recall that if $\Phi_1(\state, t)$ and $\Phi_2(\state, t)$ are respectively the payoffs for agents $1$ and $2$, constructed from signed distance functions, then the \textit{union of their interiors}\footnote{We are only concerned with states that are within or on the boundary of the zero-level set or tube in backward reachability analysis. This follows from \eqref{eq:reachables}.} is given by 
-%
-\begin{align}
-	\min(\Phi_1(\state, t), \Phi_2(\state, t)).
-\end{align}
+Recall that if $\Phi_1(\state, t)$ and $\Phi_2(\state, t)$ are respectively the payoffs for agents $1$ and $2$, constructed from signed distance functions, then the \textit{union of their interiors}\footnote{We are only concerned with states that are within or on the boundary of the zero-level set or tube in backward reachability analysis. This follows from \eqref{eq:reachables}.} is given by \eqref{eq:sdf_union}
 %
 
 Recall from \eqref{eq:HamiltonianOverall} 
@@ -104,41 +100,38 @@ It follows that we have from \eqref{eq:ham_flock_interm} that
 and that
 %
 \begin{align}
-	\hamfunc^{(i)_j}_f(\state, p) &= \left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_3^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right]
+	\hamfunc^{(i)_j}_f(\state, p) &= \left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_3^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right].
 \end{align}
 %
-\textit{A fortiori} the main equation in \eqref{eq:HamiltonianOverall} becomes 
+\textit{A fortiori} the main equation \eqref{eq:HamiltonianOverall} becomes 
 %
 \begin{align}
 	\hamfunc(\state, p) & = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
 	%
 	\left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_2^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
 	%
-	& \qquad \left. \bigcup_{k=1}^{n_a} \left[
+	& \qquad \left. \bigcup \left[
 	%
 	p_1^{(k)_j} \left(v^{(k)_j}  - v^{(k)_j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
 	%
-	& \qquad \qquad\qquad \left.  \left. 
+	& \qquad \qquad \left.  \left. 
 	+ \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
 	\right] \right).
 \end{align}
 
-
-In this work, we consider the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$.  
-%
-\textit{A fortiori}, we have the Hamiltonian for a murmuration as 
+For the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$, we have a murmuration's Hamiltonian as 
 %
 \begin{align}
 	\hamfunc(\state, p) & = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
 	%
 	\left[p_1^{(i)_j} \,  \cos \state_3 + p_2^{(i)_j} \,  \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
 	%
-	& \qquad \left. \bigcup_{k=1}^{n_a} \left[
+	& \qquad \left. \bigcup \left[
 	%
 	p_1^{(k)_j} \left(1 - \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
 	%
-	& \qquad \qquad\qquad \left.  \left. 
-	 + \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
-	 \right] \right).
+	& \qquad \left.  \left. 
+	+ \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
+	\right] \right).
 \end{align}
 \end{proof}

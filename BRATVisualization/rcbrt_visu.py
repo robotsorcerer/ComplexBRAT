@@ -135,7 +135,6 @@ class RCBRTVisualizer(object):
 
 		if self.grid.dim==3:
 			self._ax[1].add_collection3d(mesh_bundle.mesh)
-
 			xlim, ylim, zlim = self.get_lims(mesh_bundle.verts)
 
 			self._ax[1].set_xlim3d(*xlim)

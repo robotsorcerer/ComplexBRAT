@@ -1,12 +1,10 @@
 \section{Materials and Methods.}
 \label{sec:methods}
 %
-%We cast the heading verification problem within a backward reachability analysis, where each agent within a flock have their respective payoff. Agents within a flock maintain cohesion by keeping track of their nearest neighbors' topological distance~\cite{Ballerini1232}. Capture occurs when an agent $j$ is on or within a circular bound (specified by a radius, $r$ in topological coordinates) around an agent $i$.  In starlings murmurations, to avoid capture, flocks can dynamically split their value functions. We leave the formulation of these dynamic splits of value functions to a future work and here focus on separated value functions on distinct manifolds of the state space. After resolving the extrema, the value functions can be stitched together under a smoothness of boundaries assumption (as is observed in natural swarms) in order to fend off attacks from a pursuing player. % as well as manage the computation of a large RCBRT verification problem.
 
-%
- We locally synthesize the kinematics of agents in a manner amenable to state representation by resolving local payoff extremals -- essentially a state space partition induced by a an aggregation of preexisting desired emergent collective behavior from local flocks\footnote{Let the cursory reader understand that we use the concept of a flock loosely. The value function could represent a pallete of composed value functions whose extremals resolve local behaviors we would like to emerge over separated local regions of the state space of dextrous drone acrobatics~\cite{DeepAcrobatics}, a robot balls juggling task~\cite{SeqCompKoditschek} or any parallel task domain verification problem.}.  Suppose that the local control laws are properly coordinated, the region of the state space across which their coordinated influence might be exerted constitute a larger \eg manipulability ellipsoid for a dexterous robot manipulation task. We focus on the task verification problem via HJI analysis.
+We locally synthesize the kinematics of agents in a manner amenable to state representation by resolving local payoff extremals -- essentially a state space partition induced by a an aggregation of preexisting desired emergent collective behavior from local flocks\footnote{Let the cursory reader understand that we use the concept of a flock loosely. The value function could represent a pallete of composed value functions whose extremals resolve local behaviors we would like to emerge over separated local regions of the state space of dextrous drone acrobatics~\cite{DeepAcrobatics}, a robot balls juggling task~\cite{SeqCompKoditschek} or any parallel task domain verification problem.}.  Suppose that the local control laws are properly coordinated, the region of the state space across which their coordinated influence might be exerted constitute a larger \eg manipulability ellipsoid for a dexterous robot manipulation task. We focus on the task verification problem via HJI analysis.
  
- As the verification problem is resolved forward in time, control laws permeate payoff boundaries (semi-permeable surfaces). For each flock, there corresponds local value (cost) functionals that encode a desirable anisotropic density and structural pattern we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. \todo{We leave a thorough evaluation of the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} to a future work}. \todo{These simple tricks allows us to compute large backward reach-avoid tubes that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}}. 
+ As the verification problem is resolved forward in time, control laws permeate payoff boundaries (semi-permeable surfaces). For each flock, there corresponds local value (cost) functionals that encode a desirable anisotropic density and structural pattern we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. We leave a thorough analysis and evaluation of the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} to a future work. These simple tricks allows us to compute large backward reach-avoid tubes.% that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}}. 
  
  \noindent \textbf{Assumptions}:
 The many interacting subsystems under consideration employ
@@ -91,14 +89,14 @@ Returning to \eqref{eq:DubinsJadbabaie}, for a single flock, we now provide a sk
 
 \subsection{Framework for Separated Payoffs}
 %
-We now make the following abstractions to enable our problem formulation.
+We now make the following assumptions to enable our problem formulation.
 %
 Suppose that a murmuration's global heading is predetermined and each agent $i$ within each flock, $\flock_j,\, (j=1, \cdots, n)$ in the murmuration has a constant linear velocity, $v^i$. An agent's orientation is its control input, given by the average of its own orientation and that of its neighbors. Instead of metric distance interaction rules that make agents very vulnerable to predators~\cite{Ballerini1232}, we resort to a topological interaction rule\footnote{With metric distance rules, we will have to formulate the breaking apart of value functions that encode a consensus heading problem in order to resolve the extrema of multiple payoffs; which is typically what we want to mitigate against during real-world autonomous tasks.}. 
 
 
 %\subsection{Nearest Neighbors Computation}
 %
-What constitutes an agent's neighbors are computed based on empirical findings and studies from the lateral vision of birds and fishes~\cite{Ballerini1232, JadbabaieCoord, Helbing20} that governs their anisotropic kinematic density and structure. Importantly, starlings' lateral visual axes and their lack of a rear sector reinforces their lack of nearest neighbors in the front-rear direction. As such, this enables them to maintain a tight density and robust heading during formation and flight.
+What constitutes an agent's neighbors are computed based on empirical findings and studies from the lateral vision of birds and fishes~\cite{Ballerini1232, JadbabaieCoord, Helbing20} that provide insights into their anisotropic kinematic density and structure. Importantly, starlings' lateral visual axes and their lack of a rear sector reinforces their lack of nearest neighbors in the front-rear direction. As such, this enables them to maintain a tight density and robust heading during formation and flight.
 %
 \begin{algorithm}[tb!]
 	\caption{Nearest Neighbors For Agents in a Flock.
@@ -173,7 +171,7 @@ is consistent with findings in collective swarm behaviors and it reinforces \tex
 %
 In this section, methods and results will ci=oincide. It has been observed that structural anisotropy is not merely an effect of a preferential velocity in animal flocking kinematics but rather an explicit effect of the anisotropic interaction character itself. By this theory, agents choose a mutual position on the state space in order to maximize the sensitivity to changes in heading and speed of neighbors as the neighbors' anisotropy is optimized and the scheme of avoiding collisions  is vision-based but not related to the eye's structure~\cite{Ballerini1232}.
  
-Because of the robust group cohesion philosophy, we take it that at least one agent within a flock labeled $j$ is under attack and is in relative coordinates with a pursuer, $\pursuer^j$. By averaging the heading of individual agents' orientations with its neighbors\cf \eqref{eq:DubinsJadbabaie}, individual agents within a flock can achieve  fast  response to danger when a pursuer is nearby. \todo{In this specialized case,  capture does not necessarily occur, because the $\evader$ and $\pursuer$'s speeds and maximum turn radius are equal}: if both players start the game with the same initial velocity and orientation, the relative equations of motion show that $\evader$ can mimic $\pursuer$'s strategy by forever keeping the starting radial separation~\cite{Merz1972}. As such, the \textit{barrier} is closed and the \textit{game of kind} is to determine the surface. However, owing to the high-dimensionality of the state space, we cannot resolve this barrier analytically, hence we resort to numerical approximation methods -- in particular, we leverage a parallel Lax-Friedrichs integration scheme~\cite{Crandall1984} which we implement in Cupy~\cite{CuPy} in order to provide a \textit{consistent} and \textit{monotone} solution to the Hamiltonians of these HJI equations\footnote{Consistent solutions to HJ equations are those whose explicit marching schemes via discrete  approximations to the HJ IVP agree with the nonlinear HJ solution~\cite{Crandall1984Approx}. Such schemes are said to be \textit{monotone} \eg on $\left[-\reline, \reline\right]$ if the numerical approximation to the vector field of interest is a nondecreasing function of each argument of the discrete approximation to the vector field.}. 
+Because of the robust group cohesion philosophy, we take it that at least one agent within a flock labeled $j$ is under attack and is in relative coordinates with a pursuer, $\pursuer^j$. By averaging the heading of individual agents' orientations with its neighbors\cf \eqref{eq:DubinsJadbabaie}, individual agents within a flock can achieve  fast  response to danger when a pursuer is nearby. In this specialized case,  capture does not necessarily occur, because the $\evader$ and $\pursuer$'s speeds and maximum turn radius are equal: if both players start the game with the same initial velocity and orientation, the relative equations of motion show that $\evader$ can mimic $\pursuer$'s strategy by forever keeping the starting radial separation. As such, the \textit{barrier} is closed and the \textit{game of kind} is to determine the surface~\cite{Merz1972}. However, owing to the high-dimensionality of the state space, we cannot resolve this barrier analytically, hence we resort to numerical approximation methods -- in particular, we leverage a parallel Lax-Friedrichs integration scheme~\cite{Crandall1984} which we implement in Cupy~\cite{CuPy} in order to provide a \textit{consistent} and \textit{monotone} solution to the Hamiltonians of these HJI equations. 
 %
 
 Therefore, for an agent $i$ within a flock with index $j$ in a murmuration, the equations of motion under attack from a predator (see \autoref{fig:robust_heading}) in relative coordinates is %and terminal conditions are given by
@@ -191,7 +189,7 @@ w_p^{(j)}(t) - \langle w_e^{(i)_j}(t) \rangle_r
 \end{bmatrix} \, \text{for } i=1,\cdots, n_a
 \end{align}
 %
-where $n_a$ is the number of agents within a flock. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration. In absolute coordinates, the equation of motion for \textit{free agents} is 
+where $n_a$ is the number of agents within a flock, $\left(\state_1^{(i)_j}, {\state}_2^{(i)_j} (t)\right) \in \bb{R}^2$, and  we have $\state_3^{(i)_j} (t) \in \left[-\pi, +\pi\right)$. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration at time $t$. In absolute coordinates, the equation of motion for \textit{free agents} is 
 %
 \begin{align}\left[\begin{array}{c}
 		\dot{\state}_1^{(i)_j}(t) \\ \dot{\state}_2^{(i)_j} (t) \\ \dot{\state}_3^{(i)_j} (t)
@@ -208,14 +206,23 @@ where $n_a$ is the number of agents within a flock. Read ${\state}_1^{(i)_j}(t)$
 As mentioned in Section \ref{sec:notations}, the evading player at anytime has controls $\{\control^1, \control^2, \cdots \control^n\}$ for agents $i=1, \cdots, n$ completely  under its will. Solving for such complex backward reach-avoid tube is akin to splitting the state space into a number of parts separated by surfaces.  
 
 
-\subsection{Flock Motion from Aggregated Hamiltonians}
-We introduce the union operator \ie $\cup$ below in lieu of the summation symbol since the respective payoffs of each agent in a flock is implicitly initialized as a signed distance function on the state space.  We assume that the \textit{value} of a flock heading control (differential game) exists.  And by an extension of Hamilton's principle of least action, the terminal motion of a flock coincide with the extremal of the payoff functional 
+\subsection{Flock Motion from Aggregated Value Functions}
+We introduce the union operator \ie $\bigcup$ below as an aggregation symbol since the respective payoffs of each agent in a flock may be implicitly or explicitly initialized  on a state space\footnote{In resolving the zero-level sets of HJ value functions, it is typical to represent the payoff's surface as the isocontour of some function (usually a signed distance function).} -- when it is implicitly represented, say from a signed distance function, we shall aggregate the  Hamiltonian od agent 1 and 2 as
 %
 \begin{align}
-	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(1)} (\control^{(1)}, \beta^{(1)}[\control^{(1)}])dt \cup  g^{(1)}(\state(T)) \cup \nonumber
+	\bigcup\left(\Phi_1(\state, t), \Phi_2(\state, t)\right) = 	\min(\Phi_1(\state, t), \Phi_2(\state, t))
+	\label{eq:sdf_union}
+\end{align}
+%
+otherwise, other appropriate arithmetic or logical operation shall apply.
+
+We assume that the \textit{value} of a flock heading control (differential game) exists.  And by an extension of Hamilton's principle of least action, the terminal motion of a flock coincide with the extremal of the payoff functional 
+%
+\begin{align}
+	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(1)} (\control^{(1)}, \beta^{(1)}[\control^{(1)}])dt \cup  g^{(1)}(\state(T)) \bigcup \nonumber
 	%
 	\\
-	&\, \cdots \cup \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(n)} (\control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
+	&\, \cdots \bigcup \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(n)} (\control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
 \end{align}
 %
 %\begin{subequations}
@@ -237,7 +244,8 @@ We introduce the union operator \ie $\cup$ below in lieu of the summation symbol
 where $n$ is the total number of distinct flocks in a murmuration. The resolution of this equation  admits a viscosity solution~\cite{Evans1984} to following variational terminal HJI PDE \cite{Mitchell2005}
 %
 \begin{align}
-	\cup_{i=1}^{n_f}\left[\cup_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^i(\state, \valuefunc_x(\state, t))\right]\right)\right] = 0.
+	\bigcup_{i=1}^{n_f}\left[\bigcup_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^i(\state, \valuefunc_x(\state, t))\right]\right)\right] = 0.
+	\label{eq:value_aggregate}
 \end{align}
 %
 
@@ -252,35 +260,63 @@ Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do no
 	%
 	\begin{align}
 		\hamfunc(\state, p) &= \max_{w_e^{(k)_j} \in [\underline{w}_e^j, \bar{w}_e^j]}  \min_{w_p^{(k)_j}  \in [\underline{w}_p^{j}, \bar{w}_p^j]} \bigcup_{j=1}^{n_f} \left[ H^{(k)_j}_a(\state, p) \bigcup \left( \bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) \right) \right] 
+		\\
+		%
+		& = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
+			%
+			\left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_2^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
+			%
+			& \qquad \left. \bigcup \left[
+			%
+			p_1^{(k)_j} \left(v^{(k)_j}  - v^{(k)_j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
+			%
+			& \qquad \qquad \left.  \left. 
+			+ \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
+			\right] \right).
 		\label{eq:HamiltonianOverall}
 	\end{align}
 	%
-	where $\hamfunc^{(k)_j}_a(\state, p)$ are the respective Hamiltonians of  individuals $k = 1, \cdots, n_a$ under attack by a pursuing agent, $\pursuer$ and $H^{(i)_j}_f(\state, p)$ are the respective Hamiltonians of the free agents, $i=1, \cdots, n_f$, within an evading flock in a murmuration, and not under the direct influence of capture or attack by $\pursuer$; we denote by  $w_e^{(i)_j}$ the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$  the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(k)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $k$, inclusive of agent $k$ at time $t$; similarly, $\bar{w}_e^{(k)_j}$ is  the maximum orientation among all of the orientation of agent $k$'s neighbors. 
+	where $\hamfunc^{(k)_j}_a(\state, p)$ is the  Hamiltonian of the individual under attack by a pursuing agent, $\pursuer$ and $H^{(i)_j}_f(\state, p)$ are the respective Hamiltonians of the free agents, $i=1, \cdots, n_f$, within an evading flock in a murmuration, and not under the direct influence of capture or attack by $\pursuer$; we denote by  $w_e^{(i)_j}$ the heading of an evader $i$ within a flock $j$ and $w_p^{(j)}$  the heading of a pursuer aimed at flock $j$; $\underline{w}_e^{(k)_j}$ is the orientation that corresponds to  the orientation of the agent with minimum turn radius among all the neighbors of agent $k$, inclusive of agent $k$ at time $t$; similarly, $\bar{w}_e^{(k)_j}$ is  the maximum orientation among all of the orientation of agent $k$'s neighbors. 
 	\label{th:ham_sum}
 \end{theorem}
 %
-\begin{proof}
-	The complete proof is provided in Appendix \ref{app:ham}.
-\end{proof}
+\begin{corollary}
+	For the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$, we have the Hamiltonian as
+	%
+	%\begin{align}
+	%	\hamfunc(\state, p) &= \bigcup_{j=1}^{n_f} \bigcup_{i=1}^{n_a-1} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j | p_3^{(i)_j}  |
+	%	%
+	%	\nonumber 	\\
+	%	%
+	%	& 
+	%	+ \bar{w}_e^j | p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}| +
+	%	%
+	%	p_1^{(i)_j}v^{(i)_j} \cos \state_3 
+	%	%
+	%	\nonumber 	\\
+	%	%
+	%	&+ p_2^{(i)_j} v^{(i)_j} \sin \state_3 + p_3^{(i)_j} \langle w_e^{(i)_j}\rangle_r.
+	%\end{align}
+	%
+	\begin{align}
+		\hamfunc(\state, p) & = \bigcup_{j=1}^{n_f} \left( \bigcup_{i=1}^{n_a-1} 
+		%
+		\left[p_1^{(i)_j} \,  \cos \state_3 + p_2^{(i)_j} \,  \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right] \right.\nonumber \\
+		%
+		& \qquad \left. \bigcup \left[
+		%
+		p_1^{(k)_j} \left(1 - \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}|   \right. \right. \nonumber \\
+		%
+		& \qquad \left.  \left. 
+		+ \bar{w}_e^j \bigg|p_2^{(k)_j} \state_1^{(k)_j} - p_1^{(k)_j}\state_2^{(k)_j} + p_3^{(k)_j}\bigg|
+		\right] \right).
+		\label{eq:HamiltonianCompletada}
+	\end{align}
+\end{corollary}
 %
-From \eqref{eq:HamiltonianOverall}, and for the special case where the linear speeds of the evading agents and pursuer are equal \ie $v_e^{(i)_j}(t) = v_p(t) = +1 m/s$, we have (see Appendix \ref{app:ham}):
-%
-\begin{align}
-	\hamfunc(\state, p) &= \sum_{j=1}^{N_f} \sum_{i=1}^{N_a-1} p_1^{(i)} \left(1 - \cos \state_3^{(i)_j}\right) - p_2^{(i)_j} \sin \state_3^{(i)_j} - \underline{w}_p^j | p_3^{(i)_j}  |
-	%
-	\nonumber 	\\
-	%
-	& 
-	+ \bar{w}_e^j | p_2^{(i)_j} \state_1^{(i)_j} - p_1^{(i)_j}\state_2^{(i)_j} + p_3^{(i)_j}| +
-	%
-	p_1^{(i)_j}v^{(i)_j} \cos \state_3 
-	%
-	\nonumber 	\\
-	%
-	&+ p_2^{(i)_j} v^{(i)_j} \sin \state_3 + p_3^{(i)_j} \langle w_e^{(i)_j}\rangle_r.
-	\label{eq:HamiltonianCompletada}
-\end{align}
-%
+%\begin{proof}
+%	The complete proof is provided in Appendix \ref{app:ham}.
+%\end{proof}
 
 We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{N}\}$. We define the numerical monotone flux, 	$\hat{\hamfunc}^{(i)_j}(\cdot)$, of $\hamfunc_j^{(i)}(\cdot)$ as 
 %
@@ -294,7 +330,6 @@ We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShu
 %
 where
 %
-%\begin{subequations}
 \begin{align}
 	\alpha_x^{(i)_j} = \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_{u}^{(i)_j}(\cdot)|, % = |1 - \cos \state_3^{(i)_j}|+ |\bar{w}_e^j \state_2^{(i)_j}|
 	%
@@ -304,7 +339,6 @@ where
 	%
 	\, \alpha_z^{(i)_j} = \max_{\substack{ a \le u \le b \\ c \le v \le d  \\ e \le w \le f}} |\hamfunc_{w}^{(i)_j}(\cdot)|. % = |\underline{w}_p^j + \bar{w}_e^j|
 \end{align}
-%\end{subequations}
 %
 are dissipation coefficients, controlling the level of numerical viscosity in order to realize a stable solution that is physically realistic~\cite{Crandall1984Approx}. Here, the subscripts of $\hamfunc$ are the partial derivatives w.r.t the subscript variable, and the flux, $\hat{\hamfunc}(\cdot)$ is monotone for $a \le u^\pm \le b, c \le v^\pm \le d, e \le w^\pm \le f$. We adopt the total variation diminishing Runge-Kutta scheme of \cite{Osher1987} in efficiently calculating essentially non-oscillating upwinding finite difference gradients of $\hamfunc(\cdot)$.
 

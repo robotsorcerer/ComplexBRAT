@@ -127,7 +127,7 @@ def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	"""
 	for vehicle in flock.vehicles:
 		# make the radius of the target setthe turn radius of this vehicle
-		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle.cur_state), \
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.update_state(vehicle.cur_state), \
 										radius=vehicle.payoff_width)
 	"""
 		Now compute the overall payoff for the flock
@@ -215,12 +215,12 @@ def main(args):
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
 
 	# after creating value function, make state space cupy objects
-	g = flock0.grid
+	g = flock1.grid
 	g.xs = [cp.asarray(x) for x in g.xs]
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':g,
-					'hamFunc': flock0.hamiltonian,
-					'partialFunc': flock0.dissipation,
+					'hamFunc': flock1.hamiltonian,
+					'partialFunc': flock1.dissipation,
 					'dissFunc': artificialDissipationGLF,
 					'CoStateCalc': upwindFirstENO2,
 					}),
@@ -239,7 +239,7 @@ def main(args):
 					 'azimuth': 5,
 					 'mesh': flock0.mesh_bundle,
 					 'pause_time': args.pause_time,
-					 'title': f'Initial BRT. Flock with {flock0.N} agents.',
+					 'title': f'Initial BRT. Flock with {flock1.N} agents.',
 					 'level': 0, # which level set to visualize
 					 'winsize': (16,9),
 					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
@@ -256,8 +256,8 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_range = [0, 100]
-		t_plot = (t_range[1] - t_range[0]) / 100
+		t_range = [0, 50]
+		t_plot = (t_range[1] - t_range[0]) / t_range[-1] 
 		small = 100*eps
 
 		# Loop through t_range (subject to a little roundoff).
@@ -268,11 +268,11 @@ def main(args):
 
 		brt = [flock0.payoff]
 		meshes, brt_time = [], []
-		value_rolling = cp.asarray(copy.copy(flock0.payoff))
+		value_rolling = cp.asarray(copy.copy(flock1.payoff))
 
 		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
 		color = next(colors)
-		options = Bundle(dict(factorCFL=0.6, stats='on', singleStep='off'))
+		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
 		
 		idx = 0
 		while(t_range[1] - t_now > small * t_range[1]):
@@ -299,21 +299,20 @@ def main(args):
 				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
 									edge_color=None,  face_color=color)
 				viz.update_tube(mesh_bundle, time_step, True)
-				# store this brt
-				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh_bundle)
 
 			if args.save:
-				fig = plt.gcf()
-				fig.savefig(join(base_path,
-					rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+				if args.visualize:
+					fig = plt.gcf()
+					fig.savefig(join(base_path,
+						rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
 				
 				# save this brt
 				savename = join("data/", rf"murmurations.hdf5")
 				if os.path.exists(savename):
-					os.removedirs(savename)
+					os.remove(savename)
 
 				with h5py.File(savename, 'a') as h5file:
-					h5file.create_dataset(f'murmurations/time_{idx:0>3}', data=value_rolling_np, compression="gzip")
+					h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
 
 			idx += 1
 			itr_end.record()

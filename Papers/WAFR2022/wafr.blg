@@ -19,45 +19,45 @@ Warning--empty journal in Bansal
 Warning--empty year in Bansal
 Warning--empty year in Isaacs1965
 Warning--there's a number but no volume in Mitchell2001
-You've used 31 entries,
+You've used 30 entries,
             2946 wiz_defined-function locations,
-            828 strings with 10559 characters,
-and the built_in function-call counts, 23919 in all, are:
-= -- 2838
-> -- 512
+            822 strings with 10395 characters,
+and the built_in function-call counts, 23618 in all, are:
+= -- 2816
+> -- 505
 < -- 3
-+ -- 329
-- -- 180
-* -- 1091
-:= -- 2334
-add.period$ -- 36
-call.type$ -- 31
-change.case$ -- 184
++ -- 326
+- -- 178
+* -- 1079
+:= -- 2289
+add.period$ -- 35
+call.type$ -- 30
+change.case$ -- 180
 chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 2702
-empty$ -- 1475
-format.name$ -- 202
-if$ -- 4883
+cite$ -- 35
+duplicate$ -- 2669
+empty$ -- 1444
+format.name$ -- 200
+if$ -- 4820
 int.to.chr$ -- 0
-int.to.str$ -- 31
-missing$ -- 319
-newline$ -- 136
-num.names$ -- 62
-pop$ -- 1067
+int.to.str$ -- 30
+missing$ -- 312
+newline$ -- 132
+num.names$ -- 60
+pop$ -- 1052
 preamble$ -- 1
-purify$ -- 151
+purify$ -- 148
 quote$ -- 0
-skip$ -- 1313
+skip$ -- 1304
 stack$ -- 0
-substring$ -- 1118
-swap$ -- 2281
+substring$ -- 1113
+swap$ -- 2269
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 122
+type$ -- 118
 warning$ -- 5
-while$ -- 123
-width$ -- 33
-write$ -- 318
+while$ -- 121
+width$ -- 32
+write$ -- 309
 (There were 2 error messages)
