@@ -1,11 +1,11 @@
 \section{Hamiltonian of a Murmuration}
 \label{app:ham}
 
-In this appendix, we provide a derivation for the Hamiltonian of a flock, and by extension, that of a murmuration. In our derivations, the zero-level set is constructed implicitly from the  isocontour of a signed distance function as described in \cite[Chapter II]{LevelSetsBook}. 
-
-We introduce the union operator,$\bigcup$, below in lieu of the arithmetic summation symbol since the respective payoffs of each agent in a flock are implicitly initialized as signed distance functions on the state space. It is trivial to extend these results to other arithmetic or Boolean operators depending on different task domains. 
-
-Recall that if $\Phi_1(\state, t)$ and $\Phi_2(\state, t)$ are respectively the payoffs for agents $1$ and $2$, constructed from signed distance functions, then the \textit{union of their interiors}\footnote{We are only concerned with states that are within or on the boundary of the zero-level set or tube in backward reachability analysis. This follows from \eqref{eq:reachables}.} is given by \eqref{eq:sdf_union}
+In this appendix, we provide a derivation for the Hamiltonian of a flock, and by extension, that of a murmuration. In our implementations, the zero-level set is constructed implicitly from the  isocontour of a signed distance function as described in \cite[Chapter II]{LevelSetsBook}. 
+%
+%We introduce the union operator, $\bigcup$, below in lieu of the arithmetic summation symbol since the respective payoffs of each agent in a flock are implicitly initialized as signed distance functions on the state space. It is trivial to extend these results to other arithmetic or Boolean operators depending on different task domains. 
+%
+%Recall that if $\Phi_1(\state, t)$ and $\Phi_2(\state, t)$ are respectively the payoffs for agents $1$ and $2$, constructed from signed distance functions, then the \textit{union of their interiors}\footnote{We are only concerned with states that are within or on the boundary of the zero-level set or tube in backward reachability analysis. This follows from \eqref{eq:reachables}.} is given by \eqref{eq:sdf_union}
 %
 
 Recall from \eqref{eq:HamiltonianOverall} 
@@ -16,7 +16,7 @@ that the total Hamiltonian of a flock is a union of the mechanical energy of the
 \end{align}
 
 \begin{proof}[Proof of Theorem \ref{th:ham_sum}]
-The Hamiltonian of the free agents is the summation of all the mechanical energy in the system in absolute coordinates \ie %so that we have
+We write the Hamiltonian of the free agents in absolute coordinates and the Hamiltonian of the agent under attack in relative coordinates with respect to the pursuer. A flock's Hamiltonian is  Hamiltonian of the free agents is the aggregation of all the mechanical energy in the system in absolute coordinates \ie %so that we have
 %
 \begin{align}
 	\bigcup_{i=1}^{n_a-1} H^{(i)_j}_f(\state, p) = \bigcup_{i=1}^{n_a-1} \begin{bmatrix}
@@ -36,7 +36,7 @@ where we have again dropped the time arguments for convenience. It follows that
 		\left[p_1^{(i)_j} \, v^{(i)_j} \cos \state_3 + p_3^{(i)_j} \, v^{(i)_j} \sin \state_3 + p_3^{(i)_j}\, \langle w_e^{(i)_j}\rangle_r\right].
 \end{align}
 
-We write the Hamiltonian of the free agents in absolute coordinates and the Hamiltonian of the agent under attack in relative coordinates with respect to the pursuer so that \eqref{eq:HamiltonianOverall} can be re-written as
+Equation \eqref{eq:HamiltonianOverall} can be re-written as
 %
 %\begin{align}		
 %	\hamfunc^{(k)_j}_a(\state, p) &= p_1^{(k)_j} \left(v_e^{(k)_j} - v_p^{j} \cos \state_3^{(k)_j}\right) - p_2^{(k)_j} v_p^{j}  \sin \state_3^{(k)_j} - \underline{w}_p^j |p_3^{(k)_j}| \nonumber 	\\

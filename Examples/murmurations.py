@@ -36,7 +36,6 @@ from LevelSetPy.Visualization import *
 from LevelSetPy.BoundaryCondition import *
 from LevelSetPy.InitialConditions import *
 
-
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
@@ -256,8 +255,8 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_range = [0, 50]
-		t_plot = (t_range[1] - t_range[0]) / t_range[-1] 
+		t_range = [0, 4]
+		t_plot = (t_range[1] - t_range[0]) / 100
 		small = 100*eps
 
 		# Loop through t_range (subject to a little roundoff).
@@ -278,7 +277,6 @@ def main(args):
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
-			time_step = f"{t_now}/{t_range[-1]}"
 
 			# Reshape data array into column vector for ode solver call.
 			y0 = value_rolling.flatten()
@@ -287,24 +285,39 @@ def main(args):
 			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
 
 			# Integrate a timestep.
-			t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
+			# t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
+			t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
 			cp.cuda.Stream.null.synchronize()
 			t_now = t
+
+			# compute zero-level set
+			value_rolling_np = value_rolling.get()
+			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
+											edge_color=None,  face_color=color)
+
+			# update the new grid with points around the zero-level interface only			
+			xlim, ylim, zlim  = viz.get_lims(mesh_bundle.verts) 
+
+			# create reduced grid around this zero-level set only
+			gmin = np.array(([[xlim[0], ylim[0], zlim[0]]])).T
+			gmax = np.array(([[xlim[1], ylim[1], zlim[1]]])).T
+			# print(gmin.shape, gmax.shape)
+			reduced_grid = createGrid(gmin, gmax, finite_diff_data.innerData.grid.N, 2)
+
+			# update finite difference data
+			finite_diff_data.innerData.grid = reduced_grid
 
 			# Get back the correctly shaped data array
 			value_rolling = y.reshape(g.shape)
 
-			if args.visualize:
-				value_rolling_np = value_rolling.get()
-				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
-									edge_color=None,  face_color=color)
-				viz.update_tube(mesh_bundle, time_step, True)
-
 			if args.save:
 				if args.visualize:
+					time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+					viz.update_tube(mesh_bundle, time_step, True)
+
 					fig = plt.gcf()
 					fig.savefig(join(base_path,
-						rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
 				
 				# save this brt
 				savename = join("data/", rf"murmurations.hdf5")

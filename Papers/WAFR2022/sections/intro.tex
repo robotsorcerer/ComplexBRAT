@@ -1,25 +1,28 @@
 \section{INTRODUCTION}
 %
-\begin{figure}[tb!]
-	\centering
-	\begin{tabular}{ccc} 
-		\includegraphics[height=8em,width=10em]{figures/migrating_starlings.jpg} 
-		&
-		\includegraphics[height=8em,width=10em]{figures/roosting.jpg} 
-		& 
-		\includegraphics[height=8em,width=10em]{figures/starlings_fly.jpg} 
-		 \\	
-		\includegraphics[height=8em,width=10em]{figures/starlings_split.jpg}
-		&
-		\includegraphics[height=8em,width=10em]{figures/starlings_tube.jpg} 
-		&
-		\includegraphics[height=8em,width=10em]{figures/starlings_funnel.jpg}
-	\end{tabular}
-	\caption{Starlings murmurations. From the top-left and clockwise. (i) A starlings flock rises into the air, in a dense structure (Reuters/Amir Cohen).  (ii) Starlings migrating over an Israeli village (AP Photo/Oded Balilty). (iii) Starlings feeding on laid seeds  in the ground in Romania. (iv) Two flocks of migrating starlings (Menahem Kahana/AFP/Getty Images). (v) A concentric conical formation of starlings (Courtesy of \href{http://www.thegatheringsite.net/qcgems/2014/1/24/murmuration}{The Gathering Site.}). (vi)  Splitting and joining of a flock of starlings.} 
-	\label{fig:murmurations}
-\end{figure}
+%\begin{figure}[tb!]
+%	\centering
+%	\begin{tabular}{ccc} 
+%		\includegraphics[height=8em,width=10em]{figures/migrating_starlings.jpg} 
+%		&
+%		\includegraphics[height=8em,width=10em]{figures/roosting.jpg} 
+%		& 
+%		\includegraphics[height=8em,width=10em]{figures/starlings_fly.jpg} 
+%		 \\	
+%		\includegraphics[height=8em,width=10em]{figures/starlings_split.jpg}
+%		&
+%		\includegraphics[height=8em,width=10em]{figures/starlings_tube.jpg} 
+%		&
+%		\includegraphics[height=8em,width=10em]{figures/starlings_funnel.jpg}
+%	\end{tabular}
+%	\caption{Starlings murmurations. From the top-left and clockwise. (i) A starlings flock rises into the air, in a dense structure (Reuters/Amir Cohen).  (ii) Starlings migrating over an Israeli village (AP Photo/Oded Balilty). (iii) Starlings feeding on laid seeds  in the ground in Romania. (iv) Two flocks of migrating starlings (Menahem Kahana/AFP/Getty Images). (v) A concentric conical formation of starlings (Courtesy of \href{http://www.thegatheringsite.net/qcgems/2014/1/24/murmuration}{The Gathering Site.}). (vi)  Splitting and joining of a flock of starlings.} 
+%	\label{fig:murmurations}
+%\end{figure}
 
-In this paper, we will establish a general theorem under special assumptions for the practical verification of complex nonlinear systems whose global dynamics is an aggregation of multiple local dynamics that all emerge collectively across the  subsystems or regions of a large state space. Our scope is limited to the verification of such systems. With Bolza-type objective functionals and backward reachability theory, we will aggregate the over-approximated  backward reach avoid tubes or sets (BRATs) of the respective subsystems across space and time scales.  To achieve this goal, we will leverage our understanding of flocking in natural swarms, particularly European starlings (\textit{Sturnus vulgaris}). Applications of the principles described herein may include the verification of certain cyber-physical systems or CPS, multi-agent robotic systems requiring dynamical dexterity~\cite{SeqCompKoditschek}, or  systems that do not admit a continuous control law for arriving at a globally asymptotically stable solution to a dynamical system~\cite{Brockett83}.  Mostly, we will work locally in our formulations, but occasionally will make global remarks. 
+In multi-agent systems, the interconnection among subsystems can be characterized as moving interfaces, boundaries of local regions or cells that interact, or mixing of interacting organism substructures. The kinematics and kinetics of such  systems involve topologically complex domain reformulation which are often difficult to resolve in a conceptual, computational, and numerically robust manner.
+
+In this paper, we will establish a general theorem for systems that exhibit the structural properties described in the foregoing for the practical verification of complex nonlinear systems whose global dynamical evolution is an aggregation of multiple local kinematics and kinetics that emerge collectively across the  subsystems or regions of a large state space. %Our scope is limited to the verification of such systems. 
+With Bolza-type objective functionals and backward reachability theory, we will aggregate the over-approximated  backward reach avoid tubes or sets (BRATs) of the respective subsystems across space and time scales.  To achieve this goal, we will leverage our understanding of flocking in natural swarms, particularly European starlings (\textit{Sturnus vulgaris}), as well as rely on tools from level set methods~\cite{SethianLSBook, OsherFronts}. Applications of the principles described herein may include the verification of cyber-physical systems or CPS, multi-agent robotic systems requiring dynamical dexterity~\cite{SeqCompKoditschek}, or  dynamical systems with locally valid asymptotic controllers that do not admit a continuous control law for arriving at a globally asymptotically stable solution~\cite[Theorem II]{Brockett83}.  Mostly, we will work locally in our formulations, but occasionally will make global remarks. 
 
 Differential optimal control theory and games offer a useful paradigm for resolving the safety of multiple agents interacting over a large shared space. Both rely on the resolution of the Hamilton-Jacobi-Bellman (HJB) equation or its Isaacs counterpart (HJI).  As HJ-type equations are seldom regular enough to admit a classical solution for almost all \textit{practical} problems, ``weaker" or ``viscosity" solutions~\cite{Lions1982, Evans1984, Crandall1984} provide generalized  solutions to HJ partial differential equations (P.D.E.s) under relaxed regularity conditions; these viscosity solutions are not necessarily differentiable anywhere in the state space, and the only regularity prerequisite in the definition is continuity~\cite{Crandall1983viscosity}. However, wherever they are differentiable, they satisfy the  values of HJ P.D.E.s in a classical sense. Thus, they lend themselves well to many real-world problems existing at the interface of discrete, continuous, and hybrid systems~\cite{LygerosReachability,  Mitchell2020, Souganidis, Mitchell2005}.
 
@@ -43,7 +46,7 @@ Natural swarms provide clues on efficiently constructing a game's outcome(s), Ha
 %
 
 Through empirical~\cite{Ballerini1232, Helbing20, VicsekPhaseNovel} %, Cavagna2010Scale, Bialek2012Statistical} 
-and theoretical findings~\cite{JadbabaieCoord}, evidence now abounds that in certain natural species that exhibit collective behavior (see \autoref{fig:murmurations}), convergence and group cohesion is based on simple topological interaction rules that they use to keep a tab on one another in \textit{local flocks} for collision avoidance, preserving density and structure, flock splitting, vacuole, cordon, and flash expansion~\cite{NatGeo}. This helps these animals preserve an eye-pleasing local anisotropic synchrony, which taken together among possibly hundreds of thousands of local interactions\footnote{It has been reported that no birds fly together with greater coordination and complexity than European starlings,  with murmurations counting upwards of 750,000 individual birds!}~\cite{NatGeo}, keep these animals whirling, swooping, and flying in an isotropic formation~\cite{Ballerini1232}. Thus, individual agents aggregate into finite flocks, and flock motion is synergized via local topological interactions in order to realize a stable global heading and cohesion~\cite{JadbabaieCoord}. There exists evidence that when an individual within a flock of starlings senses danger (\eg an attack from a Peregrine Falcon), it changes its course immediately. Owing to the lateral vision in such animals, immediate \textit{nearest neighbors} change course in response. This information is propagated across the entire group of flocks within the fraction of a second~\cite{Ballerini1232}, resulting in the beautiful formations \cf \autoref{fig:murmurations}. 
+and theoretical findings~\cite{JadbabaieCoord}, evidence now abounds that in certain natural species that exhibit collective behavior \todo{(see \autoref{fig:murmurations})}, convergence and group cohesion is based on simple topological interaction rules that they use to keep a tab on one another in \textit{local flocks} for collision avoidance, preserving density and structure, flock splitting, vacuole, cordon, and flash expansion~\cite{NatGeo}. This helps these animals preserve an eye-pleasing local anisotropic synchrony, which taken together among possibly hundreds of thousands of local interactions\footnote{It has been reported that no birds fly together with greater coordination and complexity than European starlings,  with murmurations counting upwards of 750,000 individual birds!}~\cite{NatGeo}, keep these animals whirling, swooping, and flying in an isotropic formation~\cite{Ballerini1232}. Thus, individual agents aggregate into finite flocks, and flock motion is synergized via local topological interactions in order to realize a stable global heading and cohesion~\cite{JadbabaieCoord}. There exists evidence that when an individual within a flock of starlings senses danger (\eg an attack from a Peregrine Falcon), it changes its course immediately. Owing to the lateral vision in such animals, immediate \textit{nearest neighbors} change course in response. This information is propagated across the entire group of flocks within the fraction of a second~\cite{Ballerini1232}, resulting in the beautiful formations \todo{\cf \autoref{fig:murmurations}}. 
 
  %, and there are strong reasons to believe that the birds keep warm in winter when they exercise these  behaviors before traveling to their roosting site. %It therefore begs the question, why have control systems practitioners not looked into this to leverage the collective behavior in solving multiagent control?
 %

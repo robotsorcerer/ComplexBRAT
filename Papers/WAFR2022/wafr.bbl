@@ -6,6 +6,17 @@
   \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
   \urlstyle{rm}\Url}\fi
 
+\bibitem{SethianLSBook}
+Sethian, J.A.: {Level Set Methods And Fast Marching Methods: Evolving
+  Interfaces In Computational Geometry, Fluid Mechanics, Computer Vision, And
+  Materials Science}.
+\newblock Robotica \textbf{18}(1), 89--92 (2000)
+
+\bibitem{OsherFronts}
+Osher, S., Sethian, J.A.: Fronts propagating with curvature-dependent speed:
+  Algorithms based on hamilton-jacobi formulations.
+\newblock Journal of computational physics \textbf{79}(1), 12--49 (1988)
+
 \bibitem{SeqCompKoditschek}
 {Burridge, R R and Rizzi, A A and Koditschek, D E}: {Sequential Composition of
   Dynamically Dexterous Robot Behaviors}.
@@ -142,17 +153,15 @@ Mitchell, I.: {Games of two identical vehicles}.
   1--29 (2001).
 \newblock \urlprefix\url{http://www.cs.ubc.ca/$\sim$mitchell/Papers/merz.pdf}
 
+\bibitem{Sethian87Numerical}
+Sethian, J.A.: {Numerical Methods for Propagating Fronts}.
+\newblock In: Variational methods for free surface interfaces, pp. 155--164.
+  Springer (1987)
+
 \bibitem{DeepAcrobatics}
 Kaufmann, E., Loquercio, A., Ranftl, R., M{\"u}ller, M., Koltun, V.,
   Scaramuzza, D.: {Deep Drone Acrobatics}.
 \newblock arXiv preprint arXiv:2006.05768  (2020)
-
-\bibitem{DecompChenHerbert}
-Chen, M., Herbert, S.L., Vashishtha, M.S., Bansal, S., Tomlin, C.J.:
-  {Decomposition of Reachable Sets and Tubes for a Class of Nonlinear Systems}.
-\newblock IEEE Transactions on Automatic Control \textbf{63}(11), 3675--3688
-  (2018).
-\newblock \doi{10.1109/TAC.2018.2797194}
 
 \bibitem{CuPy}
 Nishino, R., Loomis, C., Hido, S.: Cupy: A numpy-compatible library for nvidia
@@ -164,6 +173,12 @@ Nishino, R., Loomis, C., Hido, S.: Cupy: A numpy-compatible library for nvidia
 Osher, S., Shu, C.W.: {Efficient Implementation of Essentially Non-Oscillatory
   Shock Capturing Schemes}.
 \newblock Tech. rep., NASA Langley Research Center, Hampton, Virginia (1987)
+
+\bibitem{Lozano84}
+Lozano-Perez, T., Mason, M.T., Taylor, R.H.: {Automatic Synthesis of
+  Fine-Motion Strategies for Robots}.
+\newblock The International Journal of Robotics Research \textbf{3}(1), 3--24
+  (1984)
 
 \bibitem{LevelSetsBook}
 Osher, S., Fedkiw, R.: {Level Set Methods and Dynamic Implicit Surfaces}.

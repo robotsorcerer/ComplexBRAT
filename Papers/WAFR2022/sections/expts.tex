@@ -3,8 +3,6 @@
 %
 At issue is a family of games based on different starting points for local flocks that on the whole constitute a murmuration (see \autoref{fig:flocks_multi}). 
 In starlings, agents move in local flocks of six to seven nearest neighbors~\cite{Ballerini1232} in order to preserve cohesion and heading consensus.  Therefore, we implicitly compute the payoff for each individual agent in every flock. In this light, a flock's payoff is a union (element-wise minimum f respective payoff points) of the payoff of every agent within it. 
-
-
 %
 \begin{figure}[tb!]
 	\centering
@@ -50,6 +48,8 @@ A pictorial representation of the zero-level RCBRT of a differential  game with 
 \end{align}
 %
 where $r_c$ is the capture radius, equivalent to the topological range for a flock as reported in~\cite{Ballerini1232}. 
+
+In the original fronts propagation algorithm of \cite{OsherFronts}, the zero-level set in embedded throughout the state space. This adds a lot of computational complexity to the computational procedure. To circumvent this, in each iteration of the numerical integration scheme, we compute the grid bounds of the zero-level set of an interface, and we update the state space with the newly constructed grid. This hastens computational time, by reducing the complexity of the numerical flux integration scheme to just the number of elements on the front. 
 
 %\subsection{Interagents Spatial Structure}
 

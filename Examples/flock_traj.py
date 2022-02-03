@@ -127,7 +127,7 @@ def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	"""
 	for vehicle in flock.vehicles:
 		# make the radius of the target setthe turn radius of this vehicle
-		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.position(vehicle.cur_state), \
+		vehicle.payoff = shapeCylinder(flock.grid, 2, center=flock.update_state(vehicle.cur_state), \
 										radius=vehicle.payoff_width)
 	"""
 		Now compute the overall payoff for the flock
@@ -215,12 +215,12 @@ def main(args):
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
 
 	# after creating value function, make state space cupy objects
-	g = flock0.grid
+	g = flock1.grid
 	g.xs = [cp.asarray(x) for x in g.xs]
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':g,
-					'hamFunc': flock0.hamiltonian,
-					'partialFunc': flock0.dissipation,
+					'hamFunc': flock1.hamiltonian,
+					'partialFunc': flock1.dissipation,
 					'dissFunc': artificialDissipationGLF,
 					'CoStateCalc': upwindFirstENO2,
 					}),
@@ -239,7 +239,7 @@ def main(args):
 					 'azimuth': 5,
 					 'mesh': flock0.mesh_bundle,
 					 'pause_time': args.pause_time,
-					 'title': f'Initial BRT. Flock with {flock0.N} agents.',
+					 'title': f'Initial BRT. Flock with {flock1.N} agents.',
 					 'level': 0, # which level set to visualize
 					 'winsize': (16,9),
 					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
@@ -256,7 +256,7 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_range = [0, 100]
+		t_range = [0, 4]
 		t_plot = (t_range[1] - t_range[0]) / 100
 		small = 100*eps
 
@@ -268,17 +268,16 @@ def main(args):
 
 		brt = [flock0.payoff]
 		meshes, brt_time = [], []
-		value_rolling = cp.asarray(copy.copy(flock0.payoff))
+		value_rolling = cp.asarray(copy.copy(flock1.payoff))
 
 		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
 		color = next(colors)
-		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='off'))
+		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
 		
 		idx = 0
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
-			time_step = f"{t_now}/{t_range[-1]}"
 
 			# Reshape data array into column vector for ode solver call.
 			y0 = value_rolling.flatten()
@@ -291,20 +290,34 @@ def main(args):
 			cp.cuda.Stream.null.synchronize()
 			t_now = t
 
+			# compute zero-level set
+			value_rolling_np = value_rolling.get()
+			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
+											edge_color=None,  face_color=color)
+
+			# update the new grid with points around the zero-level interface only			
+			xlim, ylim, zlim  = viz.get_lims(mesh_bundle.verts) 
+
+			# create reduced grid around this zero-level set only
+			gmin = np.array(([[xlim[0], ylim[0], zlim[0]]])).T
+			gmax = np.array(([[xlim[1], ylim[1], zlim[1]]])).T
+			# print(gmin.shape, gmax.shape)
+			reduced_grid = createGrid(gmin, gmax, finite_diff_data.innerData.grid.N, 2)
+
+			# update finite difference data
+			finite_diff_data.innerData.grid = reduced_grid
+
 			# Get back the correctly shaped data array
 			value_rolling = y.reshape(g.shape)
 
-			if args.visualize:
-				value_rolling_np = value_rolling.get()
-				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
-									edge_color=None,  face_color=color)
-				viz.update_tube(mesh_bundle, time_step, True)
-
 			if args.save:
 				if args.visualize:
+					time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+					viz.update_tube(mesh_bundle, time_step, True)
+
 					fig = plt.gcf()
 					fig.savefig(join(base_path,
-						rf"murmurations_{t_now}.jpg"), bbox_inches='tight',facecolor='None')
+						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
 				
 				# save this brt
 				savename = join("data/", rf"murmurations.hdf5")

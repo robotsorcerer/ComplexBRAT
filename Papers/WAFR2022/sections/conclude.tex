@@ -3,4 +3,4 @@
 %
 We have proposed an Hamilton-Jacobi-Isaacs systems verification scheme, based on Hamilton-Jacobi's reachability theory for constructing backward reachable tubes and sets for a complex system under the assumption that special local structures inherent within the system can enable the chaining of separately computed value function's zero-level sets. 
 
-One of the challenges we faced in our implementation is that the optimization scheme frequently halts at a local extrema of the solution landscape of the level set. 
+One of the challenges we faced in our implementation is that the optimization scheme frequently halts at a local extrema of the solution landscape of the level set if the integration steps per iteration are rather coarse. To circumvent this, we employed fine numerical time step marching schemes. While this encourages further descent in the optimization per iteration, convergence is very slow. We will investigate this in a future work. 

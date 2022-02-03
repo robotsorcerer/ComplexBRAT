@@ -5,59 +5,60 @@ The style file: styles/bibtex/spmpsci_unsrt.bst
 Database file #1: ../biblio.bib
 Warning--entry type for "NatGeo" isn't style-file defined
 --line 5 of file ../biblio.bib
-Repeated entry---line 924 of file ../biblio.bib
+Repeated entry---line 966 of file ../biblio.bib
  : @article{CrandallLaxFriedrichs
  :                               ,
 I'm skipping whatever remains of this entry
-You're missing a field name---line 1166 of file ../biblio.bib
+You're missing a field name---line 1208 of file ../biblio.bib
  : 
  : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Grossman1975"
 Warning--missing institution in SeqCompKoditschek
 Warning--empty journal in Bansal
 Warning--empty year in Bansal
 Warning--empty year in Isaacs1965
 Warning--there's a number but no volume in Mitchell2001
-You've used 30 entries,
+You've used 33 entries,
             2946 wiz_defined-function locations,
-            822 strings with 10395 characters,
-and the built_in function-call counts, 23618 in all, are:
-= -- 2816
-> -- 505
-< -- 3
-+ -- 326
-- -- 178
-* -- 1079
-:= -- 2289
-add.period$ -- 35
-call.type$ -- 30
-change.case$ -- 180
+            844 strings with 10986 characters,
+and the built_in function-call counts, 25796 in all, are:
+= -- 3092
+> -- 521
+< -- 4
++ -- 342
+- -- 182
+* -- 1158
+:= -- 2484
+add.period$ -- 38
+call.type$ -- 33
+change.case$ -- 193
 chr.to.int$ -- 0
-cite$ -- 35
-duplicate$ -- 2669
-empty$ -- 1444
-format.name$ -- 200
-if$ -- 4820
+cite$ -- 38
+duplicate$ -- 2933
+empty$ -- 1597
+format.name$ -- 205
+if$ -- 5286
 int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 312
-newline$ -- 132
-num.names$ -- 60
-pop$ -- 1052
+int.to.str$ -- 33
+missing$ -- 337
+newline$ -- 143
+num.names$ -- 66
+pop$ -- 1123
 preamble$ -- 1
-purify$ -- 148
+purify$ -- 156
 quote$ -- 0
-skip$ -- 1304
+skip$ -- 1467
 stack$ -- 0
-substring$ -- 1113
-swap$ -- 2269
-text.length$ -- 3
+substring$ -- 1228
+swap$ -- 2487
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 118
+type$ -- 130
 warning$ -- 5
-while$ -- 121
-width$ -- 32
-write$ -- 309
+while$ -- 137
+width$ -- 35
+write$ -- 338
 (There were 2 error messages)

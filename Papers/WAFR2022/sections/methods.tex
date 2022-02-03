@@ -1,10 +1,11 @@
 \section{Materials and Methods.}
 \label{sec:methods}
 %
+We focus on the task verification problem, and we resolve the $(n-1) \in \bb{R}^n$-dimensional hypersurfaces  or \textit{interfaces} between flocks using level set methods~\cite{SethianLSBook}. Flocks $\flock_j$ and $\flock_k$ are separated by an interface. This interface is  implicitly represented as a  signed distance function $\payoff(\state)$ that is negative on the interior of one flock, and positive on interior of the other. The zero-level set $\payoff(\state)=0$ corresponds to the original interface $\valuefunc$~\cite{Sethian87Numerical}. Adding time, the motion of the interface (the zero-level set) can then be described by an initial value problem that corresponds to a Cauchy-type Hamilton Jacobi partial differential equation~\cite{Evans1984, Crandall1983viscosity}. 
 
-We locally synthesize the kinematics of agents in a manner amenable to state representation by resolving local payoff extremals -- essentially a state space partition induced by a an aggregation of preexisting desired emergent collective behavior from local flocks\footnote{Let the cursory reader understand that we use the concept of a flock loosely. The value function could represent a pallete of composed value functions whose extremals resolve local behaviors we would like to emerge over separated local regions of the state space of dextrous drone acrobatics~\cite{DeepAcrobatics}, a robot balls juggling task~\cite{SeqCompKoditschek} or any parallel task domain verification problem.}.  Suppose that the local control laws are properly coordinated, the region of the state space across which their coordinated influence might be exerted constitute a larger \eg manipulability ellipsoid for a dexterous robot manipulation task. We focus on the task verification problem via HJI analysis.
+%	and each region/flock is separately synthesized  via HJI analysis, followed by a repair procedure which reattaches the evolving regions to each other}. As the verification problem is resolved forward in time, control laws permeate payoff boundaries (semi-permeable surfaces). For each flock, there corresponds local value (cost) functionals that encode a desirable anisotropic density and structural pattern we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. We leave a thorough analysis and evaluation of the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} to a future work. These simple tricks allows us to compute large backward reach-avoid tubes.% that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}}. 
  
- As the verification problem is resolved forward in time, control laws permeate payoff boundaries (semi-permeable surfaces). For each flock, there corresponds local value (cost) functionals that encode a desirable anisotropic density and structural pattern we would like to emerge.  These local value functions are constructed by  taking into cognizance each agent's topological interaction rule with its neighbors~\cite{Ballerini1232}. We leave a thorough analysis and evaluation of the nature of the \textit{surfaces}\footnote{Surfaces can be  singular, dispersal, or universal in nature~\cite{Isaacs1965}.} to a future work. These simple tricks allows us to compute large backward reach-avoid tubes.% that have eluded other scalability methods that have been so far introduced~\cite{Bansal, SylviaScalability, DecompChenHerbert}}. 
+ We locally synthesize the kinematics of agents in a manner amenable to state representation by resolving local payoff extremals -- essentially a state space partition induced by a an aggregation of preexisting desired emergent collective behavior from local flocks\footnote{Let the cursory reader understand that we use the concept of a flock loosely. The value function could represent a pallete of composed value functions whose extremals resolve local behaviors we would like to emerge over separated local regions of the state space of dextrous drone acrobatics~\cite{DeepAcrobatics}, a robot balls juggling task~\cite{SeqCompKoditschek} or any parallel task domain verification problem.}.  Suppose that the local control laws are properly coordinated, the region of the state space across which their coordinated influence might be exerted constitute a larger \eg \textit{manipulability volume} for a dexterous kinematic task. 
  
  \noindent \textbf{Assumptions}:
 The many interacting subsystems under consideration employ
@@ -169,7 +170,8 @@ is consistent with findings in collective swarm behaviors and it reinforces \tex
 
 \subsection{Global Isotropy via Local Anisotropy}
 %
-In this section, methods and results will ci=oincide. It has been observed that structural anisotropy is not merely an effect of a preferential velocity in animal flocking kinematics but rather an explicit effect of the anisotropic interaction character itself. By this theory, agents choose a mutual position on the state space in order to maximize the sensitivity to changes in heading and speed of neighbors as the neighbors' anisotropy is optimized and the scheme of avoiding collisions  is vision-based but not related to the eye's structure~\cite{Ballerini1232}.
+%In this section, methods and results will ci=oincide. 
+It has been observed that structural anisotropy is not merely an effect of a preferential velocity in animal flocking kinematics but rather an explicit effect of the anisotropic interaction character itself. By this theory, agents choose a mutual position on the state space in order to maximize the sensitivity to changes in heading and speed of neighbors as the neighbors' anisotropy is optimized and the scheme of avoiding collisions  is vision-based but not related to the eye's structure~\cite{Ballerini1232}.
  
 Because of the robust group cohesion philosophy, we take it that at least one agent within a flock labeled $j$ is under attack and is in relative coordinates with a pursuer, $\pursuer^j$. By averaging the heading of individual agents' orientations with its neighbors\cf \eqref{eq:DubinsJadbabaie}, individual agents within a flock can achieve  fast  response to danger when a pursuer is nearby. In this specialized case,  capture does not necessarily occur, because the $\evader$ and $\pursuer$'s speeds and maximum turn radius are equal: if both players start the game with the same initial velocity and orientation, the relative equations of motion show that $\evader$ can mimic $\pursuer$'s strategy by forever keeping the starting radial separation. As such, the \textit{barrier} is closed and the \textit{game of kind} is to determine the surface~\cite{Merz1972}. However, owing to the high-dimensionality of the state space, we cannot resolve this barrier analytically, hence we resort to numerical approximation methods -- in particular, we leverage a parallel Lax-Friedrichs integration scheme~\cite{Crandall1984} which we implement in Cupy~\cite{CuPy} in order to provide a \textit{consistent} and \textit{monotone} solution to the Hamiltonians of these HJI equations. 
 %
@@ -189,7 +191,7 @@ w_p^{(j)}(t) - \langle w_e^{(i)_j}(t) \rangle_r
 \end{bmatrix} \, \text{for } i=1,\cdots, n_a
 \end{align}
 %
-where $n_a$ is the number of agents within a flock, $\left(\state_1^{(i)_j}, {\state}_2^{(i)_j} (t)\right) \in \bb{R}^2$, and  we have $\state_3^{(i)_j} (t) \in \left[-\pi, +\pi\right)$. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration at time $t$. In absolute coordinates, the equation of motion for \textit{free agents} is 
+where $n_a$ is the number of agents within a flock, $\left(\state_1^{(i)_j}(t), {\state}_2^{(i)_j} (t)\right) \in \bb{R}^2$, and  we have $\state_3^{(i)_j} (t) \in \left[-\pi, +\pi\right)$. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration at time $t$. In absolute coordinates, the equation of motion for \textit{free agents} is 
 %
 \begin{align}\left[\begin{array}{c}
 		\dot{\state}_1^{(i)_j}(t) \\ \dot{\state}_2^{(i)_j} (t) \\ \dot{\state}_3^{(i)_j} (t)
@@ -207,7 +209,7 @@ As mentioned in Section \ref{sec:notations}, the evading player at anytime has c
 
 
 \subsection{Flock Motion from Aggregated Value Functions}
-We introduce the union operator \ie $\bigcup$ below as an aggregation symbol since the respective payoffs of each agent in a flock may be implicitly or explicitly initialized  on a state space\footnote{In resolving the zero-level sets of HJ value functions, it is typical to represent the payoff's surface as the isocontour of some function (usually a signed distance function).} -- when it is implicitly represented, say from a signed distance function, we shall aggregate the  Hamiltonian od agent 1 and 2 as
+We introduce the union operator \ie $\bigcup$ below as an aggregation symbol since the respective payoffs of each agent in a flock may be implicitly or explicitly constructed  on a grid\footnote{In resolving the zero-level sets of HJ value functions, it is typical to represent the payoff's surface as the isocontour of some function (usually a signed distance function).} -- when it is implicitly represented, say from a signed distance function, we shall aggregate the  payoff of agents 1 and 2 as
 %
 \begin{align}
 	\bigcup\left(\Phi_1(\state, t), \Phi_2(\state, t)\right) = 	\min(\Phi_1(\state, t), \Phi_2(\state, t))
@@ -219,10 +221,10 @@ otherwise, other appropriate arithmetic or logical operation shall apply.
 We assume that the \textit{value} of a flock heading control (differential game) exists.  And by an extension of Hamilton's principle of least action, the terminal motion of a flock coincide with the extremal of the payoff functional 
 %
 \begin{align}
-	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(1)} (\control^{(1)}, \beta^{(1)}[\control^{(1)}])dt \cup  g^{(1)}(\state(T)) \bigcup \nonumber
+	&\valuefunc(\state, t) = \inf_{\beta^{(1)} \in \mathcal{B}^{(1)}} \sup_{\bm{u^{(1)}} \in \mathcal{U^{(1)}}(t)} \int_{t_0}^{t_f} l^{(1)} (t, \state^{(1)}, \control^{(1)}, \beta^{(1)}[\control^{(1)}])dt +  g^{(1)}(\state(T)) \bigcup \cdots \nonumber
 	%
 	\\
-	&\, \cdots \bigcup \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} \bm{\Phi}^{(n)} (\control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
+	&\,  \inf_{\beta^{(n)} \in \mathcal{B}^{(n)}(t)} \sup_{\bm{u}^{(n)} \in \mathcal{U}^{(n)}(t)} \int_{t_0}^{t_f} l^{(n)} (t, \state^{(1)}, \control^{(1)}, \control^{(n)}, \beta^{(n)}[\control^{(n)}])dt + g^{(n)}(\state(T))
 \end{align}
 %
 %\begin{subequations}
@@ -234,20 +236,20 @@ We assume that the \textit{value} of a flock heading control (differential game)
 %\label{eq:lower_visc_surfaces}
 %\end{subequations}
 %%
-%with lower Hamiltonian, 
-%%
-%\begin{align}
-%&\lowerham_j (t; \state, \bm{u}, \bm{v}, p) = \max_{u \in \mathcal{U}} \min_{v \in \mathcal{V}} \, \langle f_j(t; \state, \bm{u}, \bm{v}), p_j  \rangle, \quad j = 1, \cdots, n,
-%\label{eq:lower_visc_ham_surfaces}
-%\end{align}
 %
 where $n$ is the total number of distinct flocks in a murmuration. The resolution of this equation  admits a viscosity solution~\cite{Evans1984} to following variational terminal HJI PDE \cite{Mitchell2005}
 %
 \begin{align}
-	\bigcup_{i=1}^{n_f}\left[\bigcup_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^i(\state, \valuefunc_x(\state, t))\right]\right)\right] = 0.
+	\bigcup_{i=1}^{n_f}\left[\bigcup_{i=1}^{n_a}\left(\dfrac{\partial \valuefunc_i}{\partial t}(\state, t) + \min \left[0, \hamfunc^{(i)}(\state^{(i)}, \valuefunc_x(\state, t))\right]\right)\right] = 0.
 	\label{eq:value_aggregate}
 \end{align}
 %
+with Hamiltonian, 
+%
+\begin{align}
+	\hamfunc^{(i)} (t; \state^{(i)}, \bm{u}^{(i)}, \bm{v}^{(i)}, p^{(i)}) = \max_{u^{(i)} \in \mathcal{U}^{(i)}} \min_{v^{(i)} \in \mathcal{V}^{(i)}} \, \langle f^{(i)}(t; \state, \bm{u}^{(i)}, \bm{v}^{(i)}), p^{(i)}  \rangle. %, \quad i = 1, \cdots, n_a
+	\label{eq:lower_visc_ham_surfaces}
+\end{align}
 
 In swarms' collective motion, when \eg a Peregrine Falcon attacks, immediate nearest agents change direction almost instantaneously. And because of the interdependence of the orientations of individual agents with respect to one another, all other agents respond based on the nearest neighbor formulation of \eqref{eq:DubinsJadbabaie} and Line \ref{alg:neighbors:line:lateral_vision_left} of Algorithm \ref{alg:neighbors}, every agent in a murmuration responds accordingly. Thus, we only simulate a single attack against a flock within the murmuration to realize robust cohesion.  
 
@@ -342,9 +344,18 @@ where
 %
 are dissipation coefficients, controlling the level of numerical viscosity in order to realize a stable solution that is physically realistic~\cite{Crandall1984Approx}. Here, the subscripts of $\hamfunc$ are the partial derivatives w.r.t the subscript variable, and the flux, $\hat{\hamfunc}(\cdot)$ is monotone for $a \le u^\pm \le b, c \le v^\pm \le d, e \le w^\pm \le f$. We adopt the total variation diminishing Runge-Kutta scheme of \cite{Osher1987} in efficiently calculating essentially non-oscillating upwinding finite difference gradients of $\hamfunc(\cdot)$.
 
-\subsection{LargeBRAT as a Sequential Composition of Strategy Funnels}
+\subsection{LargeBRAT as Chaining of Flockings' BRATs}
 % 
 \label{sucsec:murmur_funnels}
 
-The theory we propose here is inspired by the algorithmic notions of robust, self-organizing emergent ``behaviors" such as those observed in   unactuated masses with passive mechanical guideways~\cite{SeqCompKoditschek} or murmurations. Whereas the funneling idea of \cite{SeqCompKoditschek} provides a shifting control law that is only activated in each local partition of the state space when a system's state crosses the boundary towards each portion of the state space, ours is a chained control verification problem that is simultaneously executed across all partitions of the state space based on nearest neighbor rules between agents in order to realize aggressive control and safety verification over as large a state space as possible.
+The theory we propose here is inspired by the algorithmic notions of robust, self-organizing emergent ``behaviors" such as those observed in   unactuated masses with passive mechanical guideways~\cite{SeqCompKoditschek} or murmurations. %Whereas the funneling idea of \cite{SeqCompKoditschek} provides a shifting control law that is only activated in each local partition of the state space when a system's state crosses the boundary towards each portion of the state space, ours is a chained control verification problem that is simultaneously executed across all partitions of the state space based on nearest neighbor rules between agents in order to realize aggressive control and safety verification over as large a state space as possible.
 
+\begin{itemize}
+	\item Chain backward in time, from a murmuration goal, to an attacked flocking's anisotropic heading direction~\cite{Lozano84} (Inspired from Nilsson 1980)
+	%
+	\item Mumrmuration BRAT verification strategy construed as a sequence of guarded motions~\cite{Grossman1975}
+	%
+	\item 
+\end{itemize}
+
+\todo{Under development.}
