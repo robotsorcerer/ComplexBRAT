@@ -81,8 +81,6 @@ class RCBRTVisualizer(object):
 			Inputs:
 				data: marching cubes mesh
 		"""
-		cm = plt.get_cmap('rainbow')
-
 		self._ax[0].grid('on')
 
 		self._ax[0].view_init(elev=self.params.elevation, azim=self.params.azimuth)
@@ -124,7 +122,6 @@ class RCBRTVisualizer(object):
 
 		"""
 		self._ax[1].grid('on')
-		self._ax[1].add_collection3d(mesh_bundle.mesh)
 		self._ax[1].view_init(elev=self.params.elevation, azim=self.params.azimuth)
 
 		self._ax[1].axes.get_xaxis().set_ticks([])

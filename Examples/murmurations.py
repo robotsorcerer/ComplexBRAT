@@ -23,7 +23,7 @@ import scipy.linalg as spla
 import matplotlib as mpl
 # mpl.use('Qt5Agg')
 import matplotlib.pyplot as plt
-from datetime import datetime 
+from datetime import datetime
 
 from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -46,6 +46,7 @@ parser.add_argument('--silent', '-si', action='store_false', help='silent debug 
 parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
 parser.add_argument('--visualize', '-vz', action='store_false', default=True, help='visualize level sets?' )
 parser.add_argument('--show_flock_payoff', '-sp', action='store_false', default=False, help='visualize level sets?' )
+parser.add_argument('--resume', '-rz', type=str, help='resume optimizing from a previous iteration?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
 parser.add_argument('--stochastic', '-st', action='store_true', help='Run trajectories with stochastic dynamics?' )
 parser.add_argument('--compute_traj', '-ct', action='store_false', help='Run trajectories with stochastic dynamics?' )
@@ -74,13 +75,13 @@ fontdict = {'fontsize':16, 'fontweight':'bold'}
 
 def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	"""
-		For a flock, whose mesh has been precomputed, 
+		For a flock, whose mesh has been precomputed,
 		visualize the initial backward avoid tube.
 	"""
-	# visualize avoid set 
+	# visualize avoid set
 	fontdict = {'fontsize':16, 'fontweight':'bold'}
 	mesh_bundle = flock.mesh_bundle
-		
+
 	fig = plt.figure(1, figsize=(16,9), dpi=100)
 	ax = plt.subplot(111, projection='3d')
 	ax.add_collection3d(mesh_bundle.mesh)
@@ -90,7 +91,7 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	ylim = (mesh_bundle.verts[:, 1].min(), mesh_bundle.verts[:,1].max())
 	zlim = (mesh_bundle.verts[:, 2].min(), mesh_bundle.verts[:,2].max())
 
-	# create grid that contains just this zero-level set to avoid computational craze 
+	# create grid that contains just this zero-level set to avoid computational craze
 	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
 	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
 
@@ -119,7 +120,7 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 
 def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	"""
-		Get the avoid BRT for this flock. That is, every bird 
+		Get the avoid BRT for this flock. That is, every bird
 		within a flock must avoid one another.
 
 		Parameters:
@@ -138,9 +139,9 @@ def get_avoid_brt(flock, compute_mesh=True, color='crimson'):
 	flock.payoff = shapeUnion([veh.payoff for veh in flock.vehicles])
 	if compute_mesh:
 		spacing=tuple(flock.grid.dx.flatten().tolist())
-		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing,edge_color=None, face_color=color)    
-		
-	return flock 
+		flock.mesh_bundle = implicit_mesh(flock.payoff, 0, spacing,edge_color=None, face_color=color)
+
+	return flock
 
 
 def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
@@ -168,16 +169,16 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label,\
 	gmax = to_column_mat(gmax)
 
 	grid = createGrid(gmin, gmax, num_points, periodic_dims)
-	
+
 	vehicles = [Bird(grid, u_bound, w_bound, np.expand_dims(init_xyzs[i], 1) , random.random(), \
 					center=np.zeros((3,1)), neigh_rad=3, label=i+1, init_random=False) \
-					for i in range(num_agents)]                
+					for i in range(num_agents)]
 	flock = Flock(grid, vehicles, label=label, reach_rad=.2, avoid_rad=.3)
 	get_avoid_brt(flock, compute_mesh=True, color=color)
 
 	if args.visualize and args.show_flock_payoff:
-		visualize_init_avoid_tube(flock, save, fname=join(base_path, f"flock_{flock.label}.jpg"))         
-		plt.show() 
+		visualize_init_avoid_tube(flock, save, fname=join(base_path, f"flock_{flock.label}.jpg"))
+		plt.show()
 
 	return flock
 
@@ -202,25 +203,25 @@ def main(args):
 	# save shenanigans
 	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures", datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'))
 	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1, periodic_dims=2, \
-						reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
+						reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock1 = get_flock(gmin, gmax, 101, num_agents-1, 1.1*INIT_XYZS, label=2,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	           
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock2 = get_flock(gmin, gmax, 101, num_agents, -1.1*INIT_XYZS, label=3,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                         
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock3 = get_flock(gmin, gmax, 101, num_agents-1, 1.5*INIT_XYZS, label=4,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                             
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock4 = get_flock(gmin, gmax, 101, num_agents, -1.5*INIT_XYZS, label=5,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	                
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock5 = get_flock(gmin, gmax, 101, num_agents-1, 2.0*INIT_XYZS, label=6,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	          
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 	flock6 = get_flock(gmin, gmax, 101, num_agents, -1.8*INIT_XYZS, label=7,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
 
 	# after creating value function, make state space cupy objects
-	g = flock1.grid
-	g.xs = [cp.asarray(x) for x in g.xs]
+	# g = flock1.grid
+	# g.xs = [cp.asarray(x) for x in g.xs]
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-				innerData = Bundle({'grid':g,
+				innerData = Bundle({'grid':flock1.grid,
 					'hamFunc': flock1.hamiltonian,
 					'partialFunc': flock1.dissipation,
 					'dissFunc': artificialDissipationGLF,
@@ -230,16 +231,15 @@ def main(args):
 				))
 
 	# Visualization paramters
-	spacing = tuple(g.dx.flatten().tolist())
 	params = Bundle(
-					{"grid": g,
+					{"grid": flock1.grid,
 					 'disp': True,
 					 'labelsize': 16,
 					 'labels': "Initial 0-LevelSet",
 					 'linewidth': 2,
 					 'elevation': 10,
 					 'azimuth': 5,
-					 'mesh': flock0.mesh_bundle,
+					 'mesh': flock1.mesh_bundle,
 					 'pause_time': args.pause_time,
 					 'title': f'Initial BRT. Flock with {flock1.N} agents.',
 					 'level': 0, # which level set to visualize
@@ -273,67 +273,83 @@ def main(args):
 		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
 		color = next(colors)
 		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
-		
+
 		# murmur flock savename
-		savename = join("data", rf"murmurations_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
-		if os.path.exists(savename):
-			os.remove(savename)
+		if args.resume:
+			savename = "data/"+args.resume
+		else:
+			savename = join("data", rf"murmurations_flock{flock1.label}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+			if os.path.exists(savename):
+				os.remove(savename)
 
-		while(t_range[1] - t_now > small * t_range[1]):
-			itr_start.record()
-			cpu_start = cputime()
+		spacing = flock1.grid.dx.flatten()
+		if args.resume:
+			# look up the last time index, load the brt, and advance the integration
+			with h5py.File(savename, 'r+') as df:
+				last_key = [key for key in df['value']][-1]
+				value_rolling = np.asarray(df[f"value/{last_key}"])
+				value_rolling = cp.asarray(value_rolling)
+				t_now = float(last_key.split(sep='_')[-1])
 
-			# Reshape data array into column vector for ode solver call.
-			y0 = value_rolling.flatten()
+		with h5py.File(savename, 'a') as h5file:
+			if not args.resume:
+				# save spacing now
+				h5file.create_dataset(f'value/spacing', data=spacing, compression="gzip")
 
-			# How far to step?
-			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
-			# Integrate a timestep.
-			t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-			cp.cuda.Stream.null.synchronize()
-			t_now = t
+			while(t_range[1] - t_now > small * t_range[1]):
+				itr_start.record()
+				cpu_start = cputime()
 
-			# Get back the correctly shaped data array
-			value_rolling = y.reshape(g.shape)
+				# Reshape data array into column vector for ode solver call.
+				y0 = value_rolling.flatten()
 
-			# compute zero-level set
-			value_rolling_np = value_rolling.get()
-			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
-											edge_color=None,  face_color=color)
-			"""
-			# update the new grid with points around the zero-level interface only			
-			xlim, ylim, zlim  = viz.get_lims(mesh_bundle.verts) 
+				# How far to step?
+				t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
+				# Integrate a timestep.
+				t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
+				cp.cuda.Stream.null.synchronize()
+				t_now = t
 
-			# create reduced grid around this zero-level set only
-			gmin = np.array(([[xlim[0], ylim[0], zlim[0]]])).T
-			gmax = np.array(([[xlim[1], ylim[1], zlim[1]]])).T
-			# print(gmin.shape, gmax.shape)
-			reduced_grid = createGrid(gmin, gmax, finite_diff_data.innerData.grid.N, 2)
+				# Get back the correctly shaped data array
+				value_rolling = y.reshape(g.shape)
 
-			# update finite difference data
-			finite_diff_data.innerData.grid = reduced_grid
-			"""
+				# compute zero-level set
+				value_rolling_np = value_rolling.get()
+				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
+												edge_color=None,  face_color=color)
+				"""
+				# update the new grid with points around the zero-level interface only
+				xlim, ylim, zlim  = viz.get_lims(mesh_bundle.verts)
 
-			if args.visualize:
-				time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
-				viz.update_tube(mesh_bundle, time_step, True)
+				# create reduced grid around this zero-level set only
+				gmin = np.array(([[xlim[0], ylim[0], zlim[0]]])).T
+				gmax = np.array(([[xlim[1], ylim[1], zlim[1]]])).T
+				# print(gmin.shape, gmax.shape)
+				reduced_grid = createGrid(gmin, gmax, finite_diff_data.innerData.grid.N, 2)
 
-			if args.save:
+				# update finite difference data
+				finite_diff_data.innerData.grid = reduced_grid
+				"""
+
 				if args.visualize:
-					fig = plt.gcf()
-					os.makedirs(base_path) if not os.path.exists(base_path) else None
-					fig.savefig(join(base_path,
-						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
-				
-				# save this brt
-				with h5py.File(savename, 'a') as h5file:
+					time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+					viz.update_tube(mesh_bundle, time_step, True)
+
+				if args.save:
+					if args.visualize:
+						fig = plt.gcf()
+						os.makedirs(base_path) if not os.path.exists(base_path) else None
+						fig.savefig(join(base_path,
+							rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
+
+					# save this brt
 					h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
 
-			itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
+				itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
 
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
-					| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
-				    | Norm: {LA.norm(y, 2):.2f}')
+				info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
+						| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
+					    | Norm: {LA.norm(y, 2):.2f}')
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
