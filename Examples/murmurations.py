@@ -30,15 +30,13 @@ sys.path.append(dirname(dirname(abspath(__file__))))
 sys.path.append(abspath(join('..')))
 
 from Libs import *
-
 from LevelSetPy.Grids import *
-from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
+from LevelSetPy.DynamicalSystems import *
 from LevelSetPy.BoundaryCondition import *
 from LevelSetPy.InitialConditions import *
 from LevelSetPy.SpatialDerivative import *
-
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
@@ -311,7 +309,7 @@ def main(args):
 				t_now = t
 
 				# Get back the correctly shaped data array
-				value_rolling = y.reshape(g.shape)
+				value_rolling = y.reshape(flock1.grid.shape)
 
 				# compute zero-level set
 				value_rolling_np = value_rolling.get()
