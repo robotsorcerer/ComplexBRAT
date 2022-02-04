@@ -19,9 +19,11 @@ import cupy as cp
 import numpy  as np
 from math import pi
 import numpy.linalg as LA
+import scipy.linalg as spla
 import matplotlib as mpl
 # mpl.use('Qt5Agg')
 import matplotlib.pyplot as plt
+from datetime import datetime 
 
 from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
@@ -35,6 +37,7 @@ from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.BoundaryCondition import *
 from LevelSetPy.InitialConditions import *
+from LevelSetPy.SpatialDerivative import *
 
 from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
@@ -197,7 +200,7 @@ def main(args):
 	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents)))
 
 	# save shenanigans
-	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures")
+	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures", datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'))
 	flock0 = get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1, periodic_dims=2, \
 						reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))	
 	flock1 = get_flock(gmin, gmax, 101, num_agents-1, 1.1*INIT_XYZS, label=2,\
@@ -221,7 +224,7 @@ def main(args):
 					'hamFunc': flock1.hamiltonian,
 					'partialFunc': flock1.dissipation,
 					'dissFunc': artificialDissipationGLF,
-					'CoStateCalc': upwindFirstENO2,
+					'CoStateCalc': upwindFirstWENO5a, #upwindFirstENO2,
 					}),
 					positive = False,  # direction to grow the updated level set
 				))
@@ -255,8 +258,8 @@ def main(args):
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=params)
-		t_range = [0, 4]
-		t_plot = (t_range[1] - t_range[0]) / 100
+		t_range = [0, 100]
+		t_plot = (t_range[1] - t_range[0]) / 10000
 		small = 100*eps
 
 		# Loop through t_range (subject to a little roundoff).
@@ -265,15 +268,17 @@ def main(args):
 		itr_start = cp.cuda.Event()
 		itr_end = cp.cuda.Event()
 
-		brt = [flock0.payoff]
-		meshes, brt_time = [], []
 		value_rolling = cp.asarray(copy.copy(flock1.payoff))
 
 		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
 		color = next(colors)
 		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
 		
-		idx = 0
+		# murmur flock savename
+		savename = join("data", rf"murmurations_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+		if os.path.exists(savename):
+			os.remove(savename)
+
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
@@ -283,18 +288,19 @@ def main(args):
 
 			# How far to step?
 			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
-
 			# Integrate a timestep.
-			# t, y, _ = odeCFL2(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
 			t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
 			cp.cuda.Stream.null.synchronize()
 			t_now = t
+
+			# Get back the correctly shaped data array
+			value_rolling = y.reshape(g.shape)
 
 			# compute zero-level set
 			value_rolling_np = value_rolling.get()
 			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=spacing,
 											edge_color=None,  face_color=color)
-
+			"""
 			# update the new grid with points around the zero-level interface only			
 			xlim, ylim, zlim  = viz.get_lims(mesh_bundle.verts) 
 
@@ -306,39 +312,35 @@ def main(args):
 
 			# update finite difference data
 			finite_diff_data.innerData.grid = reduced_grid
+			"""
 
-			# Get back the correctly shaped data array
-			value_rolling = y.reshape(g.shape)
+			if args.visualize:
+				time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+				viz.update_tube(mesh_bundle, time_step, True)
 
 			if args.save:
 				if args.visualize:
-					time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
-					viz.update_tube(mesh_bundle, time_step, True)
-
 					fig = plt.gcf()
+					os.makedirs(base_path) if not os.path.exists(base_path) else None
 					fig.savefig(join(base_path,
 						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
 				
 				# save this brt
-				savename = join("data/", rf"murmurations.hdf5")
-				if os.path.exists(savename):
-					os.remove(savename)
-
 				with h5py.File(savename, 'a') as h5file:
 					h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
 
-			idx += 1
-			itr_end.record()
-			itr_end.synchronize()
-			cpu_end = cputime()
+			itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
 
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
+			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
+					| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
+				    | Norm: {LA.norm(y, 2):.2f}')
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
 
 		#examine to see if the initial state is in the BRS/BRT
 		gexam = copy.deepcopy(g)
+		raise NotImplementedError("Verification of Trajectories is not implemented")
 
 if __name__ == '__main__':
 	main(args)

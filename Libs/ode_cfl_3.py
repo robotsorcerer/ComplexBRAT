@@ -193,7 +193,6 @@ def odeCFL3(schemeFunc, tspan, y0, options, schemeData):
                 yHalf = 0.25 * (3 * y + y2)
 
             'Third substep: Forward Euler from t_{n+1/2} to t_{n+3/2}.'
-
             # Approximate the derivative.
             # We will also check the CFL condition for gross violation.
             for i in range(numY):
