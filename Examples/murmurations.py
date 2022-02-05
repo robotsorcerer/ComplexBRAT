@@ -329,8 +329,8 @@ def main(args):
 				finite_diff_data.innerData.grid = reduced_grid
 				"""
 
+				time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
 				if args.visualize:
-					time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
 					viz.update_tube(mesh_bundle, time_step, True)
 
 				if args.save:

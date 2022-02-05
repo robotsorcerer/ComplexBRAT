@@ -99,7 +99,7 @@ with h5py.File(fname, 'r+') as df:
 
         ax.set_xlabel(rf'x$_1^{1}$ (m)', fontdict=fontdict)
         ax.set_ylabel(rf'x$_2^{1}$ (m)', fontdict=fontdict)
-        ax.set_zlabel(rf'$\omega^{1} (rad)$',fontdict=fontdict)
+        ax.set_zlabel(rf'$\omega^{1} (deg)$',fontdict=fontdict)
 
         time_step = float(key.split(sep="_")[-1])#*1000
         # print('timestep: ', time_step)
