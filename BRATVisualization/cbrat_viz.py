@@ -10,19 +10,6 @@ from LevelSetPy.Grids import createGrid
 from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.Visualization.color_utils import cm_colors
 
-# # for animations
-# import matplotlib.animation as animation
-# from IPython import display
-# import pickle
-
-# #https://stackoverflow.com/questions/34975972/how-can-i-make-a-video-from-array-of-images-in-matplotlib
-# import cv2
-# # Use Agg backend for canvas
-# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-# # create OpenCV video writer
-# video = cv2.VideoWriter('video.mp4', cv2.VideoWriter_fourcc('A','V','C','1'), 1, (mat.shape[0],mat.shape[1]))
-
-
 save = True
 flname = "Flock_1"
 base_path = "/opt/flock1"
@@ -121,9 +108,4 @@ with h5py.File(fname, 'r+') as df:
 # do this so pyplot doesn't close abruptly in the end
 plt.show()
 
-# # save the interaction jawn
-# pname = fname.split(sep=".")[0]
-# pickle.dump(fig, open('pname' + '.pickle', 'wb')) # This is for Python 3 - py2 may need `file` instead of `open`
-
-#turn off pyplot
 plt.ioff()
