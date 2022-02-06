@@ -44,6 +44,7 @@ parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--flock_num', '-fn', type=int, default=0, help='Which flock\'s brat to optimize?' )
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
+parser.add_argument('--out_dir', '-od', type=str, help='save value function to such and such folder' )
 parser.add_argument('--visualize', '-vz', action='store_false', default=False, help='visualize level sets?' )
 parser.add_argument('--flock_payoff', '-sp', action='store_false', default=False, help='visualize individual payoffs within a flock?' )
 parser.add_argument('--resume', '-rz', type=str, help='resume BRAT optimization from a previous iteration?' )
@@ -282,7 +283,8 @@ def main(args):
 		if args.resume:
 			savename = "data/"+args.resume
 		else:
-			savename = join("data", rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+			savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+			# savename = join("data", rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
 			if os.path.exists(savename):
 				os.remove(savename)
 
