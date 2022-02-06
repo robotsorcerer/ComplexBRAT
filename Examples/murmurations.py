@@ -44,8 +44,8 @@ parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--flock_num', '-fn', type=int, default=0, help='Which flock\'s brat to optimize?' )
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
-parser.add_argument('--out_dir', '-od', type=str, help='save value function to such and such folder' )
-parser.add_argument('--visualize', '-vz', action='store_false', default=False, help='visualize level sets?' )
+parser.add_argument('--out_dir', '-od', type=str, default="./data", help='save value function to such and such folder' )
+parser.add_argument('--visualize', '-vz', action='store_true', help='visualize level sets?' )
 parser.add_argument('--flock_payoff', '-sp', action='store_false', default=False, help='visualize individual payoffs within a flock?' )
 parser.add_argument('--resume', '-rz', type=str, help='resume BRAT optimization from a previous iteration?' )
 parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
@@ -68,7 +68,7 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
 
 u_bound = 1
-w_bound = 1 #deg2rad(45)
+w_bound = 1 # deg2rad(45)
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
 def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
@@ -89,13 +89,6 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	ylim = (mesh_bundle.verts[:, 1].min(), mesh_bundle.verts[:,1].max())
 	zlim = (mesh_bundle.verts[:, 2].min(), mesh_bundle.verts[:,2].max())
 
-	# # create grid that contains just this zero-level set to avoid computational craze
-	# gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
-	# gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
-
-	# # create reduced grid upon which this zero level set dwells
-	# flock.grid_zero = createGrid(gmin, gmax, flock.grid.N, 2)
-
 	ax.set_xlim(xlim)
 	ax.set_ylim(ylim)
 	ax.set_zlim(zlim)
@@ -105,7 +98,7 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 
 	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
 	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
-	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
+	ax.set_zlabel(rf'$\omega^{flock.label} (deg)$',fontdict=fontdict)
 
 	if title:
 		ax.set_title(title, fontdict=fontdict)
@@ -202,29 +195,13 @@ def main(args):
 						f"flock_{args.flock_num}",
 						datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'))
 	
-	if args.flock_num==0:
-		flock= get_flock(gmin, gmax, 101, num_agents, INIT_XYZS, label=1, periodic_dims=2, \
-						reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==1:
-		flock = get_flock(gmin, gmax, 101, num_agents-1, 1.1*INIT_XYZS, label=2,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==2:
-		flock = get_flock(gmin, gmax, 101, num_agents, -1.1*INIT_XYZS, label=3,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==3:
-		flock = get_flock(gmin, gmax, 101, num_agents-1, 1.5*INIT_XYZS, label=4,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==4:
-		flock = get_flock(gmin, gmax, 101, num_agents, -1.5*INIT_XYZS, label=5,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==5:
-		flock = get_flock(gmin, gmax, 101, num_agents-1, 2.0*INIT_XYZS, label=6,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	elif args.flock_num==6:
-		flock = get_flock(gmin, gmax, 101, num_agents, -1.8*INIT_XYZS, label=7,\
-						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, color=next(color))
-	else:
-		raise ValueError("Unknown flock number entered.")
+	assert args.flock_num<7 and args.flock_num>=0, "Unknown flock number entered."
+	mul_factors = [1, 1.1, -1.1, 1.5, -1.5, 2.0, -1.8]
+	scaling_factor = mul_factors[args.flock_num]	
+	num_agents -= (args.flock_num%2)
+	flock = get_flock(gmin, gmax, 101, num_agents, scaling_factor*INIT_XYZS, label=7,\
+					periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, \
+					color=next(color))
 
 	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
 				innerData = Bundle({'grid':flock.grid,
@@ -284,7 +261,6 @@ def main(args):
 			savename = "data/"+args.resume
 		else:
 			savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
-			# savename = join("data", rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
 			if os.path.exists(savename):
 				os.remove(savename)
 
