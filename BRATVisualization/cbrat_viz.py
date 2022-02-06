@@ -1,6 +1,7 @@
 import h5py
 import time
 import sys, os
+import argparse
 import numpy as np
 sys.path.append('../')
 
@@ -10,10 +11,17 @@ from LevelSetPy.Grids import createGrid
 from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.Visualization.color_utils import cm_colors
 
+parser = argparse.ArgumentParser(description='Visualization')
+parser.add_argument('--flock_num', '-fn', type=int, default=0, help='Which flock\'s brat to optimize?' )
+parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
+parser.add_argument('--fname', '-fn', type=str, help='which BRAT to load?' )
+args = parser.parse_args()
+args.verbose = True if not args.silent else False
+
 save = True
 flname = "Flock_1"
 base_path = "/opt/flock1"
-fname = 'data/murmurations_flock1_02-04-22_00-35.hdf5'
+fname = 'opt/murmurations_flock1_02-04-22_00-35.hdf5'
 
 # recreate spacing
 gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T

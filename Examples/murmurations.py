@@ -282,7 +282,7 @@ def main(args):
 		if args.resume:
 			savename = "data/"+args.resume
 		else:
-			savename = join("data", rf"murmurations_flock{flock.label}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+			savename = join("data", rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
 			if os.path.exists(savename):
 				os.remove(savename)
 
