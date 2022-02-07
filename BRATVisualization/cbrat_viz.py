@@ -65,6 +65,7 @@ with h5py.File(fname, 'r+') as df:
               ]
             
     color = [.7,.6,.5] # flock 1
+    color = next(colors[int(fname.split(sep="_")[2])])
     idx = 0
     # load them brats for a flock
     for key in keys[1:]:
