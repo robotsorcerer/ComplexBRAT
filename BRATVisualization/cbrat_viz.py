@@ -12,7 +12,6 @@ from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.Visualization.color_utils import cm_colors
 
 parser = argparse.ArgumentParser(description='Visualization')
-# parser.add_argument('--flock_num', '-fl', type=int, default=0, help='Which flock\'s brat to optimize?' )
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--fname', '-fn', type=str, default='murmurations_flock_01_02-06-22_17-43.hdf5', help='which BRAT to load?' )
 args = parser.parse_args()
@@ -64,7 +63,8 @@ with h5py.File(fname, 'r+') as df:
               iter(plt.cm.copper(np.linspace(0, 1, color_len))),
               iter(plt.cm.cubehelix(np.linspace(0, 1, color_len))),
               ]
-    color = [.7,.6,.5]
+            
+    color = [.7,.6,.5] # flock 1
     idx = 0
     # load them brats for a flock
     for key in keys[1:]:
