@@ -40,7 +40,13 @@ with h5py.File(fname, 'r+') as df:
 
     value_key = [k for k in df.keys()][0]
     keys = [key for key in df[value_key]]
-    spacing = np.asarray(df["value/spacing"])
+    if 'spacing' in value_key:
+        spacing = np.asarray(df["value/spacing"])
+    else:
+        gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
+        gmax = np.asarray([[1.5, 1.5, np.pi] ]).T
+        grid = createGrid(gmin, gmax, 101, 2)
+        spacing = grid.dx.flatten()        
     spacing = tuple(spacing.tolist())
 
     print(f"Num BRATs in this flock: {len(keys)}")
@@ -64,7 +70,7 @@ with h5py.File(fname, 'r+') as df:
               iter(plt.cm.cubehelix(np.linspace(0, 1, color_len))),
               ]
             
-    color = [.7,.6,.5] # flock 1
+    # color = [.7,.6,.5] # flock 1
     color = next(colors[int(fname.split(sep="_")[2])])
     idx = 0
     # load them brats for a flock
