@@ -43,7 +43,7 @@ from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--flock_num', '-fn', type=int, default=0, help='Which flock\'s brat to optimize?' )
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
-parser.add_argument('--save', '-sv', action='store_false', help='save BRS/BRT at end of sim' )
+parser.add_argument('--save', '-sv', action='store_false', default=True, help='save BRS/BRT at end of sim' )
 parser.add_argument('--out_dir', '-od', type=str, default="./data", help='save value function to such and such folder' )
 parser.add_argument('--visualize', '-vz', action='store_true', help='visualize level sets?' )
 parser.add_argument('--flock_payoff', '-sp', action='store_false', default=False, help='visualize individual payoffs within a flock?' )
@@ -68,7 +68,7 @@ logging.getLogger('matplotlib.font_manager').disabled = True
 logger = logging.getLogger(__name__)
 
 u_bound = 1
-w_bound = 1 # deg2rad(45)
+w_bound = 1 
 fontdict = {'fontsize':16, 'fontweight':'bold'}
 
 def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
@@ -254,76 +254,78 @@ def main(args):
 		value_rolling = cp.asarray(copy.copy(flock.payoff))
 
 		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
+		color = next(colors)
 		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
 
 		# murmur flock savename
 		if args.resume:
 			savename = "data/"+args.resume
-		else:
-			savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
-			if os.path.exists(savename):
-				os.remove(savename)
 
-		spacing = flock.grid.dx.flatten()
-		if args.resume:
 			# look up the last time index, load the brt, and advance the integration
 			with h5py.File(savename, 'r+') as df:
 				last_key = [key for key in df['value']][-1]
 				value_rolling = np.asarray(df[f"value/{last_key}"])
 				value_rolling = cp.asarray(value_rolling)
 				t_now = float(last_key.split(sep='_')[-1])
+		else:
+			savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+			if os.path.exists(savename):
+				os.remove(savename)
+
+		spacing = flock.grid.dx.flatten()
 
 		with h5py.File(savename, 'a') as h5file:
 			if not args.resume:
 				# save spacing now
 				h5file.create_dataset(f'value/spacing', data=spacing, compression="gzip")
 
-			while(t_range[1] - t_now > small * t_range[1]):
-				itr_start.record()
-				cpu_start = cputime()
+		while(t_range[1] - t_now > small * t_range[1]):
+			itr_start.record()
+			cpu_start = cputime()
 
-				# Reshape data array into column vector for ode solver call.
-				y0 = value_rolling.flatten()
+			# Reshape data array into column vector for ode solver call.
+			y0 = value_rolling.flatten()
 
-				# How far to step?
-				t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
-				# Integrate a timestep.
-				t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-				cp.cuda.Stream.null.synchronize()
-				t_now = t
+			# How far to step?
+			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
+			# Integrate a timestep.
+			t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
+			cp.cuda.Stream.null.synchronize()
+			t_now = t
 
-				# Get back the correctly shaped data array
-				value_rolling = y.reshape(flock.grid.shape)
+			# Get back the correctly shaped data array
+			value_rolling = y.reshape(flock.grid.shape)
 
-				# compute zero-level set
-				value_rolling_np = value_rolling.get()
-				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
-												edge_color=None,  face_color=next(colors))
+			# compute zero-level set
+			value_rolling_np = value_rolling.get()
+			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
+											edge_color=None,  face_color=color)
 
-				time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+			time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
+			if args.visualize:
+				viz.update_tube(mesh_bundle, time_step, True)
+
+			if args.save:
 				if args.visualize:
-					viz.update_tube(mesh_bundle, time_step, True)
-
-				if args.save:
-					if args.visualize:
-						fig = plt.gcf()
-						os.makedirs(base_path) if not os.path.exists(base_path) else None
-						fig.savefig(join(base_path,
-							rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
-
+					fig = plt.gcf()
+					os.makedirs(base_path) if not os.path.exists(base_path) else None
+					fig.savefig(join(base_path,
+						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
+		
+				with h5py.File(savename, 'a') as h5file:
 					# save this brt
 					h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
 
-				itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
+			itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
 
-				info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
-						| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
-					    | Norm: {LA.norm(y, 2):.2f}')
+			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
+					| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
+					| Norm: {LA.norm(y, 2):.2f}')
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
 
-		#examine to see if the initial state is in the BRS/BRT
+		#examine to see if the initial state is in the BRAT
 		gexam = copy.deepcopy(flock.grid)
 		raise NotImplementedError("Verification of Trajectories is not implemented")
 
