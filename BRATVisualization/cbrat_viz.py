@@ -22,12 +22,6 @@ save = True
 base_path = "/opt/murmurations/"
 fname = join(base_path, args.fname)
 
-# recreate spacing
-# gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
-# gmax = np.asarray([[1.5, 1.5, np.pi] ]).T
-# grid = createGrid(gmin, gmax, 101, 2)
-# spacing = tuple(grid.dx.flatten().tolist())
-
 def see(n, obj):
     keys = []
     for k, v in obj.attrs.items():
@@ -38,7 +32,7 @@ verbose = True
 
 fontdict = {'fontsize':18, 'fontweight':'bold'}
 plt.ion()
-fig = plt.figure(1, figsize=(16,9), dpi=100)
+fig = plt.figure(1, figsize=(25,16), dpi=100)
 ax = plt.subplot(111, projection='3d')
 
 with h5py.File(fname, 'r+') as df:
@@ -49,8 +43,6 @@ with h5py.File(fname, 'r+') as df:
     keys = [key for key in df[value_key]]
     spacing = np.asarray(df["value/spacing"])
     spacing = tuple(spacing.tolist())
-    # print(value_key, keys)
-    # print(spacing)
 
     print(f"Num BRATs in this flock: {len(keys)}")
 
@@ -77,7 +69,7 @@ with h5py.File(fname, 'r+') as df:
     # load them brats for a flock
     for key in keys[1:]:
         brt = np.asarray(df[f"{value_key}/{key}"])
-        print(f"On BRAT: {idx+1/len(keys)}")
+        print(f"On BRAT: {idx+1}/{len(keys)}")
 
         mesh_bundle=implicit_mesh(brt, level=0, spacing=spacing, edge_color=None, \
                                  face_color=color)

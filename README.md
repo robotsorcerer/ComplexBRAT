@@ -13,5 +13,6 @@ Large Backward Reach Avoid Tubes
 ### Example BRAT for a flock
 
 <div align="center">
-<img src="PoCs/brat_flock1.gif" height="400px" width="320px"/>
+<img src="BRATVisualization/brat_flock1.gif" height="400px" width="320px"/>
+<img src="BRATVisualization/flock_01.gif" height="400px" width="320px"/>
 </div>
