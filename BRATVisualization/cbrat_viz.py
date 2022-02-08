@@ -14,7 +14,8 @@ from LevelSetPy.Visualization.color_utils import cm_colors
 parser = argparse.ArgumentParser(description='Visualization')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--fname', '-fn', type=str, default='murmurations_flock_01_02-06-22_17-43.hdf5', help='which BRAT to load?' )
-parser.add_argument('--resume', '-rz', type=int, default=1, help='what key in the index to resume from' )
+parser.add_argument('--start', '-st', type=int, default=1, help='what key in the index to resume from' )
+parser.add_argument('--end', '-ed', type=int, help='what key in the index to resume from' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -53,30 +54,34 @@ with h5py.File(fname, 'r+') as df:
     print(f"Num BRATs in this flock: {len(keys)}")
 
     color_len = 5
-    colors = [iter(plt.cm.Spectral(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.ocean(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.viridis(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.rainbow(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.coolwarm(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.magma(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.rainbow(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.summer(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.nipy_spectral(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.autumn(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.twilight(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.inferno_r(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.copper(np.linspace(.5, 1, color_len))),
-              iter(plt.cm.cubehelix(np.linspace(.5, 1, color_len))),
+    colors = [plt.cm.Spectral(.9),
+              plt.cm.ocean(.8),
+              plt.cm.viridis(.2),
+              plt.cm.rainbow(.8),
+              plt.cm.coolwarm(.8),
+              plt.cm.magma(.8),
+              plt.cm.rainbow(.8),
+              plt.cm.summer(.8),
+              plt.cm.nipy_spectral(.8),
+              plt.cm.autumn(.8),
+              plt.cm.twilight(.8),
+              plt.cm.inferno_r(.8),
+              plt.cm.copper(.8),
+              plt.cm.cubehelix(.8)
               ]
-    colors = [[0,.99,.00], [.7,.6,.5], [0, 0,.99], [.9,.3,.2], [0.9, .1, .1], [0.9, .99, .1]]
+    #colors = [[0,.99,.00], [.7,.6,.5], [0, 0,.99], [.9,.3,.2], [0.9, .1, .1], [0.9, .99, .1]]
             
-    color = plt.cm.cubehelix(0.5)
+    lname = fname.split(sep="_")[2]
+    color = colors[int(lname)]
 
-    idx = args.resume-1
+    if not args.end:
+        args.end = -1
+
+    idx = args.start-1
     # load them brats for a flock
-    for key in keys[args.resume:]:
+    for key in keys[args.start:args.end]:
         brt = np.asarray(df[f"{value_key}/{key}"])
-        print(f"On BRAT: {idx+1}/{len(keys)}")
+        print(f"On BRAT: {idx+1}/{len(keys[:args.end])}--{len(keys)}")
 
         mesh_bundle=implicit_mesh(brt, level=0, spacing=spacing, edge_color=None, \
                                  face_color=color)
@@ -101,10 +106,10 @@ with h5py.File(fname, 'r+') as df:
 
         time_step = float(key.split(sep="_")[-1])
         # print('timestep: ', time_step)
-        lname = fname.split(sep="_")[2]
         # ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
         ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
-        ax.view_init(azim=-30, elev=30)
+        azim=60 if lname%2==0 else -30
+        ax.view_init(azim=azim, elev=30)
 
         fig.canvas.draw()
         fig.canvas.flush_events()
