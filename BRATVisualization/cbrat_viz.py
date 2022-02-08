@@ -1,5 +1,6 @@
 import h5py
 import time
+import glob
 import sys, os
 import argparse
 import numpy as np
@@ -13,6 +14,7 @@ from LevelSetPy.Visualization.color_utils import cm_colors
 
 parser = argparse.ArgumentParser(description='Visualization')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
+parser.add_argument('--delete', '-dt', action='store_true', help='silent debug print outs' )
 parser.add_argument('--fname', '-fn', type=str, default='murmurations_flock_01_02-06-22_17-43.hdf5', help='which BRAT to load?' )
 parser.add_argument('--start', '-st', type=int, default=1, help='what key in the index to resume from' )
 parser.add_argument('--end', '-ed', type=int, help='what key in the index to resume from' )
@@ -78,6 +80,11 @@ with h5py.File(fname, 'r+') as df:
         args.end = -1
 
     idx = args.start-1
+
+    if args.delete:
+        oldfiles = glob.glob(join(base_path, rf"flock_{lname}", '*.*'))
+        for f in oldfiles:  os.remove(f) 
+
     # load them brats for a flock
     for key in keys[args.start:args.end]:
         brt = np.asarray(df[f"{value_key}/{key}"])
@@ -108,7 +115,7 @@ with h5py.File(fname, 'r+') as df:
         # print('timestep: ', time_step)
         # ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
         ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
-        azim=60 if lname%2==0 else -30
+        azim=60 if int(lname)%2==0 else -30
         ax.view_init(azim=azim, elev=30)
 
         fig.canvas.draw()
