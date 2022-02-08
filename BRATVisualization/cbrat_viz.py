@@ -56,13 +56,14 @@ with h5py.File(fname, 'r+') as df:
     print(f"Num BRATs in this flock: {len(keys)}")
 
     color_len = 5
-    colors = [plt.cm.Spectral(.9),
+    colors = [
+              plt.cm.Spectral(.9),
+              plt.cm.rainbow(.9),
               plt.cm.ocean(.8),
               plt.cm.viridis(.2),
               plt.cm.rainbow(.8),
               plt.cm.coolwarm(.8),
               plt.cm.magma(.8),
-              plt.cm.rainbow(.8),
               plt.cm.summer(.8),
               plt.cm.nipy_spectral(.8),
               plt.cm.autumn(.8),
@@ -71,7 +72,6 @@ with h5py.File(fname, 'r+') as df:
               plt.cm.copper(.8),
               plt.cm.cubehelix(.8)
               ]
-    #colors = [[0,.99,.00], [.7,.6,.5], [0, 0,.99], [.9,.3,.2], [0.9, .1, .1], [0.9, .99, .1]]
             
     lname = fname.split(sep="_")[2]
     color = colors[int(lname)]
@@ -107,15 +107,16 @@ with h5py.File(fname, 'r+') as df:
 
         ax.tick_params(axis='both', which='major', labelsize=10)
 
-        ax.set_xlabel(rf'x$_1^{1}$ (m)', fontdict=fontdict)
-        ax.set_ylabel(rf'x$_2^{1}$ (m)', fontdict=fontdict)
-        ax.set_zlabel(rf'$\omega^{1} (deg)$',fontdict=fontdict)
+        ax.set_xlabel(rf'x$_1^{int(lname)}$ (m)', fontdict=fontdict)
+        ax.set_ylabel(rf'x$_2^{int(lname)}$ (m)', fontdict=fontdict)
+        ax.set_zlabel(rf'$\omega^{int(lname)} (deg)$',fontdict=fontdict)
 
         time_step = float(key.split(sep="_")[-1])
         # print('timestep: ', time_step)
         # ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
         ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
         azim=60 if int(lname)%2==0 else -30
+        if lname=='00': azim=-75
         ax.view_init(azim=azim, elev=30)
 
         fig.canvas.draw()
