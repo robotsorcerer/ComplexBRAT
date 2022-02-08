@@ -278,7 +278,7 @@ def main(args):
 			if not args.resume:
 				# save spacing now
 				h5file.create_dataset(f'value/spacing', data=spacing, compression="gzip")
-
+		norm_tracker = []
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
 			cpu_start = cputime()
@@ -300,6 +300,9 @@ def main(args):
 			value_rolling_np = value_rolling.get()
 			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
 											edge_color=None,  face_color=color)
+			# track the evolution of the growth of the level set so that when the norm stops decreasing, 
+			# we terminate the game
+			norm_tracker.append(LA.norm(y, 2))
 
 			time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
 			if args.visualize:
@@ -320,7 +323,11 @@ def main(args):
 
 			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
 					| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
-					| Norm: {LA.norm(y, 2):.2f}')
+					| Norm: {norm_tracker[-1]:.2f}')
+			
+			if np.all(np.diff(norm_tracker[:-5])<.01):
+				logger.info("Terminating the game!")
+				break
 
 	if args.verify:
 		x0 = np.array([[1.25, 0, pi]])
