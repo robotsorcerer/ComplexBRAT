@@ -98,21 +98,14 @@ def artificialDissipationGLF(t, data, derivL, derivR, schemeData):
         alpha = schemeData.partialFunc(t, data, derivMin, derivMax, \
                       schemeData, i)
         diss += (0.5 * derivDiff[i] * alpha)
-        # see eqn 3.9 and 3.10 of levelset book
-        """
-        In addition, from https://en.wikipedia.org/wiki/Courant%E2%80%93Friedrichs%E2%80%93Lewy_condition
-        For the two and n-dim case, The interval length is not required to be the same for each spatial 
-        variable {\displaystyle \Delta x_{i},i=1,\ldots ,n}\Delta x_{i},i=1,\ldots ,n. This "degree of freedom" 
-        can be used to somewhat optimize the value of the time step for a particular problem, by varying the 
-        values of the different interval to keep it not too small.
-        """
-        # if isinstance(alpha, cp.ndarray):
-        #   #from O&F, the coeffs are 
-        #   # set to the max possible values of |H_{x|y}| respectively
-        #   alpha = cp.max(alpha.flatten())
+        if isinstance(alpha, cp.ndarray):
+          #from O&F, the coeffs are 
+          # set to the max possible values of |H_{x|y}| respectively
+          alpha = cp.max(alpha.flatten())  
 
-        stepBoundInv += cp.divide(alpha, grid.dx[i])
+        
+        stepBoundInv += (alpha / grid.dx.item(i))
 
-    stepBound = cp.min(cp.divide(1, stepBoundInv))
+    stepBound = (1 / stepBoundInv).get().item()
 
     return diss, stepBound

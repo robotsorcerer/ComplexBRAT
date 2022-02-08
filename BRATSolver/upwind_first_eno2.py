@@ -4,11 +4,10 @@ import copy
 import logging
 import cupy as cp
 import numpy as np
-from LargeBRAT.Decomps.augment_grid import augmentGrid
 from LevelSetPy.Utilities import *
-from LevelSetPy.SpatialDerivative.check_eq_approx import checkEquivalentApprox
-
 logger = logging.getLogger(__name__)
+
+from .check_eq_approx import checkEquivalentApprox
 
 def upwindFirstENO2(grid, data, dim, generateAll=0):
     """
@@ -51,6 +50,8 @@ def upwindFirstENO2(grid, data, dim, generateAll=0):
     if((dim < 0) or (dim > grid.dim)):
         raise ValueError('Illegal dim parameter')
 
+    dxInv = cp.divide(1, grid.dx.item(dim))
+
     # How big is the stencil?
     stencil = 2
 
@@ -61,13 +62,8 @@ def upwindFirstENO2(grid, data, dim, generateAll=0):
 
     # Add ghost cells.
     gdata = grid.bdry[dim](data, dim, stencil, grid.bdryData[dim])
+    #logger.info(f'dim: {dim} | gdata: {cp.linalg.norm(gdata, 2)}')
 
-    # augment steps of grid via extrapolation # Note we are doing this 
-    # because when we project, the mesh sizes become ruffled.
-    gridOut = augmentGrid(grid, dim, stencil)
-    dx      = gridOut.dx[dim]
-    dxInv   = cp.divide(1, gridOut.dx[dim])
-    
     #---------------------------------------------------------------------------
     # Create cell array with array indices.
     sizeData = size(gdata)
@@ -76,17 +72,16 @@ def upwindFirstENO2(grid, data, dim, generateAll=0):
       indices1.append(cp.arange(sizeData[i], dtype=cp.intp))
     indices2 = copy.copy(indices1)
 
+    cp.cuda.Device().synchronize()
     #---------------------------------------------------------------------------
     # First divided differences (first entry corresponds to D^1_{-1/2}).
     indices1[dim] = cp.arange(1,size(gdata, dim), dtype=cp.intp)
     indices2[dim] = copy.copy(indices1[dim]) - 1
-    D1 = cp.multiply((dxInv[cp.ix_(*indices1)] - dxInv[cp.ix_(*indices2)]), \
-                     (gdata[cp.ix_(*indices1)] - gdata[cp.ix_(*indices2)]))
+    D1 = dxInv*(gdata[cp.ix_(*indices1)] - gdata[cp.ix_(*indices2)])
 
     indices1[dim] = cp.arange(1, size(D1, dim), dtype=cp.intp)
     indices2[dim] = copy.copy(indices1[dim]) - 1
-    D2 = 0.5 * cp.multiply((dxInv[cp.ix_(*indices1)] - dxInv[cp.ix_(*indices2)]), \
-                           (D1[cp.ix_(*indices1)] - D1[cp.ix_(*indices2)]))
+    D2 = 0.5 * dxInv*(D1[cp.ix_(*indices1)] - D1[cp.ix_(*indices2)])
 
     #---------------------------------------------------------------------------
     # First divided difference array has an extra entry at top and bottom
@@ -111,14 +106,14 @@ def upwindFirstENO2(grid, data, dim, generateAll=0):
     #   Second order terms are sorted left to right.
     indices1[dim] = cp.arange(0, size(D2, dim) - 2, dtype=cp.intp)
     indices2[dim] = cp.arange(1, size(D2, dim) - 1, dtype=cp.intp)
-    dL[0] += cp.multiply(dx[cp.ix_(*indices1)], D2[cp.ix_(*indices1)])
-    dL[1] += cp.multiply(dx[cp.ix_(*indices1)], D2[cp.ix_(*indices2)])
+    dL[0] += (grid.dx.item(dim) * D2[cp.ix_(*indices1)])
+    dL[1] += (grid.dx.item(dim) * D2[cp.ix_(*indices2)])
 
     indices1[dim] += 1
     indices2[dim] += 1
 
-    dR[0] -= cp.multiply(dx[cp.ix_(*indices1)], D2[cp.ix_(*indices1)])
-    dR[1] -= cp.multiply(dx[cp.ix_(*indices1)], D2[cp.ix_(*indices2)])
+    dR[0] -= (grid.dx.item(dim) * D2[cp.ix_(*indices1)])
+    dR[1] -= (grid.dx.item(dim) * D2[cp.ix_(*indices2)])
 
     #---------------------------------------------------------------------------
     if(generateAll):
