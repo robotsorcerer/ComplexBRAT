@@ -33,7 +33,7 @@ Here, we initialized six flocks on a state space to constitute a simple murmurat
 </div>
 
 <div align="center">
-<img src="BRATVisualization/flock_06.gif" height="640px" width="480px"/>
+<img src="BRATVisualization/flock_06.gif" height="480px" width="480px"/>
 </div>
 
 RCBRAT because each agent within each flock must avoid other agents, while as a group agents within the flock are trying to evade capture by a pursuer.
