@@ -72,6 +72,10 @@ with h5py.File(fname, 'r+') as df:
             
     # color = [.7,.6,.5] # flock 1
     color = next(colors[int(fname.split(sep="_")[2])])
+    # color = [.9,.3,.2] # flock 3
+    color = [0.9, .1, .1] # flock 5
+    colors = [[0,.99,.00], [.7,.6,.5], [0, 0,.99], [.9,.3,.2], [0.9, .1, .1], [0.9, .99, .1]]
+
     idx = 0
     # load them brats for a flock
     for key in keys[1:]:
@@ -102,7 +106,8 @@ with h5py.File(fname, 'r+') as df:
         time_step = float(key.split(sep="_")[-1])
         # print('timestep: ', time_step)
         lname = fname.split(sep="_")[2]
-        ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
+        # ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
+        ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
         ax.view_init(azim=-30, elev=30)
 
         fig.canvas.draw()

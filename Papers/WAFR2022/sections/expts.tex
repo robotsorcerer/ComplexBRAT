@@ -7,13 +7,20 @@ In starlings, agents move in local flocks of six to seven nearest neighbors~\cit
 \begin{figure}[tb!]
 	\centering
 	\begin{tabular}{ccc} 
-		\includegraphics[height=12em,width=10em]{figures/flock_2.jpg} 
+		\includegraphics[height=12em,width=10em]{figures/flock_0_init.jpg} 
 		&
-		\includegraphics[height=12em,width=10em]{figures/flock_4.jpg} 
-		& 
-		\includegraphics[height=12em,width=10em]{figures/flock_6.jpg} 
+		\includegraphics[height=12em,width=10em]{figures/flock_1_init.jpg} 
+		& 		
+		\includegraphics[height=12em,width=10em]{figures/flock_2_init.jpg} 
+		\\
+		\includegraphics[height=12em,width=10em]{figures/flock_0_final.jpg} 
+		&
+		\includegraphics[height=12em,width=10em]{figures/flock_1_final.jpg} 
+		& 		
+		\includegraphics[height=12em,width=10em]{figures/flock_2_final.jpg} 		
 	\end{tabular}
-	\caption{\footnotesize Illustrative Initial Zero-Level RCBRT for Different Flocks in our Experiment. These are the avoid RCBRTs of the aggregated payoffs of all  agents that constitute each  flock within a murmuration.  (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$).} 
+	\caption{\footnotesize Top: Initial zero-level set for a flock initialized from a specific initial condition.  Bottom: Interface of the respective evading flock under attack from a pursuer at 
+		the end a Lax-Friedrichs' integration.   (Metric reach radius=$0.2m$, Avoid Radius=$0.2m$). More results are included in the appendix \ref{sec:rcbrats}.} 
 	\label{fig:flocks_multi}
 \end{figure}
 %
@@ -26,28 +33,42 @@ Therefore, we define the target set and the tube as
 %
 where $\tau \in  [-T, 0]$. 
 
-\begin{figure}[tb!]
-	\centering
-	\begin{minipage}[b]{\textwidth}		
-		\includegraphics[width=\textwidth]{figures/murmurations_2.0.jpg} 
-	\end{minipage}
-	%	
-	\begin{minipage}[b]{\textwidth}		
-		\includegraphics[width=\textwidth]{figures/murmurations_7.0.jpg} 
-	\end{minipage}
-	%	
-	\caption{\footnotesize RCBRT of an Evading Flock at Different Lax-Friedrichs' integration Timesteps.   
-		(Metric reach radius=$0.2m$, Avoid Radius=$0.2m$. Topological radius=3 units).} 
-	\label{fig:flocks_rcbrt}
-\end{figure}
+%\begin{figure}[tb!]
+%	\centering
+%	\begin{minipage}[b]{.45\textwidth}		
+%		\includegraphics[width=\textwidth]{figures/murmurations_0000.jpg} 
+%	\end{minipage}
+%	%	
+%	\begin{minipage}[b]{.45\textwidth}		
+%		\includegraphics[width=\textwidth]{figures/murmurations_0100.jpg} 
+%	\end{minipage}
+%	%
+%	\\
+%	%
+%	\begin{minipage}[b]{.45\textwidth}		
+%		\includegraphics[width=\textwidth]{figures/murmurations_0250.jpg} 
+%	\end{minipage}
+%	%
+%	\begin{minipage}[b]{.45\textwidth}		
+%		\includegraphics[width=\textwidth]{figures/murmurations_0480.jpg} 
+%	\end{minipage}
+%	%	
+%	\caption{\footnotesize RCBRT of an Evading Flock-Pursuer System at Different Lax-Friedrichs' integration Timesteps.   
+%		(Metric reach radius=$0.2m$, Avoid Radius=$0.2m$. Topological radius=3 units).} 
+%	\label{fig:flocks_rcbrt}
+%\end{figure}
 %
-A pictorial representation of the zero-level RCBRT of a differential  game with six-seven agents in the evading flock (\cf\autoref{fig:robust_heading}), constructed from a union of each agent's respective payoff,  is depicted in \autoref{fig:flocks_multi}. Each agent's payoff is implicitly defined by a signed distance representation on the state space~\cite{LevelSetsBook}. Abusing notation and dropping the $i$th superscript for an agent, we construct $\valuefunc(\cdot)$ as 
+A pictorial representation of the zero-level robustly controllable backward reach-avoid tubes (RCBRAT) of various differential  games with finite agents in the evading flock (\cf\autoref{fig:robust_heading})\footnote{More results for other flocks are included in the appendix.}, constructed from a union of each agent's respective payoff,  is depicted in \autoref{fig:flocks_multi}. These are  the aggregated payoffs of all  agents that constitute each  flock. Each agent's payoff is implicitly defined by a signed distance representation on the state space~\cite{LevelSetsBook} \ie, %. Abusing notation and dropping the $i$th superscript for an agent, we construct $\valuefunc(\cdot)$ as 
 %
 \begin{align}
-	\valuefunc(\state, 0) = \sqrt{\state_1^2 + \state_2^2} - r_c
+	\valuefunc^{(i)}(\state, 0) = \sqrt{{\state_1^{(i)}}^2 + {\state_2^{(i)}}^2} - r_c^{(i)}
 \end{align}
 %
-where $r_c$ is the capture radius, equivalent to the topological range for a flock as reported in~\cite{Ballerini1232}. 
+where $r_c$ is the capture radius. And the payoff for an evading flock is taken as the union of all individual agent's payoff as
+%
+\begin{align}
+	\valuefunc_j(\state, 0) = \bigcup_{i=1}^{n_a} \sqrt{{\state_1^{(i)}}^2 + {\state_2^{(i)}}^2} - r_c^{(i)} 
+\end{align}
 
 In the original fronts propagation algorithm of \cite{OsherFronts}, the zero-level set in embedded throughout the state space. This adds a lot of computational complexity to the computational procedure. To circumvent this, in each iteration of the numerical integration scheme, we compute the grid bounds of the zero-level set of an interface, and we update the state space with the newly constructed grid. This hastens computational time, by reducing the complexity of the numerical flux integration scheme to just the number of elements on the front. 
 
@@ -69,6 +90,4 @@ We want an adaptive allocation rule for the pursuer when aiming for an evading i
 
 
 Since the orientations of neighboring agents are averaged with that of the singled-out bird, the information is inevitably propagated across the entire flock, and hence the murmuration.
-%
-
-We found a Courant-Friedrichs-Lax (CFL) factor of $0.65$ to be a good hyperparameter during the integration of the HJI PDE\eqref{eq:HamiltonianOverall}.
+ We found a Courant-Friedrichs-Lax (CFL) factor of $0.65$ to be a good hyperparameter during the integration of the HJI PDE\eqref{eq:HamiltonianOverall}. We adopt a warm-starting optimization scheme for the computation of the BRAT of each flock in our implementation so that we can leverage information accumulated during previous iterations when an optimization takes too long. We simply reload a BRAT from hard-disk from a different time step in the optimization process, and advance the Lax-Friedrichs integration scheme backward in time\footnote{An easier way to proceed backwards in time is to negate the dynamic equations in \eqref{eq:DubinsJadbabaie} and \eqref{eq:DubinsRelative}}.

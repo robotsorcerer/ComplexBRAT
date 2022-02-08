@@ -176,7 +176,7 @@ It has been observed that structural anisotropy is not merely an effect of a pre
 Because of the robust group cohesion philosophy, we take it that at least one agent within a flock labeled $j$ is under attack and is in relative coordinates with a pursuer, $\pursuer^j$. By averaging the heading of individual agents' orientations with its neighbors\cf \eqref{eq:DubinsJadbabaie}, individual agents within a flock can achieve  fast  response to danger when a pursuer is nearby. In this specialized case,  capture does not necessarily occur, because the $\evader$ and $\pursuer$'s speeds and maximum turn radius are equal: if both players start the game with the same initial velocity and orientation, the relative equations of motion show that $\evader$ can mimic $\pursuer$'s strategy by forever keeping the starting radial separation. As such, the \textit{barrier} is closed and the \textit{game of kind} is to determine the surface~\cite{Merz1972}. However, owing to the high-dimensionality of the state space, we cannot resolve this barrier analytically, hence we resort to numerical approximation methods -- in particular, we leverage a parallel Lax-Friedrichs integration scheme~\cite{Crandall1984} which we implement in Cupy~\cite{CuPy} in order to provide a \textit{consistent} and \textit{monotone} solution to the Hamiltonians of these HJI equations. 
 %
 
-Therefore, for an agent $i$ within a flock with index $j$ in a murmuration, the equations of motion under attack from a predator (see \autoref{fig:robust_heading}) in relative coordinates is %and terminal conditions are given by
+Therefore, for an agent $i$ within a flock with index $j$ in a murmuration, the equations of motion under attack from a predator $p$ (see \autoref{fig:robust_heading}) in relative coordinates is %and terminal conditions are given by
 %
 \begin{align}
 \left[\begin{array}{c}
@@ -189,9 +189,10 @@ v_p^{(i)_j}(t)\sin \state_3^{(i)_j}(t) - \langle w_e^{(i)_j} \rangle_r \state_1^
 \\ 
 w_p^{(j)}(t) - \langle w_e^{(i)_j}(t) \rangle_r
 \end{bmatrix} \, \text{for } i=1,\cdots, n_a
+\label{eq:DubinsRelative}
 \end{align}
 %
-where $n_a$ is the number of agents within a flock, $\left(\state_1^{(i)_j}(t), {\state}_2^{(i)_j} (t)\right) \in \bb{R}^2$, and  we have $\state_3^{(i)_j} (t) \in \left[-\pi, +\pi\right)$. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration at time $t$. In absolute coordinates, the equation of motion for \textit{free agents} is 
+where $n_a$ is the number of agents within a flock, $\left(\state_1^{(i)_j}(t), {\state}_2^{(i)_j} (t)\right) \in \bb{R}^2$, and  we have $\state_3^{(i)_j} (t) \in \left[-\pi, +\pi\right)$\footnote{We have multiplied the dynamics by $-1$ so that the extremal's resolution evolves backwards in time.}. Read ${\state}_1^{(i)_j}(t)$: the first component of the state of an agent $i$ at time $t$ which belongs to the flock $j$ in the murmuration at time $t$. In absolute coordinates, the equation of motion for \textit{free agents} is 
 %
 \begin{align}\left[\begin{array}{c}
 		\dot{\state}_1^{(i)_j}(t) \\ \dot{\state}_2^{(i)_j} (t) \\ \dot{\state}_3^{(i)_j} (t)
@@ -320,7 +321,7 @@ Throughout the game, we assume that the roles of $\pursuer$  and $\evader$ do no
 %	The complete proof is provided in Appendix \ref{app:ham}.
 %\end{proof}
 
-We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{N}\}$. We define the numerical monotone flux, 	$\hat{\hamfunc}^{(i)_j}(\cdot)$, of $\hamfunc_j^{(i)}(\cdot)$ as 
+We adopt the essentially non-oscillatory Lax-Friedrichs scheme of~\cite{OsherShuENO, Crandall1984Approx} in resolving \eqref{eq:HamiltonianCompletada}. Denote by $(x, y, z)$ a generic point in $\bb{R}^3$ so that given mesh sizes $\Delta x, \, \Delta y, \, \Delta z, \, \Delta t \, > 0$, letters $u,v,w$ will represent functions on the $x,y,z$ lattice $\Delta=\{(x_i,y_j, z_k): i, j, k \in \bb{Z}\}$. We define the numerical monotone flux, 	$\hat{\hamfunc}^{(i)_j}(\cdot)$, of $\hamfunc_j^{(i)}(\cdot)$ as 
 %
 \begin{align}
 	\hat{\hamfunc}^{(i)_j}(u^+, u^-, v^+, v^-, w^+, w^-) = \hamfunc^{(i)_j}\left(\frac{u^+ +u^-}{2}, \frac{v^+ +v^-}{2}, \frac{w^+ +w^-}{2}\right) \nonumber

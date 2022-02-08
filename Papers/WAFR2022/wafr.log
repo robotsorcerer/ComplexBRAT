@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.1.13)  3 FEB 2022 17:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.2.7)  7 FEB 2022 22:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1165,29 +1165,57 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
 ) (./sections/intro.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
+<figures/migrating_starlings.jpg, id=11, 1204.5pt x 792.9625pt>
+File: figures/migrating_starlings.jpg Graphic file (type jpg)
+<use figures/migrating_starlings.jpg>
+Package pdftex.def Info: figures/migrating_starlings.jpg  used on input line 6.
+
+(pdftex.def)             Requested size: 99.98267pt x 79.99057pt.
+<figures/roosting.jpg, id=12, 1204.5pt x 767.86874pt>
+File: figures/roosting.jpg Graphic file (type jpg)
+<use figures/roosting.jpg>
+Package pdftex.def Info: figures/roosting.jpg  used on input line 8.
+(pdftex.def)             Requested size: 99.98267pt x 79.99004pt.
+<figures/starlings_fly.jpg, id=13, 1204.5pt x 761.84625pt>
+File: figures/starlings_fly.jpg Graphic file (type jpg)
+<use figures/starlings_fly.jpg>
+Package pdftex.def Info: figures/starlings_fly.jpg  used on input line 10.
+(pdftex.def)             Requested size: 99.98267pt x 79.9904pt.
+<figures/starlings_split.jpg, id=14, 1204.5pt x 748.7975pt>
+File: figures/starlings_split.jpg Graphic file (type jpg)
+<use figures/starlings_split.jpg>
+Package pdftex.def Info: figures/starlings_split.jpg  used on input line 12.
+(pdftex.def)             Requested size: 99.98267pt x 79.99142pt.
+<figures/starlings_tube.jpg, id=15, 821.0675pt x 548.0475pt>
+File: figures/starlings_tube.jpg Graphic file (type jpg)
+<use figures/starlings_tube.jpg>
+Package pdftex.def Info: figures/starlings_tube.jpg  used on input line 14.
+(pdftex.def)             Requested size: 99.98967pt x 79.99586pt.
+<figures/starlings_funnel.jpg, id=16, 821.0675pt x 548.0475pt>
+File: figures/starlings_funnel.jpg Graphic file (type jpg)
+<use figures/starlings_funnel.jpg>
+Package pdftex.def Info: figures/starlings_funnel.jpg  used on input line 16.
+(pdftex.def)             Requested size: 99.98967pt x 79.99586pt.
  [1
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 34.
-
-
-LaTeX Warning: Reference `fig:murmurations' on page 2 undefined on input line 4
-9.
-
-
-LaTeX Warning: Reference `fig:murmurations' on page 2 undefined on input line 4
-9.
-
-[2]
-<figures/flock_pursuer.jpg, id=80, 847.165pt x 566.115pt>
+ [2 <./figures/migrating_starlings.jpg> <./figures/roosting.jpg> <./figures/sta
+rlings_fly.jpg> <./figures/starlings_split.jpg> <./figures/starlings_tube.jpg> 
+<./figures/starlings_funnel.jpg>]
+<figures/flock_pursuer.jpg, id=88, 847.165pt x 566.115pt>
 File: figures/flock_pursuer.jpg Graphic file (type jpg)
 <use figures/flock_pursuer.jpg>
 Package pdftex.def Info: figures/flock_pursuer.jpg  used on input line 77.
 (pdftex.def)             Requested size: 347.12354pt x 231.96179pt.
-) (./sections/notations.tex [3 <./figures/flock_pursuer.jpg>])
-(./sections/background.tex [4] [5]
+)
+(./sections/notations.tex [3] [4 <./figures/flock_pursuer.jpg>])
+(./sections/background.tex
+Underfull \vbox (badness 1675) has occurred while \output is active []
+
+ [5]
 Overfull \hbox (5.6315pt too wide) in paragraph at lines 212--214
 []\OT1/ptm/m/it/10 (-20) The back-ward reach-a-bil-ity prob-lem on the res-o-lu
 -tion of the infimum-supremum
@@ -1219,53 +1247,54 @@ Package hyperref Warning: No autoref name for `algorithm' on input line 166.
 
 Package hyperref Warning: No autoref name for `algorithm' on input line 166.
 
-[9]
-Underfull \vbox (badness 3078) has occurred while \output is active []
-
- [10]
-Overfull \hbox (10.17912pt too wide) detected at line 228
+[9] [10] [11]
+Overfull \hbox (10.17912pt too wide) detected at line 229
 []
  []
 
-[11] [12]
+[12] [13]
 
-LaTeX Warning: Citation `Grossman1975' on page 13 undefined on input line 356.
+LaTeX Warning: Citation `Grossman1975' on page 14 undefined on input line 357.
 
 ) (./sections/expts.tex
-<figures/flock_2.jpg, id=288, 544.9158pt x 522.5121pt>
-File: figures/flock_2.jpg Graphic file (type jpg)
-<use figures/flock_2.jpg>
-Package pdftex.def Info: figures/flock_2.jpg  used on input line 10.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_4.jpg, id=289, 544.9158pt x 522.5121pt>
-File: figures/flock_4.jpg Graphic file (type jpg)
-<use figures/flock_4.jpg>
-Package pdftex.def Info: figures/flock_4.jpg  used on input line 12.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
-<figures/flock_6.jpg, id=290, 544.9158pt x 522.5121pt>
-File: figures/flock_6.jpg Graphic file (type jpg)
-<use figures/flock_6.jpg>
-Package pdftex.def Info: figures/flock_6.jpg  used on input line 14.
-(pdftex.def)             Requested size: 99.993pt x 119.99985pt.
- [13]
-<figures/murmurations_2.0.jpg, id=303, 909.8793pt x 440.847pt>
-File: figures/murmurations_2.0.jpg Graphic file (type jpg)
-<use figures/murmurations_2.0.jpg>
-Package pdftex.def Info: figures/murmurations_2.0.jpg  used on input line 32.
-(pdftex.def)             Requested size: 347.12354pt x 168.18282pt.
-<figures/murmurations_7.0.jpg, id=304, 909.8793pt x 440.847pt>
-File: figures/murmurations_7.0.jpg Graphic file (type jpg)
-<use figures/murmurations_7.0.jpg>
-Package pdftex.def Info: figures/murmurations_7.0.jpg  used on input line 36.
-(pdftex.def)             Requested size: 347.12354pt x 168.18282pt.
- [14 <./figures/flock_2.jpg> <./figures/flock_4.jpg> <./figures/flock_6.jpg>] [
-15 <./figures/murmurations_2.0.jpg> <./figures/murmurations_7.0.jpg>]) (./secti
-ons/conclude.tex) (./sections/acks.tex) [16]
-(./wafr.bbl (./wafr.brf)
+<figures/flock_0_init.jpg, id=310, 616.4631pt x 600.5637pt>
+File: figures/flock_0_init.jpg Graphic file (type jpg)
+<use figures/flock_0_init.jpg>
+Package pdftex.def Info: figures/flock_0_init.jpg  used on input line 10.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_1_init.jpg, id=311, 616.4631pt x 600.5637pt>
+File: figures/flock_1_init.jpg Graphic file (type jpg)
+<use figures/flock_1_init.jpg>
+Package pdftex.def Info: figures/flock_1_init.jpg  used on input line 12.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_2_init.jpg, id=312, 616.4631pt x 600.5637pt>
+File: figures/flock_2_init.jpg Graphic file (type jpg)
+<use figures/flock_2_init.jpg>
+Package pdftex.def Info: figures/flock_2_init.jpg  used on input line 14.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_0_final.jpg, id=313, 470.4777pt x 448.7967pt>
+File: figures/flock_0_final.jpg Graphic file (type jpg)
+<use figures/flock_0_final.jpg>
+Package pdftex.def Info: figures/flock_0_final.jpg  used on input line 16.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+<figures/flock_1_final.jpg, id=314, 470.4777pt x 448.7967pt>
+File: figures/flock_1_final.jpg Graphic file (type jpg)
+<use figures/flock_1_final.jpg>
+Package pdftex.def Info: figures/flock_1_final.jpg  used on input line 18.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+<figures/flock_2_final.jpg, id=315, 470.4777pt x 448.7967pt>
+File: figures/flock_2_final.jpg Graphic file (type jpg)
+<use figures/flock_2_final.jpg>
+Package pdftex.def Info: figures/flock_2_final.jpg  used on input line 20.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+ [14] [15 <./figures/flock_0_init.jpg> <./figures/flock_1_init.jpg> <./figures/
+flock_2_init.jpg> <./figures/flock_0_final.jpg> <./figures/flock_1_final.jpg> <
+./figures/flock_2_final.jpg>]) (./sections/conclude.tex) (./sections/acks.tex [
+16]) [17] (./wafr.bbl (./wafr.brf)
 \tf@brf=\write5
 \openout5 = `wafr.brf'.
 
- [17]
+ [18]
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
@@ -1281,33 +1310,91 @@ Underfull \hbox (badness 2980) in paragraph at lines 140--140
 onalgeographic . com / animals / article /
  []
 
-) [18] (./sections/app_ham.tex
+) [19] (./sections/app_ham.tex
 Overfull \hbox (23.45215pt too wide) detected at line 91
 []
  []
 
-[19]) [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 115.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 115.
+[20]) (./sections/rcbrats.tex
+File: figures/flock_0_init.jpg Graphic file (type jpg)
+<use figures/flock_0_init.jpg>
+Package pdftex.def Info: figures/flock_0_init.jpg  used on input line 7.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+File: figures/flock_1_init.jpg Graphic file (type jpg)
+<use figures/flock_1_init.jpg>
+Package pdftex.def Info: figures/flock_1_init.jpg  used on input line 9.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+File: figures/flock_2_init.jpg Graphic file (type jpg)
+<use figures/flock_2_init.jpg>
+Package pdftex.def Info: figures/flock_2_init.jpg  used on input line 11.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+File: figures/flock_0_final.jpg Graphic file (type jpg)
+<use figures/flock_0_final.jpg>
+Package pdftex.def Info: figures/flock_0_final.jpg  used on input line 13.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+File: figures/flock_1_final.jpg Graphic file (type jpg)
+<use figures/flock_1_final.jpg>
+Package pdftex.def Info: figures/flock_1_final.jpg  used on input line 15.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+File: figures/flock_2_final.jpg Graphic file (type jpg)
+<use figures/flock_2_final.jpg>
+Package pdftex.def Info: figures/flock_2_final.jpg  used on input line 17.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+<figures/flock_3_init.jpg, id=456, 616.4631pt x 600.5637pt>
+File: figures/flock_3_init.jpg Graphic file (type jpg)
+<use figures/flock_3_init.jpg>
+Package pdftex.def Info: figures/flock_3_init.jpg  used on input line 25.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_4_init.jpg, id=457, 616.4631pt x 600.5637pt>
+File: figures/flock_4_init.jpg Graphic file (type jpg)
+<use figures/flock_4_init.jpg>
+Package pdftex.def Info: figures/flock_4_init.jpg  used on input line 27.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_5_init.jpg, id=458, 616.4631pt x 600.5637pt>
+File: figures/flock_5_init.jpg Graphic file (type jpg)
+<use figures/flock_5_init.jpg>
+Package pdftex.def Info: figures/flock_5_init.jpg  used on input line 29.
+(pdftex.def)             Requested size: 100.00005pt x 120.00064pt.
+<figures/flock_3_final.jpg, id=459, 602.0091pt x 585.387pt>
+File: figures/flock_3_final.jpg Graphic file (type jpg)
+<use figures/flock_3_final.jpg>
+Package pdftex.def Info: figures/flock_3_final.jpg  used on input line 31.
+(pdftex.def)             Requested size: 99.99777pt x 119.99617pt.
+<figures/flock_4_final.jpg, id=460, 602.0091pt x 585.387pt>
+File: figures/flock_4_final.jpg Graphic file (type jpg)
+<use figures/flock_4_final.jpg>
+Package pdftex.def Info: figures/flock_4_final.jpg  used on input line 33.
+(pdftex.def)             Requested size: 99.99777pt x 119.99617pt.
+<figures/flock_5_final.jpg, id=461, 470.4777pt x 448.7967pt>
+File: figures/flock_5_final.jpg Graphic file (type jpg)
+<use figures/flock_5_final.jpg>
+Package pdftex.def Info: figures/flock_5_final.jpg  used on input line 35.
+(pdftex.def)             Requested size: 99.99492pt x 119.99886pt.
+) [21]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 116.
+ [22 <./figures/flock_3_init.jpg> <./figures/flock_4_init.jpg> <./figures/flock
+_5_init.jpg> <./figures/flock_3_final.jpg> <./figures/flock_4_final.jpg> <./fig
+ures/flock_5_final.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 116.
  (./wafr.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 115.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 115.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 116.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 116.
 Package rerunfilecheck Info: File `wafr.out' has not changed.
 (rerunfilecheck)             Checksum: 3CE94A0E5F379E57DF6A0C9E4572FA56;125.
 Package rerunfilecheck Info: File `wafr.brf' has not changed.
-(rerunfilecheck)             Checksum: 92B4BB9BFEB1816CFC1622C2D37199F8;3310.
+(rerunfilecheck)             Checksum: 3D496846F19430195C7B4E8D1A3104CE;3348.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 115.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 116.
  ) 
 Here is how much of TeX's memory you used:
- 22902 strings out of 494847
- 407629 string characters out of 6179080
- 507805 words of memory out of 5000000
- 25224 multiletter control sequences out of 15000+600000
- 53850 words of font info for 298 fonts, out of 8000000 for 9000
+ 22975 strings out of 494847
+ 409518 string characters out of 6179081
+ 511829 words of memory out of 5000000
+ 25277 multiletter control sequences out of 15000+600000
+ 54289 words of font info for 304 fonts, out of 8000000 for 9000
  62 hyphenation exceptions out of 8191
  55i,22n,77p,2422b,526s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
@@ -1335,10 +1422,10 @@ s/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
 texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on wafr.pdf (20 pages, 1306417 bytes).
+Output written on wafr.pdf (22 pages, 2938962 bytes).
 PDF statistics:
- 551 PDF objects out of 1000 (max. 8388607)
- 492 compressed objects within 5 object streams
- 138 named destinations out of 1000 (max. 500000)
- 41523 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 593 PDF objects out of 1000 (max. 8388607)
+ 516 compressed objects within 6 object streams
+ 146 named destinations out of 1000 (max. 500000)
+ 41588 words of extra memory for PDF output out of 42996 (max. 10000000)
 
