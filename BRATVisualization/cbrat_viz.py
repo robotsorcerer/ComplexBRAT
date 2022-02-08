@@ -14,6 +14,7 @@ from LevelSetPy.Visualization.color_utils import cm_colors
 parser = argparse.ArgumentParser(description='Visualization')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
 parser.add_argument('--fname', '-fn', type=str, default='murmurations_flock_01_02-06-22_17-43.hdf5', help='which BRAT to load?' )
+parser.add_argument('--resume', '-rz', type=int, default=1, help='what key in the index to resume from' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -51,34 +52,29 @@ with h5py.File(fname, 'r+') as df:
 
     print(f"Num BRATs in this flock: {len(keys)}")
 
-    color_len = 15
-    colors = [iter(plt.cm.Spectral(np.linspace(0, 1, color_len))),
-              iter(plt.cm.ocean(np.linspace(0, 1, color_len))),
-              iter(plt.cm.viridis(np.linspace(0, 1, color_len))),
-              iter(plt.cm.rainbow(np.linspace(0, 1, color_len))),
-              iter(plt.cm.coolwarm(np.linspace(0, 1, color_len))),
-              iter(plt.cm.magma(np.linspace(0, 1, color_len))),
-              iter(plt.cm.YlOrRd(np.linspace(0, 1, color_len))),
-              iter(plt.cm.rainbow(np.linspace(0, 1, color_len))),
-              iter(plt.cm.summer(np.linspace(0, 1, color_len))),
-              iter(plt.cm.nipy_spectral(np.linspace(0, 1, color_len))),
-              iter(plt.cm.autumn(np.linspace(0, 1, color_len))),
-              iter(plt.cm.PuRd(np.linspace(0, 1, color_len))),
-              iter(plt.cm.twilight(np.linspace(0, 1, color_len))),
-              iter(plt.cm.inferno(np.linspace(0, 1, color_len))),
-              iter(plt.cm.copper(np.linspace(0, 1, color_len))),
-              iter(plt.cm.cubehelix(np.linspace(0, 1, color_len))),
+    color_len = 5
+    colors = [iter(plt.cm.Spectral(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.ocean(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.viridis(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.rainbow(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.coolwarm(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.magma(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.rainbow(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.summer(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.nipy_spectral(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.autumn(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.twilight(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.inferno_r(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.copper(np.linspace(.5, 1, color_len))),
+              iter(plt.cm.cubehelix(np.linspace(.5, 1, color_len))),
               ]
-            
-    # color = [.7,.6,.5] # flock 1
-    color = next(colors[int(fname.split(sep="_")[2])])
-    # color = [.9,.3,.2] # flock 3
-    color = [0.9, .1, .1] # flock 5
     colors = [[0,.99,.00], [.7,.6,.5], [0, 0,.99], [.9,.3,.2], [0.9, .1, .1], [0.9, .99, .1]]
+            
+    color = plt.cm.cubehelix(0.5)
 
-    idx = 0
+    idx = args.resume-1
     # load them brats for a flock
-    for key in keys[1:]:
+    for key in keys[args.resume:]:
         brt = np.asarray(df[f"{value_key}/{key}"])
         print(f"On BRAT: {idx+1}/{len(keys)}")
 

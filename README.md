@@ -13,7 +13,7 @@ Large Backward Reach Avoid Tubes
 ### Evolution of BRAT for Different Flocks
 
 Here, we initialized six flocks on a state space to constitute a simple murmuration's trajectory verification. Within each flock are 
-6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon \\(-100secs \le t \le 0\\) so that at the end of each integrattion runs, we can obtain the _robustly controllable backward reach-avoid tubes_ for each flock within the system.
+6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon $-100 \le t \le 0$ so that at the end of each integrattion runs, we can obtain the _robustly controllable backward reach-avoid tubes_ for each flock within the system.
 
 <div align="center">
 <img src="BRATVisualization/flock_00.gif" height="360px" width="340px"/>
