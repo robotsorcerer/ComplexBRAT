@@ -60,8 +60,8 @@ with h5py.File(fname, 'r+') as df:
               plt.cm.Spectral(.9),
               plt.cm.rainbow(.9),
               plt.cm.ocean(.8),
+              plt.cm.cubehelix(.8),
               plt.cm.viridis(.2),
-              plt.cm.rainbow(.8),
               plt.cm.coolwarm(.8),
               plt.cm.magma(.8),
               plt.cm.summer(.8),
@@ -70,7 +70,6 @@ with h5py.File(fname, 'r+') as df:
               plt.cm.twilight(.8),
               plt.cm.inferno_r(.8),
               plt.cm.copper(.8),
-              plt.cm.cubehelix(.8)
               ]
             
     lname = fname.split(sep="_")[2]

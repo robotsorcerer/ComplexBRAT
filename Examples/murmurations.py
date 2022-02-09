@@ -344,7 +344,7 @@ def main(args):
 		murmur_files = sorted([m for m in os.listdir(base_path) if m.startswith('murmurations')])
 		murmur_dict = {f"flock_{fname.split(sep='_')[2]}": {'spacing': None, 'time': []} for fname in murmur_files}
 
-		idx = 0
+		start_time = time.time()
 		for f in murmur_files:
 			flock_num = f.split(sep='_')[2]
 			# load each brt stack
@@ -365,6 +365,11 @@ def main(args):
 					murmur_dict[f'flock_{flock_num}']['time'] += [key]
 					murmur_dict[f'flock_{flock_num}'][f'{idx:0>3}'] = np.asarray(df[f"{value_key}/{key}"])
 					idx += 1
-					
+		end_time = time.time()
+		logger.info(f"Time to load saved brats: {(end_time-start_time):.4f} secs.")
+	else:
+		logger.critical("Option <mode> must be one of <stich or single>")
+		os._exit()
+
 if __name__ == '__main__':
 	main(args)

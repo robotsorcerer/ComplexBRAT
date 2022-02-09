@@ -1,3 +1,7 @@
 h5py
+cupy
 scipy
+numpy
 LevelSetPy
+matplotlib
+scikit-image

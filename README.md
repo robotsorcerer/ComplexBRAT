@@ -1,13 +1,23 @@
-# LargeBRAT: Large Backward Reach Avoid Tubes
+## LargeBRAT: Large Backward Reach Avoid Tubes
 
-#### Murmurations
+ Code for the Hamilton-Jacobi-Isaacs Analysis of the [Murmuration of Swarms via Collective behavior from Topological interactions.](Examples/murmurations.py).
 
-For the technical details on the theory behind this work, please see this paper: [Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
+For the technical details on the theory behind this work, please see this paper: 
 
+```
+@article{LargeBRAT,
+title   = {LargeBRAT! Complex Backward Reach-Avoid Tubes: An Emergent Collective Behavior Framework.},
+author  = {Ogunmolu, Olalekan.},
+journal = {Algorithm Foundations of Robotics, XV (WAFR)},
+year    = {2022},
+}
+```
+
+A preprint can be downloaded here: [LargeBRAT! Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
 
 #### Evolution of BRAT for Different Flocks
 
-Here, we initialized six flocks on a state space to constitute a simple murmuration's trajectory verification. Within each flock are 
+Here, we initialized various flocks on a state space to constitute a simple murmuration's trajectory verification. Within each flock are 
 6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon _-100 <= t <= 0_ so that at the end of each integration run, we obtain the _robustly controllable backward reach-avoid tube_ or (**RCBRAT**) for each flock within the system.
 
 <div align="center">
@@ -37,13 +47,22 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 Dependencies:
 
+* [h5py](https://www.h5py.org/)
 * [cupy](https://cupy.dev/)
+* [scipy](https://scipy.org/)
+* [Numpy](https://numpy.org/)
+* [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)
+* [Scikit-image](https://scikit-image.org/)
+* [Matplotlib](https://matplotlib.org/)
+
+It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in the paper.
+
+Other than LevelSetPy which is a Cupy/CPython implementation of the algos in the Level Set Toolbox, every other dependency listed in the foregoing is pip installable:
+
+`pip install -r requirements.txt`.
 
 ### Running Murmurations
 
-+ [Murmurations of Swarms -- Collective behavior from Topological interactions with Hamilton-Jacobi Isaacs Analysis.](Examples/murmurations.py).
-
-### Usage
 Basic usage:
 
 ```
@@ -65,6 +84,8 @@ Basic usage:
 
 
 ### Further Examples 
+
+Note that these do not have anything to do with murmuratuions or emergent collective behavior.
 
 + [Basic Double Integrator](Examples/dint_basic.py): Time to reach the origin for the double integrator with switching curve dynamics.
 + [Robustly Controlled Backward Reachable Tube -- Two Dubins Vehicles in Relative Coordinates](Examples/dubins_rel.py): Evaluate the backward reachable tube for two Dubins vehicles in relative coordinates. The pursuer is at the origin.
