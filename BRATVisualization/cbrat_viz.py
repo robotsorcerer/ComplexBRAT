@@ -13,7 +13,7 @@ from LevelSetPy.Visualization import implicit_mesh
 from LevelSetPy.Visualization.color_utils import cm_colors
 
 parser = argparse.ArgumentParser(description='Visualization')
-parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
+parser.add_argument('--silent', '-si', action='store_true', help='silent debug print outs' )
 parser.add_argument('--delete', '-dt', action='store_true', help='silent debug print outs' )
 parser.add_argument('--fname', '-fn', type=str, default='murmurations_flock_01_02-06-22_17-43.hdf5', help='which BRAT to load?' )
 parser.add_argument('--start', '-st', type=int, default=1, help='what key in the index to resume from' )
@@ -31,7 +31,7 @@ def see(n, obj):
         keys.append((k,v))
     return keys
 
-verbose = True
+verbose = not args.silent
 
 fontdict = {'fontsize':18, 'fontweight':'bold'}
 plt.ion()

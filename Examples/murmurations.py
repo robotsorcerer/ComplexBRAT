@@ -42,17 +42,18 @@ from BRATVisualization.rcbrt_visu import RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--flock_num', '-fn', type=int, default=0, help='Which flock\'s brat to optimize?' )
-parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
-parser.add_argument('--save', '-sv', action='store_false', default=True, help='save BRS/BRT at end of sim' )
-parser.add_argument('--out_dir', '-od', type=str, default="./data", help='save value function to such and such folder' )
-parser.add_argument('--visualize', '-vz', action='store_true', help='visualize level sets?' )
-parser.add_argument('--flock_payoff', '-sp', action='store_false', default=False, help='visualize individual payoffs within a flock?' )
-parser.add_argument('--resume', '-rz', type=str, help='resume BRAT optimization from a previous iteration?' )
-parser.add_argument('--load_brt', '-lb', action='store_true', help='load saved brt?' )
-parser.add_argument('--verify', '-vf', action='store_true', default=True, help='verify a trajectory?' )
-parser.add_argument('--elevation', '-el', type=float, default=5., help='elevation angle for target set plot.' )
-parser.add_argument('--azimuth', '-az', type=float, default=10., help='azimuth angle for target set plot.' )
-parser.add_argument('--pause_time', '-pz', type=float, default=.3, help='pause time between successive updates of plots' )
+parser.add_argument('--silent', '-si', action='store_false', help='Silent debug print outs' )
+parser.add_argument('--save', '-sv', action='store_false', default=True, help='Save BRS/BRT at end of sim' )
+parser.add_argument('--out_dir', '-od', type=str, default="./data", help='Save value function to such and such folder' )
+parser.add_argument('--visualize', '-vz', action='store_true', help='Visualize level sets?' )
+parser.add_argument('--flock_payoff', '-sp', action='store_false', default=False, help='Visualize individual payoffs within a flock?' )
+parser.add_argument('--resume', '-rz', type=str, help='Resume BRAT optimization from a previous iteration?' )
+parser.add_argument('--mode', '-md', default='single', type=str, help='Stitch BRATs together? <stitch|single>' )
+parser.add_argument('--load_brt', '-lb', action='store_true', help='Load saved brt?' )
+parser.add_argument('--verify', '-vf', action='store_true', default=True, help='Verify a trajectory?' )
+parser.add_argument('--elevation', '-el', type=float, default=-15., help='Elevation angle for target set plot.' )
+parser.add_argument('--azimuth', '-az', type=float, default=10., help='Azimuth angle for target set plot.' )
+parser.add_argument('--pause_time', '-pz', type=float, default=.3, help='Pause time between successive updates of plots' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
 
@@ -195,146 +196,175 @@ def main(args):
 						f"flock_{args.flock_num}",
 						datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'))
 	
-	assert args.flock_num<7 and args.flock_num>=0, "Unknown flock number entered."
 	mul_factors = [1, 1.1, -1.1, 1.5, -1.5, 2.0, -1.8]
-	scaling_factor = mul_factors[args.flock_num]	
-	num_agents -= (args.flock_num%2)
-	flock = get_flock(gmin, gmax, 101, num_agents, scaling_factor*INIT_XYZS, label=7,\
-					periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, \
-					color=next(color))
+	if strcmp(args.mode, 'single'):
+		assert args.flock_num<7 and args.flock_num>=0, "Unknown flock number entered."
+		scaling_factor = mul_factors[args.flock_num]	
+		num_agents -= (args.flock_num%2)
+		flock = get_flock(gmin, gmax, 101, num_agents, scaling_factor*INIT_XYZS, label=7,\
+						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, \
+						color=next(color))
 
-	finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
-				innerData = Bundle({'grid':flock.grid,
-					'hamFunc': flock.hamiltonian,
-					'partialFunc': flock.dissipation,
-					'dissFunc': artificialDissipationGLF,
-					'CoStateCalc': upwindFirstWENO5a, 
-					}),
-					positive = False,  # direction to grow the updated level set
-				))
+		finite_diff_data = Bundle(dict(innerFunc = termLaxFriedrichs,
+					innerData = Bundle({'grid':flock.grid,
+						'hamFunc': flock.hamiltonian,
+						'partialFunc': flock.dissipation,
+						'dissFunc': artificialDissipationGLF,
+						'CoStateCalc': upwindFirstWENO5a, 
+						}),
+						positive = False,  # direction to grow the updated level set
+					))
 
-	# Visualization paramters
-	params = Bundle(
-					{"grid": flock.grid,
-					 'disp': True,
-					 'labelsize': 16,
-					 'labels': "Initial 0-LevelSet",
-					 'linewidth': 2,
-					 'elevation': 10,
-					 'azimuth': 5,
-					 'mesh': flock.mesh_bundle,
-					 'pause_time': args.pause_time,
-					 'title': f'Initial BRT. Flock with {flock.N} agents.',
-					 'level': 0, # which level set to visualize
-					 'winsize': (16,9),
-					 'fontdict': {'fontsize':18, 'fontweight':'bold'},
-					 "savedict": Bundle({"save": True,
-									"savename": "murmur",
-									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/WAFR2022/figures/")
-								 })
-					})
+		# Visualization paramters
+		params = Bundle(
+						{"grid": flock.grid,
+						'disp': True,
+						'labelsize': 16,
+						'labels': "Initial 0-LevelSet",
+						'linewidth': 2,
+						'elevation': 10,
+						'azimuth': 5,
+						'mesh': flock.mesh_bundle,
+						'pause_time': args.pause_time,
+						'title': f'Initial BRT. Flock with {flock.N} agents.',
+						'level': 0, # which level set to visualize
+						'winsize': (16,9),
+						'fontdict': {'fontsize':18, 'fontweight':'bold'},
+						"savedict": Bundle({"save": True,
+										"savename": "murmur",
+										"savepath": join(expanduser("~"),
+										"Documents/Papers/Safety/WAFR2022/figures/")
+						})
+				})
 
-	if args.load_brt:
-		args.save = False
-		brt = np.load("data/murmurations.npz")
-	else:
-		if args.visualize:
-			viz = RCBRTVisualizer(params=params)
-		t_range = [0, 100]
-		t_plot = (t_range[1] - t_range[0]) / 10000
-		small = 100*eps
-
-		# Loop through t_range (subject to a little roundoff).
-		t_now = t_range[0]
-		start_time = cputime()
-		itr_start = cp.cuda.Event()
-		itr_end = cp.cuda.Event()
-
-		value_rolling = cp.asarray(copy.copy(flock.payoff))
-
-		colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
-		color = next(colors)
-		options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
-
-		# murmur flock savename
-		if args.resume:
-			savename = "data/"+args.resume
-
-			# look up the last time index, load the brt, and advance the integration
-			with h5py.File(savename, 'r+') as df:
-				last_key = [key for key in df['value']][-1]
-				value_rolling = np.asarray(df[f"value/{last_key}"])
-				value_rolling = cp.asarray(value_rolling)
-				t_now = float(last_key.split(sep='_')[-1])
+		if args.load_brt:
+			args.save = False
+			brt = np.load("data/murmurations.npz")
 		else:
-			savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
-			if os.path.exists(savename):
-				os.remove(savename)
-
-		spacing = flock.grid.dx.flatten()
-
-		with h5py.File(savename, 'a') as h5file:
-			if not args.resume:
-				# save spacing now
-				h5file.create_dataset(f'value/spacing', data=spacing, compression="gzip")
-		norm_tracker = []
-		while(t_range[1] - t_now > small * t_range[1]):
-			itr_start.record()
-			cpu_start = cputime()
-
-			# Reshape data array into column vector for ode solver call.
-			y0 = value_rolling.flatten()
-
-			# How far to step?
-			t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
-			# Integrate a timestep.
-			t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
-			cp.cuda.Stream.null.synchronize()
-			t_now = t
-
-			# Get back the correctly shaped data array
-			value_rolling = y.reshape(flock.grid.shape)
-
-			# compute zero-level set
-			value_rolling_np = value_rolling.get()
-			mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
-											edge_color=None,  face_color=color)
-			# track the evolution of the growth of the level set so that when the norm stops decreasing, 
-			# we terminate the game
-			norm_tracker.append(LA.norm(y, 2))
-
-			time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
 			if args.visualize:
-				viz.update_tube(mesh_bundle, time_step, True)
+				viz = RCBRTVisualizer(params=params)
+			t_range = [0, 100]
+			t_plot = (t_range[1] - t_range[0]) / 10000
+			small = 100*eps
 
-			if args.save:
+			# Loop through t_range (subject to a little roundoff).
+			t_now = t_range[0]
+			start_time = cputime()
+			itr_start = cp.cuda.Event()
+			itr_end = cp.cuda.Event()
+
+			value_rolling = cp.asarray(copy.copy(flock.payoff))
+
+			colors = iter(plt.cm.ocean(np.linspace(.25, 2, 100)))
+			color = next(colors)
+			options = Bundle(dict(factorCFL=0.7, stats='on', singleStep='on'))
+
+			# murmur flock savename
+			if args.resume:
+				savename = "data/"+args.resume
+
+				# look up the last time index, load the brt, and advance the integration
+				with h5py.File(savename, 'r+') as df:
+					last_key = [key for key in df['value']][-1]
+					value_rolling = np.asarray(df[f"value/{last_key}"])
+					value_rolling = cp.asarray(value_rolling)
+					t_now = float(last_key.split(sep='_')[-1])
+			else:
+				savename = join(args.out_dir, rf"murmurations_flock_{args.flock_num:0>2}_{datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M')}.hdf5")
+				if os.path.exists(savename):
+					os.remove(savename)
+
+			spacing = flock.grid.dx.flatten()
+
+			with h5py.File(savename, 'a') as h5file:
+				if not args.resume:
+					# save spacing now
+					h5file.create_dataset(f'value/spacing', data=spacing, compression="gzip")
+			norm_tracker = []
+			while(t_range[1] - t_now > small * t_range[1]):
+				itr_start.record()
+				cpu_start = cputime()
+
+				# Reshape data array into column vector for ode solver call.
+				y0 = value_rolling.flatten()
+
+				# How far to step?
+				t_span = np.hstack([ t_now, min(t_range[1], t_now + t_plot) ])
+				# Integrate a timestep.
+				t, y, _ = odeCFL3(termRestrictUpdate, t_span, y0, odeCFLset(options), finite_diff_data)
+				cp.cuda.Stream.null.synchronize()
+				t_now = t
+
+				# Get back the correctly shaped data array
+				value_rolling = y.reshape(flock.grid.shape)
+
+				# compute zero-level set
+				value_rolling_np = value_rolling.get()
+				mesh_bundle=implicit_mesh(value_rolling_np, level=0, spacing=tuple(spacing.tolist()),
+												edge_color=None,  face_color=color)
+				# track the evolution of the growth of the level set so that when the norm stops decreasing, 
+				# we terminate the game
+				norm_tracker.append(LA.norm(y, 2))
+
+				time_step = f"{t_now:0>3.4f}/{t_range[-1]}"
 				if args.visualize:
-					fig = plt.gcf()
-					os.makedirs(base_path) if not os.path.exists(base_path) else None
-					fig.savefig(join(base_path,
-						rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
-		
-				with h5py.File(savename, 'a') as h5file:
-					# save this brt
-					h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
+					viz.update_tube(mesh_bundle, time_step, True)
 
-			itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
-
-			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
-					| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
-					| Norm: {norm_tracker[-1]:.2f}')
+				if args.save:
+					if args.visualize:
+						fig = plt.gcf()
+						os.makedirs(base_path) if not os.path.exists(base_path) else None
+						fig.savefig(join(base_path,
+							rf"murmurations_{t_now:0>3.4f}.jpg"), bbox_inches='tight',facecolor='None')
 			
-			if len(norm_tracker)>10 and np.all(np.diff(norm_tracker[:-5])<.01):
-				logger.info("Terminating the game!")
-				break
+					with h5py.File(savename, 'a') as h5file:
+						# save this brt
+						h5file.create_dataset(f'value/time_{t_now:0>3.3f}', data=value_rolling_np, compression="gzip")
 
-	if args.verify:
-		x0 = np.array([[1.25, 0, pi]])
+				itr_end.record(); itr_end.synchronize(); cpu_end = cputime()
 
-		#examine to see if the initial state is in the BRAT
-		gexam = copy.deepcopy(flock.grid)
-		raise NotImplementedError("Verification of Trajectories is not implemented")
+				info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} \
+						| CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} \
+						| Norm: {norm_tracker[-1]:.2f}')
+				
+				if len(norm_tracker)>10 and np.all(np.diff(norm_tracker[:-5])<.01):
+					logger.info("Terminating the game!")
+					break
 
+		if args.verify:
+			x0 = np.array([[1.25, 0, pi]])
+
+			#examine to see if the initial state is in the BRAT
+			gexam = copy.deepcopy(flock.grid)
+			raise NotImplementedError("Verification of Trajectories is not implemented")
+
+	elif strcmp(args.mode, 'sticth'):
+		# load the respective brts for all flocks and start stitching
+		base_path = "/opt/murmurations/"
+		murmur_files = sorted([m for m in os.listdir(base_path) if m.startswith('murmurations')])
+		murmur_dict = {f"flock_{fname.split(sep='_')[2]}": {'spacing': None, 'time': []} for fname in murmur_files}
+
+		idx = 0
+		for f in murmur_files:
+			flock_num = f.split(sep='_')[2]
+			# load each brt stack
+			with h5py.File(join(base_path, f), 'r+') as df:
+				value_key = [k for k in df.keys()][0]
+				keys = [key for key in df[value_key]]
+				if 'spacing' in value_key:
+					spacing = np.asarray(df["value/spacing"])
+				else:
+					gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
+					gmax = np.asarray([[1.5, 1.5, np.pi] ]).T
+					grid = createGrid(gmin, gmax, 101, 2)
+					spacing = grid.dx.flatten()      
+				murmur_dict[f'flock_{flock_num}']['spacing'] = tuple(spacing.tolist())
+
+				idx = 0
+				for key in keys[1:]:
+					murmur_dict[f'flock_{flock_num}']['time'] += [key]
+					murmur_dict[f'flock_{flock_num}'][f'{idx:0>3}'] = np.asarray(df[f"{value_key}/{key}"])
+					idx += 1
+					
 if __name__ == '__main__':
 	main(args)
