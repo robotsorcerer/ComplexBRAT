@@ -29,7 +29,6 @@ from os.path import abspath, join, dirname, expanduser
 sys.path.append(dirname(dirname(abspath(__file__))))
 sys.path.append(abspath(join('..')))
 
-from BRATSolver import *
 from LevelSetPy.Grids import *
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
