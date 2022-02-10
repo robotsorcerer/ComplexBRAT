@@ -1,19 +1,19 @@
-## LargeBRAT: Large Backward Reach Avoid Tubes
+## ComplexBRAT: Complex Backward Reach Avoid Tubes
 
  Code for the Hamilton-Jacobi-Isaacs Analysis of the [Murmuration of Swarms via Collective behavior from Topological interactions.](Examples/murmurations.py).
 
 For the technical details on the theory behind this work, please see this paper: 
 
 ```
-@article{LargeBRAT,
-title   = {LargeBRAT! Complex Backward Reach-Avoid Tubes: An Emergent Collective Behavior Framework.},
+@article{ComplexBRAT,
+title   = {ComplexBRAT! Complex Backward Reach-Avoid Tubes: An Emergent Collective Behavior Framework.},
 author  = {Ogunmolu, Olalekan.},
 journal = {Algorithm Foundations of Robotics, XV (WAFR)},
 year    = {2022},
 }
 ```
 
-A preprint can be downloaded here: [LargeBRAT! Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
+A preprint can be downloaded here: [ComplexBRAT! Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
 
 #### Evolution of BRAT for Different Flocks
 
@@ -47,9 +47,9 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 Dependencies:
 
-* [h5py](https://www.h5py.org/)
-* [cupy](https://cupy.dev/)
-* [scipy](https://scipy.org/)
+* [H5py](https://www.h5py.org/)
+* [Cupy](https://cupy.dev/)
+* [Scipy](https://scipy.org/)
 * [Numpy](https://numpy.org/)
 * [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)
 * [Scikit-image](https://scikit-image.org/)
@@ -85,7 +85,7 @@ Basic usage:
 
 ### Further Examples 
 
-Note that these do not have anything to do with murmuratuions or emergent collective behavior.
+Note that these do not have anything to do with murmurations or emergent collective behavior.
 
 + [Basic Double Integrator](Examples/dint_basic.py): Time to reach the origin for the double integrator with switching curve dynamics.
 + [Robustly Controlled Backward Reachable Tube -- Two Dubins Vehicles in Relative Coordinates](Examples/dubins_rel.py): Evaluate the backward reachable tube for two Dubins vehicles in relative coordinates. The pursuer is at the origin.
