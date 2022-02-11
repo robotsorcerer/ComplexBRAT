@@ -6,14 +6,14 @@ For the technical details on the theory behind this work, please see this paper:
 
 ```
 @article{ComplexBRAT,
-title   = {ComplexBRAT! Complex Backward Reach-Avoid Tubes: An Emergent Collective Behavior Framework.},
+title   = {ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.},
 author  = {Ogunmolu, Olalekan.},
 journal = {Algorithm Foundations of Robotics, XV (WAFR)},
 year    = {2022},
 }
 ```
 
-A preprint can be downloaded here: [ComplexBRAT! Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
+A preprint can be downloaded here: [ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
 
 #### Evolution of BRAT for Different Flocks
 
@@ -47,13 +47,9 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 Dependencies:
 
-* [H5py](https://www.h5py.org/)
-* [Cupy](https://cupy.dev/)
-* [Scipy](https://scipy.org/)
-* [Numpy](https://numpy.org/)
-* [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)
-* [Scikit-image](https://scikit-image.org/)
-* [Matplotlib](https://matplotlib.org/)
+* [H5py](https://www.h5py.org/) * [Cupy](https://cupy.dev/) * [Scipy](https://scipy.org/) 
+* [Numpy](https://numpy.org/) * [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)
+* [Scikit-image](https://scikit-image.org/) * [Matplotlib](https://matplotlib.org/).
 
 It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in the paper.
 
