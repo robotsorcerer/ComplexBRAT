@@ -8,7 +8,7 @@ For the technical details on the theory behind this work, please see this paper:
 @article{ComplexBRAT,
 title   = {ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.},
 author  = {Ogunmolu, Olalekan.},
-journal = {Algorithm Foundations of Robotics, XV (WAFR)},
+journal = {Algorithm Foundations of Robotics, XV (WAFR).},
 year    = {2022},
 }
 ```
@@ -32,10 +32,6 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 <img src="BRATVisualization/flock_05.gif" height="330px" width="250px"/>
 <img src="BRATVisualization/flock_06.gif" height="330px" width="250px"/>
 </div>
-<!-- 
-<div align="center">
-<img src="BRATVisualization/flock_06.gif" height="480px" width="480px"/>
-</div> -->
 
 RCBRAT because each agent within each flock must avoid other agents that fall within a circle constructed from a pre-specified radius defined on its body frame; while as a group/murmuration, all agents must evade capture by a (multiple) pursuing attacker (s).
 
@@ -43,20 +39,19 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in this paper.
 
-**Dependencies:** `pip install -r requirements.txt`
+#### **Dependencies** 
 
++ `pip install -r requirements.txt`
 
-| Release  | Status              | 
+| Dependency  | Description              | 
 | :--:     | :---:               | 
 | [H5py](https://www.h5py.org/) | **For saving BRATs to disk during optimization**     | 
 | [Cupy](https://cupy.dev/) | **GPU Computations**     | 
 | [Scipy](https://scipy.org/) | **Scientific Computing**      | 
 | [Numpy](https://numpy.org/) | **Arrays Manipulation**      | 
-| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Methods for Embedding Implicit Surfaces**      | 
-| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Methods for Embedding Implicit Surfaces**      | 
-| [Scikit-image](https://scikit-image.org/) | **Uses Lewiner's method in computing the isocontours of 3D Geometric Surfaces.**      | 
+| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Library for Computing HJ Solutions**      | 
+| [Scikit-image](https://scikit-image.org/) | **Uses Lewiner's method in computing the isocontours of implicitly defined 3D surface geometry.**      | 
 | [Matplotlib](https://matplotlib.org/) | **Matplotlib's pyplot interface to GNU Library.**      | 
-
 
 ### Running Murmurations
 
