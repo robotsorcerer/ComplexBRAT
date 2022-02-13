@@ -21,16 +21,16 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon _-100 <= t <= 0_ so that at the end of each integration run, we obtain the _robustly controllable backward reach-avoid tube_ or (**RCBRAT**) for each flock within the system.
 
 <div align="center">
-<img src="BRATVisualization/flock_01.gif" height="330px" width="250px"/>
-<img src="BRATVisualization/flock_02.gif" height="330px" width="250px"/>
-<img src="BRATVisualization/flock_03.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_01.gif" height="330px" width="330px"/>
+<img src="BRATVisualization/flock_02.gif" height="330px" width="330px"/>
+<img src="BRATVisualization/flock_03.gif" height="330px" width="330px"/>
 </div>
 
 
 <div align="center">
-<img src="BRATVisualization/flock_04.gif" height="330px" width="250px"/>
-<img src="BRATVisualization/flock_05.gif" height="330px" width="250px"/>
-<img src="BRATVisualization/flock_06.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_04.gif" height="330px" width="330px"/>
+<img src="BRATVisualization/flock_05.gif" height="330px" width="330px"/>
+<img src="BRATVisualization/flock_06.gif" height="330px" width="330px"/>
 </div>
 
 RCBRAT because each agent within each flock must avoid other agents that fall within a circle constructed from a pre-specified radius defined on its body frame; while as a group/murmuration, all agents must evade capture by a (multiple) pursuing attacker (s).
