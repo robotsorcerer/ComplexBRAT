@@ -21,35 +21,44 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon _-100 <= t <= 0_ so that at the end of each integration run, we obtain the _robustly controllable backward reach-avoid tube_ or (**RCBRAT**) for each flock within the system.
 
 <div align="center">
-<img src="BRATVisualization/flock_00.gif" height="330px" width="250px"/>
 <img src="BRATVisualization/flock_01.gif" height="330px" width="250px"/>
 <img src="BRATVisualization/flock_02.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_03.gif" height="330px" width="250px"/>
 </div>
 
 
 <div align="center">
-<img src="BRATVisualization/flock_03.gif" height="330px" width="250px"/>
 <img src="BRATVisualization/flock_04.gif" height="330px" width="250px"/>
 <img src="BRATVisualization/flock_05.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_06.gif" height="330px" width="250px"/>
 </div>
-
+<!-- 
 <div align="center">
 <img src="BRATVisualization/flock_06.gif" height="480px" width="480px"/>
-</div>
+</div> -->
 
-RCBRAT because each agent within each flock must avoid other agents that fall within a circle constructed from a pre-specified radius defined on its body; while as a group/murmuration, all agents must evade capture by a pursuing attacker.
+RCBRAT because each agent within each flock must avoid other agents that fall within a circle constructed from a pre-specified radius defined on its body frame; while as a group/murmuration, all agents must evade capture by a (multiple) pursuing attacker (s).
 
 ### Setup:
 
-Dependencies:
+It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in this paper.
 
-* [H5py](https://www.h5py.org/) * [Cupy](https://cupy.dev/) * [Scipy](https://scipy.org/) 
-* [Numpy](https://numpy.org/) * [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)
-* [Scikit-image](https://scikit-image.org/) * [Matplotlib](https://matplotlib.org/).
+**Dependencies:**
 
-It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in the paper.
 
-Other than LevelSetPy which is a Cupy/CPython implementation of the algos in the Level Set Toolbox, every other dependency listed in the foregoing is pip installable:
+| Release  | Status              | 
+| :--:     | :---:               | 
+| [H5py](https://www.h5py.org/) | **For saving BRATs to disk during optimization**     | 
+| [Cupy](https://cupy.dev/) | **GPU Computations**     | 
+| [Scipy](https://scipy.org/) | **Scientific Computing**      | 
+| [Numpy](https://numpy.org/) | **Arrays Manipulation**      | 
+| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Methods for Embedding Implicit Surfaces**      | 
+| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Methods for Embedding Implicit Surfaces**      | 
+| [Scikit-image](https://scikit-image.org/) | **Uses Lewiner's method in computing the isocontours of 3D Geometric Surfaces.**      | 
+| [Matplotlib](https://matplotlib.org/) | **Matplotlib's pyplot interface to GNU Library.**      | 
+
+
+Other than LevelSetPy which is a Cupy implementation of the algos in Level Set Methods, every other dependency listed in the foregoing is pip installable:
 
 `pip install -r requirements.txt`.
 
