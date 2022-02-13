@@ -21,9 +21,9 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 6 or 7 individual agents, whose trajectories must respect certain safety constraints.  We evolve the trajectories over a time horizon _-100 <= t <= 0_ so that at the end of each integration run, we obtain the _robustly controllable backward reach-avoid tube_ or (**RCBRAT**) for each flock within the system.
 
 <div align="center">
-<img src="BRATVisualization/flock_00.gif" height="330px" width="300px"/>
-<img src="BRATVisualization/flock_01.gif" height="330px" width="300px"/>
-<img src="BRATVisualization/flock_02.gif" height="330px" width="300px"/>
+<img src="BRATVisualization/flock_00.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_01.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_02.gif" height="330px" width="250px"/>
 </div>
 
 
