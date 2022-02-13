@@ -23,6 +23,7 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 <div align="center">
 <img src="BRATVisualization/flock_00.gif" height="360px" width="340px"/>
 <img src="BRATVisualization/flock_01.gif" height="360px" width="340px"/>
+<img src="BRATVisualization/flock_02.gif" height="360px" width="340px"/>
 </div>
 
 
