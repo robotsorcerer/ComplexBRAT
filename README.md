@@ -28,12 +28,16 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 
 
 <div align="center">
-<img src="BRATVisualization/flock_04.gif" height="330px" width="260px"/>
-<img src="BRATVisualization/flock_05.gif" height="330px" width="260px"/>
-<img src="BRATVisualization/flock_06.gif" height="330px" width="260px"/>
+    <img src="BRATVisualization/flock_04.gif" height="330px" width="260px"/>
+    <img src="BRATVisualization/flock_05.gif" height="330px" width="260px"/>
+    <img src="BRATVisualization/flock_06.gif" height="330px" width="260px"/>
 </div>
 
 RCBRAT because each agent within each flock must avoid other agents that fall within a circle constructed from a pre-specified radius defined on its body frame; while as a group/murmuration, all agents must evade capture by a (multiple) pursuing attacker (s).
+
+#### Fast Stitching of 𝜖-BRATs via Voronoi Implicit Interface Methods
+
+The stiching together of the respective BRATs are then carried out using a variation of the **Voronoi Implicit Interface Method** and the so-called "_redistancing_" or "_reinitialization_" method in level set methods.
 
 ### Setup:
 
