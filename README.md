@@ -43,7 +43,7 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in this paper.
 
-**Dependencies:**
+**Dependencies:** `pip install -r requirements.txt`
 
 
 | Release  | Status              | 
@@ -57,10 +57,6 @@ It's best to create a virtual or conda environment in python 3.6+ (I used Python
 | [Scikit-image](https://scikit-image.org/) | **Uses Lewiner's method in computing the isocontours of 3D Geometric Surfaces.**      | 
 | [Matplotlib](https://matplotlib.org/) | **Matplotlib's pyplot interface to GNU Library.**      | 
 
-
-Other than LevelSetPy which is a Cupy implementation of the algos in Level Set Methods, every other dependency listed in the foregoing is pip installable:
-
-`pip install -r requirements.txt`.
 
 ### Running Murmurations
 
