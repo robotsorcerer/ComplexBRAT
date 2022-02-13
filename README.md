@@ -43,15 +43,11 @@ It's best to create a virtual or conda environment in python 3.6+ (I used Python
 
 + `pip install -r requirements.txt`
 
-| Dependency  | Description              | 
+| Dependency  | Dependency              | 
 | :--:     | :---:               | 
-| [H5py](https://www.h5py.org/) | **For saving BRATs to disk during optimization**     | 
-| [Cupy](https://cupy.dev/) | **GPU Computations**     | 
-| [Scipy](https://scipy.org/) | **Scientific Computing**      | 
-| [Numpy](https://numpy.org/) | **Arrays Manipulation**      | 
-| [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy) | **Author's Level Set Library for Computing HJ Solutions**      | 
-| [Scikit-image](https://scikit-image.org/) | **Uses Lewiner's method in computing the isocontours of implicitly defined 3D surface geometry.**      | 
-| [Matplotlib](https://matplotlib.org/) | **Matplotlib's pyplot interface to GNU Library.**      | 
+| [H5py](https://www.h5py.org/) | [Numpy](https://numpy.org/)     | 
+| [Cupy](https://cupy.dev/) | [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)   | 
+| [Scipy](https://scipy.org/) | [Scikit-image](https://scikit-image.org/)     | 
 
 ### Running Murmurations
 
