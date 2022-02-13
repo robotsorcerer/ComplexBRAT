@@ -28,14 +28,9 @@ Here, we initialized various flocks on a state space to constitute a simple murm
 
 
 <div align="center">
-<img src="BRATVisualization/flock_02.gif" height="360px" width="340px"/>
-<img src="BRATVisualization/flock_03.gif" height="360px" width="340px"/>
-</div>
-
-
-<div align="center">
-<img src="BRATVisualization/flock_04.gif" height="360px" width="340px"/>
-<img src="BRATVisualization/flock_05.gif" height="360px" width="340px"/>
+<img src="BRATVisualization/flock_03.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_04.gif" height="330px" width="250px"/>
+<img src="BRATVisualization/flock_05.gif" height="330px" width="250px"/>
 </div>
 
 <div align="center">
