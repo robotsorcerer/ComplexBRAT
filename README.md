@@ -47,7 +47,7 @@ It's best to create a virtual or conda environment in python 3.6+ (I used Python
 
 + All the dependencies listed below are installable via: `pip install -r requirements.txt`
 
-| Dependency      | 
+| Dependency      | Dependency      | Dependency      | 
 | :--:     | :---:               | :---:               | 
 | [H5py](https://www.h5py.org/) | [Numpy](https://numpy.org/)  | [Cupy](https://cupy.dev/) |
 | [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)   | [Scipy](https://scipy.org/) | [Scikit-image](https://scikit-image.org/)     | 
