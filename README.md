@@ -1,6 +1,6 @@
 ## ComplexBRAT: Complex Backward Reach Avoid Tubes
 
- Code for the Hamilton-Jacobi-Isaacs Analysis of the [Murmuration of Swarms via Collective behavior from Topological interactions.](Examples/murmurations.py).
+ Code for the Hamilton-Jacobi-Isaacs Analysis of the paper: [ComplexBRAT: Complex Backward Reach Avoid Tubes](Examples/murmurations.py).
 
 For the technical details on the theory behind this work, please see this paper: 
 
@@ -13,7 +13,7 @@ year    = {2022},
 }
 ```
 
-A preprint can be downloaded here: [ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/LBRAT.pdf)
+A preprint can be downloaded here: [ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/CBRAT.pdf)
 
 #### Evolution of BRAT for Different Flocks
 
@@ -39,7 +39,7 @@ RCBRAT because each agent within each flock must avoid other agents that fall wi
 
 The stiching together of the respective BRATs are then carried out using a variation of the **Voronoi Implicit Interface Method** and the so-called "_redistancing_" or "_reinitialization_" method in level set methods.
 
-### Setup:
+### Setup
 
 It's best to create a virtual or conda environment in python 3.6+ (I used Python 3.8/3.9) to reproduce the results in this paper.
 
@@ -52,9 +52,7 @@ It's best to create a virtual or conda environment in python 3.6+ (I used Python
 | [H5py](https://www.h5py.org/) | [Numpy](https://numpy.org/)  | [Cupy](https://cupy.dev/) |
 | [LevelSetPy](https://github.com/robotsorcerer/LevelSetPy)   | [Scipy](https://scipy.org/) | [Scikit-image](https://scikit-image.org/)     | 
 
-### Running Murmurations
-
-Basic usage:
+### Running
 
 ```
     python Examples/murmurations.py <options>
