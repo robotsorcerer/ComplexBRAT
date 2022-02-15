@@ -1,6 +1,6 @@
 ## ComplexBRAT: Complex Backward Reach Avoid Tubes
 
- Code for the Hamilton-Jacobi-Isaacs Analysis of the paper: [ComplexBRAT: Complex Backward Reach Avoid Tubes](Examples/murmurations.py).
+ Code for the Hamilton-Jacobi-Isaacs Analysis of the murmurations paper: [ComplexBRAT: Complex Backward Reach Avoid Tubes](Examples/murmurations.py).
 
 For the technical details on the theory behind this work, please see this paper: 
 
@@ -13,7 +13,7 @@ year    = {2022},
 }
 ```
 
-A preprint can be downloaded here: [ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](https://scriptedonachip.com/Papers/Downloads/CBRAT.pdf)
+A preprint can be downloaded here: [ComplexBRAT: Complex Backward Reach-Avoid Tubes. An Emergent Collective Behavior Framework.](Papers/wafr.pdf)
 
 #### Evolution of BRAT for Different Flocks
 
