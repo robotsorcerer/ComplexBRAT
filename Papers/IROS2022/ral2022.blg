@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: ral2022.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: ../biblio.bib
+Repeated entry---line 1078 of file ../biblio.bib
+ : @article{CrandallLaxFriedrichs
+ :                               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 1320 of file ../biblio.bib
+ : 
+ : % comment={Translated from Russian by D.E. Brown and A.P. Robertson.}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.11 (2003/04/02) by Michael Shell.
+-- http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty year in Isaacs1965
+
+Done.
+You've used 13 entries,
+            3975 wiz_defined-function locations,
+            886 strings with 9162 characters,
+and the built_in function-call counts, 7303 in all, are:
+= -- 603
+> -- 118
+< -- 51
++ -- 62
+- -- 20
+* -- 328
+:= -- 1232
+add.period$ -- 27
+call.type$ -- 13
+change.case$ -- 10
+chr.to.int$ -- 96
+cite$ -- 14
+duplicate$ -- 557
+empty$ -- 634
+format.name$ -- 26
+if$ -- 1638
+int.to.chr$ -- 0
+int.to.str$ -- 13
+missing$ -- 96
+newline$ -- 63
+num.names$ -- 13
+pop$ -- 221
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 592
+stack$ -- 0
+substring$ -- 238
+swap$ -- 418
+text.length$ -- 19
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 0
+warning$ -- 1
+while$ -- 35
+width$ -- 15
+write$ -- 142
+(There were 2 error messages)
