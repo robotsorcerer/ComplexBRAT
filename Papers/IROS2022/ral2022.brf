@@ -1,10 +1,5 @@
 \backcite {AppliedDPBellman}{{1}{I}{section.1}}
-\backcite {OsherShuENO}{{1}{I}{section.1}}
-\backcite {CrandallLaxFriedrichs}{{1}{I}{section.1}}
-\backcite {Crandall1983viscosity, Crandall1984}{{1}{I}{section.1}}
-\backcite {Crandall1984Approx, Sethian87Numerical, SethianLSBook}{{1}{I}{section.1}}
-\backcite {Bellman1957}{{1}{I}{section.1}}
-\backcite {Isaacs1965}{{2}{II}{section.2}}
+\backcite {Isaacs1965}{{1}{II}{section.2}}
 \backcite {FlightDynamicsStengel}{{2}{III}{Item.3}}
 \backcite {FAARVSM}{{2}{IV}{section.4}}
 \backcite {FAASep}{{2}{IV}{section.4}}
