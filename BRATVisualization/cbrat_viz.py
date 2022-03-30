@@ -20,23 +20,66 @@ parser.add_argument('--start', '-st', type=int, default=1, help='what key in the
 parser.add_argument('--end', '-ed', type=int, help='what key in the index to resume from' )
 args = parser.parse_args()
 args.verbose = True if not args.silent else False
+verbose = not args.silent
 
 save = True
 base_path = "/opt/murmurations/"
 fname = join(base_path, args.fname)
+
+fontdict = {'fontsize':18, 'fontweight':'bold'}
+
+def visualize_brats(spacing, value, cidx=0):
+    colors = [ 
+                plt.cm.Spectral(.9), plt.cm.rainbow(.9),
+                plt.cm.ocean(.8), plt.cm.cubehelix(.8),
+                plt.cm.viridis(.2), plt.cm.coolwarm(.8),
+                plt.cm.magma(.8), plt.cm.summer(.8),
+                plt.cm.nipy_spectral(.8), plt.cm.autumn(.8),
+                plt.cm.twilight(.8), plt.cm.inferno_r(.8),
+                plt.cm.copper(.8)
+                ]        
+    color = colors[cidx]
+
+    mesh_bundle=implicit_mesh(value, level=0, spacing=spacing, edge_color=None, \
+                                 face_color=color)
+    
+    plt.ion()
+    fig = plt.figure(1, figsize=(25,16), dpi=100)
+    ax = plt.subplot(111, projection='3d')
+
+    ax.add_collection3d(mesh_bundle.mesh)
+    xlim = (mesh_bundle.verts[:, 0].min(), mesh_bundle.verts[:,0].max())
+    ylim = (mesh_bundle.verts[:, 1].min(), mesh_bundle.verts[:,1].max())
+    zlim = (mesh_bundle.verts[:, 2].min(), mesh_bundle.verts[:,2].max())
+
+    ax.set_xlim3d(*xlim)
+    ax.set_ylim3d(*ylim)
+    ax.set_zlim3d(*zlim)
+
+    ax.tick_params(axis='both', which='major', labelsize=10)
+
+    ax.set_xlabel(rf'x$_1^{int("01")}$ (m)', fontdict=fontdict)
+    ax.set_ylabel(rf'x$_2^{int("01")}$ (m)', fontdict=fontdict)
+    ax.set_zlabel(rf'$\omega^{int("01")} (deg)$',fontdict=fontdict)
+
+    ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
+    azim=60 if int(lname)%2==0 else -30
+    if lname=='00': azim=-75
+    ax.view_init(azim=azim, elev=30)
+
+    if save:
+        savepath=join(base_path, rf"flock_{lname}")
+        os.makedirs(savepath) if not os.path.exists(savepath) else None
+        fig.savefig(join(savepath, rf"{idx:0>4}.jpg"), bbox_inches='tight',facecolor='None')
+
+    fig.canvas.draw()
+    fig.canvas.flush_events()
 
 def see(n, obj):
     keys = []
     for k, v in obj.attrs.items():
         keys.append((k,v))
     return keys
-
-verbose = not args.silent
-
-fontdict = {'fontsize':18, 'fontweight':'bold'}
-plt.ion()
-fig = plt.figure(1, figsize=(25,16), dpi=100)
-ax = plt.subplot(111, projection='3d')
 
 with h5py.File(fname, 'r+') as df:
     if verbose:
@@ -54,26 +97,9 @@ with h5py.File(fname, 'r+') as df:
     spacing = tuple(spacing.tolist())
 
     print(f"Num BRATs in this flock: {len(keys)}")
-
-    color_len = 5
-    colors = [
-              plt.cm.Spectral(.9),
-              plt.cm.rainbow(.9),
-              plt.cm.ocean(.8),
-              plt.cm.cubehelix(.8),
-              plt.cm.viridis(.2),
-              plt.cm.coolwarm(.8),
-              plt.cm.magma(.8),
-              plt.cm.summer(.8),
-              plt.cm.nipy_spectral(.8),
-              plt.cm.autumn(.8),
-              plt.cm.twilight(.8),
-              plt.cm.inferno_r(.8),
-              plt.cm.copper(.8),
-              ]
             
     lname = fname.split(sep="_")[2]
-    color = colors[int(lname)]
+    cidx = int(lname)
 
     if not args.end:
         args.end = -1
@@ -89,49 +115,14 @@ with h5py.File(fname, 'r+') as df:
         brt = np.asarray(df[f"{value_key}/{key}"])
         print(f"On BRAT: {idx+1}/{len(keys[:args.end])}--{len(keys)}")
 
-        mesh_bundle=implicit_mesh(brt, level=0, spacing=spacing, edge_color=None, \
-                                 face_color=color)
-
-        ax.grid('on')
-        plt.cla()
-
-        ax.add_collection3d(mesh_bundle.mesh)
-        xlim = (mesh_bundle.verts[:, 0].min(), mesh_bundle.verts[:,0].max())
-        ylim = (mesh_bundle.verts[:, 1].min(), mesh_bundle.verts[:,1].max())
-        zlim = (mesh_bundle.verts[:, 2].min(), mesh_bundle.verts[:,2].max())
-
-        ax.set_xlim3d(*xlim)
-        ax.set_ylim3d(*ylim)
-        ax.set_zlim3d(*zlim)
-
-        ax.tick_params(axis='both', which='major', labelsize=10)
-
-        ax.set_xlabel(rf'x$_1^{int(lname)}$ (m)', fontdict=fontdict)
-        ax.set_ylabel(rf'x$_2^{int(lname)}$ (m)', fontdict=fontdict)
-        ax.set_zlabel(rf'$\omega^{int(lname)} (deg)$',fontdict=fontdict)
-
+        visualize_brats(spacing, brt, cidx)
         time_step = float(key.split(sep="_")[-1])
-        # print('timestep: ', time_step)
-        # ax.set_title(f'Flock {int(lname)}\'s BRAT at {time_step} secs.', fontdict=fontdict)
-        ax.set_title(f'Flock {int(lname)}\'s BRAT.', fontdict=fontdict)
-        azim=60 if int(lname)%2==0 else -30
-        if lname=='00': azim=-75
-        ax.view_init(azim=azim, elev=30)
-
-        fig.canvas.draw()
-        fig.canvas.flush_events()
-
-        if save:
-            savepath=join(base_path, rf"flock_{lname}")
-            os.makedirs(savepath) if not os.path.exists(savepath) else None
-            fig.savefig(join(savepath, rf"{idx:0>4}.jpg"), \
-                                bbox_inches='tight',facecolor='None')
+        
 
         time.sleep(1e-5)
 
         idx+= 1
 
-# do this so pyplot doesn't close abruptly in the end
+# do this so pyplot doesn't close abruptly at the end
 plt.show()
-
 plt.ioff()
