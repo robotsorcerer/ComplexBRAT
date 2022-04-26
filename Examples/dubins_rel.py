@@ -180,13 +180,13 @@ def main(args):
 				value_rolling_np = value_rolling.get()
 				mesh=implicit_mesh(value_rolling_np, level=0, spacing=args.spacing,
 									edge_color=None,  face_color='maroon')
-				viz.update_tube(value_rolling_np, mesh, time_step)
+				viz.update_tube(mesh, time_step, True)
 				# store this brt
 				brt.append(value_rolling_np); brt_time.append(t_now); meshes.append(mesh)
 
 			if args.save:
 				fig = plt.gcf()
-				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/WAFR2022",
+				fig.savefig(join(expanduser("~"),"Documents/Papers/Safety/Automatica",
 					rf"figures/rcbrt_{t_now}.jpg"),
 					bbox_inches='tight',facecolor='None')
 
