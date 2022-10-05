@@ -105,7 +105,7 @@ class RCBRTVisualizer(object):
 				self._ax[0].set_title(self.params.title, fontdict=self.params.fontdict)
 			else:
 				self._ax[0].set_title(f'Initial {self.params.level} Tube.', fontdict=self.params.fontdict.__dict__)
-	
+
 		elif self.grid.dim==2:
 			self._ax[0].contourf(self.grid.xs[0], self.grid.xs[1], mesh.mesh, colors='cyan')
 			self._ax[0].set_title(f'BRT\'s {self.params.level}-LevelSet.', \
@@ -113,7 +113,7 @@ class RCBRTVisualizer(object):
 		self._ax[0].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict.__dict__)
 		self._ax[0].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict.__dict__)
 		self._ax[0].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict.__dict__)
-		
+
 	def update_tube(self, mesh_bundle, time_step, delete_last_plot=False):
 		"""
 			Inputs:
@@ -146,11 +146,11 @@ class RCBRTVisualizer(object):
 		self._ax[1].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict.__dict__)
 		self._ax[1].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict.__dict__)
 		self._ax[1].set_title(f'BRT at {time_step} secs.', fontdict=self.params.fontdict.__dict__)
-		
+
 		self.draw()
 		time.sleep(self.params.pause_time)
 
-	def get_lims(self, verts):		
+	def get_lims(self, verts):
 		xlim = (verts[:, 0].min(), verts[:,0].max())
 		ylim = (verts[:, 1].min(), verts[:,1].max())
 		zlim = (verts[:, 2].min(), verts[:,2].max())
@@ -169,10 +169,10 @@ class RCBRTVisualizer(object):
 
 def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	"""
-		For a flock, whose mesh has been precomputed, 
+		For a flock, whose mesh has been precomputed,
 		visualize the initial backward avoid tube.
 	"""
-	# visualize avoid set 
+	# visualize avoid set
 	fontdict = {'fontsize':16, 'fontweight':'bold'}
 
 	fig = plt.figure(1, figsize=(16,9), dpi=100)
@@ -184,7 +184,7 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	ylim = (flock.verts[:, 1].min(), flock.verts[:,1].max())
 	zlim = (flock.verts[:, 2].min(), flock.verts[:,2].max())
 
-	# create grid that contains just this zero-level set to avoid computational craze 
+	# create grid that contains just this zero-level set to avoid computational craze
 	gmin = np.asarray([[xlim[0], ylim[0], zlim[0]]]).T
 	gmax = np.asarray([[xlim[1], ylim[1], zlim[1]] ]).T
 
@@ -207,4 +207,3 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 
 	if save:
 		fig.savefig(fname, bbox_inches='tight',facecolor='None')
-
