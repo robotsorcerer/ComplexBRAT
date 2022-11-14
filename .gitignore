@@ -5,3 +5,4 @@ workspace.code-workspace
 data/rcbrt.npz
 BRATVisualization/brat.tgz
 
+.DS_Store
