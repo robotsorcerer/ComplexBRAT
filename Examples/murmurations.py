@@ -215,6 +215,56 @@ def levelsetstepsign(payoff, gam, h, dt, ren, eps):
     return payoff
 
 
+def dictmapping(payoff, h, level, FLAG, map, funcs):
+    """
+    redistancing (UNDER CONSTRUCTION)
+    ==========
+    FLAG:  0 == taxicab metric
+           1 == First-order accurate redistancing (e.g. fast marching method of Sethian;
+                    equivalently, method of Tsitsiklis)
+           2 == Directional optimization (biquadratic interpolation)
+           3 == Directional optimization (bicubic interpolation)
+    """
+    c = len(payoff)
+    (n, m) = payoff[0].shape
+    all = list(range(c))
+    redists = np.zeros((c, n, m))
+    for i in range(c):
+        temp = np.reshape(payoff[i], (n, m), order='F')
+        # TODO: needs redistancing CPP or MEX: temp = redistz(temp, level, FLAG, h, h);
+        redists[i, :, :] = temp
+
+    for i in range(c):
+        rest = np.setdiff1d(all, i).tolist()
+        tempmaxvals = np.amax(redists[rest, :, :], axis=0)
+        temp = redists[i, :, :] - tempmaxvals
+        payoff[i] = np.reshape(temp, (m, n), order='F')
+
+    for i in range(c):
+        temp = np.reshape(temp, (n, m), order='F')
+        # TODO: needs redistancing CPP or MEX: temp = redistz(temp, level, FLAG, h, h);
+        payoff[i] = temp
+
+    return payoff
+
+
+def viim(phi, gamma, h, dt, eps, N, ren, map, width, FLAG, funcs):
+    """
+    VIIM
+    ==========
+    phi: payoff
+    FLAG:  0 == taxicab metric
+           1 == First-order accurate redistancing (e.g. fast marching method of Sethian;
+                    equivalently, method of Tsitsiklis)
+           2 == Directional optimization (biquadratic interpolation)
+           3 == Directional optimization (bicubic interpolation)
+    """
+    for k in range(1, N):
+        phi = levelsetstepsign(phi, gamma, h, dt, ren, eps)
+        phi = dictmapping(phi, h, width, FLAG, map, funcs)
+    return phi
+
+
 def main(args):
     # global params
     gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
