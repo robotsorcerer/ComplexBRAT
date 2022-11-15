@@ -231,7 +231,8 @@ def dictmapping(payoff, h, level, FLAG, map, funcs):
     redists = np.zeros((c, n, m))
     for i in range(c):
         temp = np.reshape(payoff[i], (n, m), order='F')
-        # TODO: needs redistancing CPP or MEX: temp = redistz(temp, level, FLAG, h, h);
+        # TODO: needs redistancing CPP or MEX:
+        #  temp = redistz(temp, level, FLAG, h, h);
         redists[i, :, :] = temp
 
     for i in range(c):
@@ -241,8 +242,9 @@ def dictmapping(payoff, h, level, FLAG, map, funcs):
         payoff[i] = np.reshape(temp, (m, n), order='F')
 
     for i in range(c):
-        temp = np.reshape(temp, (n, m), order='F')
-        # TODO: needs redistancing CPP or MEX: temp = redistz(temp, level, FLAG, h, h);
+        temp = np.reshape(payoff[i], (n, m), order='F')
+        # TODO: needs redistancing CPP or MEX:
+        #  temp = redistz(temp, level, FLAG, h, h);
         payoff[i] = temp
 
     return payoff
