@@ -178,11 +178,15 @@ def get_flock(gmin, gmax, num_points, num_agents, init_xyzs, label, \
     return flock
 
 
-def levelsetstepsign(payoff, gam, h, dt, ren, eps):
+def levelsetstepsign(payoff, gam, h, dt, eps, ren=100):
     """
     builds the signed distance functions
     =========
     payoff: a list of cp or np arrays
+    gam:    a list of surface tensions
+    h:      gradient interval
+    dt:     time interval delta t
+    eps:    eps for the level sets
     """
     (n, m) = payoff[0].shape
     me = .000001
@@ -215,10 +219,12 @@ def levelsetstepsign(payoff, gam, h, dt, ren, eps):
     return payoff
 
 
-def dictmapping(payoff, h, level, FLAG, map, funcs):
+def dictmapping(payoff, h, level, FLAG):
     """
     redistancing (UNDER CONSTRUCTION)
     ==========
+    payoff:a list of numpy or cupy payoff arrays
+    h:     gradient interval
     FLAG:  0 == taxicab metric
            1 == First-order accurate redistancing (e.g. fast marching method of Sethian;
                     equivalently, method of Tsitsiklis)
@@ -250,11 +256,16 @@ def dictmapping(payoff, h, level, FLAG, map, funcs):
     return payoff
 
 
-def viim(phi, gamma, h, dt, eps, N, ren, map, width, FLAG, funcs):
+def viim(phi, gamma, h, dt, eps, N, width, FLAG, ren=100):
     """
     VIIM
     ==========
-    phi: payoff
+    phi:   a list of numpy or cupy payoff arrays
+    gamma: a list of surface tensions
+    h:     gradient interval
+    dt:    time interval delta t
+    eps:   eps for the level sets
+    N:     total number of time steps
     FLAG:  0 == taxicab metric
            1 == First-order accurate redistancing (e.g. fast marching method of Sethian;
                     equivalently, method of Tsitsiklis)
@@ -262,8 +273,8 @@ def viim(phi, gamma, h, dt, eps, N, ren, map, width, FLAG, funcs):
            3 == Directional optimization (bicubic interpolation)
     """
     for k in range(1, N):
-        phi = levelsetstepsign(phi, gamma, h, dt, ren, eps)
-        phi = dictmapping(phi, h, width, FLAG, map, funcs)
+        phi = levelsetstepsign(phi, gamma, h, dt, eps, ren)
+        phi = dictmapping(phi, h, width, FLAG)
     return phi
 
 
