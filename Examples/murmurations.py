@@ -178,12 +178,13 @@ def main(args):
 	# global params
 	gmin = np.asarray([[-1.5, -1.5, -np.pi]]).T
 	gmax = np.asarray([[1.5, 1.5, np.pi] ]).T
-	num_agents = 7
 
 	H         = 0.4
 	H_STEP    = 0.05
 	neigh_rad = 0.4
 	reach_rad = .2
+	mul_factors = [1, 1.1, -1.1, 1.5, -1.5, 2.0, -1.8]
+	num_agents = len(mul_factors)
 
 	INIT_XYZS = np.array([[neigh_rad*np.cos((i/6)*np.pi/4), neigh_rad*np.sin((i/6)*np.pi/4), H+i*H_STEP] for i in range(num_agents)])
 
@@ -191,16 +192,16 @@ def main(args):
 	color = iter(plt.cm.inferno_r(np.linspace(.25, 1, num_agents)))
 
 	# save shenanigans
-	base_path = join(expanduser("~"), "Documents/Papers/Safety/WAFR2022/figures", 
+	base_path = join(expanduser("~"), "Documents/Papers/Pubs22/L4DC/figures", 
 						f"flock_{args.flock_num}",
 						datetime.strftime(datetime.now(), '%m-%d-%y_%H-%M'))
 	
-	mul_factors = [1, 1.1, -1.1, 1.5, -1.5, 2.0, -1.8]
+
 	if strcmp(args.mode, 'single'):
-		assert args.flock_num<7 and args.flock_num>=0, "Unknown flock number entered."
+		assert args.flock_num<num_agents and args.flock_num>=0, "Unknown flock number entered."
 		scaling_factor = mul_factors[args.flock_num]	
 		num_agents -= (args.flock_num%2)
-		flock = get_flock(gmin, gmax, 101, num_agents, scaling_factor*INIT_XYZS, label=7,\
+		flock = get_flock(gmin, gmax, 101, num_agents, scaling_factor*INIT_XYZS, label=num_agents,\
 						periodic_dims=2, reach_rad=.2, avoid_rad=.3, base_path=base_path, \
 						color=next(color))
 
@@ -232,7 +233,7 @@ def main(args):
 						"savedict": Bundle({"save": True,
 										"savename": "murmur",
 										"savepath": join(expanduser("~"),
-										"Documents/Papers/Safety/WAFR2022/figures/")
+										"Documents/Papers/Pubs22/L4DC/figures/")
 						})
 				})
 
