@@ -22,9 +22,8 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from skimage import measure
 
 from os.path import abspath, join, dirname, expanduser
-sys.path.append(dirname(dirname(abspath(__file__))))
-
 sys.path.append(abspath(join('..')))
+sys.path.append(abspath(join('../..')))
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.Grids import createGrid
@@ -37,7 +36,7 @@ from LevelSetPy.ExplicitIntegration.Term import termRestrictUpdate, termLaxFried
 
 from os.path import dirname, abspath, join
 sys.path.append(dirname(dirname(abspath(__file__))))
-from BRATVisualization.rcbrt_visu import RCBRTVisualizer
+from BRATVisualization.rocket_visu import ROCKETSVisualizer as RCBRTVisualizer
 
 parser = argparse.ArgumentParser(description='Hamilton-Jacobi Analysis')
 parser.add_argument('--silent', '-si', action='store_false', help='silent debug print outs' )
@@ -127,8 +126,7 @@ def main(args):
 					 'fontdict': Bundle({'fontsize':18, 'fontweight':'bold'}),
 					 "savedict": Bundle({"save": False,
 									"savename": "rocket_ls_cont.jpg",
-									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/DDP_Reach/figures/rocket_cont")
+									"savepath": join("/opt/LevPy/Rockets")
 								 })
 					})
 	args.spacing = spacing
@@ -136,7 +134,7 @@ def main(args):
 
 	if args.load_brt:
 		args.save = False
-		brt = np.load("data/rcbrt_cont.npz")
+		brt = np.load(join(params.savedict.savepath, "rcbrt_cont.npz"))
 	else:
 		if args.visualize:
 			viz = RCBRTVisualizer(params=args.params)
@@ -155,8 +153,7 @@ def main(args):
 		value_rolling = cp.asarray(copy.copy(value_init))
 
 		# remove preexisting dataset			
-		os.makedirs("data") if not os.path.exists("data") else None
-		os.remove("data/rocket_cont.npz") if os.path.exists("data/rocket_cont.npz") else None
+		os.makedirs(join(params.savedict.savepath, "data")) if not os.path.exists(join(params.savedict.savepath, "data")) else None
 		os.makedirs(params.savedict.savepath) if not os.path.exists(params.savedict.savepath) else None
 
 		while(t_range[1] - t_now > small * t_range[1]):

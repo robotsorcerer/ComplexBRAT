@@ -21,10 +21,10 @@ import matplotlib.gridspec as gridspec
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from skimage import measure
 
-from os.path import abspath, join, dirname, expanduser
-sys.path.append(dirname(dirname(abspath(__file__))))
-
+from os.path import abspath, join, expanduser
 sys.path.append(abspath(join('..')))
+sys.path.append(abspath(join('../..')))
+
 from LevelSetPy.Utilities import *
 from LevelSetPy.Visualization import *
 from LevelSetPy.Grids import createGrid
@@ -126,8 +126,7 @@ def main(args):
 					 'fontdict': Bundle({'fontsize':18, 'fontweight':'bold'}),
 					 "savedict": Bundle({"save": False,
 									"savename": "dint_basic.jpg",
-									"savepath": join(expanduser("~"),
-									"Documents/Papers/Safety/DDP_Reach/figures")
+									"savepath": join("/opt/LevPy/Rockets")
 								 })
 					})
 	args.spacing = spacing
@@ -154,8 +153,8 @@ def main(args):
 		value_rolling = cp.asarray(copy.copy(value_init))
 
 		# remove preexisting dataset
-		if os.path.exists("data/rocket.npz"):
-			os.remove("data/rocket.npz")
+		if os.path.exists("/opt/LevPy/Rockets/data/rocket.npz"):
+			os.remove("/opt/LevPy/Rockets/data/rocket.npz")
 
 		while(t_range[1] - t_now > small * t_range[1]):
 			itr_start.record()
@@ -195,8 +194,8 @@ def main(args):
 			info(f't: {time_step} | GPU time: {(cp.cuda.get_elapsed_time(itr_start, itr_end)):.2f} | CPU Time: {(cpu_end-cpu_start):.2f}, | Targ bnds {min(y):.2f}/{max(y):.2f} Norm: {np.linalg.norm(y, 2):.2f}')
 
 		if not args.load_brt:
-			os.makedirs("data") if not os.path.exists("data") else None
-			np.savez_compressed("data/rocket.npz", brt=np.asarray(brt), \
+			os.makedirs("/opt/LevPy/Rockets/data/") if not os.path.exists("/opt/LevPy/Rockets/data/") else None
+			np.savez_compressed("/opt/LevPy/Rockets/data/rocket.npz", brt=np.asarray(brt), \
 				meshes=np.asarray(meshes), brt_time=np.asarray(brt_time))
 
 	if args.verify:

@@ -110,9 +110,9 @@ class RCBRTVisualizer(object):
 			self._ax[0].contourf(self.grid.xs[0], self.grid.xs[1], mesh.mesh, colors='cyan')
 			self._ax[0].set_title(f'BRT\'s {self.params.level}-LevelSet.', \
 									fontdict=self.params.fontdict)
-		self._ax[0].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict.__dict__)
-		self._ax[0].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict.__dict__)
-		self._ax[0].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict.__dict__)
+		self._ax[0].set_xlabel(rf'$x$ (m)', fontdict=self.params.fontdict.__dict__)
+		self._ax[0].set_ylabel(rf'$z$ (m)', fontdict=self.params.fontdict.__dict__)
+		self._ax[0].set_zlabel(rf'$\theta$ (deg)',fontdict=self.params.fontdict.__dict__)
 
 	def update_tube(self, mesh_bundle, time_step, delete_last_plot=False):
 		"""
@@ -142,9 +142,9 @@ class RCBRTVisualizer(object):
 		elif len(self.grid.dim)==2:
 			self._ax[1].contourf(self.grid.xs[0], self.grid.xs[1], mesh_bundle, colors='cyan')
 
-		self._ax[1].set_xlabel(rf'x$_1$ (m)', fontdict=self.params.fontdict.__dict__)
-		self._ax[1].set_ylabel(rf'x$_2$ (m)', fontdict=self.params.fontdict.__dict__)
-		self._ax[1].set_zlabel(rf'$\omega$ (deg)',fontdict=self.params.fontdict.__dict__)
+		self._ax[1].set_xlabel(rf'$x$ (m)', fontdict=self.params.fontdict.__dict__)
+		self._ax[1].set_ylabel(rf'$z$ (m)', fontdict=self.params.fontdict.__dict__)
+		self._ax[1].set_zlabel(rf'$\theta$ (rad)',fontdict=self.params.fontdict.__dict__)
 		self._ax[1].set_title(f'BRT at {time_step} secs.', fontdict=self.params.fontdict.__dict__)
 
 		self.draw()
@@ -195,9 +195,12 @@ def visualize_init_avoid_tube(flock, save=True, fname=None, title=''):
 	ax.grid('on')
 	ax.tick_params(axis='both', which='major', labelsize=10)
 
-	ax.set_xlabel(rf'x$_1^{flock.label}$ (m)', fontdict=fontdict)
-	ax.set_ylabel(rf'x$_2^{flock.label}$ (m)', fontdict=fontdict)
-	ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
+	ax.set_xlabel(rf'$x$ (m)', fontdict=fontdict)
+	# ax.set_xlabel(rf'$x$_1^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_xlabel(rf'$x$ (m)', fontdict=fontdict)
+	# ax.set_ylabel(rf'$z$^{flock.label}$ (m)', fontdict=fontdict)
+	ax.set_zlabel(rf'$\theta$ (rad)',fontdict=fontdict)
+	# ax.set_zlabel(rf'$\omega^{flock.label} (rad)$',fontdict=fontdict)
 
 	if title:
 		ax.set_title(title, fontdict=fontdict)
