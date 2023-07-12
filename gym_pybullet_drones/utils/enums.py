@@ -7,6 +7,9 @@ class DroneModel(Enum):
     CF2P = "cf2p"   # Bitcraze Craziflie 2.0 in the + configuration
     HB = "hb"       # Generic quadrotor (with AscTec Hummingbird inertial properties)
 
+    def dynamics(self):
+        pass
+
 ################################################################################
 
 class Physics(Enum):

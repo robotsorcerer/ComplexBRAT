@@ -407,6 +407,15 @@ class BaseAviary(gym.Env):
         """
         return self.CLIENT
     
+    def dynamics(self):
+        """
+            Dynamics of an agent on a plane
+
+            Overloaded this function in a derived class
+        """
+        pass
+
+    
     ################################################################################
 
     def getDroneIds(self):
